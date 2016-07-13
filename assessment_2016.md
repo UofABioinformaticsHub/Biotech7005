@@ -15,17 +15,17 @@
 
 Have you:
 
--[ ] Answered all the questions?
--[ ] Followed naming conventions for Assessments?
--[ ] Attached an assessment coversheet?
+- [ ] Answered all the questions?
+- [ ] Followed naming conventions for Assessments?
+- [ ] Attached an assessment coversheet?
 	- This is a course requirement. See the [Academic Honesty Policy](http://www.adelaide.edu.au/policies/230/).
--[ ] Identified the work as yours?
+- [ ] Identified the work as yours?
 	- Emails should have the course and assessment task names.
 	- Documents should be named with your name, the course name and the assessment task.
 	- Printed documents should have you name and the course and assessment task in the text/footer/header.
--[ ] Used appropriate electronic communication with assessors?
+- [ ] Used appropriate electronic communication with assessors?
 	- Emails should have a meaningful subject.
--[ ] Handed in the assignment before the due time (Friday tutorial 10am)?
+- [ ] Handed in the assignment before the due time (Friday tutorial 10am)?
 	
 #### Major Project (15%)
 
