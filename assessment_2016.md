@@ -13,13 +13,19 @@
 
 ### Assessment Checklist
 
-- Finish Answering the question
-- Naming conventions for Assessments
-	- Assessment coversheets are required for each assessment with a signed commitment that you have read the University's policy on assessment plagiarism. Any indication that material has been copied from student to student will result in a zero for that assignment 
-	- If you are handing in written/paper assessment, each sheet must also have your name and student number (header & footer would be useful if you are using word format)
-- Communication with assessors
-	- Emails must contain subject information with your information. e.g. "BIO7005: Jimmy Breen Assignment1"
-- Assessments are due at the Friday tutorial 10am
+Have you:
+
+-[ ] Answered all the questions?
+-[ ] Followed naming conventions for Assessments?
+-[ ] Attached an assessment coversheet?
+	- This is a course requirement. See the [Academic Honesty Policy](http://www.adelaide.edu.au/policies/230/).
+-[ ] Identified the work as yours?
+	- Emails should have the course and assessment task names.
+	- Documents should be named with your name, the course name and the assessment task.
+	- Printed documents should have you name and the course and assessment task in the text/footer/header.
+-[ ] Used appropriate electronic communication with assessors?
+	- Emails should have a meaningful subject.
+-[ ] Handed in the assignment before the due time (Friday tutorial 10am)?
 	
 #### Major Project (15%)
 
@@ -46,17 +52,18 @@ Submit a simplified version of your terminal history (copy-pasting will suffice)
 
 __Question 2__
 
-At the start of the practical you told that the following programming conventions should be followed at all time:
-	- Do not use spaces in filenames
-	- Extensively comment your code
-	- Robust error handling
-	- Report version numbers when using programs
-	- Use sensible variable names
-	- File checks: Checking if your code is valid and runs successfully
+At the start of the practical you were told that the following practices should be adopted:
+- Do not use spaces in filenames.
+- Extensively comment your code with meaningful comments.
+- Use robust error handling.
+- Report version numbers when using programs.
+- Use sensible variable names.
+- File checks: Checking if your code is valid and runs successfully.
 	
-Explain the importance of these programming conventions 
+Why are these practices important?
 
-For additional information, please look at the following websites:
+The following articles will help you understand the importance of some of these.
+Others may take some thought or careful questions.
 
 [How To Ask Questions The Smart Way](http://www.catb.org/esr/faqs/smart-questions.html)
 
