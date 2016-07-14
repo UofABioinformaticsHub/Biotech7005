@@ -58,7 +58,7 @@ At the start of the practical you were told that the following practices should 
 - Do not use spaces in filenames.
 - Extensively comment your code with meaningful comments.
 - Use robust error handling.
-- Report version numbers when using programs.
+- Report version numbers of programs used.
 - Use sensible variable names.
 - File checks: Checking if your code is valid and runs successfully.
 	
