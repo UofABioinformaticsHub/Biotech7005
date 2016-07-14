@@ -65,7 +65,7 @@ At the start of the practical you were told that the following practices should 
 Why are these practices important?
 
 The following articles will help you understand the importance of some of these.
-Others may take some thought or careful questions.
+Others may take some thought, discussion with other students or careful questions.
 
 [How To Ask Questions The Smart Way](http://www.catb.org/esr/faqs/smart-questions.html)
 
