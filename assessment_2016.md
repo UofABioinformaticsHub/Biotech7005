@@ -48,7 +48,9 @@ Week 1-2
 
 __Question 1__
 
-Submit a simplified version of your terminal history (copy-pasting will suffice) for the following commands:
+Submit the relevant parts of your terminal history (copy-pasting will suffice) for the following commands:
+
+It should be possible for another person to completely reproduce your output from the history you submit.
 
 __Question 2__
 
