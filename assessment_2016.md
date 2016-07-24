@@ -55,6 +55,7 @@ It should be possible for another person to completely reproduce your output fro
 __Question 2__
 
 At the start of the practical you were told that the following practices should be adopted:
+
 - Do not use spaces in filenames.
 - Extensively comment your code with meaningful comments.
 - Use robust error handling.
@@ -62,7 +63,7 @@ At the start of the practical you were told that the following practices should 
 - Use sensible variable names.
 - File checks: Checking if your code is valid and runs successfully.
 	
-Why are these practices important?
+In a long-format question, explain why  these practices are important?
 
 The following articles will help you understand the importance of some of these.
 Others may take some thought, discussion with other students or careful questions.
