@@ -18,9 +18,9 @@ Office: Santos Petroleum Building 418
 
 Lectures: Friday 9am, Peter Martin Room Benham G25
 
-Tutorials: Friday 10am-12pm, Mawson, G12 Computer Suite
+Tutorials: Friday 10am-12pm, Mawson, 134, Sprigg Room
 
-Practicals: Monday 10am-12pm, Mawson, 134, Sprigg Room
+Practicals: Monday 10am-12pm, Mawson, G12 Computer Suite
 
 
 ## Timetable
