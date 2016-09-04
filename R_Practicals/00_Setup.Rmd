@@ -1,0 +1,30 @@
+---
+title: "Biotech 7005: R Practical Sessions"
+subtitle: "Computer Setup"
+author: "Steve Pederson"
+date: '`r format(Sys.time(), "%a %b %d, %Y")`'
+output: html_document
+---
+
+# R and RStudio
+
+## Installing on your laptop
+
+*R* is available from http://cran.ms.unimelb.edu.au/
+
+RStudio is available from https://www.rstudio.com/
+
+Download *R* first, then `RStudio`. 
+*R* is the main software we are using, whilst `RStudio` is a user-friendly interface to this software environment.
+
+Please ensure you have a working installation of `RStudio`, simply by opening the software.
+We will not need to access *R* directly.
+
+## ADAPT
+
+*R* and `RStudio` are also part of the University's SOE which can be accessed using ADAPT.
+If you would prefer to use your desktop on the University's ADAPT system as an alternative to an installation on your own laptop, this should be fine.
+However, the code has not been specifically tested in this environment.
+
+Alternatively, R and R Studio are installed on the computers in the practical room.
+
