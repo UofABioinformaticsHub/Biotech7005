@@ -202,10 +202,11 @@ e.g. a <code>data_frame</code>, <code>tbl_df</code> or <code>tibble</code></p>
 <ul>
 <li>Tools &gt; Install Packages &gt; ???</li>
 </ul></li>
-<li>Can be added to your default repositories, but there is a preferred installation procedure</li>
+<li>Can be added to your default repositories, but there is a preferred installation procedure.</li>
 </ul>
+<p>Cut and paste the following lines into your R Session. Be aware that this may take a while to run.</p>
 <pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
-biocLite(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;, &quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;)</code></pre>
+biocLite(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;, &quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;, &quot;RNAseqData.HNRNPC.bam.chr14&quot;, &quot;airway&quot;, &quot;DESeq2&quot;, &quot;edgeR&quot;, &quot;limma&quot;)</code></pre>
 <ul>
 <li>This installs the package <code>BiocInstaller</code></li>
 <li>Manages the synchronisation of <em>R</em> releases and Bioconductor updates</li>
@@ -399,6 +400,35 @@ columns(txdb)</code></pre>
 <pre class="r"><code>promoters(txdb, upstream=100, downstream=50,
           columns = c(&quot;tx_name&quot;, &quot;gene_id&quot;))</code></pre>
 </div>
+</div>
+<div id="genomicalignments" class="section level1">
+<h1>GenomicAlignments</h1>
+<p>We can also work with alignments in R, and the [RNAseqData.HNRNPC.bam.chr14][] package is an example of an experiment data package. It contains a subset of BAM files used in a gene knock-down experiment, as described in <code>?RNAseqData.HNRNPC.bam.chr14</code>. Load the package and get the path to the BAM files.</p>
+<pre class="r"><code>library(RNAseqData.HNRNPC.bam.chr14)
+fls &lt;- RNAseqData.HNRNPC.bam.chr14_BAMFILES
+basename(fls)</code></pre>
+<p>Create <code>BamFileList()</code>, basically telling R that these are paths to BAM files rather than, say, text files from a spreadsheet.</p>
+<pre class="r"><code>library(GenomicAlignments)
+bfls &lt;- BamFileList(fls)
+bfl &lt;- bfls[[1]]</code></pre>
+<p>Input and explore the aligments. See <code>?readGAlignments</code> and <code>?GAlignments</code> for details on how to manipulate these objects.</p>
+<pre class="r"><code>ga &lt;- readGAlignments(bfl)
+ga
+table(strand(ga))</code></pre>
+<p>Many of the reads have cigar “72M”. What does this mean? Can you create a subset of reads that do not have this cigar? Interpret some of the non-72M cigars. Any hint about what these cigars represent?</p>
+<pre class="r"><code>tail(sort(table(cigar(ga))))
+ga[cigar(ga) != &quot;72M&quot;]</code></pre>
+<p>Use the function <code>summarizeJunctions()</code> to identify genomic regions that are spanned by reads with complicated cigars. Can you use the argument <code>with.revmap=TRUE</code> to extract the reads supporting a particular (e.g., first) junction?</p>
+<pre class="r"><code>summarizeJunctions(ga)
+junctions &lt;- summarizeJunctions(ga, with.revmap=TRUE)
+ga[ junctions$revmap[[1]] ]</code></pre>
+<p>It is possible to do other actions on BAM files, e.g., calculating the ‘coverage’ (reads overlapping each base).</p>
+<pre class="r"><code>coverage(bfl)$chr14</code></pre>
+</div>
+<div id="other-resources" class="section level1">
+<h1>Other Resources</h1>
+<p>A detailed course on an RNASeq Workflow using <code>Bioconductor</code> can be found at <a href="http://bioconductor.org/help/course-materials/2016/BiocIntro-May/B3_RNASeq_Workflow.html" class="uri">http://bioconductor.org/help/course-materials/2016/BiocIntro-May/B3_RNASeq_Workflow.html</a>.</p>
+<p>This particular session uses all of the above, plus the data in the package <code>airway</code> and the analytic package <code>DESeq2</code></p>
 </div>
 
 

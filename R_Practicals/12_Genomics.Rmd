@@ -92,11 +92,14 @@ Today we'll look mainly at some Annotation approaches.
 
 - Packages don't appear in the drop-down menu for *RStudio*
     + Tools > Install Packages > ???
-- Can be added to your default repositories, but there is a preferred installation procedure
+- Can be added to your default repositories, but there is a preferred installation procedure.
+
+Cut and paste the following lines into your R Session. 
+Be aware that this may take a while to run.
 
 ```{r, eval=FALSE}
 source("http://bioconductor.org/biocLite.R")
-biocLite("GenomicRanges", "biomaRt", "AnnotationHub", "TxDb.Hsapiens.UCSC.hg19.knownGene")
+biocLite("GenomicRanges", "biomaRt", "AnnotationHub", "TxDb.Hsapiens.UCSC.hg19.knownGene", "RNAseqData.HNRNPC.bam.chr14", "airway", "DESeq2", "edgeR", "limma")
 ```
 
 - This installs the package `BiocInstaller`
@@ -409,4 +412,64 @@ promoters(txdb, upstream=100, downstream=50,
           columns = c("tx_name", "gene_id"))
 ```
 
+# GenomicAlignments
 
+We can also work with alignments in R, and the [RNAseqData.HNRNPC.bam.chr14][] package is an example of an experiment data package. 
+It contains a subset of BAM files used in a gene knock-down experiment, as described in `?RNAseqData.HNRNPC.bam.chr14`. 
+Load the package and get the path to the BAM files.
+
+```{r}
+library(RNAseqData.HNRNPC.bam.chr14)
+fls <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
+basename(fls)
+```
+
+Create `BamFileList()`, basically telling R that these are paths to BAM files rather than, say, text files from a spreadsheet.
+
+```{r}
+library(GenomicAlignments)
+bfls <- BamFileList(fls)
+bfl <- bfls[[1]]
+```
+
+Input and explore the aligments. See `?readGAlignments` and
+`?GAlignments` for details on how to manipulate these objects.
+
+```{r}
+ga <- readGAlignments(bfl)
+ga
+table(strand(ga))
+```
+
+Many of the reads have cigar "72M". What does this mean? Can you
+create a subset of reads that do not have this cigar? Interpret some
+of the non-72M cigars. Any hint about what these cigars represent?
+
+```{r}
+tail(sort(table(cigar(ga))))
+ga[cigar(ga) != "72M"]
+```
+
+Use the function `summarizeJunctions()` to identify genomic regions
+that are spanned by reads with complicated cigars. Can you use the
+argument `with.revmap=TRUE` to extract the reads supporting a
+particular (e.g., first) junction?
+
+```{r}
+summarizeJunctions(ga)
+junctions <- summarizeJunctions(ga, with.revmap=TRUE)
+ga[ junctions$revmap[[1]] ]
+```
+
+It is possible to do other actions on BAM files, e.g., calculating the
+'coverage' (reads overlapping each base).
+
+```{r}
+coverage(bfl)$chr14
+```
+
+# Other Resources
+
+A detailed course on an RNASeq Workflow using `Bioconductor` can be found at http://bioconductor.org/help/course-materials/2016/BiocIntro-May/B3_RNASeq_Workflow.html.
+
+This particular session uses all of the above, plus the data in the package `airway` and the analytic package `DESeq2`
