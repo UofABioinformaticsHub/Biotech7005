@@ -1,0 +1,498 @@
+---
+title: "Data Manipulation"
+author: "Steve Pederson"
+date: "12 September, 2016"
+output: html_document
+---
+
+```{r, loadPackages, echo = FALSE, include = FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE, include = TRUE, 
+               warning = FALSE, message = FALSE, 
+               out.width = 800, fig.align = "center",
+               results = 'hide')
+```
+
+# Data Manipulation
+
+In this session we'll explore some simple data manipulating, also known as _data munging_
+
+We'll cover:
+
+- `SQL-` and `Excel-`like functions in `dplyr`
+- Changing from wide to long form using `reshape2`
+- Editing text using `stringr`
+
+## Loading The Packages
+
+```{r}
+library(readr)
+library(dplyr)
+library(tibble)
+```
+
+If any of those packages failed to load, it may not be installed.
+This can be simply fixed by typing the following code, where you'll need to type the name of the missing package where `"package.name"` is written.
+
+```{r, eval=FALSE}
+install.packages("package.name")
+```
+
+
+- The package `dplyr` works specifically with `data.frame` objects
+- Works optimally with `local data frame` aka `tbl_df` objects
+- Have just been renamed `tibble` objects
+- They really are just slightly nicer versions of `data.frame` objects
+- Remember a `data.frame` is similar to a spreadsheet in it's layout
+
+## But First - Logical Tests 
+
+We need to have a look at some common logical tests that we'll use.
+These are common operations in drop-down filters like in Excel, but here we're writing them in code instead of clicking on a menu-item.
+
+- Is Equal To: `==`
+- Not equal - `!=`
+- OR - `|`
+- Less than `<`
+- Less than or equal `<=`
+
+Let's try a few. 
+First we'll make a vector `x` which is just all of the integers from 1 to 10.
+Then well ask some questions of it.
+Note that we get a `TRUE` or `FALSE` value for each integer.
+
+```{r, results='hide'}
+x <- 1:10
+x == 5
+x !=5
+x > 5
+x > 5 | x == 2
+```
+
+- `R` also recognises the symbol `&` for `AND`
+- Not relevant for `dplyr`
+
+# Starting with `dplyr`
+
+For this session we'll need to download the data file from [here](https://uofabioinformaticshub.github.io/Biotech7005_2016/R_Practicals/data/transport.csv).
+Save this in the `data` folder, the same as last week.
+
+Note that this week, we're using a slightly different function to load data.
+Again, this is very similar to `read.csv()` from last week, but is just a little faster and better at handing errors.
+
+
+```{r, results='hide'}
+data <- read_csv("data/transport.csv")
+data
+```
+
+So we have a `r nrow(data)` x `r ncol(data)` `data_frame` (or `tibble`)
+
+```{r, results='hide'}
+dim(data)
+nrow(data)
+ncol(data)
+```
+
+## The `select()` function
+
+The first row is the row names from the original file.
+
+__How can we remove this column?__
+
+The function `select()` allows you to select columns by name
+
+```{r}
+select(data, gender, name, weight, height, transport)
+```
+
+Or by position
+
+```{r}
+select(data, 2:6)
+```
+
+**In general, using names will make your code easier to read back so this is the best practice.**
+
+We can also remove columns using the minus (`-`) sign.
+The following two lines will have the same effect.
+
+```{r}
+select(data, -1)
+select(data, -row)
+```
+
+Notice that we haven't changed the original object either time.
+The only change was for when it printed on the screen.
+To change the original object, we could perform the following operation.
+
+```{r}
+data <- select(data, -row)
+```
+
+Here, we've re-assigned the R object as the one with the first column removed.
+
+## The `select()` function
+
+The `select()` function has a few bonus functions:
+
+- `starts_with()`, `ends_with()`, `contains()`, `one_of()` and `everything()`
+
+```{r}
+select(data, ends_with("t"))
+select(data, contains("eig"))
+```
+
+This can be very useful for selecting columns with similar names, such as genes at different time-points, or any number of things.
+
+## Using `filter()` and `arrange()` 
+
+We can also use our logical tests to filter the data.
+
+```{r}
+filter(data, transport == "car")
+filter(data, transport == "car", gender == "female")
+```
+
+We can sort on one or more columns
+
+```{r}
+arrange(data, weight)
+arrange(data, desc(weight))
+arrange(data, transport, height)
+```
+
+Note that these are very much like the functions we all know from Excel.
+However, the only time we change the original data itself, is when we specifically re-assign it, as we did when we removed the column of row numbers.
+And even then, we still have the original csv file!
+
+## Combining Functions
+
+One of the great strengths of `dplyr` is it's ability to chain these operations together in a logical manner, which is easy to write, and easy to read back.
+
+- We can chain functions together using `%>%`
+- This behaves like a `|` in the bash shell
+- Known as the `magrittr`
+
+If we wanted to just get the people who cycled, and then we wanted to arrange them in order there are a few clumsy options:
+
+- We could create new objects and perform single operations on each of them
+- We could wrap each process inside another
+
+```{r}
+filter(data, transport == "bike")
+arrange(filter(data, transport == "bike"), weight)
+```
+
+**Note how difficult that second line was to read!**
+
+This is where the `magrittr` (or pipe) comes in handy.
+We could rewrite the first line as:
+
+```{r}
+data %>% filter(transport == "bike")
+```
+
+Here we've piped the object `data` into the function `filter()` as the _first argument of the function_.
+Using `dplyr`, the inputs and outputs are always `data.frame` objects so we can easily pass these data frames from one function to another.
+
+```{r}
+data %>% filter(transport == "bike") %>% arrange(weight)
+```
+
+Note how much easier this was to read than our first attempt!
+
+There is __no limit__ to the number of functions you can chain together
+
+#### Pro Tip!
+
+These are even easier to read when they are all placed on new lines.
+This makes the individual steps crystal clear to the reader.
+
+```{r}
+data %>% 
+  filter(transport == "bike") %>%
+  arrange(weight)
+```
+
+
+## Adding extra columns
+
+We can add extra columns using the `dplyr` function `mutate()`.
+Let's add a column where we've converted the height to metres instead of centimetres.
+
+```{r}
+data %>% mutate(height_m = height/100)
+```
+
+Once we've added a column, we can refer to it by name in the same function.
+
+```{r}
+data %>% mutate(height_m = height/100, BMI = weight / height_m^2)
+```
+
+We can also overwrite existing columns
+
+```{r}
+data %>% mutate(height = height/100)
+```
+
+__Have we changed the original `data.frame` at any point in the above?__
+
+
+## Changing Column Names
+
+The package `dplyr` also has a function cleverly titled `rename()`
+
+```{r}
+data %>% rename(height_cm = height)
+```
+
+Now we can get crazy and chain a whole lot of operations together.
+
+```{r}
+data %>%
+  rename(height_cm = height) %>%
+  mutate(height_m = height_cm/100,
+         BMI = weight / height_m^2) %>%
+  filter(BMI > 25)
+```
+
+## Getting Summaries
+
+Again, this is where `dplyr` really makes it easy.
+We can easily find the averages for any columns we're interested in.
+
+```{r}
+data %>% summarise(mean(weight), mean(height))
+```
+
+And we can use those helpful `ends_with()` or `contains()` functions as well.
+Notice we're grouping our summarising functions together using `funs()`.
+
+```{r}
+data %>% summarise_each(funs(mean, sd), ends_with("ght"))
+```
+
+## Getting Group Summaries
+
+We can group categorical variables by their levels
+
+```{r}
+data %>%
+  group_by(gender) %>%
+  summarise_each(funs(mean), ends_with("ght"))
+```
+
+Or combinations of levels
+
+```{r}
+data %>%
+  group_by(gender, transport) %>%
+  summarise_each(funs(mean), ends_with("ght"))
+```
+
+We can use any function that spits out a single value
+
+- `sd()`, `min()`, `median()`
+- Plus the function `n()` will count how many observations are in each group.
+
+```{r}
+data %>%
+  group_by(gender, transport) %>%
+  summarise(mn_weight = mean(weight),
+            mn_height = mean(height),
+            n = n())
+```
+
+
+# Reshaping your data
+
+This dataset is in what we refer to as `wide` form
+
+- We have a row of measurements for each individual
+- In `wide` form, the information is _structured around the individual_
+- In `long` form, the information is _structured around the measurement_
+
+This is more how a statistician likes to see data.
+
+We have a very small sample in the file you can download [here](https://uofabioinformaticshub.github.io/Biotech7005_2016/R_Practicals/data/wide.csv).
+
+## Reshaping From Wide to Long Form
+
+For this next section, we'll use the package `reshape2`.
+If it's not installed, you can just install it using the command `install.packages("reshape2")`
+
+```{r}
+library(reshape2)
+```
+
+```{r}
+wideData <- read_csv("data/wide.csv")
+```
+
+This is a time course for `r length(unique(wideData$Tx))` treatments, with `r nrow(wideData)` patients and three time-points.
+We might want to put all time-points into a single column, with another column describing which time-point it is.
+
+```{r}
+melt(wideData, id.vars = c("Name", "Tx"))
+```
+
+Many functions require data to be in this format!
+
+The function has just assigned column names by default, but we don't need to leave those names as `variable` and `value`
+
+```{r}
+wideData %>%
+  melt(id.vars = c("Name", "Tx"),
+       variable.name = "Day", 
+       value.name = "Change") 
+```
+
+
+### Questions to think about
+
+1. __How could we get means for each treatment/day from the original data?__
+2. __How can we get the same from the data after "melting"?__
+
+Without melting our data, we could do this:
+
+```{r}
+wideData %>% 
+  group_by(Tx) %>%
+  summarise_each(funs(mean), starts_with("day"))
+```
+
+2 __How can we get the same from the data after "melting"?__
+
+```{r}
+wideData %>%
+  melt(id.vars = c("Name", "Tx"),
+       variable.name = "Day", 
+       value.name = "Change") %>%
+  group_by(Tx, Day) %>%
+  summarise(mn_change = mean(Change))
+```
+
+
+Let's save that last summary `data.frame` for later on.
+
+```{r}
+wideMeans <- wideData %>%
+  melt(id.vars = c("Name", "Tx"),
+       variable.name = "Day", 
+       value.name = "Change") %>%
+  group_by(Tx, Day) %>%
+  summarise(mn_change = mean(Change))
+```
+
+## Reshaping From Long Back To Wide
+
+We can change from long to wide using the `formula` syntax
+
+- "`~`" stands for _is a function of_, or _depends on_
+- The function `dcast` uses it to define rows on the LHS and columns on the RHS
+
+(Don't worry about any error messages you see.)
+
+```{r}
+dcast(wideMeans, Tx~Day)
+dcast(wideMeans, Day~Tx)
+```
+
+
+## Reshaping your data | From Long To Wide
+
+Would we ever use both long and wide form?
+Let's get our [last data file for today](https://uofabioinformaticshub.github.io/Biotech7005_2016/R_Practicals/data/PCR.csv).
+Save the file in your `data` folder, then load and inspect it.
+
+```{r}
+pcr <- read_csv("data/PCR.csv")
+pcr
+```
+
+Here we have 3 genes being measured in 2 cell types, across 3 time-points
+
+Getting the data into long form for each gene is easy.
+
+```{r}
+melt(pcr, id.vars = "Gene", variable.name = "CellType", value.name = "Ct")
+```
+
+## Text Manipulation
+
+Now for the fun part:
+
+We might like to split that `CellType` columns into the two cell types and 3 time-points.
+We'll the functions `str_extract()` and `str_replace()` from the package `stringr`.
+If you don't have it installed, just use `install.packages("stringr")`.
+
+The first function `str_extract()` searches for a pattern and returns it, much like `egrep` in `bash`.
+The second function finds a string, and replaces it with something, like we did with `sed`.
+Note that we're specifying a final field in `str_replace()` which is our replacement string.
+Here, we've given it `""`, which effectively means we'll delete any patterns that match.
+
+```{r}
+library(stringr)
+pcr %>%
+  melt(id.vars = "Gene",
+       variable.name = "CellType", value.name = "Ct") %>%
+  mutate(TimePoint = str_extract(CellType, "(0hr|12hr|24hr)"),
+         CellType = str_replace(CellType, "_(0hr|12hr|24hr)", "")) 
+```
+
+**Save this as the object `pcr_long`**
+
+```{r}
+pcr_long <- pcr %>%
+  melt(id.vars = "Gene",
+       variable.name = "CellType", value.name = "Ct") %>%
+  mutate(TimePoint = str_extract(CellType, "(0hr|12hr|24hr)"),
+         CellType = str_replace(CellType, "_(0hr|12hr|24hr)", "")) 
+```
+
+Now we could make it wide again (but not as wide)
+
+```{r}
+pcr %>%
+  melt(id.vars = "Gene", 
+       variable.name = "CellType", value.name = "Ct") %>%
+  mutate(TimePoint = str_extract(CellType, "(0hr|12hr|24hr)"),
+         CellType = str_replace(CellType, "_(0hr|12hr|24hr)", "")) %>%
+  dcast(Gene + CellType ~ TimePoint, value.var = "Ct")
+```
+
+## Plotting Our Data
+
+One of the reasons we need to reshape our data like we've done, is to enable easier plotting with `ggplot2` (as well as making statistical analysis easier).
+
+```{r}
+library(ggplot2)
+```
+
+Here are a few nice ways of displaying this data.
+
+```{r}
+pcr_long %>%
+  mutate(TimePoint = str_replace(TimePoint, "hr", ""),
+         TimePoint = as.numeric(TimePoint)) %>%
+  ggplot(aes(x = TimePoint, y = Ct)) +
+  geom_line(aes(colour = Gene, linetype = CellType)) +
+  theme_bw()
+```
+
+Notice how we changed the `TimePoint` column to a number on the fly, without altering the original object.
+This is another useful trick.
+
+```{r}
+pcr_long %>%
+  mutate(TimePoint = str_replace(TimePoint, "hr", ""),
+         TimePoint = as.numeric(TimePoint)) %>%
+  ggplot(aes(x = TimePoint, y = Ct)) +
+  geom_line(aes(colour = CellType)) +
+  facet_wrap(~Gene) +
+  theme_bw() +
+  scale_x_continuous(breaks = c(0, 12, 24))
+```
+
