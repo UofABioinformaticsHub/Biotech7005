@@ -205,7 +205,7 @@ e.g. a <code>data_frame</code>, <code>tbl_df</code> or <code>tibble</code></p>
 <li>Can be added to your default repositories, but there is a preferred installation procedure</li>
 </ul>
 <pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
-biocLite(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;)</code></pre>
+biocLite(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;, &quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;)</code></pre>
 <ul>
 <li>This installs the package <code>BiocInstaller</code></li>
 <li>Manages the synchronisation of <em>R</em> releases and Bioconductor updates</li>
@@ -339,6 +339,66 @@ length(sp)</code></pre>
 <p>Or if we know we want the <code>GRanges</code> annotations for the rabbit.</p>
 <pre class="r"><code>subset(query(ah, &quot;Oryctolagus&quot;), rdataclass==&quot;GRanges&quot;)</code></pre>
 <p>This object type, is one of the building blocks for genomic analysis in R. Here, each gene, exon or transcript is specified as a range enabling easy management of large genomic data objects.</p>
+<p>Let’s look at them further:</p>
+</div>
+<div id="txdb-objects" class="section level1">
+<h1><code>TxDb</code> Objects</h1>
+<p>These are the objects with the transcriptome information</p>
+<ul>
+<li>Saved using <code>GRanges</code> classes</li>
+<li>Derived heavily from the <code>GenomicRanges</code> &amp; <code>IRanges</code> packages</li>
+<li>The key idea is to refer the the genome using ranges to define locations</li>
+</ul>
+<p>First well load the human database and create it as an <code>R</code> object.</p>
+<pre class="r"><code>library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txdb &lt;- TxDb.Hsapiens.UCSC.hg19.knownGene   </code></pre>
+<pre class="r"><code>txdb</code></pre>
+<p>This will load all the package dependencies as well</p>
+<div id="granges-objects" class="section level2">
+<h2><code>GRanges</code> objects</h2>
+<p>Note that our <code>txdb</code> object used EntrezGene Ids. We can actually create these ourselves using a <code>.gtf</code> file and the function <code>makeTxDbFromGFF()</code> but we’ll just use a pre-made versin for now.</p>
+<p>Let’s extract, then look at a <code>GRanges</code> object.</p>
+<pre class="r"><code>ids &lt;- c(BRCA1=&quot;672&quot;, PTEN=&quot;5728&quot;)
+genes(txdb, filter=list(gene_id=ids)) </code></pre>
+</div>
+<div id="grangeslist-objects" class="section level2">
+<h2><code>GRangesList</code> Objects</h2>
+<p><code>GRanges</code> objects can also be extended to <code>GRangesList</code> objects</p>
+<pre class="r"><code>exByGn &lt;- exonsBy(txdb, &quot;gene&quot;)</code></pre>
+<pre class="r"><code>exByGn</code></pre>
+<p>Now we have each gene as it’s own “building-block” as part of a long list of genes. The total number of genes is given by:</p>
+<pre class="r"><code>length(exByGn)</code></pre>
+<p>And we can look at an individual gene using various methods</p>
+<pre class="r"><code>exByGn[[1]]
+exByGn$`1`</code></pre>
+<p>Note that in this object, each component of the <code>list</code> has a name, and this is the EntrezGeneID. Ina bad design decision, these IDs are numbers but form characters. See the difference here:</p>
+<pre class="r"><code>exByGn[[2]]
+exByGn$`2`</code></pre>
+<p>First we’ve called the second gene in the list, then we’ve called the gene with the ID <code>2</code>. It’s one of the many reasons some researchers prefer ENSEMBL IDs</p>
+<p>As well as the <code>exonsBy()</code> methods, other methods include</p>
+<ul>
+<li><code>transcriptsBy()</code>, <code>cdsBy()</code>, <code>threeUTRsByTranscript()</code> + more</li>
+</ul>
+<p>In the current example exons are listed by gene, but can also be listed by <code>exon</code>, <code>cds</code> or <code>tx</code></p>
+</div>
+<div id="the-txdb-object-as-a-database" class="section level2">
+<h2>The <code>TxDb</code> Object as a Database</h2>
+<p>As well as extracting <code>GRanges</code> from these objects, they share <code>SQL-like</code> methods with some other objects</p>
+<pre class="r"><code>keytypes(txdb)
+columns(txdb)</code></pre>
+</div>
+<div id="genomicfeatures" class="section level2">
+<h2><code>GenomicFeatures</code></h2>
+<p>Loading a <code>TxDb</code> object will also load dependencies such as <code>GenomicFeatures</code></p>
+<p>Contains many useful functions</p>
+<ul>
+<li><code>makeTxDbFromBiomart()</code>, <code>makeTxDbFromGFF()</code>, <code>makeTxDbFromGRanges()</code>, <code>makeTxDbFromUCSC()</code></li>
+</ul>
+<p><code>TxDb</code> objects not currently accesible from <code>AnnotationHub</code> so we often need other source objects, e.g. GTF files. A key feature of this approach is that they give the flexibility to use these methods for non-model organisms using our own annotations, genomes etc</p>
+<p><code>GenomicFeatures</code> also contains other useful methods. Here we can just grab the promoter regions for every <code>UCSC</code> transcript.</p>
+<pre class="r"><code>promoters(txdb, upstream=100, downstream=50,
+          columns = c(&quot;tx_name&quot;, &quot;gene_id&quot;))</code></pre>
+</div>
 </div>
 
 

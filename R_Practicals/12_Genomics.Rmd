@@ -96,7 +96,7 @@ Today we'll look mainly at some Annotation approaches.
 
 ```{r, eval=FALSE}
 source("http://bioconductor.org/biocLite.R")
-biocLite("GenomicRanges", "biomaRt", "AnnotationHub")
+biocLite("GenomicRanges", "biomaRt", "AnnotationHub", "TxDb.Hsapiens.UCSC.hg19.knownGene")
 ```
 
 - This installs the package `BiocInstaller`
@@ -299,4 +299,114 @@ subset(query(ah, "Oryctolagus"), rdataclass=="GRanges")
 
 This object type, is one of the building blocks for genomic analysis in R.
 Here, each gene, exon or transcript is specified as a range enabling easy management of large genomic data objects.
+
+Let's look at them further:
+
+# `TxDb` Objects
+
+These are the objects with the transcriptome information
+
+- Saved using `GRanges` classes
+- Derived heavily from the `GenomicRanges` & `IRanges` packages
+- The key idea is to refer the the genome using ranges to define locations
+
+First well load the human database and create it as an `R` object.
+
+```{r, message=FALSE}
+library(TxDb.Hsapiens.UCSC.hg19.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene   
+```
+
+```{r, eval=FALSE}
+txdb
+```
+
+This will load all the package dependencies as well
+
+## `GRanges` objects
+
+Note that our `txdb` object used EntrezGene Ids.
+We can actually create these ourselves using a `.gtf` file and the function `makeTxDbFromGFF()` but we'll just use a pre-made versin for now.
+
+Let's extract, then look at a `GRanges` object.
+
+```{r}
+ids <- c(BRCA1="672", PTEN="5728")
+genes(txdb, filter=list(gene_id=ids)) 
+```
+
+## `GRangesList` Objects
+
+`GRanges` objects can also be extended to `GRangesList` objects
+
+```{r}
+exByGn <- exonsBy(txdb, "gene")
+```
+
+```{r, eval=FALSE}
+exByGn
+```
+
+Now we have each gene as it's own "building-block" as part of a long list of genes.
+The total number of genes is given by:
+
+```{r}
+length(exByGn)
+```
+
+And we can look at an individual gene using various methods
+
+```{r}
+exByGn[[1]]
+exByGn$`1`
+```
+
+Note that in this object, each component of the `list` has a name, and this is the EntrezGeneID.
+Ina bad design decision, these IDs are numbers but form characters.
+See the difference here:
+
+```{r}
+exByGn[[2]]
+exByGn$`2`
+```
+
+First we've called the second gene in the list, then we've called the gene with the ID `2`.
+It's one of the many reasons some researchers prefer ENSEMBL IDs
+
+As well as the `exonsBy()` methods, other methods include
+
+- `transcriptsBy()`, `cdsBy()`, `threeUTRsByTranscript()` + more
+
+In the current example exons are listed by gene, but can also be listed by `exon`, `cds` or `tx`
+
+
+## The `TxDb` Object as a Database
+
+As well as extracting `GRanges` from these objects, they share `SQL-like` methods with some other objects
+
+```{r}
+keytypes(txdb)
+columns(txdb)
+```
+
+## `GenomicFeatures`
+
+Loading a `TxDb` object will also load dependencies such as `GenomicFeatures`
+
+Contains many useful functions
+
+- `makeTxDbFromBiomart()`, `makeTxDbFromGFF()`, `makeTxDbFromGRanges()`, `makeTxDbFromUCSC()`
+
+
+`TxDb` objects not currently accesible from `AnnotationHub` so we often need other source objects, e.g. GTF files.
+A key feature of this approach is that they give the flexibility to use these methods for non-model organisms using our own annotations, genomes etc
+
+`GenomicFeatures` also contains other useful methods.
+Here we can just grab the promoter regions for every `UCSC` transcript.
+
+```{r, eval=FALSE}
+promoters(txdb, upstream=100, downstream=50,
+          columns = c("tx_name", "gene_id"))
+```
+
 
