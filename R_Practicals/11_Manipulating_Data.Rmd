@@ -473,7 +473,7 @@ library(ggplot2)
 
 Here are a few nice ways of displaying this data.
 
-```{r}
+```{r, fig.show='hide'}
 pcr_long %>%
   mutate(TimePoint = str_replace(TimePoint, "hr", ""),
          TimePoint = as.numeric(TimePoint)) %>%
@@ -485,7 +485,7 @@ pcr_long %>%
 Notice how we changed the `TimePoint` column to a number on the fly, without altering the original object.
 This is another useful trick.
 
-```{r}
+```{r, fig.show='hide'}
 pcr_long %>%
   mutate(TimePoint = str_replace(TimePoint, "hr", ""),
          TimePoint = as.numeric(TimePoint)) %>%
