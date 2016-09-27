@@ -5,10 +5,11 @@
 |----------------|-------------|------------|--------------|
 | Assessment 1 | Command-line workshop | 9% | Friday 12th August |
 | Assessment 2 | Scripting + Alignment | 9% |  |
-| Assessment 3 | Sequencing | 9% |  |
-| Assessment 4 | R programming + Downstream Analysis | 9% |  |
-| Assessment 5 | Metagenomics | 9% |  | 
-| Project | Complete Dataset | 15% |  |
+| Assessment 3 | Sequencing | 9% | Wednesday 12th October |
+| Assessment 4 | Metagenomics | 9% | Wednesday 19th October | 
+| Assessment 5 | R programming + Downstream Analysis | 9% |  |
+| Assessment 6 | Metagenomics | 9% |  | 
+| Project | Complete Dataset | 15% | Friday 28th October |
 | Exam | | 40% | | 
 
 ### Assessment Checklist
