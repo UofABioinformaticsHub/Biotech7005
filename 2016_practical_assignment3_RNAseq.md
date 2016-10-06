@@ -16,7 +16,7 @@ http://www.ncbi.nlm.nih.gov/pubmed/27200029
 
 ## Getting Started
 
-### Downloading the data
+### Downloading the data & Setup
 
 There are three separate datasets from this study, and each dataset file contains three parts.
 
@@ -33,21 +33,20 @@ There are three separate datasets from this study, and each dataset file contain
 
 </br>
 
-First, we need to download the data, which might take some time (15-20 mins)
+Due to some technical issues, we will rely on Rstudio to do a lot of the command-line work this week, as apposed to previously where you were using the ubuntu command-line for all your work.
 
-	cd ~/tutorial
-	
-	source BIG-SA-openrc.sh
+Take the IP address from the VM list thats attached to this tutorial and copy-paste it into your web-browser with ":8787" at the end of the address.
 
-Now you can download the dataset assigned to you:
+For example:
+
+	http://130.220.212.209:8787
 
 
-	# X = 1, 2 or 3 (depending on which dataset you were assigned)
-	swift download bio7005_datasets DatasetX.tar.gz
+This should give you a Rstudio login screen in which you can login with your usual username and password (User: trainee, password: trainee). Once you are in, you will see the usual Rstudio setup as you're use to. For all of this work however, we are going to use the inbuilt shell command-line. To access the shell, go up to the "Tools" manu on the top of the page, and choose "Shell...". This will open a command-line type window.
 
-This will now download the data into the current directory.
+**Note:** The Rstudio shell is ok, but it lacks a lot of the features that make unix and bash great. Like tab completion :(
 
-</br>
+However, it is handy to write all your scripts because Rstudio has an inbuilt script window which allows you the ability to write your shell scripts out without the terminal. I suggest using this
 
 ### Creating your working directory
 
@@ -60,16 +59,39 @@ Because of the small amount of space on your VMs, we will be working on a mounte
 	# Change into the directory /mnt
 	cd /mnt
 
-Now create a directory called tutorial where we will do our work. We will also need to transfer our downloaded data here too
+The next two steps will need to be done by a user that has permissions to create directories on this area of the filesystem. Unfortunately the trainee user does not have adequate permissions, so therefore you need to login to the root user (ubuntu) and change permissions for you.
 
+	# Login to ubuntu (password = bioubuntu)
+	su ubuntu
+
+	# Create directory, change permissions, install two packages and exit the ubuntu user
+	sudo mkdir /mnt/trainee; sudo chown trainee:trainee /mnt/trainee; sudo pip install numpy; sudo pip install HTseq; exit
+
+Now we have permission to use this area for our work! Change into the directory:
+
+	# Change into the new trainee directory
+	cd /mnt/trainee
+
+Create a directory called tutorial where we will do our work.
 
 	mkdir tutorial
 
 	# Change into the tutorial directory
 	cd tutorial
 
-	# Move data
-	mv ~/tutorial/Dataset[1-3].tar.gz /mnt/tutorial/
+First, we need to download the data, which might take some time (15-20 mins)
+
+Now you can download the dataset assigned to you:
+
+		wget -c "https://cloudstor.aarnet.edu.au/plus/index.php/s/ye78MxXCuaZwYlj/download" -O Dataset1.tar.gz
+
+		wget -c "https://cloudstor.aarnet.edu.au/plus/index.php/s/mR3ZyDU3mFvfdvY/download" -O Dataset2.tar.gz
+
+		wget -c "https://cloudstor.aarnet.edu.au/plus/index.php/s/kjv5kPhxgGITghk/download" -O Dataset3.tar.gz
+
+	This will now download the data into the current directory.
+
+	</br>
 
 </br>
 
@@ -81,31 +103,31 @@ Example1: Basic script
 
 
 	#!/bin/bash
-	
+
 	command1 inputfile outputfile
-	
+
 	command2 inputfile outputfile
-	
+
 	command3 inputfile outputfile
-	
+
 	..
 
 
 For data processing tasks which use multiple input files, like tasks that you need to do for your project, you might need something a little more advanced or complex. You want to run the same tasks, but over multiple samples. For this, we can use a conditional loop, such as a "for" loop:
 
 Example2: For loop
-	
+
 	#!/bin/bash
 
 	# Iterate over each fastq.gz file in my directory
-	for file in *.fastq.gz
+	for file in \*.fastq.gz
 	 do
 
      	command1 ${file} ${file}.output_command1
 
-      	command2 ${file} ${file}.output_command2
+      command2 ${file} ${file}.output_command2
 
-      	command3 ${file} ${file}.output_command2
+      command3 ${file} ${file}.output_command2
 
 	done
 
@@ -115,7 +137,7 @@ What this script does is loop over each sample in my directory that has the file
 The loop in Example2 can also be written on one line by seaprating each line using a semi-colon (";"):
 
 
-	for file in *.fastq.gz; do command1 ${file} ${file}.output_command1; \
+	for file in \*.fastq.gz; do command1 ${file} ${file}.output_command1; \
 	command2 ${file} ${file}.output_command2; \
 	command3 ${file} ${file}.output_command2; done
 
@@ -163,10 +185,10 @@ The additional parameters that ive added will also trim poor quality bases from 
 
 	--trimqualities       If set, trim bases at 5'/3' termini with quality scores <=
 	                      to --minquality value  [current: off]
-	
+
 	--minquality PHRED    Inclusive minimum;
 	                      see --trimqualities for details [current: 2]
-	
+
 	--minlength LENGTH    Reads shorter than this length are discarded following
 	                      trimming [current: 15].
 
@@ -181,17 +203,23 @@ We also adjust the settings for the minimum length of the trimmed read. Short re
 
 For alignment we will use the program [HISAT2](https://ccb.jhu.edu/software/hisat2/index.shtml), which is similar to the alignment tool that you've previously used (tophat), but much quicker and more accurate. Much like tophat, we need to first build the genome index before aligning our reads:
 
-  
-	hisat2-build Arabidopsis_thaliana.TAIR10.dna.toplevel.fa Athal_genome
+
+	/opt/hisat2-2.0.4/hisat2-build Arabidopsis_thaliana.TAIR10.dna.toplevel.fa Athal_genome
+
+**Note:** You HAVE to use the full path for hisat2 (one of the disadvantages of the Rstudio shell)
 
 This command will produce your genome index with the prefix "Athal_genome". Each file starting with that prefix is used by the program to quickly search your input reads. Your alignment command is also fairly similar to tophat, however I have added an additional put at the end:
 
 
-	hisat2 -p 2 -x Athal_genome -U [Trimmed fastq] | samtools view -bS -F4 - > [Output BAM]
+	/opt/hisat2-2.0.4/hisat2 -p 2 -x Athal_genome -U [Trimmed fastq] | samtools view -bS -F4 - > [Output BAM]
 
-HISAT2 actually outputs your alignment straight to screen (or what we call "Standard Out") in SAM format, which is good but takes up a lot of space on your VM. So what we can do instead is capture that SAM output and pipe that into the samtools program to produce a BAM file, which is compressed and much smaller in size. We also use the flag "-F4" to only output mapped reads, and therefore ignore the sequence reads that didnt map
+HISAT2 actually outputs your alignment straight to screen (or what we call "Standard Out") in SAM format, which is good but takes up a lot of space on your VM. So what we can do instead is capture that SAM output and pipe that into the samtools program to produce a BAM file, which is compressed and much smaller in size. We also use the flag "-F4" to only output mapped reads, and therefore ignore the sequence reads that didn't map.
 
-The VMs that you are using has 4 CPUs, meaning that you can actually make you alignments go faster by running your command with the "-p 2" command.
+If you output the BAM/SAM file to a file, alignment statistics will be output to screen instead. This will give you information about how many reads were mapped etc. If you did not get this information, you can use the samtools command "flagstat" to generate this information:
+
+	samtools flagstat [Input BAM]
+
+The VMs that you are using has 4 CPUs, meaning that you can actually make you alignments go faster by running your command with the "-p 3" command.
 
 </br>
 
@@ -202,11 +230,9 @@ Now we have a BAM file with all the information on which read mapped, and where 
 To do this, we need to use the annotation information contained in the provided GFF3 file.
 
 	htseq-count -t gene -f bam [Input BAM] [Athal genome GFF3] > [Output Count file]
-	
 
 The file should look a lot like this:
 
-  
 	AT1G01010       61
 	AT1G01020       41
 	AT1G01030       31
@@ -223,19 +249,23 @@ And thats it for data processing! This data is now going to be used in further a
 
 ## Assessment
 
-Tutorial tasks:
+Total: 20 marks
 
-1. Create a bash scripting pipeline that processes all your data in one command, with your raw data (fastq.gz files) as input and your gene counts as the output. The script must be able to run, and abide by the coding guidelines and principles that we outlined in Question 2 of Assessment 1. Additionally, we would also like to see statistics output as well, such as:
+__Assignment Task__
 
-	(A) How many reads are in each sample?  
-	(B) How many reads were trimmed in each sample using AdapterRemoval?  
-	(C) How many reads mapped?  
-	(D) What proportion of reads mapped to the genome in each sample?  
+1. Create a bash scripting pipeline that processes all your data in one command, with your raw data (fastq.gz files) as input and your gene counts as the output. The script must be able to be run in one command, and abide by the coding guidelines and principles that we outlined in Question 2 of Assessment 1. Additionally, we would also like to see statistics output as well:
 
-Long-form questions:
+	(A) How many reads are in each sample? (2 marks)  
+	(B) How many reads were trimmed in each sample using AdapterRemoval? (2 marks)  
+	(C) How many reads mapped? (2 marks)  
+	(D) What proportion of reads mapped to the genome in each sample? (2 marks)  
 
-2. Summarise the major platforms of next-generation sequencing machines and discuss their advantages and limitations.
+	Valid, executible shell script (2 marks)  
 
-3. Discuss the difference between a local and global aligners
+__Long-form questions__
+
+2. Summarise the major platforms of next-generation sequencing machines and discuss their advantages and limitations. (5 marks)
+
+3. Discuss the difference between a local (BLAST) and global aligners (Bowtie2/BWA). Additionally, what distinguishes a RNAseq aligner such as tophat or hisat2, to a aligner thats used for whole genome sequencing (such as Bowtie2 or BWA)? (5 marks)
 
 </br>
