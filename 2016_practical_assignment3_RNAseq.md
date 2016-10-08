@@ -157,16 +157,9 @@ His some additional resources that will explain for loops a little further:
 
 Our pipeline will do four things, most of which you have done previously:
 
-1. Run QC on the data to see the quality of the sequencing
-2. Run adapter and quality trimming
-3. Align trimmed sequence reads to our reference genome; and lastly,
-4. Count the number of reads that align to each gene region
-
-</br>
-
-### FastQC
-
-Like you did with your previous tutorial, run fastQC on each of your fastq files. Save these files into a specific folder (such as "FastQC_reports"). Look at the reports and see what the data looks like
+1. Run adapter and quality trimming
+2. Align trimmed sequence reads to our reference genome; and lastly,
+3. Count the number of reads that align to each gene region
 
 </br>
 
