@@ -91,6 +91,12 @@ Now you can download the dataset assigned to you:
 
 	This will now download the data into the current directory.
 
+To extract the data in the dataset you will need to run:
+
+		tar xvzf Dataset1.tar.gz
+
+This will then give you all the files that you will need.
+
 	</br>
 
 </br>
