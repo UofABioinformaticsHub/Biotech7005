@@ -52,6 +52,7 @@ For today's session we will require certain packages to be installed on your ver
 The installation can be performed using:
 ```{r, eval=FALSE}
 source("https://bioconductor.org/biocLite.R")
+library(BiocInstaller)
 biocLite(c("airway", "Rsamtools", "GenomicFeatures", "GenomicAlignments",
            "BiocParallel", "Rsubread", "DESeq2", "edgeR", "pheatmap",
            "AnnotationDbi", "Homo.sapiens"))
