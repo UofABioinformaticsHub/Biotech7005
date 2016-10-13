@@ -1,0 +1,229 @@
+---
+title: "DE tutorial"
+author: "Jimmy Breen"
+date: "12/10/2016"
+output: html_document
+---
+
+# Differential Expression Tutorial
+
+While in the previous assignments we have processed next-generation sequencing data, generally the major goal of most transcriptome projects is to identify differences in expression between two or more conditions. In this tutorial, we are going to look for the differential expression between two control and treatment samples. Our species is mouse
+
+We're gonna do all this in R. The main package where we do all the differential expression work is edgeR. Our tutorial uses a lot of different packages as well so lets load them first
+
+``````{r message= FALSE}
+library(readr)
+library(magrittr)
+library(dplyr)
+library(edgeR)
+library(limma)
+library(RColorBrewer)
+library(mixOmics)
+library(ggplot2)
+library(reshape2)
+library(pander)
+```
+
+
+First, edgeR requires the the dataset to contain only the counts with the row names as the gene ids and the column names as the sample ids. So we're going to load in the four files using a looping function (similar to ones that you used in bash)
+
+```{r settingUpCountMatrix}
+
+countFiles <- list.files(pattern = ".out")
+counts <- countFiles %>%
+  lapply(function(x){
+    read.delim(x, 
+               header = FALSE,
+               row.names = 1,
+               comment.char = "_") %>%
+      set_names(x)}) %>%
+  as.data.frame() 
+
+
+colnames(counts) <- paste(c(rep("C_R",2), rep("T_R",2)), c(1:2,1:2), sep="") # sample name
+head(counts)
+
+```
+
+You should see the first few gene counts displayed. We're going to need to normalise our reads to "counts per million" or CPM. 
+
+```{r dim}
+dim(counts)
+colnames(counts) # Library Sizes
+colSums(counts) / 1e06 # Library Sizes in millions of reads
+table(rowSums(counts))[ 1:30 ] # Number of genes with low counts
+```
+
+
+## Build edgeR object ##
+
+DGEList() is the function that converts the count matrix into an edgeR object. First, we create a group variable that tells edgeR which samples belong to which group and supply that to DGEList in addition to the count matrix. We can then see the elements that the object contains by using the names() function. These elements can be accessed using the $ symbol:
+
+```{r edgeRObject}
+# We specificy here that we have a control group and treatment group with 2 replicates each
+group <- c(rep("C", 2) , rep("T", 2))
+
+# Create our DGEList object
+cds <- DGEList(counts, group = group)
+
+# We now still have the original count matrix
+head(cds$counts) 
+
+# A summary of your samples
+cds$samples 
+
+```
+
+Low counts can produce noise in your differential expression calculation so its always good to remove them. So we use a method in edgeR to keep only those genes that have at least 1 read per million in at least 3 samples. After this filtering is done, we can calculate the normalization factors which correct for the different compositions of the samples. The effective library sizes are then the product of the actual library sizes and these factors. 
+
+```{r normalisedCounts}
+
+cds <- cds[rowSums(1e+06 * cds$counts/expandAsMatrix(cds$samples$lib.size, dim(cds)) > 1) >= 3, ]
+dim(cds)
+cds <- calcNormFactors(cds)
+cds$samples
+
+# effective library sizes
+cds$samples$lib.size * cds$samples$norm.factors
+
+```
+
+**Question:**
+How many low count genes were removed?
+
+Now that we've normalised the counts, we can have a quick check to see how much variation there is in our four samples. Ideally we'd like our Control and Treatment replicates to not overlap. This will ensure that we can  easily distinguish between genes that are differentially expressed across our samples
+
+```{r MDS plot}
+plotMDS (cds , main = "MDS Plot for Count Data", labels = colnames(cds$counts))
+```
+
+
+## Generalised Linear Models (GLM) and Estimating Dispersion
+
+Generalised Linear Models are ...
+
+To identify the amount of variation within each gene we need to estimate dispersion. Dispersion is basically the biological coefficient of variation (BCV) or more simply, how much a gene expression value varies from the mean (relative variability). Its a common concept in differentially expression and by estimate dispersion in a few different ways we can get a more accurate representation of the variability of genes in the dataset.
+
+Firstly we calculate the common dispersion where each gene gets assigned the same dispersion estimate. The output of the estimation will include the estimate as well as some other elements added to the edgeR object, cds. Once the common dispersion is estimated we can estimate the tagwise dispersions,where each gene gets its own unique dispersion estimate, but the common dispersion is still used in the calculation. Convieniently these are done in one command, which estimates all the different dispersion types using a GLM. Finally the code block below will output a plot that shows what you data looks like, and how the dispersion fitted to the data
+
+```{r Dispersion}
+design.mat <- model.matrix(~ 0 + cds$samples$group)
+colnames(design.mat) <- levels(cds$samples$group)
+
+# Run all the dispersion types in succession
+y <- estimateDisp(cds, design.mat)
+
+plotBCV(y)
+```
+
+# Calculating Differentially Expressed Genes
+
+Now we can start to test which genes are differentially expressed between the control and treatment group. For this we are going to use a Exact Test, which is a test that identifies differences in the means between two groups of negative-binomially distributed counts. It also takes into account our dispersions that we just estimated in the previous section
+
+```{r exact}
+# Exact Test
+et12 <- exactTest(y, pair=c(1,2))
+
+# Display the top 10 genes 
+topTags(et12, n=10)
+```
+
+As you can see we have some pretty significiant differentially expressed genes. 
+
+**Question:**
+What are the top two differentially expressed genes and what is their gene function?
+
+
+```{r summary}
+de1 <- decideTestsDGE(et12, adjust.method="BH", p.value=0.01)
+summary(de1)
+```
+
+**Question:**
+Have a look at the output of the above summary(de1) code. What do the numbers next to -1, 0 and 1 refer to?
+
+```{r smear}
+de1tags12 <- rownames(y)[as.logical(de1)] 
+plotSmear(et12, de.tags=de1tags12)
+abline(h = c(-2, 2), col = "blue")
+```
+
+Lets have a look at the 
+
+```{r topTags}
+
+# Top tags for tagwise analysis:
+options(digits = 3) # print only 3 digits
+topTags(et12, n = 20, sort.by = "p.value") # top 20 DE genes
+
+# What do the original counts of our DE genes look like?
+cds$counts[rownames(topTags(et12, n = 15)$table),]
+
+# Store full topTags results table:
+de.tgw <- topTags(et12, n = nrow(et12$table))$table
+head(de.tgw)
+
+```
+
+The two other values in the differentially expressed genes table above were logFC and logCPM. LogFC is a value of change between the two conditions. If its negative, the the control has a high expression value than the treatment, and visa versa for the positive values. We can also plot that to show exactly where these genes are
+
+As you can see, generally we see more red dots (DE genes) at higher Average log CPM, and greater logFC. You can also see that despite high logFC at low logCPM, these data-points are not red.
+
+
+## Analysis
+
+So we've now found some differentially expressed genes, now we want to make some figures to show what relationship they have with each other. Firstly we're going to make a heatmap, which takes the genes with the highest logFC and displays them on a map. 
+
+```{r scatterplot, fig.width=6, fig.height=6 }
+
+y = cpm(cds, prior.count = 1, log = TRUE)
+cpm.mat = cpm(cds, prior.count = 1, log = TRUE)
+
+head(cpm.mat)
+
+deg.idx = (abs(de.tgw$logFC) > 1.5 & de.tgw$FDR < 0.01)
+deg = rownames(de.tgw)[deg.idx]
+cpm.mat = cpm.mat[deg,]
+
+head(cpm.mat)
+
+seqColor = colorRampPalette(brewer.pal(9, "Blues"))(255)[255:1]
+cim(t(cpm.mat), color = seqColor, row.names = TRUE, col.names = FALSE, symkey = FALSE)
+
+```
+
+**Question:**
+There are two dendograms on each axis (X and Y). On the Y axis, they have clustered the control and treatment groups together. What does the clustering on the X (top) axis indicate? What does this tell us about those particular genes?
+
+
+## Change Ensembl gene IDs to Gene Names
+
+Its difficult to interpret what a lot of these ensembl gene IDs mean, so lets try and change them to their Gene Symbols. While Bioinformaticians are ok using gene IDs, biologists like to use standardised gene names for their reference. Below, we are going to use the package biomart to download the Mouse genome annotation and get the name and annotation biotype (i.e. whether the gene is protein-coding or a long-noncoding RNA etc) of each gene.
+
+```{r MGIsymbol}
+require(biomaRt)
+
+de.tgw <- tibble::rownames_to_column (de.tgw, var = "ensembl_id")
+de.tgw$ensembl_gene_id <- gsub("\\.\\d{1,2}", "", de.tgw$ensembl_id)
+
+mart <- useMart(biomart="ensembl", dataset="mmusculus_gene_ensembl")
+
+Results <- getBM(attributes = c("ensembl_gene_id", "mgi_symbol","gene_biotype"), 
+      filters = "ensembl_gene_id", 
+      values = de.tgw$ensembl_gene_id, 
+      mart = mart) # %>% head()
+
+```
+
+Now lets compare these to our own differentially expressed genes so we can get our gene names
+
+```{r combineTable}
+
+genesDE <- inner_join(de.tgw,Results, by = "ensembl_gene_id") %>%
+  dplyr::select(ensembl_id, mgi_symbol, gene_biotype, logFC, logCPM, FDR) %>%
+   filter(FDR < 0.01)
+```
+
+**Question:**
+What is the gene name of our most significant differentially expressed gene?
+
