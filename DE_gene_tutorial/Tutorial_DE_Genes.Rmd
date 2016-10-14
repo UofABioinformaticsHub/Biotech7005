@@ -20,10 +20,14 @@ library(edgeR)
 library(limma)
 library(RColorBrewer)
 library(mixOmics)
-library(ggplot2)
-library(reshape2)
-library(pander)
 ```
+
+To download the Counts data run:
+
+download.file("https://www.dropbox.com/s/teaolpgdeswpyr7/Treatment1.out?dl=0", destfile = "Treatment1.out")
+download.file("https://www.dropbox.com/s/bqw8rpsa4rvpi60/Treatment2.out?dl=0", destfile = "Treatment2.out")
+download.file("https://www.dropbox.com/s/9ib5ib8mqb462dj/Control2.out?dl=0", destfile = "Control2.out")
+download.file("https://www.dropbox.com/s/svjkl9eqcebsw40/Control1.out?dl=0", destfile = "Control1.out")
 
 
 First, edgeR requires the the dataset to contain only the counts with the row names as the gene ids and the column names as the sample ids. So we're going to load in the four files using a looping function (similar to ones that you used in bash)
@@ -275,9 +279,9 @@ What is the gene name of our most significant differentially expressed gene?
 
 ## This Week's Assessment 
 
-1. Answer the questions in the above tutorial
+1. Answer the questions in the above tutorial (1 Mark each) = 5 Marks
 
-2. Long form questions (Epigenetics):
+2. Long form questions (Epigenetics): (1 Mark each) = 5 Marks
 
 - Define Epigenetics and how does it differ from Genetics
 
@@ -288,5 +292,11 @@ What is the gene name of our most significant differentially expressed gene?
 - What is a "Gene Knock-down" and how is it used as a tool in molecular biology?
 
 - Discuss CpG islands, their methylation status and how the possible effects that they have on the transcription of a gene
+
+Total (10 Marks)
+
+
+
+
 
 
