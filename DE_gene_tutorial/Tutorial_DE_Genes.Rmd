@@ -19,15 +19,21 @@ library(tibble)
 library(edgeR)
 library(limma)
 library(RColorBrewer)
-library(mixOmics)
 ```
 
-To download the Counts data run:
+First we need to download the counts, bu before we do, we should get our directory structure clear. We'll need to decide which directory to place these files in, and we should create a new directory for this dataset. In Bioinformatics, it's standard practice to have a new folder for each dataset.
 
+Once you have created this folder, save the script for today in the same folder, and set this to be the working directory.
+To do this, navigate to the directory in your _Files_ pane, then click the **More** button in your _Files_ pane and choose _Set As Working Directory_.
+
+Now open a terminal, and go to this directory using the `cd` command, and enter the following lines. You can use Cut & Paste if you'd like.
+
+```
 wget "https://www.dropbox.com/s/teaolpgdeswpyr7/Treatment1.out?dl=0" -O "Treatment1.out"  
 wget "https://www.dropbox.com/s/bqw8rpsa4rvpi60/Treatment2.out?dl=0" -O "Treatment2.out"  
 wget "https://www.dropbox.com/s/9ib5ib8mqb462dj/Control2.out?dl=0" -O "Control2.out"  
 wget "https://www.dropbox.com/s/svjkl9eqcebsw40/Control1.out?dl=0" -O "Control1.out"  
+```
 
 First, edgeR requires the the dataset to contain only the counts with the row names as the gene ids and the column names as the sample ids. So we're going to load in the four files using a looping function (similar to ones that you used in bash)
 
@@ -220,7 +226,7 @@ As you can see, generally we see more red dots (DE genes) at higher Average log 
 
 ## Analysis
 
-So we've now found some differentially expressed genes, now we want to make some figures to show what relationship they have with each other. Firstly we're going to make a heatmap, which takes the genes with the highest logFC and displays them on a map. 
+So we've now found some differentially expressed genes, now we want to make some figures to show what relationship they have with each other. Firstly we're going to make a heatmap, which takes the genes with the highest logFC and displays them on a map. First let's get the subset of DE genes.
 
 ```{r scatterplot, fig.width=6, fig.height=6, results="hide" }
 
@@ -234,9 +240,27 @@ cpm.mat <- cpm.mat[deg,]
 
 head(cpm.mat)
 
-seqColor <- colorRampPalette(brewer.pal(9, "Blues"))(255)[255:1]
-cim(t(cpm.mat), color = seqColor, row.names = TRUE, col.names = FALSE, symkey = FALSE)
+```
 
+Now we'll use the package `pheatmap` to plot these genes. If you try to load this using `library(pheatmap)` and `R` tells you that the package is not installed, enter the following line of code to ensure it is installed.
+
+```{r, eval=FALSE}
+BiocInstaller::biocLite("pheatmap")
+```
+
+```{r}
+library(pheatmap)
+seqColor <- colorRampPalette(brewer.pal(9, "RdBu"))(255)[255:1]
+grpData <- data.frame(Group = group, row.names = colnames(cpm.mat))
+grpCols <- list(Group = c(C = "#883311", T = "#22BB22"))
+pheatmap(
+  mat = t(cpm.mat),
+  color = seqColor,
+  annotation_row = grpData,
+  show_colnames = FALSE,
+  annotation_names_row = FALSE,
+  annotation_colors = grpCols
+)
 ```
 
 **Question 4:**
