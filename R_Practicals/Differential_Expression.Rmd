@@ -65,12 +65,9 @@ Bioconductor has many packages which support analysis of high-throughput sequenc
 The packages which we will use in this workflow include core packages maintained by the Bioconductor core team for importing and processing raw sequencing data and loading gene annotations. 
 We will also use contributed packages for statistical analysis and visualization of sequencing data. Through scheduled releases every 6 months, the Bioconductor project ensures that all the packages within a release will work together in harmony (hence the "conductor" metaphor).
 The packages used in this workflow are loaded with the *library* function and can be installed by following the [Bioconductor package installation instructions](http://bioconductor.org/install/#install-bioconductor-packages).
+(We have already done this, so this point is just for future reference.)
 
 A published version of this workflow, including reviewer reports and comments is available at [F1000Research](http://f1000research.com/articles/4-1070).
-
-If you have questions about this workflow or any Bioconductor software, please post these to the [Bioconductor support site](https://support.bioconductor.org/).
-If the questions concern a specific package, you can tag the post with the name of the package, or for general questions about the workflow, tag the post with `rnaseqgene`. 
-Note the [posting guide](http://www.bioconductor.org/help/support/posting-guide/) for crafting an optimal question for the support site.
 
 ## Experimental data
 
@@ -142,7 +139,7 @@ for f in `cat files`
   done
 ```
 
-For the latest versions of STAR, the flag `--outSAMtype BAM SortedByCoordinate` can be added to automatically sort the aligned reads and turn them into compressed BAM files.
+The flag `--outSAMtype BAM SortedByCoordinate` can be added to STAR to automatically sort the aligned reads and turn them into compressed BAM files.
 The BAM files for a number of sequencing runs can then be used to generate count matrices, as described in the following section.
 
 ## Locating BAM files and the sample table
@@ -171,7 +168,7 @@ dir <- system.file("extdata", package="airway", mustWork=TRUE)
 
 In this directory, we find the eight BAM files (and some other files):
 
-```{r}
+```{r, results='hide'}
 list.files(dir)
 ```
 
@@ -180,7 +177,7 @@ For your own project, you might create such a comma-separated value (CSV) file u
 
 We load such a CSV file with *read.csv*:
 
-```{r}
+```{r, results='hide'}
 csvfile <- file.path(dir,"sample_table.csv")
 sampleTable <- read.csv(csvfile,row.names=1)
 sampleTable
@@ -205,7 +202,7 @@ Each tool has slightly different output, which can be gathered into a count matr
 We will first demonstrate using the *summarizeOverlaps* method of counting.
 Using the `Run` column in the sample table, we construct the full paths to the files we want to perform the counting operation on:
 
-```{r}
+```{r, results='hide'}
 filenames <- file.path(dir, paste0(sampleTable$Run, "_subset.bam"))
 file.exists(filenames)
 ```
@@ -225,7 +222,7 @@ For example, a common mistake is when the alignment files contain chromosome nam
 See the *seqlevelsStyle* function in the `r Biocpkg("GenomeInfoDb")` package for solutions.
 We can check the chromosome names (here called "seqnames") in the alignment files like so:
 
-```{r}
+```{r, results='hide'}
 seqinfo(bamfiles[1])
 ```
 
@@ -259,7 +256,7 @@ txdb <- makeTxDbFromGFF(gtffile, format="gtf")
 
 The following line produces a *GRangesList* of all the exons grouped by gene. Each element of the list is a *GRanges* object of the exons for a gene.
 
-```{r}
+```{r, results='hide'}
 ebg <- exonsBy(txdb, by="gene")
 ebg
 ```
@@ -300,7 +297,7 @@ se <- summarizeOverlaps(features=ebg,
 
 And let's quickly see what we get, before we explain all the arguments:
 
-```{r}
+```{r, results='hide'}
 se
 ```
 
@@ -350,13 +347,13 @@ The component parts of the *SummarizedExperiment* are accessed with an R functio
 
 The counts are accessed using `assay`: 
 
-```{r}
+```{r, results='hide'}
 head( assay(se) )
 ```
 
 We can ask the dimension of the *SummarizedExperiment* (the dimension of the assay matrix), simply with `dim`:
 
-```{r}
+```{r, results='hide'}
 dim(se)
 nrow(se)
 ncol(se)
@@ -367,7 +364,7 @@ It is also possible to store multiple matrices in a *SummarizedExperiment* objec
 
 The `rowRanges` for our object is the *GRangesList* we used for counting (one *GRanges* of exons for each row of the count matrix).
 
-```{r}
+```{r, results='hide'}
 rowRanges(se)
 length(rowRanges(se))
 rowRanges(se)[[1]]
@@ -376,13 +373,13 @@ rowRanges(se)[[1]]
 The `rowRanges` also contains metadata about the construction of the gene model in the `metadata` slot. 
 Here we use a helpful R function, `str`, to display the metadata compactly:
 
-```{r}
+```{r, results='hide'}
 str(metadata(rowRanges(se)))
 ```
 
 The `colData` stores the metadata about the samples:
 
-```{r}
+```{r, results='hide'}
 colData(se)
 ```
 
@@ -391,7 +388,7 @@ The `colData` slot is so far empty!
 Because we used a column of `sampleTable` to produce the `bamfiles` vector, we know the columns of `se` are in the same order as the rows of `sampleTable`. 
 Take a moment to convince yourself this is true:
 
-```{r}
+```{r, results='hide'}
 colnames(se)
 bamfiles
 sampleTable$Run
@@ -400,7 +397,7 @@ sampleTable$Run
 We can assign the `sampleTable` as the `colData` of the summarized experiment, by converting
 it into a *DataFrame* and using the assignment function:
 
-```{r}
+```{r, results='hide'}
 colData(se) <- DataFrame(sampleTable)
 colData(se)
 ```
@@ -415,7 +412,7 @@ See `?featureCounts` for more information on its usage, including how to sort th
 
 When you run *featureCounts* you will see a large logo printed to your screen as well as other information displayed live as the software is counting. 
 
-```{r}
+```{r, results='hide', message=FALSE}
 library("Rsubread")
 fc <- featureCounts(files=filenames, 
                     annot.ext=gtffile, 
@@ -458,19 +455,19 @@ The simplest design formula for differential expression would be `~ condition`, 
 
 However, let's remind ourselves of the experimental design of the experiment:
 
-```{r}
+```{r, results='hide'}
 colData(se)
 ```
 
 We have treated and untreated samples (as indicated by `dex`):
 
-```{r}
+```{r, results='hide'}
 se$dex
 ```
 
 We also have four different cell lines:
 
-```{r}
+```{r, results='hide'}
 se$cell 
 ```
 
@@ -483,7 +480,7 @@ The reason is that, by specifying this, functions further in the pipeline can be
 
 We can *relevel* the `dex` factor like so: 
 
-```{r}
+```{r, results='hide'}
 se$dex <- relevel(se$dex, "untrt")
 se$dex
 ```
@@ -506,7 +503,7 @@ We now use R's *data* command to load a prepared *SummarizedExperiment* that was
 The steps we used to produce this object were equivalent to those you worked through in the previous sections, except that we used all the reads and all the genes. 
 For more details on the exact steps used to create this object, type `vignette("airway")` into your R session. 
 
-```{r}
+```{r, results='hide'}
 data("airway")
 se <- airway
 ```
@@ -516,20 +513,20 @@ se <- airway
 This *SummarizedExperiment* contains many rows (genes) with zero or very small counts. 
 In order to streamline the workflow, which uses multiple packages, we will remove those genes which have a total count of less than 5:
 
-```{r}
+```{r, results='hide'}
 se <- se[ rowSums(assay(se)) >= 5, ]
 ```
 
 Again, we want to specify that `untrt` is the reference level for the `dex` variable:
 
-```{r}
+```{r, results='hide'}
 se$dex <- relevel(se$dex, "untrt")
 se$dex
 ```
 
 Supposing we have constructed a *SummarizedExperiment* using one of the methods described in the previous section, we now need to make sure that the object contains all the necessary information about the samples, i.e., a table with metadata on the count matrix's columns stored in the `colData` slot:
 
-```{r}
+```{r, results='hide'}
 colData(se)
 ```
 
@@ -558,7 +555,7 @@ The information in a *SummarizedExperiment* object can be accessed with accessor
 For example, to see the actual data, i.e., here, the fragment counts, we use the *assay* function. 
 (The *head* function restricts the output to the first few lines.)
 
-```{r}
+```{r, results='hide'}
 countdata <- assay(se)
 head(countdata)
 ```
@@ -567,7 +564,7 @@ In this count matrix, each row represents an Ensembl gene, each column a sequenc
 We also have information on each of the samples (the columns of the count matrix). 
 If you've counted reads with some other software, it is very important to check that the columns of the count matrix correspond to the rows of the sample information table. 
 
-```{r}
+```{r, results='hide'}
 coldata <- colData(se)
 coldata
 ```
@@ -579,7 +576,7 @@ We now have all the ingredients to prepare our data object in a form that is sui
 
 To now construct the *DESeqDataSet* object from the matrix of counts and the sample information table, we use:
 
-```{r}
+```{r, results='hide'}
 ddsMat <- DESeqDataSetFromMatrix(countData = countdata,
                                   colData = coldata,
                                   design = ~ cell + dex)
@@ -591,7 +588,7 @@ As mentioned above, the edgeR package uses another type of data container, namel
 It is just as easy to create a *DGEList* object using the count matrix and information about samples. 
 We can further add information about the genes:
 
-```{r message=FALSE}
+```{r message=FALSE, results='hide'}
 library("edgeR")
 genetable <- data.frame(gene.id=rownames(se))
 y <- DGEList(counts=countdata, 
@@ -626,7 +623,7 @@ These have slightly different implementations, discussed a bit in the *DESeq2* p
 Both produce log2-like values for high counts. 
 Here we will use the variance stabilizing transformation implemented with the `vst` function: 
 
-```{r}
+```{r, results='hide'}
 vsd <- vst(dds)
 ```
 
@@ -638,7 +635,7 @@ class(vsd)
 
 ...which contains all the column metadata that was attached to the *DESeqDataSet*:
 
-```{r}
+```{r, results='hide'}
 colData(vsd)
 ```
 
@@ -740,7 +737,7 @@ res <- results(dds)
 
 As `res` is a *DataFrame* object, it carries metadata with information on the meaning of the columns:
 
-```{r}
+```{r, results='hide'}
 mcols(res, use.names=TRUE)
 ```
 
@@ -762,7 +759,7 @@ Remember that a *p* value indicates the probability that a fold change as strong
 
 We can also summarize the results with the following line of code, which reports some additional information, that will be covered in later sections.
 
-```{r}
+```{r, results='hide'}
 summary(res)
 ```
 
@@ -775,7 +772,7 @@ However, there are two ways to be more strict about which set of genes are consi
 
 If we lower the false discovery rate threshold, we should also tell this value to `results()`, so that the function will use an alternative threshold for the optimal independent filtering step:
 
-```{r}
+```{r, results='hide'}
 res.05 <- results(dds, alpha=.05)
 table(res.05$padj < .05)
 summary(res.05)
@@ -784,7 +781,7 @@ summary(res.05)
 If we want to raise the log2 fold change threshold, so that we test for genes that show more substantial changes due to treatment, we simply supply a value on the log2 scale. 
 For example, by specifying `lfcThreshold=1`, we test for genes that show significant effects of treatment on gene counts more than doubling or less than halving, because \(2^1 = 2\).
 
-```{r}
+```{r, results='hide'}
 resLFC1 <- results(dds, lfcThreshold=1)
 table(resLFC1$padj < 0.1)
 ```
@@ -798,7 +795,7 @@ For more information, see the outlier detection section of the *DESeq2* vignette
 Next we will show how to perform differential expression analysis with *edgeR*.
 Recall that we have a `DGEList` `y`, containing three objects:
 
-```{r}
+```{r, results='hide'}
 names(y)
 ```
 
@@ -833,7 +830,7 @@ tt10
 
 We can compare to see how the results from the two software overlap:
 
-```{r}
+```{r, results='hide'}
 tt.all <- topTags(lrt, n=nrow(y), sort.by="none")
 table(DESeq2=res$padj < 0.1, edgeR=tt.all$table$FDR < 0.1)
 ```
@@ -842,7 +839,7 @@ Also with edgeR we can test for significance relative to a fold-change threshold
 Below we set the log fold-change threshold to 1 (i.e., fold change threshold equal to 2), as for DESeq2 above. 
 We also compare the results to those obtained with DESeq2.
 
-```{r}
+```{r, results='hide'}
 treatres <- glmTreat(fit, coef = ncol(design), lfc = 1)
 tt.treat <- topTags(treatres, n = nrow(y), sort.by = "none")
 table(DESeq2 = resLFC1$padj < 0.1, edgeR = tt.treat$table$FDR < 0.1)
@@ -864,7 +861,7 @@ In high-throughput biology, we are careful to not use the *p* values directly as
 What would happen if we were to simply threshold the *p* values at a low value, say 0.05? 
 There are `r sum(res$pvalue < .05, na.rm=TRUE)` genes with a *p* value below 0.05 among the `r sum(!is.na(res$pvalue))` genes, for which the test succeeded in reporting a *p* value:
 
-```{r}
+```{r, results='hide'}
 sum(res$pvalue < 0.05, na.rm=TRUE)
 sum(!is.na(res$pvalue))
 ```
@@ -894,7 +891,7 @@ The FDR is a useful statistic for many high-throughput experiments, as we are of
 Hence, if we consider a fraction of 10% false positives acceptable, we can consider all genes with an adjusted *p* value below 10% = 0.1 as significant. 
 How many such genes are there?
 
-```{r}
+```{r, results='hide'}
 sum(res$padj < 0.1, na.rm=TRUE)
 ```
 
@@ -953,7 +950,7 @@ library("Homo.sapiens")
 
 To get a list of all available key types, use:
 
-```{r}
+```{r, results='hide'}
 columns(Homo.sapiens)
 ```
 
@@ -988,7 +985,7 @@ y$genes$symbol <- res$symbol
 
 Now the results have the desired external gene IDs:
 
-```{r}
+```{r, results='hide'}
 resOrdered <- res[order(res$padj),]
 head(resOrdered)
 ```

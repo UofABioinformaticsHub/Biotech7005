@@ -1,5 +1,5 @@
 ---
-title: "A Intrduction To R In The Genomics Era"
+title: "A Introduction To R In The Genomics Era"
 author: "Steve Pederson"
 date: "12 September, 2016"
 output: html_document
