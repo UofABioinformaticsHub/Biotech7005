@@ -24,11 +24,12 @@ library(mixOmics)
 
 To download the Counts data run:
 
+```{r}
 download.file("https://www.dropbox.com/s/teaolpgdeswpyr7/Treatment1.out?dl=0", destfile = "Treatment1.out")
 download.file("https://www.dropbox.com/s/bqw8rpsa4rvpi60/Treatment2.out?dl=0", destfile = "Treatment2.out")
 download.file("https://www.dropbox.com/s/9ib5ib8mqb462dj/Control2.out?dl=0", destfile = "Control2.out")
 download.file("https://www.dropbox.com/s/svjkl9eqcebsw40/Control1.out?dl=0", destfile = "Control1.out")
-
+```
 
 First, edgeR requires the the dataset to contain only the counts with the row names as the gene ids and the column names as the sample ids. So we're going to load in the four files using a looping function (similar to ones that you used in bash)
 
@@ -294,9 +295,6 @@ What is the gene name of our most significant differentially expressed gene?
 - Discuss CpG islands, their methylation status and how the possible effects that they have on the transcription of a gene
 
 Total (10 Marks)
-
-
-
 
 
 
