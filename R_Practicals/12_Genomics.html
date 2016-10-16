@@ -206,7 +206,7 @@ e.g. a <code>data_frame</code>, <code>tbl_df</code> or <code>tibble</code></p>
 </ul>
 <p>Cut and paste the following lines into your R Session. Be aware that this may take a while to run.</p>
 <pre class="r"><code>source(&quot;http://bioconductor.org/biocLite.R&quot;)
-biocLite(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;, &quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;, &quot;RNAseqData.HNRNPC.bam.chr14&quot;, &quot;airway&quot;, &quot;DESeq2&quot;, &quot;edgeR&quot;, &quot;limma&quot;)</code></pre>
+biocLite(c(&quot;GenomicRanges&quot;, &quot;biomaRt&quot;, &quot;AnnotationHub&quot;, &quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;, &quot;RNAseqData.HNRNPC.bam.chr14&quot;, &quot;airway&quot;, &quot;DESeq2&quot;, &quot;edgeR&quot;, &quot;limma&quot;))</code></pre>
 <ul>
 <li>This installs the package <code>BiocInstaller</code></li>
 <li>Manages the synchronisation of <em>R</em> releases and Bioconductor updates</li>

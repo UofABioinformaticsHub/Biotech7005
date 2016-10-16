@@ -99,7 +99,7 @@ Be aware that this may take a while to run.
 
 ```{r, eval=FALSE}
 source("http://bioconductor.org/biocLite.R")
-biocLite("GenomicRanges", "biomaRt", "AnnotationHub", "TxDb.Hsapiens.UCSC.hg19.knownGene", "RNAseqData.HNRNPC.bam.chr14", "airway", "DESeq2", "edgeR", "limma")
+biocLite(c("GenomicRanges", "biomaRt", "AnnotationHub", "TxDb.Hsapiens.UCSC.hg19.knownGene", "RNAseqData.HNRNPC.bam.chr14", "airway", "DESeq2", "edgeR", "limma"))
 ```
 
 - This installs the package `BiocInstaller`
