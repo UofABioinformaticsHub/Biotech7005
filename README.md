@@ -46,7 +46,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | RNAseq practical (Steve) (1) |
 | **-** | 18/9 | Semester Break |
 | **-** | 25/9 | Semester Break |
-| **9** | 2/10 (PH) | Epigenetics (Jimmy) | DNA methylation practical (Jimmy) (1) |
+| **9** | 2/10 (PH) | Epigenetics (Jimmy) | No practical (PH) |
 | **10** | 9/10 | Introduction to Systems Biology (Dan)  | Graphical analyses (Dan) (1)  |
 | **11** | 16/10 | Systems Biology (Ville) | Systems Biology practical (Ville) (1) |
 | **12** | 23/10 | The Future — wooooooo (Dan) | Wrap-up (Jimmy/Dan/Steve)  |
