@@ -20,12 +20,10 @@ Office: Braggs 2.27
 
 Lectures: Friday 9am, Schulz, 308
 - 27 Jul — 14 Sep
-- 12 Oct — 26 Oct
+- 5 Oct — 26 Oct
 
 Tutorials: Friday 9am-11pm, Mawson, 134, Sprigg Room
-- 28 Jul — 28 Jul
-- 11 Aug — 25 Aug
-- 8 Sep — 15 Sep
+- 28 Jul — 15 Sep
 - 6 Oct — 27 Oct
 
 Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
