@@ -76,7 +76,7 @@ Have you:
 	- Printed documents should have you name and the course and assessment task in the text/footer/header.
 - [ ] Used appropriate electronic communication with assessors?
 	- Emails should have a meaningful subject.
-- [ ] Handed in the assignment before the due time (Friday tutorial 10am)?
+- [ ] Handed in the assignment before the due time (Friday tutorial 9am)?
 
 #### Major Project (15%)
 
