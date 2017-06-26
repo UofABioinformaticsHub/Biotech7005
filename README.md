@@ -38,7 +38,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **2** | 31/7 | Statistics (Steve) | Introduction to R (Steve) (2) |
 | **3** | 7/8  | Evolutionary Processes (Dan) | Command-line (Steve) (1) |
 | **4** | 14/8 | Alignment Process (Dan) | Command-line (Steve) (2) |
-| **5** | 21/8 | Alignment Process (Dan) | Evolutionary processes (Dan) (1) |
+| **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 28/8 | Next-generation sequencing (Dan) | NGS data practical (Steve/Jimmy) (1) |
 | **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | NGS data practical (Steve/Jimmy) (2) |
 | **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | RNAseq practical (Steve) (1) |
