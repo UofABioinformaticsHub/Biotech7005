@@ -54,12 +54,13 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
-| Assessment 1 | R programming | 9% | Friday 4th August |
-| Assessment 2 | Command-line | 9% | Friday 18th August |
-| Assessment 3 | Sequencing + Data processing | 9% | Wednesday 11th October |
-| Assessment 4 | Metagenomics | 9% | Friday 20th October |
-| Assessment 5 | R programming + Downstream Analysis | 9% | Friday 20th October |
-| Project | Complete Dataset | 15% | Friday 27th October |
+| Assessment 1 | R programming | 7% | Friday 4th August |
+| Assessment 2 | Command-line | 7% | Friday 18th August |
+| Assessment 3 | Evolutionary processes | 7% | Friday 25th August |
+| Assessment 4 | NGS data practical | 7% | Friday 8th September |
+| Assessment 5 | RNAseq practical | 7% | Friday 15th September |
+| Assessment 6 | Graphical analyses | 7% | Friday 13th October |
+| Project | Complete Dataset | 18% | Friday 20th October |
 | Exam | | 40% | |
 
 ### Assessment Checklist
