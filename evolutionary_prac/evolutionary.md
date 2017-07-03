@@ -192,6 +192,10 @@ Repeat the analysis with another model and compare the trees using the Archeopte
 
 **Do the trees from the two models differ? How does the branch support differ between the two trees? Do the trees agree with the known taxonomic groupings?**
 
+#### Nuclear tree from Decker *et al.* 2009 doi:[10.1073/pnas.0904691106](https://doi.org/10.1073/pnas.0904691106)
+
+![Decker *et al.* 2009 10.1073/pnas.0904691106](nuclear-tree.jpg)
+
 ## Tasks (due 25/8/2017)
 
 ### Practical questions
