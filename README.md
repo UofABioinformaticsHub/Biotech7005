@@ -83,7 +83,7 @@ Have you:
 #### Active Participation (3%)
 
 A small component of the course assessment will be for active participation in practicals and tutorials.
-Since the majority of the course material is open source, issues filed against found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
+Since the majority of the course material is open source, issues filed against errors found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
 
 #### Major Project (15%)
 
