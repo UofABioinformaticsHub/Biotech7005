@@ -60,7 +60,8 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | Assessment 4 | NGS data practical | 7% | Friday 8th September |
 | Assessment 5 | RNAseq practical | 7% | Friday 15th September |
 | Assessment 6 | Graphical analyses | 7% | Friday 13th October |
-| Project | Complete Dataset | 18% | Friday 20th October |
+| Active Participation | | 3% | |
+| Project | Complete Dataset | 15% | Friday 20th October |
 | Exam | | 40% | |
 
 ### Assessment Checklist
@@ -78,6 +79,11 @@ Have you:
 - [ ] Used appropriate electronic communication with assessors?
 	- Emails should have a meaningful subject.
 - [ ] Handed in the assignment before the due time (Friday tutorial 9am)?
+
+#### Active Participation (3%)
+
+A small component of the course assessment will be for active participation in practicals and tutorials.
+Since the majority of the course material is open source, issues filed against found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
 
 #### Major Project (15%)
 
