@@ -1,3 +1,6 @@
+* TOC
+{:toc}
+
 ## Biotech 7005: Frontiers of Biotechnology: Bioinformatics and Systems Modelling
 
 Semester 2 2017
