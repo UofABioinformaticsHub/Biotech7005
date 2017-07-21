@@ -193,7 +193,7 @@ $(document).ready(function () {
 <p>Now continue the instructions to install <code>R Studio Desktop</code>, then open <code>R Studio</code>. This is the way we usually interact with <code>R</code> on our laptop or desktop computers.</p>
 <div id="starting-with-r-studio-creating-an-r-project" class="section level3">
 <h3>Starting with R Studio: Creating an <code>R Project</code></h3>
-<p>First we will setup an <code>R Project</code> for today’s practical. These are a simple way of managing your code for multiple analyses or datasets, and are always named after the directory they are in. They’re not essential, but are very useful.</p>
+<p>First we will set up an <code>R Project</code> for today’s practical. These are a simple way of managing your code for multiple analyses or datasets, and are always named after the directory they are in. They’re not essential, but are very useful.</p>
 <ol style="list-style-type: decimal">
 <li>Create a folder on your computer for the practical material
 <ul>
@@ -379,7 +379,7 @@ x &gt; 0</code></pre>
 <h1>Loading Data Into R</h1>
 <div id="importing-data" class="section level2">
 <h2>Importing Data</h2>
-<p>A stumbling block for many learning <code>R</code> is the <strong>Error Messages</strong>, and these are often seen while we’re loading data. Like most programming languagesm <code>R</code> is very strict about data formats. We can load <code>.xlsx</code>, <code>xls</code>, <code>csv</code>, <code>txt</code>, <code>gtf/gff</code> files + many more, but understanding the structure of the spreadsheet is vital</p>
+<p>A stumbling block for many learning <code>R</code> is the <strong>Error Messages</strong>, and these are often seen while we’re loading data. Like most programming languages <code>R</code> is very strict about data formats. We can load <code>.xlsx</code>, <code>xls</code>, <code>csv</code>, <code>txt</code>, <code>gtf/gff</code> files + many more, but understanding the structure of the spreadsheet is vital</p>
 <p>Some things we do to make it “look nice” in Excel can create problems:</p>
 <ul>
 <li>Merged cells can lead to errors and unexpected results</li>
@@ -491,7 +491,7 @@ The Preview Window showing where we can see a preview of the data.
 </div>
 <div id="working-with-files" class="section level3">
 <h3>Working with Files</h3>
-<p>We often have to load data into <code>R</code> from a file on our computer, and as many of us know, Windows uses the <code>\</code> symbol to separate directory names. OSX and Linx use the <code>/</code> symbol, so <code>R</code> has a convenient function called <code>file.path()</code> which is able to decide which separator to put there. This can often be a useful way to pass file paths to a function such as <code>read_csv()</code>.</p>
+<p>We often have to load data into <code>R</code> from a file on our computer, and as many of us know, Windows uses the <code>\</code> symbol to separate directory names. OSX and Linux use the <code>/</code> symbol, so <code>R</code> has a convenient function called <code>file.path()</code> which is able to decide which separator to put there. This can often be a useful way to pass file paths to a function such as <code>read_csv()</code>.</p>
 <pre class="r"><code>toothFile &lt;- file.path(&quot;data&quot;, &quot;toothData.csv&quot;)
 toothFile</code></pre>
 <p>Depending on your OS, this will give different results.</p>
@@ -543,7 +543,7 @@ head(toothData)</code></pre>
 <p>We can easily fix this</p>
 <pre class="r"><code>no_header &lt;- read_csv(&quot;data/no_header.csv&quot;, col_names = FALSE)</code></pre>
 <p><strong>What about that first column?</strong></p>
-<p>That first column looks like it’s just row numbers, which are unneccessary in R, as they are automatically included in <code>data.frame</code> (and <code>tibble</code>) objects. We can specify what is loaded or skipped using <code>col_types</code></p>
+<p>That first column looks like it’s just row numbers, which are unnecessary in R, as they are automatically included in <code>data.frame</code> (and <code>tibble</code>) objects. We can specify what is loaded or skipped using <code>col_types</code></p>
 <pre class="r"><code>no_header &lt;- read_csv(&quot;data/no_header.csv&quot;, col_names = FALSE,
                       col_types = &quot;-ccnnc&quot;)</code></pre>
 <p><strong>What if we get that wrong?</strong></p>
@@ -559,7 +559,7 @@ head(toothData)</code></pre>
 <p>Let’s get it wrong first</p>
 <pre class="r"><code>comments &lt;- read_csv(&quot;data/comments.csv&quot;)</code></pre>
 <p><strong>What happened when we loaded this data?</strong></p>
-<p>Now we can get it right by telling <code>read_csv()</code> to ignore any reows beginning with <code>#</code></p>
+<p>Now we can get it right by telling <code>read_csv()</code> to ignore any rows beginning with <code>#</code></p>
 <pre class="r"><code>comments &lt;- read_csv(&quot;data/comments.csv&quot;, comment = &quot;#&quot;)</code></pre>
 </div>
 <div id="structural-problems" class="section level3">

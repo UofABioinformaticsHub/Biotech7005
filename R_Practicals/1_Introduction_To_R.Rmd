@@ -73,7 +73,7 @@ This is the way we usually interact with `R` on our laptop or desktop computers.
 
 ### Starting with R Studio: Creating an `R Project`
 
-First we will setup an `R Project` for today's practical.
+First we will set up an `R Project` for today's practical.
 These are a simple way of managing your code for multiple analyses or datasets, and are always named after the directory they are in.
 They're not essential, but are very useful.
 
@@ -277,7 +277,7 @@ opts_chunk$set(include = TRUE,
 ## Importing Data
 
 A stumbling block for many learning `R` is the __Error Messages__, and these are often seen while we're loading data.
-Like most programming languagesm `R` is very strict about data formats.
+Like most programming languages `R` is very strict about data formats.
 We can load `.xlsx`, `xls`, `csv`, `txt`, `gtf/gff` files + many more, but understanding the structure of the spreadsheet is vital
 
 Some things we do to make it "look nice" in Excel can create problems:
@@ -429,7 +429,7 @@ opts_chunk$set(eval = FALSE)
 ### Working with Files
 
 We often have to load data into `R` from a file on our computer, and as many of us know, Windows uses the `\` symbol to separate directory names.
-OSX and Linx use the `/` symbol, so `R` has a convenient function called `file.path()` which is able to decide which separator to put there.
+OSX and Linux use the `/` symbol, so `R` has a convenient function called `file.path()` which is able to decide which separator to put there.
 This can often be a useful way to pass file paths to a function such as `read_csv()`.
 
 ```{r}
@@ -516,7 +516,7 @@ no_header <- read_csv("data/no_header.csv", col_names = FALSE)
 
 **What about that first column?**
 
-That first column looks like it's just row numbers, which are unneccessary in R, as they are automatically included in `data.frame` (and `tibble`) objects.
+That first column looks like it's just row numbers, which are unnecessary in R, as they are automatically included in `data.frame` (and `tibble`) objects.
 We can specify what is loaded or skipped using `col_types`
 
 ```{r}
@@ -549,7 +549,7 @@ comments <- read_csv("data/comments.csv")
 
 **What happened when we loaded this data?**
 
-Now we can get it right by telling `read_csv()` to ignore any reows beginning with `#`
+Now we can get it right by telling `read_csv()` to ignore any rows beginning with `#`
 
 ```{r}
 comments <- read_csv("data/comments.csv", comment = "#")
