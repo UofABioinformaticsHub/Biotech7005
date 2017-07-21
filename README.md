@@ -38,8 +38,8 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 
 | **Week** | **Monday** |**Lecture**    | **Practical** |
 |----------|------------|---------------|---------------|
-| **1** | 24/7 | Introduction to Bioinformatics (Dan)| Introduction to R (Steve) (1) |
-| **2** | 31/7 | Statistics (Steve) | Introduction to R (Steve) (2) |
+| **1** | 24/7 | Introduction to Bioinformatics (Dan)| [Introduction to R (Steve) (1)](R_Practicals) |
+| **2** | 31/7 | Statistics (Steve) | [Introduction to R (Steve) (2)](R_Practicals) |
 | **3** | 7/8  | Evolutionary Processes (Dan) | Command-line (Steve) (1) |
 | **4** | 14/8 | Alignment Process (Dan) | Command-line (Steve) (2) |
 | **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
