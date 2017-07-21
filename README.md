@@ -2,6 +2,7 @@
 {:toc}
 
 ## Biotech 7005: Frontiers of Biotechnology: Bioinformatics and Systems Modelling
+{:.no_toc}
 
 Semester 2 2017
 
@@ -19,7 +20,7 @@ Email: dan.kortschak@adelaide.edu.au
 Phone: 08 8313 0928
 Office: Braggs 2.27
 
-## Contact Hours
+### Contact Hours
 
 Lectures: Friday 9am, Schulz, 308
 - 27 Jul — 14 Sep
@@ -33,7 +34,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 - 24 Jul — 11 Sep
 - 9 Oct — 23 Oct
 
-## Timetable
+### Timetable
 
 | **Week** | **Monday** |**Lecture**    | **Practical** |
 |----------|------------|---------------|---------------|
@@ -53,7 +54,9 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **12** | 23/10 | The Future — wooooooo (Dan) | Wrap-up (Jimmy/Dan/Steve)  |
 
 
-# Assessment Schedule
+## Assessment 
+
+### Assessment Schedule & Weighting
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
@@ -83,12 +86,12 @@ Have you:
 	- Emails should have a meaningful subject.
 - [ ] Handed in the assignment before the due time (Friday tutorial 9am)?
 
-#### Active Participation (3%)
+### Active Participation (3%)
 
 A small component of the course assessment will be for active participation in practicals and tutorials.
 Since the majority of the course material is open source, issues filed against errors found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
 
-#### Major Project (15%)
+### Major Project (15%)
 
 In this course, the following next-generation sequencing (NGS) datasets/protocols will be in detail:
 
@@ -102,87 +105,12 @@ Each of these NGS approaches uses similar programs and analysis approaches, such
 
 You have the freedom to choose any dataset you would like before we start week 5's practical (NGS data practical), or choose from four datasets that we have chosen. You will be asked assessment questions on your data during practical assessments throughout the semester, and a final report will be due the week before the end of semester (Week 12)
 
-
-#### Practical Assignment 1 - Introduction to command-line (9%)
-
-Week 1-2
-
-__Question 1__
-
-Submit the relevant parts of your terminal history (copy-pasting will suffice) for the following commands:
-
-It should be possible for another person to completely reproduce your output from the history you submit.
-
-__Question 2__
-
-At the start of the practical you were told that the following practices should be adopted:
-
-- Do not use spaces in filenames.
-- Extensively comment your code with meaningful comments.
-- Use robust error handling.
-- Report version numbers of programs used.
-- Use sensible variable names.
-- File checks: Checking if your code is valid and runs successfully.
-
-In a long-format question, explain why  these practices are important?
-
-The following articles will help you understand the importance of some of these.
-Others may take some thought, discussion with other students or careful questions.
+## Useful Links
 
 [How To Ask Questions The Smart Way](http://www.catb.org/esr/faqs/smart-questions.html)
 
 [How to write a good bug report](https://musescore.org/en/developers-handbook/how-write-good-bug-report-step-step-instructions)
 
-#### Practical Assignment 2 - Introduction to command-line scripting (9%)
-
-Week 3-4
-
-__Question 1__
 
 
 
-__Question 2__
-
-
-#### Practical Assignment 3 - Next-Generation Sequencing (9%)
-
-Week 5-6
-
-__Question 1__
-
-
-
-__Question 2__
-
-
-#### Practical Assignment 4 - R programming (9%)
-
-Week 7-8
-
-__Question 1__
-
-
-
-__Question 2__
-
-
-#### Practical Assignment 5 - Systems Biology (9%)
-
-Week 9
-
-__Question 1__
-
-
-
-__Question 2__
-
-
-#### Practical Assignment 6 - Metagenomics (9%)
-
-Week 10-11
-
-__Question 1__
-
-
-
-__Question 2__
