@@ -311,7 +311,7 @@ This will be helpful for any collaborators, and for yourself when you look back 
 ## Using the GUI To Load Data
 
 1. Navigate to your `data` folder using the `Files` Tab.
-2. Click on the file `toothData.csv`
+2. Click on the file `transport.csv`
 3. Select `View File`
 
 This can be used to open (small) files in the `Script Window` and view them as plain text files.
@@ -359,14 +359,14 @@ The code we copied has 3 lines:
 
 1. `library(readr)`
     + The package `readr` contains the function `read_csv()`
-2. `toothData <- read_csv("~path/to/data/toothData.csv")`
+2. `transport <- read_csv("~path/to/data/transport.csv")`
     + This is the code executed to load the data into your `R Environment`
-    + It created an object named `toothData` by using the file name.
+    + It created an object named `transport` by using the file name.
     + The location of the file on your hard drive was passed to the function
-3. `View(toothData)` opened a preview in a familiar `Excel-like` format
+3. `View(transport)` opened a preview in a familiar `Excel-like` format
     + I never use this
     + Edits in here will not affect the main `R` object, and only affect this preview 
-    + Close the preview by clicking the cross and delete `View(toothData)` from your lines of code
+    + Close the preview by clicking the cross and delete `View(transport)` from your lines of code
 
 We have just loaded data using the default settings of `read_csv()`.
 (If we'd change any options in the GUI, the code would have changed.)
@@ -378,7 +378,7 @@ To demonstrate this:
     + This will delete everything from your `R Environment`
     + It won't unload the packages `dplyr` or `readr`
 2. Select the code we've just pasted and run it (Reloading the packages won't hurt anything)
-3. Check the `Environment Tab` again and `toothData` is back
+3. Check the `Environment Tab` again and `transport` is back
 
 **Reproducible Research!!!**
 
@@ -402,13 +402,13 @@ This function has numerous arguments given with names like `file`, `col_names` e
 For example:
 
 ```{r, eval=FALSE}
-toothData <- read_csv("data/toothData.csv")
+transport <- read_csv("data/transport.csv")
 ```
 
 Is equivalent to:
 
 ```{r, eval=FALSE}
-toothData <- read_csv(file = "data/toothData.csv")
+transport <- read_csv(file = "data/transport.csv")
 ```
 
 **If we had a file with 3 blank lines to start, what could our code look like?**
@@ -416,7 +416,7 @@ toothData <- read_csv(file = "data/toothData.csv")
 Setting the argument `skip = 3` would then tell `read_csv()` to ignore the first 3 lines.
 
 ```{r, eval=FALSE}
-toothData <- read_csv("path/to/file", skip = 3)
+transport <- read_csv("path/to/file", skip = 3)
 ```
 
 **What do you think the argument `trim_ws` does?**
@@ -433,8 +433,8 @@ OSX and Linux use the `/` symbol, so `R` has a convenient function called `file.
 This can often be a useful way to pass file paths to a function such as `read_csv()`.
 
 ```{r}
-toothFile <- file.path("data", "toothData.csv")
-toothFile
+transportFile <- file.path("data", "transport.csv")
+transportFile
 ```
 
 Depending on your OS, this will give different results.
@@ -442,7 +442,7 @@ Depending on your OS, this will give different results.
 Once we've defined the path to a file as an `R` object, we can also check to see if the file exists, and to make sure we have the path correct.
 
 ```{r}
-file.exists(toothFile)
+file.exists(transportFile)
 ```
 
 Thus an experienced bioinformatician may write the original importing code as:
@@ -450,21 +450,21 @@ Thus an experienced bioinformatician may write the original importing code as:
 ```{r}
 library(dplyr)
 library(readr)
-toothFile <- file.path("data", "toothData.csv")
-file.exists(toothFile)
-toothData <- read_csv(toothFile)
+transportFile <- file.path("data", "transport.csv")
+file.exists(transportFile)
+transport <- read_csv(transportFile)
 ```
 
 ## Data Frame Objects
 
-The object `toothData` is a `data.frame` object (it's actually a variant called a `data_frame` or `tibble` which is a `data.frame` with pretty wrapping paper). 
+The object `transport` is a `data.frame` object (it's actually a variant called a `data_frame` or `tibble` which is a `data.frame` with pretty wrapping paper). 
 This is the `R` equivalent to a spreadsheet and the main object type we'll work with for the next two weeks.
 Three possible ways to inspect this using the Console are:
 
 ```{r,eval=FALSE}
-View(toothData)
-toothData
-head(toothData)
+View(transport)
+transport
+head(transport)
 ```
 
 **What were the differences between each method?**
@@ -472,7 +472,7 @@ head(toothData)
 *NB: There is another `R` function called `read.csv()` which uses an older import method.*
 This function obviously still works, but is more difficult to work with than `read_csv()`
 
-If the object `toothData` was a `data.frame` instead of a `tibble`, when we'd entered the object name `R` would have dumped all the content of the object onto the screen, instead of just showing us the first few rows.
+If the object `transport` was a `data.frame` instead of a `tibble`, when we'd entered the object name `R` would have dumped all the content of the object onto the screen, instead of just showing us the first few rows.
 This is one of the advantages of using `read_csv()` instead of `read.csv()`, as our objects can often be thousands of lines lone.
 The older `read.csv()` function loads data as a `data.frame` which is less convenient than the `tibble` objects formed by `read_csv()`.
 

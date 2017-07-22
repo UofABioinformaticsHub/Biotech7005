@@ -8,6 +8,7 @@ Assessment 1 requires these sessions to be completed.
 ## Practical 1: 24th July, 2017
 
 The data for the first practical is located [here](data.zip).
-Please download this and extract as a directory called `data` within a directory called `Practical_1`.
+Please download this and extract as a directory called `data` within a directory called `R_Practicals`.
 
 [1 Introduction](1_Introduction_To_R.html)
+[2 Editing Data](2_EditingData.html)
