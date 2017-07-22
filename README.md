@@ -22,7 +22,7 @@ Office: Braggs 2.27
 
 ### Contact Hours
 
-Lectures: Friday 9am, Schulz, 308
+Lectures: Thursday 9am, Schulz, 308
 - 27 Jul — 14 Sep
 - 5 Oct — 26 Oct
 
