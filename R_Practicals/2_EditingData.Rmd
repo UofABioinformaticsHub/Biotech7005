@@ -1,8 +1,8 @@
 ---
-title: "Practical 2: Editing and Visualising Data in R"
+title: "Topic 2: Editing Data in R"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "31 July 2017"
+date: "24 July 2017"
 output: 
   html_document: 
     fig_caption: yes
@@ -43,29 +43,6 @@ We'll cover:
 
 The datasets required are contained in the files 1) `transport.csv` and 2) `pcr.csv`
 
-
-
-
-<!-- ## But First | Logical Tests  -->
-
-<!-- - Is Equal To: `==` -->
-<!-- - Not equal - `!=` -->
-<!-- - OR - `|` -->
-<!-- - Less than `<` -->
-<!-- - Less than or equal `<=` -->
-
-<!-- ## Logical Tests -->
-
-<!-- ```{r, results='hide'} -->
-<!-- x <- 1:10 -->
-<!-- x == 5 -->
-<!-- x !=5 -->
-<!-- x > 5 -->
-<!-- x > 5 | x == 2 -->
-<!-- ``` -->
-
-<!-- - `R` also recognises the symbol `&` for `AND` -->
-<!-- - Not relevant for `dplyr` -->
 
 # The package `dplyr`
 

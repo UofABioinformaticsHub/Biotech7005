@@ -1,5 +1,5 @@
 ---
-title: "Practical 1: Introduction to R and R Studio"
+title: "Topic 1: Introduction to R and R Studio"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
 date: "24 July 2017"

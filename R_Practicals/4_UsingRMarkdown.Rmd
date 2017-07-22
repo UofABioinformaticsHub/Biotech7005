@@ -1,0 +1,288 @@
+---
+title: "Topic 4: Using R Markdown"
+subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
+author: "Steve Pederson & Jimmy Breen"
+date: "31 July 2017"
+output: 
+  html_document: 
+    fig_caption: yes
+    toc: yes
+    toc_depth: 2
+---
+
+```{r, echo=FALSE}
+library(knitr)
+library(pander)
+```
+
+
+# R Markdown
+
+## Writing Reports Using `rmarkdown`
+
+* `rmarkdown` is a cohesive way to
+    + Load & tidy data 
+    + Analyse data, including figures & tables
+    + Publish everything in a complete report/analysis
+* Everything is one document, with our analysis code embedded alongside our results
+* The package `knitr` is the engine behind this
+
+*All practical sessions were written this way*
+
+We can output our analysis directly as:
+
+* HTML
+* MS Word Documents
+* PDF Documents 
+* Slidy or `ioslides` presentations
+
+We never need to use MS Word, Excel or Powerpoint again!
+
+The file suffix is `.Rmd`, and these files allow us to include normal text *alongside embedded `R` code.*
+- Create all of our figures & tables directly from the data
+- Data, experimental and analytic descriptions
+- Mathematical/Statistical equations
+- Nicely Formatted Results
+- Any other information
+
+
+## Creating an *R* Markdown document
+
+Let's create our first `rmarkdown` document
+
+1. Go to the `File` drop-down menu in RStudio
+2. New File -> R Markdown...
+
+
+```{r, echo=FALSE, out.width = 534, fig.align = "center", results='asis'}
+include_graphics("images/NewRMarkdown.png")
+```
+
+1. Change the Title to: My First Report
+2. Change the Author to your own name
+3. Leave everything else as it is & hit OK
+4. Save the file as `RMarkdownTutorial.Rmd`
+
+### Looking at the file automatically created
+
+A 8header section8 is contained between the `---` lines at the top
+
+- __Nothing can be placed before this!__
+- Uses YAML (**Y**AML **A**in't **M**arkup **L**anguage)
+- Editing is beyond the scope of this course
+- Can set custom `.css` files, load LaTeX packages etc.
+
+
+Lines 8 to 10 are a code `chunk`
+
+- Chunks always begin with ```{r}
+- Chunks always end with ```
+- The code goes between these two delineators
+- Chunk names are optional and directly follow the `r`
+- Other parameters are set here, e.g. do we show/hide the code
+
+Line 12 is a Section Heading, starting with `##`
+
+- Click the _staggered text_ symbol in the top-right to open the _document outline_
+- Chunk names are shown in _italics_
+- Section Names in plain text
+
+Check the help for a guide to the syntax.
+
+`Help > Markdown Quick Reference`
+
+- This describes the text formatting options: 
+    + Bold is indicated by \*\*Knit\*\* (or \_\_Knit\_\_)
+    + Italics can be indicated using a single asterisk/underline: \*Italics\* or \_Italics\_
+
+
+## Compiling The Report
+
+The default format is an `html_document` & we can change this later.
+Generate the default document by clicking `Knit HTML`
+
+![](images/knit.png)
+
+A preview window will appear with the compiled report
+
+- Note the hyperlink to the RMarkdown website & the bold typeface for the word **Knit**
+- The *R* code and the results are printed for `summary(cars)`
+- The plot of `temperature` Vs. `pressure` has been embedded
+- The code for the plot was hidden using `echo = FALSE`
+
+    
+We could also export this as an MS Word document by clicking the small 'down' arrow next to the word Knit.
+By default, this will be Read-Only, but can be helpful for sharing with collaborators.
+
+Saving as a `.PDF` may require an installation of $\LaTeX$, so we'll ignore that for now.
+
+## Making our own report
+
+Now we can modify the code to create our own analysis.
+
+- Delete everything in your R Markdown file EXCEPT the header
+- We'll analyse the `PlantGrowth` dataset which comes with `R`
+- First we'll need to describe the data
+
+```{r, eval=FALSE}
+?PlantGrowth
+```
+
+### Rename the report
+
+First we should change the title of the report to something suitable, e.g. *The Effects of Two Herbicide Treatments on Plant Growth*
+
+### Create a ``Data Description" Section
+
+Now let's add a section header for our analysis to start the report
+
+1. Type `# Data Description` after the header and after leaving a blank line
+2. Use your own words to describe the data
+
+My example text was:
+
+> Plants were treated with two different herbicides and the effects on growth were compared using the dried weight of the plants after one month.
+Both treatments were compared to a control group of plants which were not treated with any herbicide.
+Each group contained 10 plants, giving a total of 30 plants.
+
+Hopefully you mentioned that there were 10 plants in each group, with a total of 30.
+
+__Can we get that information from the data itself?__
+
+We know that the code `nrow(PlantGrowth)` would give the total number of samples.
+__We can embed this in our data description!__
+
+1. Instead of the number 30 in your description, enter \`r` nrow(PlantGrowth)`\`
+2. Recompile the HTML document.
+
+### Loading *R* packages
+
+1. Before the Data Description header, add a new header called `Required Packages`
+2. Create a code chunk with the contents `library(dplyr)`.
+3. Recompile the HTML
+
+**Hint: You can create an empty code chunk using** `Ctrl+Alt+I`
+
+This has loaded the package `dplyr` for the whole document.
+All subsequent code chunks can use any functions in the package.
+
+Notice that loading `dplyr` gave us an overly informative message.
+We can turn this off by editing the chunk header.
+
+1. After the `r` at the start of the code chunk, add a comma
+2. Start typing the word `message` and use the auto-complete feature to set `message = FALSE`
+3. Recompile
+
+After our description, we could also have a look at the data in a summary.
+Add the following in a code chunk.
+
+```{r, eval=FALSE}
+PlantGrowth %>% 
+  group_by(group) %>% 
+  summarise(n = n(),
+            Mean = mean(weight)) 
+```
+
+(Recompile...)
+
+### Formatting Output
+
+To change this table into a nicely formatted one, we can use the package `pander`
+
+1. Load `pander` into the workspace by placing `library(pander)` below `library(dplyr)`
+
+Then head back to the code chunk and add the following.
+Note that we have to remove the pretty `tibble` wrapping paper for this to work, which we do by converting to a generic `data.frame` object.
+
+```{r, eval=FALSE}
+PlantGrowth %>% 
+  group_by(group) %>% 
+  summarise(n = n(),
+            Mean = mean(weight)) %>%
+	as.data.frame %>%
+  pander(caption = "Sample Sizes and average weights for each group")
+```
+
+(Recompile...)
+
+The package `pander` is great for formatting `R` output as well, including vectors.
+Add the following line to your data description:
+
+> "The three groups are classified as \``r` `pander(levels(PlantGrowth[,"group"]))`\`"
+
+
+### Add a plot of the data
+
+We can use `ggplot2` for this
+
+1. Load this package back in the **Required Packages** section
+2. Create a plot using `geom_boxplot()`
+3. Fill the boxes based on the `group` variable
+
+
+```{r, echo=FALSE}
+library(ggplot2)
+```
+
+
+```{r, echo = TRUE, eval=FALSE}
+ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "Treatment Group", y = "Dried Weight (g)")
+```
+
+### Analyse the data
+
+Here we can fit a simple linear regression using:
+
+- `weight` as the response variable
+- `group` as the predictor variable
+
+To fit a linear model in `R`:
+
+1. Use the function `lm()`
+2. Save the results as a new object
+
+```{r}
+model_fit <- lm(weight ~ group, data = PlantGrowth)
+```
+
+We can view the `summary()` or `anova()` for a given model using
+
+```{r, results='hide'}
+summary(model_fit)
+anova(model_fit)
+```
+
+To place these as formatted tables in the text we can use `pander()`
+
+```{r, eval=FALSE}
+model_fit %>% summary() %>% pander()
+```
+
+```{r, eval=FALSE}
+model_fit %>% anova() %>% pander()
+```
+
+You can change the default captions if you like
+
+### Finishing the analysis
+
+After you're happy with the way your analysis looks
+
+- A good habit is to finish with a section called `Session Info`
+- Add a code chunk which calls the *R* command `sessionInfo()`
+
+So far we've been compiling everything as HTML, but let's switch to an MS Word document.
+We could email this to our supervisors, or upload to Google docs for collaborators...
+
+## Summary
+
+This basic process is incredibly useful
+
+- We never need to cut & paste anything between R and other documents
+- Every piece of information can be drawn directly from our *R* analysis
+- We can very easily incorporate new data as it arrives
+- We can describe our code using either comments, or plain text in the surrounding paragraphs
+- Creates *reproducible research*

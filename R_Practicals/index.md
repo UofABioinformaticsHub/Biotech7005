@@ -12,3 +12,8 @@ Please download this and extract as a directory called `data` within a directory
 
 [1 Introduction](1_Introduction_To_R.html)
 [2 Editing Data](2_EditingData.html)
+
+## Practical 2: 31st July, 2017
+
+[3 Plotting Data](3_PlottingData.html)
+[4 RMarkdown]
