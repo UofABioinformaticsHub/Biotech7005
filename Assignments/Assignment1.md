@@ -20,5 +20,5 @@ Your answers to all questions should be submitted to myUni as a single R markdow
 Please answer on the same `*.Rmd` file as the first section, using a new markdown heading for this section.
 
 1. Two common file types are `.csv` and `tsv`. What is the difference between the two, and can you suggest a function for loading a `.tsv` file into R? [*3 marks*]
-2. Three types of message output commonly seen in R are 1) error messages, 2) warnings and 3) general messages. Briefly describe the relevance of each type of message. [*3 marks*]
+2. Three types of message output commonly seen in R are 1) error messages, 2) warnings and 3) general messages. Briefly describe the importance of each type of message and what information they are conveying. [*3 marks*]
 3. What is the difference between an integer and a floating point value? Floats are sometimes called "doubles". What does this mean? [*3 marks*]
