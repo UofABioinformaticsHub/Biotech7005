@@ -317,7 +317,7 @@ head(pcrLong)
 This time we have a plain `data.frame` without the pretty `tibble` wrapping paper on it, so can avoid the 'information dump' on our screens by looking at the first few rows using `head()`.
 
 If we wanted to return this to wide form we can use the function `dcast()`.
-NOw we are seeing the `R` formula syntax with the `~` symbol for the first time.
+Now we are seeing the `R` formula syntax with the `~` symbol for the first time.
 This can be taken to mean `depends on` and in this context that value before the `~` will produce the row variable, whilst the values following will produce the column variables.
 
 
@@ -325,6 +325,9 @@ This can be taken to mean `depends on` and in this context that value before the
 dcast(pcrLong, Gene~Treatment)
 dcast(pcrLong, Treatment~Gene)
 ```
+
+In addition to the convenience of this form for many statistical processes and plotting, this makes removal of encoded missing values simple.
+We could simply remove them from the `Ct` column using the `filter()` function from `dplyr`.
 
 ## Regular Expressions
 

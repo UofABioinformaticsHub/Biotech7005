@@ -1,0 +1,99 @@
+#' Used to simulate RT-PCR data for assignment1
+#' 
+#' @author Steve Pederson
+#'
+#' @details 
+#' This will take a list of student IDs and simulate a complete dataset for each student
+#' The dataset will consist of 2 cell types and 2 treatments across 4-10 donors.
+#' Measurements are for a single gene.
+#' 
+#' Attributes which are simulated to change for each student will be the gene name, cell type, 
+#' treatment, text delineator and sample size.
+#' 
+#' In addition to the raw data, missing values will be added at random.
+#' 
+#' Metadata about each object will be added in the first few lines, 
+#' using a mixture of comment symbols.
+#' Some files will contain an additional blank line after the header
+library(dplyr)
+library(tibble)
+library(readr)
+library(stringr)
+library(magrittr)
+
+students <- read_tsv("../enrolments.tsv")
+ids <- students$Emplid
+
+# Set the possible cell comparisons
+cellComparisons <- c("Th", "Treg", 
+                     "MCF7", "BT549", 
+                     "HeLa", "LNCaP",
+                     "HEK293", "CD25Hi",
+                     "Jurkat", "CD34+",
+                     "PBMC", "CD4+",
+                     "NKT", "CD8+",
+                     "Naive", "Memory",
+                     "CD141+", "CD303+",
+                     "Liver", "Kidney") %>%
+  matrix(ncol = 2, byrow = TRUE)
+
+# Define the treatments
+treats <- c("WT", "KO",
+            "Control", "Transfected",
+            "Control", "TCM",
+            "Methotrexate", "Cyclophosphamide",
+            "ZIKV-", "ZIKV+") %>%
+  matrix(ncol = 2, byrow = TRUE)
+
+# Define the comment chars
+chars <- c("#", "<!--", "@", "%", "_", "//", "--")
+
+# Define the missings
+nas <- c("-", "9999", "#N/A", "")
+
+# Genes
+genes <- c("FOXP3", "TGFB", "IL-2", "IL-17", "ITGA", "RORa", "SATB1", "NELL2", "SEPT9", "JUN")
+
+ids %>%
+  lapply(function(x){
+    
+    set.seed(x)
+    
+    # Sample the basic info
+    ct <- cellComparisons[sample.int(nrow(cellComparisons), 1),]
+    tr <- treats[sample.int(nrow(treats), 1),]
+    cols <- mutate(expand.grid(ct, tr), phenotype = paste(Var1, Var2, sep = "_"))$phenotype
+    gn <- sample(genes, 1)
+    
+    # Sort out the header
+    cmt <- sample(chars, 1)
+    blankLine <- as.logical(sample(c(0, 1), 1, prob = c(0.7, 0.3)))
+    hdr <- c(paste(cmt, "This data contains dCt values for", gn, "in", ct[1], "&", ct[2], "cells."),
+             paste(cmt, "Cells are defined as", tr[1], "&", tr[2], "depending on their treatment type."))
+    if(blankLine) hdr <- c(hdr, "")
+
+    # Create sampled values
+    n <- sample(5:10, 1)
+    reps <- paste0("Replicate ", str_pad(seq(1:n), width = 2, pad = "0"))
+    meanCt <- runif(4, 8, 15)
+    vals <- rnorm(n*4, rep(meanCt, each = n)) %>% matrix(ncol = 4)
+    colnames(vals) <- cols
+    rownames(vals) <- reps
+
+    # Remove some values. Don't sample missing values if there is a blank line
+    if (!blankLine) {
+      naIndex <- sample(n*4, 1)
+      vals[naIndex] <- sample(nas, 1)
+    }
+    vals %<>% as.data.frame()
+    
+    # Add the gene & replicate information, leaving out the column name for Reps
+    vals %<>% rownames_to_column("Rep")
+    vals$Gene <- gn
+    vals %<>% select(` ` = Rep, Gene, everything())
+    
+    # Write the header, then the data
+    outFile <- file.path("..", "Assignments", "DataForA1", paste0("a", x, ".csv"))
+    writeLines(hdr, outFile)
+    write_csv(vals, outFile, append = TRUE, col_names = TRUE)
+  })

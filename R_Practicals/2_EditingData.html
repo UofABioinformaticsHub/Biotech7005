@@ -297,9 +297,10 @@ melt(pcrData, id.vars = &quot;Gene&quot;)</code></pre>
 <pre class="r"><code>pcrLong &lt;- melt(pcrData, id.vars = &quot;Gene&quot;, variable.name = &quot;Treatment&quot;, value.name = &quot;Ct&quot;)
 head(pcrLong)</code></pre>
 <p>This time we have a plain <code>data.frame</code> without the pretty <code>tibble</code> wrapping paper on it, so can avoid the ‘information dump’ on our screens by looking at the first few rows using <code>head()</code>.</p>
-<p>If we wanted to return this to wide form we can use the function <code>dcast()</code>. NOw we are seeing the <code>R</code> formula syntax with the <code>~</code> symbol for the first time. This can be taken to mean <code>depends on</code> and in this context that value before the <code>~</code> will produce the row variable, whilst the values following will produce the column variables.</p>
+<p>If we wanted to return this to wide form we can use the function <code>dcast()</code>. Now we are seeing the <code>R</code> formula syntax with the <code>~</code> symbol for the first time. This can be taken to mean <code>depends on</code> and in this context that value before the <code>~</code> will produce the row variable, whilst the values following will produce the column variables.</p>
 <pre class="r"><code>dcast(pcrLong, Gene~Treatment)
 dcast(pcrLong, Treatment~Gene)</code></pre>
+<p>In addition to the convenience of this form for many statistical processes and plotting, this makes removal of encoded missing values simple. We could simply remove them from the <code>Ct</code> column using the <code>filter()</code> function from <code>dplyr</code>.</p>
 </div>
 </div>
 <div id="regular-expressions" class="section level2">
