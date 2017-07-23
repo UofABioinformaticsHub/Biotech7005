@@ -21,7 +21,7 @@ library(readr)
 library(stringr)
 library(magrittr)
 
-students <- read_tsv("../enrolments.tsv")
+students <- read_tsv("enrolments.tsv")
 ids <- students$Emplid
 
 # Set the possible cell comparisons
@@ -93,7 +93,7 @@ ids %>%
     vals %<>% select(` ` = Rep, Gene, everything())
     
     # Write the header, then the data
-    outFile <- file.path("..", "Assignments", "DataForA1", paste0("a", x, ".csv"))
+    outFile <- file.path("Assignments", "DataForA1", paste0("a", x, ".csv"))
     writeLines(hdr, outFile)
     write_csv(vals, outFile, append = TRUE, col_names = TRUE)
   })
