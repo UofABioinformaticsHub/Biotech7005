@@ -52,3 +52,12 @@ Download this file and begin the installation by double-clicking on the file
 The version we need is the Desktop version, which is available [here](https://www.rstudio.com/products/rstudio/download/#download)
 The installer itself is also available [here](https://download1.rstudio.org/RStudio-1.0.143.exe).
 Download and install using the default settings.
+
+
+## Installing packages
+
+Once you have R and RStudio installed, please copy the following code into R
+
+```
+install.packages(c("dplyr", "reshape2", "ggplot2"))
+```

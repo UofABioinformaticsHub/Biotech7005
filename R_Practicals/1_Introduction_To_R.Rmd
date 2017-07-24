@@ -45,9 +45,9 @@ Please follow instructions for your OS, and install `R` on your laptop.
 Only install R. 
 We will install RStudio next.
 
-- [Ubuntu](install/ubuntuInstall.md)
-- [OSX](install/osxInstall.md)
-- [Windows](install/windowsInstall.md)
+- [Ubuntu](install/ubuntuInstall)
+- [OSX](install/osxInstall)
+- [Windows](install/windowsInstall)
 
 ### Running R
 
@@ -421,7 +421,7 @@ transport <- read_csv("path/to/file", skip = 3)
 
 **What do you think the argument `trim_ws` does?**
 
-```{r}
+```{r, echo = FALSE}
 opts_chunk$set(eval = FALSE)
 ```
 

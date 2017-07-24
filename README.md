@@ -60,7 +60,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
-| Assessment 1 | R programming | 7% | Friday 4th August |
+| [Assessment 1](Assignments/Assignment1) | R programming | 7% | Friday 4th August |
 | Assessment 2 | Command-line | 7% | Friday 18th August |
 | Assessment 3 | Evolutionary processes | 7% | Friday 25th August |
 | Assessment 4 | NGS data practical | 7% | Friday 8th September |

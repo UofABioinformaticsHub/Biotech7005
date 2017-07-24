@@ -49,5 +49,13 @@ sudo gdebi -n rstudio-1.0.143-amd64.deb
 rm rstudio-1.0.143-amd64.deb
 ```
 
+# Installing packages
+
+Once you have R and RStudio installed, please copy the following code into R
+
+```
+install.packages(c("dplyr", "reshape2", "ggplot2"))
+```
+
 
 [Back To Main Page](../index)

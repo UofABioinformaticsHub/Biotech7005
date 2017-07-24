@@ -12,3 +12,11 @@ Install `R` from [CRAN](https://cran.r-project.org/bin/macosx/)
 # RStudio
 
 Then `RStudio` from [the RStudio Website](https://www.rstudio.com/products/rstudio/download/#download)
+
+# Installing packages
+
+Once you have R and RStudio installed, please copy the following code into R
+
+```
+install.packages(c("dplyr", "reshape2", "ggplot2"))
+```
