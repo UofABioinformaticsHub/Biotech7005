@@ -1,0 +1,608 @@
+---
+title: "02 Statistics"
+subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
+author: "Steve Pederson"
+date: "3 August 2017"
+output: 
+  ioslides_presentation: 
+    widescreen: yes
+    css: custom.css
+    fig_caption: yes
+    logo: ../images/UoA_logo_col_vert.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(pander)
+library(magrittr)
+library(reshape2)
+```
+
+
+## Lecture Outline
+
+1. Hypothesis Testing
+    <!-- - The Null Hypothesis -->
+    <!-- - $t$-tests -->
+    <!-- - Wilcoxon Rank-Sum Tests -->
+    <!-- - Enrichment Tests -->
+2. Multiple Testing Considerations
+    <!-- - Controlling the FWER -->
+    <!-- - Controlling the FDR -->
+    
+# Hypothesis Testing
+
+## Sampling
+
+In biological research we often ask: 
+
+<center>**“Is something happening?”** or **“Is nothing happening?”**</center><br>
+
+We might be comparing:
+
+- Cell proliferation in response to antibiotics in media
+- mRNA abundance in two related cell types
+- Allele frequencies in two populations
+- Methylation levels across genomic regions
+    
+## Sampling | Examples 
+    
+Always involves measuring something:
+
+- Discrete values e.g. read counts, number of colonies
+- Continuous values e.g. $C_t$ values, fluorescence intensity
+    
+### Example 
+
+In the 1000 Genomes Project a risk allele for T1D has a frequency of $\pi$ = 0.07 in European Populations.  
+
+- **Does this mean, the allele occurs in exactly 7% of Europeans?**
+
+## Sampling | Examples 
+
+In our *in vitro* experiment, we found that 90% of HeLa cells were lysed by exposure to our drug.
+
+- **Does this mean that exactly 90% of HeLa cells will always be destroyed?**
+- **What does this say about *in vivo* responses to the drug?**
+
+## Sampling| Population Parameters {.build}
+
+- Every experiment is considered a random sample of the complete population
+- Experimentally-obtained values represent an **estimate** of the **true effect**
+- More formally referred to as **population-level** parameters
+
+All population parameters are considered to be fixed values, e.g. 
+
+- Allele frequency ($\pi$) in a population
+- The **average change** in mRNA levels 
+
+## Hypothesis Testing | The Null Hypothesis
+
+All classical statistical testing involves:
+
+1) a **Null Hypothesis** ($H_0$) and 
+2) an **Alternative Hypothesis** ($H_A$)
+
+**Why do we do this?**
+
+## Hypothesis Testing | The Null Hypothesis
+
+- We define $H_0$ so that if it's true: *we know what the data will look like* 
+- The alternate ($H_A$) includes every other possibility besides $H_0$
+
+A common hypothesis is
+
+$$
+H_0: \mu = 0 \quad Vs \quad H_A: \mu \neq 0
+$$
+
+Where $\mu$ represents some change in a value (e.g. mRNA expression levels)
+
+<br><center>**Why do we do this?**</center>
+
+## The Sample Mean
+
+For every experiment we conduct we can get two key values:
+
+1: The sample mean
+
+$$
+\bar{x} = \frac{1}{n}\sum_{i = i}^n x_i
+$$
+
+This ($\bar{x}$) is our estimate of the population-level mean (e.g. $\mu$)
+
+## The Sample Mean
+
+For every experiment we conduct we can get two key values:
+
+2: The sample variance
+
+$$
+s^2 = \frac{1}{n-1} \sum_{i = 1}^n (x_i - \bar{x})^2
+$$
+
+This ($s^2$) is an estimate of the population-level variance ($\sigma^2$)
+
+## The Sample Mean | A qPCR Experiment
+
+- We are comparing expression levels of *FOXP3* in $T_{reg}$ and $T_h$ cells.
+- $C_t$ values are a measure of when the signal becomes detectable
+- The change within each donor is given as $\Delta \Delta C_t$ values (Change in normalised $C_t$ values)
+- $n = 4$ donors
+
+<center>$H_0: \mu = 0$ Vs $H_A: \mu \neq 0$ </center><br>
+
+where $\mu$ is the average change in *FOXP3* expression in the entire population
+
+## The Sample Mean | A qPCR Experiment
+
+Now we can get the sample mean:
+
+$$
+\bar{x} = \frac{1}{n}\sum_{i = i}^n x_i = \frac{1}{4}(x_1 + x_2 + x_3 + x_4)
+$$
+
+And the sample variance:
+
+$$
+s^2 = \frac{1}{n - 1} \sum_{i = 1}^n (x_i - \bar{x})^2
+$$
+
+## The Null Hypothesis
+
+In statistics, we know that
+
+$$
+\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{n})
+$$
+
+where:
+
+- $\mu$ represents the true population mean
+- $\sigma$ represents the variance in the population (probably unknown)
+
+## The Null Hypothesis
+
+So if $H_0$ is true (and we know $\sigma$), we know what the data will look like.
+
+- A simple transformation would give us a $Z$ statistic where $Z \sim \mathcal{N}(0, 1)$
+
+$$
+Z = \frac{\bar{x} - \mu}{\sigma / n}
+$$
+
+- If  $H_0$ is true $Z$ will come from $\mathcal{N}(0, 1)$
+- We compare our results (i.e. $Z$) to $\mathcal{N}(0, 1)$ and see if our results are likely or unlikely
+
+
+## The Null Hypothesis
+
+```{r}
+df <- data_frame(x = seq(-4, 4, length.out = 1000),
+           y = dnorm(x)) 
+```
+
+
+**If $H_0$ is true, where would we expect $Z$ to be?**  
+**If $H_0$ is NOT true, where would we expect $Z$ to be?**
+
+```{r, fig.show='asis', fig.align='center', fig.height=4}
+ggplot(df, aes(x = x, y = y)) +
+  geom_path() +
+  theme_bw() +
+  labs(x = "Z", y = "") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank())
+```
+
+## The Null Hypothesis
+
+**Would a value $Z > 1$ be likely if $H_0$ is `TRUE`?**
+
+```{r, echo=FALSE, fig.show='asis', fig.align='center', fig.height=4}
+ggplot(df, aes(x = x, y = y)) +
+  geom_path() +
+  geom_ribbon(data = df[df$x >1, ],
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+  geom_vline(xintercept = 1) +
+  theme_bw() +
+  labs(x = "Z", y = "") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank())
+```
+
+## The Null Hypothesis
+
+**Would a value $>2$ be likely if $H_0$ is `TRUE`?**
+
+```{r, echo=FALSE, fig.show='asis', fig.align='center', fig.height=4}
+ggplot(df, aes(x = x, y = y)) +
+  geom_path() +
+  geom_ribbon(data = df[df$x >2, ],
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+  geom_vline(xintercept = 2) +
+  theme_bw() +
+  labs(x = "Z", y = "") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank())
+```
+
+## $p$ Values
+
+- The area under all probability distributions adds up 1
+- The area to the right of 2, is the probability of obtaining $Z >2$
+- This is `r sprintf("%.3f", 1- pnorm(2))`
+- Thus **if $H_0$ is true, we know the probability of obtaining a $Z$-statistic $>2$**
+
+## $p$ Values
+
+**In our qPCR experiment, could the $\Delta \Delta C_t$ values be either side of zero?**
+
+- This means we also need to check the values for the other extreme
+- This distribution is symmetric around zero:
+    + $p(|Z| > 2)$ = $p(Z > 2) + P(Z < -2)$ 
+- Known as a *two-sided* test    
+
+## $p$ Values
+
+```{r, echo=FALSE, fig.show='asis', fig.align='center', fig.height=4}
+ggplot(df, aes(x = x, y = y)) +
+  geom_path() +
+  geom_ribbon(data = df[df$x >2, ],
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+  geom_ribbon(data = df[df$x < -2, ],
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+  geom_vline(xintercept = c(-2, 2)) +
+  theme_bw() +
+  labs(x = "Z", y = "") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank())
+```
+
+
+## $p$ Values
+
+$$
+Z = \frac{\bar{x} - \mu}{\sigma / n}
+$$
+
+1. We first calculate $Z$, and compare to $\mathcal{N}(0, 1)$ 
+2. We obtain the probability of obtaining a $Z$-statistic *at least as extreme* as our value
+    + If $H_0$ is true, $Z$ will come from $\mathcal{N}(0, 1)$
+    + If $H_0$ is NOT true, we have no idea where $Z$ will be. 
+    + It can be anywhere $-\infty < Z < \infty$
+    
+## $p$ Values
+
+### Definition
+
+> A $p$ value is the probability of observing data as extreme, or more extreme than we have observed, if $H_0$ is true.
+
+In our example so far:
+
+1. We calculated a test statistic $Z$ using $\mu = 0$ and $\sigma$
+2. Compared this to $\mathcal{N}(0, 1)$ to find the probability ($p$) of observing data as extreme, or more extreme, than we observed if $H_0$ is true
+3. If $p$ is low (e.g. $p<0.05$), we reject $H_0$ as unlikely and accept $H_A$
+
+## $t$-tests
+
+In reality, we will never know the population variance ($\sigma^2$), just like we will never know $\mu$
+
+- If we knew these values we wouldn't need to do any experiments
+- We can use our *sample variance* ($s^2$) to estimate $\sigma^2$
+
+**Due to the uncertainty introduced by using $s^2$ instead of $\sigma^2$ we can no longer compare to the $Z \sim \mathcal{N}(0, 1)$ distribution.**
+
+## $t$-tests
+
+Instead we use a $T$-statistic
+
+$$
+T = \frac{\bar{x} - \mu}{s / n}
+$$
+
+Then we compare to a $t$-distribution
+
+## $t$-tests | The t distribution
+
+The $t$-distribution is very similar to $\mathcal{N}(0, 1)$
+
+- Bell-shaped & symmetrical around zero
+- Has fatter tails $\implies$ extreme values are more likely
+- The parameter *degrees of freedom* (df) specifies how "fat" the tails are
+- As df $\rightarrow 0$ the tails get fatter
+
+
+## $t$-tests | The t distribution
+
+```{r, fig.show='asis', fig.align='center', fig.height=4.5}
+df %>% 
+  select(x) %>%
+  mutate(Z = dnorm(x),
+         t_3 = dt(x, df = 3),
+         t_10 = dt(x, df = 10)) %>%
+  melt(id.vars = "x") %>%
+  mutate(variable = factor(variable, levels = c("t_3", "t_10", "Z"))) %>%
+  ggplot(aes(x = x, y= value, colour = variable)) +
+  geom_line(size = 1)+
+  theme_bw() +
+  labs(x = "", y = "",colour = "Distribution") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = c(0.85, 0.7),
+        legend.text = element_text(size = 11))
+```
+
+## $t$-tests | Degrees Of Freedom
+
+At their simplest:
+
+$$
+df = n - 1
+$$
+
+As $n$ increases $s^2 \rightarrow \sigma^2$ and $\implies t_{df} \rightarrow Z$
+
+<!-- More samples:   -->
+<!-- $\implies$ less chance of an extreme value under $H_0$   -->
+<!-- $\implies$ more statistical power -->
+
+## Hypothesis Testing | Summary
+
+1. Define $H_0$ and $H_A$
+2. Calculate sample mean ($\bar{x}$) and variance ($s^2$)
+3. Calculate $T$-statistic and degrees of freedom
+4. Compare to $t_{df}$ and obtain probability of observing $\bar{x}$ if $H_0$ is true
+5. Accept or reject $H_0$ if $p < 0.05$ (or some other value)
+
+<!-- - This applies to most situations -->
+<!-- - Assumes data is normally distributed -->
+
+## Two Sample $t$-tests {.build}
+
+In the above we had the $\Delta \Delta C_t$ values within each donor.
+
+**What if we just had 4 values from each cell-type from different donors?**
+
+- We could use a two sample $t$-test to compare $\bar{x}_A$ and $\bar{x}_B$
+- The principle is the same, calculations are different
+
+## Two Sample $t$-tests 
+
+For $H_0: \mu_A = \mu_B$ Vs $H_A: \mu_A \neq \mu_B$
+
+1. Calculate the two sample means: $\bar{x}_A$ and $\bar{x}_B$
+2. Calculate the two sample variances $s_A^2$ and $s_B^2$
+3. Calculate the pooled denominator: $\text{SE}_{\bar{x}_A - \bar{x}_B}$
+    - Formula varies for equal/unequal variances
+4. Calculate the degrees of freedom
+    - Formula varies for equal/unequal variances
+    
+## Two Sample $t$-tests 
+
+$$
+T = \frac{\bar{x}_A - \bar{x}_B}{\text{SE}_{\bar{x}_A - \bar{x}_B}}
+$$
+
+If $H_0$ is true then
+
+$$
+T \sim t_{df}
+$$
+
+1. We  compare our test-statistic to this distribution
+2. Are we likely to see this value (or more extreme) under $H_0$?
+3. Accept or Reject $H_0$
+
+# Hypothesis Testing For Non-Normal Data
+
+## What if our data is not Normally Distributed {.build}
+
+**When would data not be Normally Distributed?**
+
+- Counts: These are discrete whilst normal data is continuous
+- Proportions: These are bound at 0 & 1, i.e. $0 < \pi < 1$
+- Data generated by Exponential, Uniform, Binomial etc. processes
+
+Two useful tests:
+
+- Wilcoxon Rank-Sum Test
+- Fisher's Exact Test
+
+## Wilcoxon Rank-Sum Test
+
+$H_0: \mu_A = \mu_B$ Vs $H_A: \mu_A \neq \mu_B$
+
+- Used for any two measurement groups which are not Normally Distributed.
+- Assigns each measurement a rank
+- Compares ranks between groups
+- Determines probability of observing differences in ranks
+- Also known as the Mann-Whitney Test
+
+## Fisher's Exact Test
+
+- Used for $2 \times 2$ tables (or $m \times n$) with counts and categories
+- Analogous to a Chi-squared ($\chi^2$) test but more robust to small values
+- Commonly used to test for enrichment of an event within one group above another group (GO terms; TF motifs; SNP Frequencies)
+
+## Fisher's Exact Test
+
+An example table
+
+```{r}
+x <-matrix(c(12, 20, 12, 4), ncol = 2) %>%
+  set_rownames(c("Upper Lakes", "Lower Plains")) %>%
+  set_colnames(c("A", "B"))
+knitr::kable(x)
+```
+
+<br>$H_0:$ No association between allele frequencies and location  
+$H_A:$ There **is** an association between between allele frequencies and location
+
+## Fisher's Exact Test
+
+- We find the probability of obtaining tables with more extreme distributions, holding row and column totals fixed
+- Can also be defined using the hypergeometric distribution
+
+
+# Error Types and Multiple Hypothesis Testing 
+
+## Rejection of $H_0$
+
+> A $p$ value is the probability of observing data as (or more) extreme if $H_0$ is true.
+
+We commonly reject $H_0$ if $p < 0.05$
+
+**How often would we incorrectly reject $H_0$?**
+
+## Rejection of $H_0$
+
+> A $p$ value is the probability of observing data as (or more) extreme if $H_0$ is true.
+
+We commonly reject $H_0$ if $p < 0.05$
+
+**How often would we incorrectly reject $H_0$?**
+
+1 in 20 times, we will see $p < 0.05$ if $H_0$ is true
+
+## Error Types
+
+- Type I errors are when we reject $H_0$ but $H_0$ is true
+- Type II errors are when we accept $H_0$ when $H_0$ is false
+
+|                    | $H_0$ `TRUE` | $H_0$ `FALSE` |
+| ------------------:| ------------ | ------------- |
+| Reject $H_0$       | Type I Error | $\checkmark$  |
+| Don't Reject $H_0$ | $\checkmark$ | Type II Error |
+
+## Error Types
+
+**What are the consequences of each type of error?**
+
+Type I: Waste \$\$$ chasing dead ends  
+Type II: We miss a key discovery
+
+- In research, we usually try to minimise Type I Errors
+- Increasing sample-size reduces Type II Errors
+
+## Family Wise Error Rates
+
+1. Imagine we are examining every human gene (~25,000) for differential expression using RNASeq
+2. Imagine there are 1000 genes which are truly DE
+
+**How many times would we incorrectly reject $H_0$ using $p < 0.05$**
+
+## Family Wise Error Rates
+
+1. Imagine we are examining every gene ($m=$25,000) for differential expression using RNASeq
+2. Imagine there are 1000 genes which are truly DE
+
+**How many times would we incorrectly reject $H_0$ using $p < 0.05$**
+
+We effectively have 25,000 tests, with 24,000 times $H_0$ is true
+
+$\frac{25000 - 1000}{20} = 1200$ times
+
+**Could this lead to any research dead-ends?**
+
+## Family Wise Error Rates
+
+This is an example of the Family-Wise Error Rate (i.e. Experiment-Wise Error Rate)
+
+### Definition
+
+> The Family-Wise Error Rate (FWER) is the probability of making one or more false rejections of $H_0$
+
+In our example, the FWER $\approx 1$
+
+## Family Wise Error Rates
+
+What about if we lowered the rejection value to $\alpha = 0.001$?
+
+We would incorrectly reject $H_0$ once in every 1,000 times
+
+$\frac{25000 - 1000}{1000} = 24$ times
+
+The FWER is still $\approx 1$
+
+## The Bonferroni Adjusment
+
+- If we set the rejection value to $\alpha* = \frac{\alpha}{m}$ we control the FWER at the level $\alpha$
+- To ensure that $p$(one or more Type I errors) = 0.05 in our example:<br><br>$\implies$ Reject $H_0$ if $p < \frac{0.05}{25000}$
+
+**What are the consequences of this?**
+
+## The Bonferroni Adjusment
+
+- If we set the rejection value to $\alpha* = \frac{\alpha}{n}$ we control the FWER at the level $\alpha$
+- To ensure that $p$(one or more Type I errors) = 0.05 in our example:<br><br>$\implies$ Reject $H_0$ if $p < \frac{0.05}{25000}$
+
+**What are the consequences of this?**
+
+- Large increase in Type II Errors
+- BUT what we find we are very confident about $\implies$ we don't waste time and money on dead ends!
+
+## The False Discovery Rate
+
+- An alternative is to allow a small number of Type I Errors in our results $\implies$ we have a False Discovery Rate (FDR)
+- Instead of controlling the FWER at $\alpha = 0.05$, if we control the FDR at $\alpha = 0.05$ we allow up to 5% of our list to be Type I Errors
+
+Most common procedure is the Benjamini-Hochberg
+
+**What advantage would this offer?**
+
+## The False Discovery Rate
+
+- An alternative is to allow a small number of Type I Errors in our results $\implies$ we have a False Discovery Rate (FDR)
+- Instead of controlling the FWER at $\alpha = 0.05$, if we control the FDR at $\alpha = 0.05$ we allow up to 5% of our list to be Type I Errors
+
+Most common procedure is the Benjamini-Hochberg
+
+**What advantage would this offer?**
+
+- Lower Type II Errors
+- 5% chance we chase a dead end
+
+## The False Discovery Rate
+
+For those interested, the BH procedure for $n$ tests is (not-examinable)
+
+1. Arrange $p$-values in ascending order $p_{(1)}, p_{(2)}, ..., p_{(n)}$ 
+2. Find the largest number $k$ such that $p_{(k)} \leq \frac{k}{n}\alpha$
+3. Reject $H_0$ for all $H_{(i)}$ where $i \leq k$

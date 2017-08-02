@@ -1,0 +1,43 @@
+.gdbar img {
+  width: 200px !important;
+  height: 150px !important;
+  margin: 8px 8px;
+}
+
+.gdbar {
+  width: 300px !important;
+  height: 180px !important;
+}
+
+.footer {
+    color: black;
+    position: fixed;
+    top: 90%;
+    text-align:center;
+    width:50%;
+}
+
+.small{
+	font-size:12px;
+}
+
+.wifi{
+	font-size:150%;
+	margin-left: 80px;
+}
+
+pre{
+	font-size: 28px;
+	line-height: 36px;
+}
+
+slides > slide:not(.nobackground):before {
+  width: 100px;
+  height: 75px;
+  background-size: 100px 75px;
+}
+
+slides > slide {
+  line-height: 1.5;
+  font-size: 170%;
+}
