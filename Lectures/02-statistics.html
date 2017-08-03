@@ -283,7 +283,7 @@ s^2 = \frac{1}{n - 1} \sum_{i = 1}^n (x_i - \bar{x})^2
 <p>In statistics, we know that</p>
 
 <p>\[
-\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{n})
+\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
 \]</p>
 
 <p>where:</p>
@@ -302,7 +302,7 @@ s^2 = \frac{1}{n - 1} \sum_{i = 1}^n (x_i - \bar{x})^2
 </ul>
 
 <p>\[
-Z = \frac{\bar{x} - \mu}{\sigma / n}
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
 \]</p>
 
 <ul>
@@ -358,7 +358,7 @@ Z = \frac{\bar{x} - \mu}{\sigma / n}
 </article></slide><slide class=''><hgroup><h2>\(p\) Values</h2></hgroup><article  id="p-values-3">
 
 <p>\[
-Z = \frac{\bar{x} - \mu}{\sigma / n}
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
 \]</p>
 
 <ol>
@@ -404,7 +404,7 @@ Z = \frac{\bar{x} - \mu}{\sigma / n}
 <p>Instead we use a \(T\)-statistic</p>
 
 <p>\[
-T = \frac{\bar{x} - \mu}{s / n}
+T = \frac{\bar{x} - \mu}{s / \sqrt{n}}
 \]</p>
 
 <p>Then we compare to a \(t\)-distribution</p>
@@ -635,7 +635,7 @@ T \sim t_{df}
 </article></slide><slide class=''><hgroup><h2>Family Wise Error Rates</h2></hgroup><article  id="family-wise-error-rates">
 
 <ol>
-<li>Imagine we are examining every human gene (~25,000) for differential expression using RNASeq</li>
+<li>Imagine we are examining every human gene (\(m=\) 25,000) for differential expression using RNASeq</li>
 <li>Imagine there are 1000 genes which are truly DE</li>
 </ol>
 
@@ -644,7 +644,7 @@ T \sim t_{df}
 </article></slide><slide class=''><hgroup><h2>Family Wise Error Rates</h2></hgroup><article  id="family-wise-error-rates-1">
 
 <ol>
-<li>Imagine we are examining every gene ($m=$25,000) for differential expression using RNASeq</li>
+<li>Imagine we are examining every gene (\(m=\) 25,000) for differential expression using RNASeq</li>
 <li>Imagine there are 1000 genes which are truly DE</li>
 </ol>
 
@@ -690,7 +690,7 @@ T \sim t_{df}
 </article></slide><slide class=''><hgroup><h2>The Bonferroni Adjusment</h2></hgroup><article  id="the-bonferroni-adjusment-1">
 
 <ul>
-<li>If we set the rejection value to \(\alpha* = \frac{\alpha}{n}\) we control the FWER at the level \(\alpha\)</li>
+<li>If we set the rejection value to \(\alpha* = \frac{\alpha}{m}\) we control the FWER at the level \(\alpha\)</li>
 <li>To ensure that \(p\)(one or more Type I errors) = 0.05 in our example:<br><br>\(\implies\) Reject \(H_0\) if \(p &lt; \frac{0.05}{25000}\)</li>
 </ul>
 
@@ -730,11 +730,11 @@ T \sim t_{df}
 
 </article></slide><slide class=''><hgroup><h2>The False Discovery Rate</h2></hgroup><article  id="the-false-discovery-rate-2">
 
-<p>For those interested, the BH procedure for \(n\) tests is (not-examinable)</p>
+<p>For those interested, the BH procedure for \(m\) tests is (not-examinable)</p>
 
 <ol>
-<li>Arrange \(p\)-values in ascending order \(p_{(1)}, p_{(2)}, ..., p_{(n)}\)</li>
-<li>Find the largest number \(k\) such that \(p_{(k)} \leq \frac{k}{n}\alpha\)</li>
+<li>Arrange \(p\)-values in ascending order \(p_{(1)}, p_{(2)}, ..., p_{(m)}\)</li>
+<li>Find the largest number \(k\) such that \(p_{(k)} \leq \frac{k}{m}\alpha\)</li>
 <li>Reject \(H_0\) for all \(H_{(i)}\) where \(i \leq k\)</li>
 </ol></article></slide>
 

@@ -160,7 +160,7 @@ $$
 In statistics, we know that
 
 $$
-\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{n})
+\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
 $$
 
 where:
@@ -175,7 +175,7 @@ So if $H_0$ is true (and we know $\sigma$), we know what the data will look like
 - A simple transformation would give us a $Z$ statistic where $Z \sim \mathcal{N}(0, 1)$
 
 $$
-Z = \frac{\bar{x} - \mu}{\sigma / n}
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
 $$
 
 - If  $H_0$ is true $Z$ will come from $\mathcal{N}(0, 1)$
@@ -294,7 +294,7 @@ ggplot(df, aes(x = x, y = y)) +
 ## $p$ Values
 
 $$
-Z = \frac{\bar{x} - \mu}{\sigma / n}
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
 $$
 
 1. We first calculate $Z$, and compare to $\mathcal{N}(0, 1)$ 
@@ -329,7 +329,7 @@ In reality, we will never know the population variance ($\sigma^2$), just like w
 Instead we use a $T$-statistic
 
 $$
-T = \frac{\bar{x} - \mu}{s / n}
+T = \frac{\bar{x} - \mu}{s / \sqrt{n}}
 $$
 
 Then we compare to a $t$-distribution
@@ -523,14 +523,14 @@ Type II: We miss a key discovery
 
 ## Family Wise Error Rates
 
-1. Imagine we are examining every human gene (~25,000) for differential expression using RNASeq
+1. Imagine we are examining every human gene ($m=$ 25,000) for differential expression using RNASeq
 2. Imagine there are 1000 genes which are truly DE
 
 **How many times would we incorrectly reject $H_0$ using $p < 0.05$**
 
 ## Family Wise Error Rates
 
-1. Imagine we are examining every gene ($m=$25,000) for differential expression using RNASeq
+1. Imagine we are examining every gene ($m=$ 25,000) for differential expression using RNASeq
 2. Imagine there are 1000 genes which are truly DE
 
 **How many times would we incorrectly reject $H_0$ using $p < 0.05$**
@@ -570,7 +570,7 @@ The FWER is still $\approx 1$
 
 ## The Bonferroni Adjusment
 
-- If we set the rejection value to $\alpha* = \frac{\alpha}{n}$ we control the FWER at the level $\alpha$
+- If we set the rejection value to $\alpha* = \frac{\alpha}{m}$ we control the FWER at the level $\alpha$
 - To ensure that $p$(one or more Type I errors) = 0.05 in our example:<br><br>$\implies$ Reject $H_0$ if $p < \frac{0.05}{25000}$
 
 **What are the consequences of this?**
@@ -601,8 +601,8 @@ Most common procedure is the Benjamini-Hochberg
 
 ## The False Discovery Rate
 
-For those interested, the BH procedure for $n$ tests is (not-examinable)
+For those interested, the BH procedure for $m$ tests is (not-examinable)
 
-1. Arrange $p$-values in ascending order $p_{(1)}, p_{(2)}, ..., p_{(n)}$ 
-2. Find the largest number $k$ such that $p_{(k)} \leq \frac{k}{n}\alpha$
+1. Arrange $p$-values in ascending order $p_{(1)}, p_{(2)}, ..., p_{(m)}$ 
+2. Find the largest number $k$ such that $p_{(k)} \leq \frac{k}{m}\alpha$
 3. Reject $H_0$ for all $H_{(i)}$ where $i \leq k$
