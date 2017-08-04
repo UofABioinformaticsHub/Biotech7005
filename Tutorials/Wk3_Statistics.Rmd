@@ -137,7 +137,7 @@ hist(s2, breaks = 50)
 [Notice that the sample variances ($s^2$) are not normally distributed around the true variance ($\sigma = 1$).]
 
 We know the true value for the population mean of these random samples ($\mu = 5$).
-In reality, we wouldn't know this and we'd need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.
+In reality, **we wouldn't know this** and we'd need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.
 
 Let's test the hypothesis:
 
@@ -208,7 +208,7 @@ We also learned about:
 
 ### Q6
 
-We could do this for every column in our matrix of random samples, which we know is a sample of 10 from $\mathcal{N}(5, 1)$
+We could do this for every column in our matrix of random samples, which **we know** is a sample of 10 from $\mathcal{N}(5, 1)$
 
 ```{r}
 Tstat <- (colMeans(rnd) - 5) / (colSds(rnd) / sqrt(10))
@@ -234,7 +234,7 @@ sum(pValues < alpha)
 ```
 
 In `R` we can simply adjust our $p$-values using the function `p.adjust()`.
-This will give identical results to the above, but instead each adjusted-$p$ value will be $min(1, p*m)$, where $m = 1000$ represents the number of tests we are performing.
+This will give identical results to the above, but instead each adjusted-$p$ value will be $min(1, p*m)$, where $m = 1000$ and represents the number of tests we are performing.
 
 ```{r}
 adjustedP <- p.adjust(pValues, method = "bonferroni")

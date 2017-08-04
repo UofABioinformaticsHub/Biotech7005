@@ -268,7 +268,7 @@ lines(x, y)</code></pre>
 s2 &lt;- colVars(rnd)
 hist(s2, breaks = 50)</code></pre>
 <p>[Notice that the sample variances (<span class="math inline">\(s^2\)</span>) are not normally distributed around the true variance (<span class="math inline">\(\sigma = 1\)</span>).]</p>
-<p>We know the true value for the population mean of these random samples (<span class="math inline">\(\mu = 5\)</span>). In reality, we wouldn’t know this and we’d need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.</p>
+<p>We know the true value for the population mean of these random samples (<span class="math inline">\(\mu = 5\)</span>). In reality, <strong>we wouldn’t know this</strong> and we’d need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.</p>
 <p>Let’s test the hypothesis:</p>
 <p><span class="math display">\[
 H_0: \mu = 5 \quad \text{Vs} \quad H_A: \mu \neq 5
@@ -323,7 +323,7 @@ ggplot(data, aes(x = x, y = y)) +
 </ol>
 <div id="q6" class="section level3">
 <h3>Q6</h3>
-<p>We could do this for every column in our matrix of random samples, which we know is a sample of 10 from <span class="math inline">\(\mathcal{N}(5, 1)\)</span></p>
+<p>We could do this for every column in our matrix of random samples, which <strong>we know</strong> is a sample of 10 from <span class="math inline">\(\mathcal{N}(5, 1)\)</span></p>
 <pre class="r"><code>Tstat &lt;- (colMeans(rnd) - 5) / (colSds(rnd) / sqrt(10))
 pValues &lt;- 2*pt(abs(Tstat), df, lower.tail = FALSE)</code></pre>
 <p>In many analyses, we use <span class="math inline">\(p &lt; 0.05\)</span> to reject <span class="math inline">\(H_0\)</span></p>
@@ -338,7 +338,7 @@ pValues &lt;- 2*pt(abs(Tstat), df, lower.tail = FALSE)</code></pre>
 <p>We could use the Bonferroni procedure to reduce our Type I errors, and control the Family Wise Error Rate (FWER)</p>
 <pre class="r"><code>alpha &lt;- 0.05/1000
 sum(pValues &lt; alpha)</code></pre>
-<p>In <code>R</code> we can simply adjust our <span class="math inline">\(p\)</span>-values using the function <code>p.adjust()</code>. This will give identical results to the above, but instead each adjusted-<span class="math inline">\(p\)</span> value will be <span class="math inline">\(min(1, p*m)\)</span>, where <span class="math inline">\(m = 1000\)</span> represents the number of tests we are performing.</p>
+<p>In <code>R</code> we can simply adjust our <span class="math inline">\(p\)</span>-values using the function <code>p.adjust()</code>. This will give identical results to the above, but instead each adjusted-<span class="math inline">\(p\)</span> value will be <span class="math inline">\(min(1, p*m)\)</span>, where <span class="math inline">\(m = 1000\)</span> and represents the number of tests we are performing.</p>
 <pre class="r"><code>adjustedP &lt;- p.adjust(pValues, method = &quot;bonferroni&quot;)
 sum(adjustedP &lt; 0.05)</code></pre>
 <p>An alternative we briefly mentioned in lectures would be to allow a small number of false discoveries in our set of results. This is known as the FDR and we can easily obtain this in <code>R</code>.</p>
