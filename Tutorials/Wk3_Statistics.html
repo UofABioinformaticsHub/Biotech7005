@@ -147,7 +147,9 @@ $(document).ready(function () {
 <li><a href="#the-wilcoxon-rank-sum-test">The Wilcoxon Rank-Sum Test</a><ul>
 <li><a href="#q7">Q7</a></li>
 </ul></li>
-<li><a href="#fishers-exact-test">Fisher’s Exact Test</a></li>
+<li><a href="#fishers-exact-test">Fisher’s Exact Test</a><ul>
+<li><a href="#q8">Q8</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -162,7 +164,7 @@ $(document).ready(function () {
 <ol style="list-style-type: decimal">
 <li>Every experiment is a random sample of the complete set of all possible samples</li>
 <li>We define a <em>null hypothesis</em> (<span class="math inline">\(H_0\)</span>) so we can describe what our data will look like if there are no effects due to our experiment</li>
-<li>The sample mean (<span class="math inline">\(\bar{x}\)</span>) is Normally Distributed around the population mean</li>
+<li>The sample mean (<span class="math inline">\(\bar{x}\)</span>) is Normally Distributed around the population mean (<span class="math inline">\(\mu\)</span>)</li>
 <li>We can use our sample variance (<span class="math inline">\(s^2\)</span>) to estimate population variance (<span class="math inline">\(\sigma^2\)</span>)</li>
 <li>A <span class="math inline">\(T\)</span>-statistic can be calculated using the formula <br>
 <center>
@@ -186,7 +188,11 @@ $(document).ready(function () {
 <h3>Q1</h3>
 <p>In the following, try to describe the value that the experiment is investigating</p>
 <ol style="list-style-type: lower-alpha">
-<li>The SNP at <a href="http://exac.broadinstitute.org/variant/3-8787263-G-A" class="uri">http://exac.broadinstitute.org/variant/3-8787263-G-A</a> was found in 0.09% of 16366 South Asian genomes, and 0.05% of 8644 East Asian genomes. <em>What do these numbers represent?</em></li>
+<li>The SNP at <a href="http://exac.broadinstitute.org/variant/3-8787263-G-A" class="uri">http://exac.broadinstitute.org/variant/3-8787263-G-A</a> was found in 0.09% of 16366 South Asian genomes, and 0.05% of 8644 East Asian genomes.
+<ol style="list-style-type: lower-roman">
+<li><em>What do these numbers represent?</em></li>
+<li><em>Do you think that these values are normally distributed?</em></li>
+</ol></li>
 <li>In a qPCR experiment, the gene CTLA4 was found to be expressed in Treg cells at levels 10 times higher than those found in Th cells. <em>What is this number an estimate of?</em></li>
 <li>In three transfection experiments, the average transfection efficiency was found to be 6%. <em>What is this number estimating?</em></li>
 </ol>
@@ -241,7 +247,10 @@ nrow(rnd)</code></pre>
 <p>We could get the sample means from each column using the command <code>colMeans()</code> and plot a histogram.</p>
 <pre class="r"><code>xbar &lt;- colMeans(rnd)
 hist(xbar, breaks = 50, freq = FALSE)</code></pre>
-<p>This is a histogram of the sample means. Does it look like a normal distribution?</p>
+<p>This is a histogram of the sample means.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><em>Does it look like a normal distribution?</em></li>
+</ol>
 <p>We know from lectures that each sample mean will itself be a random sample from <span class="math display">\[
 \bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
 \]</span></p>
@@ -250,7 +259,7 @@ hist(xbar, breaks = 50, freq = FALSE)</code></pre>
 y &lt;- dnorm(x, mean = 5, sd = 1 / sqrt(10))
 hist(xbar, breaks = 50, freq = FALSE)
 lines(x, y)</code></pre>
-<p>We can clearly see that each sample mean is a single random sample from this distribution.</p>
+<p>We can clearly see that each sample mean is truly a single random sample from this distribution.</p>
 </div>
 <div id="q5" class="section level3">
 <h3>Q5</h3>
@@ -418,6 +427,8 @@ H_0: \text{There is no association between alleles and survival in hypoxic condi
 Vs \\
 H_A: \text{There is an association between alleles and survival in hypoxic conditions}
 \]</span></p>
+<div id="q8" class="section level3">
+<h3>Q8</h3>
 <ol style="list-style-type: lower-alpha">
 <li><em>Do you think there is an association just by looking at the data?</em></li>
 </ol>
@@ -428,6 +439,7 @@ H_A: \text{There is an association between alleles and survival in hypoxic condi
 <ol start="2" style="list-style-type: lower-alpha">
 <li><em>Would you reject <span class="math inline">\(H_0\)</span> using either test?</em></li>
 </ol>
+</div>
 </div>
 </div>
 
