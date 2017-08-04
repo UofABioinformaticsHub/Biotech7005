@@ -1,0 +1,348 @@
+---
+title: 'Biotech 7005: Statistics Tutorial'
+author: "Steve Pederson"
+date: "11 August 2017"
+output: 
+  html_document: 
+    fig_caption: yes
+    fig_width: 8
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, results = "hide",
+											fig.show = "hide",
+											message = FALSE, warning = FALSE)
+```
+
+
+# Single Hypothesis Testing
+
+## Recap
+
+In the lectures we discussed a few things:
+
+### Normally Distributed Data
+
+1. Every experiment is a random sample of the complete set of all possible samples
+2. We define a *null hypothesis* ($H_0$) so we can describe what our data will look like if there are no effects due to our experiment
+3. The sample mean ($\bar{x}$) is Normally Distributed around the population mean
+4. We can use our sample variance ($s^2$) to estimate population variance ($\sigma^2$)
+5. A $T$-statistic can be calculated using the formula <br> <center>$T = \frac{\bar{x} - \mu}{s / \sqrt{n}}$</center>
+6. We compare our $T$-statistic to a $t$-distribution to see how likely more extreme values are if $H_0$ is true, and reject $H_0$ if these $p$-values are suitably low.
+
+### Non-parametric Tests
+
+For data which is not normally distributed we learned two new tests besides a $t$-test
+
+1. The Wilcoxon Rank Sum Test
+2. Fisher's Exact Test
+
+## Exercises
+
+### Q1
+
+In the following, try to describe the value that the experiment is investigating
+
+a. The SNP at http://exac.broadinstitute.org/variant/3-8787263-G-A was found in 0.09% of 16366 South Asian genomes, and 0.05% of 8644 East Asian genomes. *What do these numbers represent?*
+b. In a qPCR experiment, the gene CTLA4 was found to be expressed in Treg cells at levels 10 times higher than those found in Th cells. *What is this number an estimate of?*
+c. In three transfection experiments, the average transfection efficiency was found to be 6%. *What is this number estimating?*
+
+### Q2
+
+The average age of all students at the University of Adelaide was calculated. *Is this an estimate? Explain your reasoning*
+
+
+### Q3
+
+a) We think that a gene will be silenced by overexpression of a targeted siRNA. *What would our null hypothesis and alternate hypothesis be?*
+b) We suspect that a given SNP will provide increased zebrafish survival in a low-oxygen environment. We place 100 fish in a low-oxygen tank, and 100 fish in a normal-oxygen tank for 6 hours. At the end, we collect the survivors in each tank and genotype them at this SNP, giving the following results:
+
+|          | Allele A | Allele B |
+|:-------- | --------:| --------:|
+| Normoxia | 10       |      32  |
+| Hypoxia  | 94       |      86  |
+
+*What would the null and alternate hypotheses be for this experiment?*
+
+
+### Q4
+
+`R` allows us to easily take random samples from a normal distribution.
+We can generate 10 random samples from $\mathcal{N}(5, 1)$ using the following code.
+
+```{r}
+x <- rnorm(n = 10, mean = 5, sd = 1)
+```
+
+We could then find the mean of our random sample using the following
+
+```{r}
+mean(x)
+```
+
+a) *Why was this value not equal to 5?*
+b) *Repeat the random sampling several times. Do you ever get 5 exactly?*
+
+We could actually repeat this 1000 times, very quickly in `R`.
+The following command will form a matrix with 1000 columns, and each column will be the 10 randomly sampled values.
+
+```{r}
+rnd <- replicate(1000, rnorm(n = 10, mean = 5, sd = 1))
+ncol(rnd)
+nrow(rnd)
+```
+
+We could get the sample means from each column using the command `colMeans()` and plot a histogram.
+
+```{r}
+xbar <- colMeans(rnd)
+hist(xbar, breaks = 50, freq = FALSE)
+```
+
+This is a histogram of the sample means. Does it look like a normal distribution?
+
+We know from lectures that each sample mean will itself be a random sample from 
+$$
+\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
+$$
+
+In our example, we have set $\mu = 5$, $\sigma = 1$ and $n = 10$.
+Let's overlay this distribution to check.
+
+```{r}
+x <- seq(3, 8, length.out = 100)
+y <- dnorm(x, mean = 5, sd = 1 / sqrt(10))
+hist(xbar, breaks = 50, freq = FALSE)
+lines(x, y)
+```
+
+We can clearly see that each sample mean is a single random sample from this distribution.
+
+### Q5
+
+In the above, we knew the variance ($\sigma = 1$) because we set this in our random sampling step.
+In reality we don't know this, so we use our sample variance ($s^2$) and a $t$-test.
+
+```{r}
+library(matrixStats)
+s2 <- colVars(rnd)
+hist(s2, breaks = 50)
+```
+
+[Notice that the sample variances ($s^2$) are not normally distributed around the true variance ($\sigma = 1$).]
+
+We know the true value for the population mean of these random samples ($\mu = 5$).
+In reality, we wouldn't know this and we'd need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.
+
+Let's test the hypothesis:
+
+$$
+H_0: \mu = 5 \quad \text{Vs} \quad H_A: \mu \neq 5
+$$
+
+
+To do this, we first calculate our $T$-statistic using:
+$$
+T = \frac{\bar{x} - \mu}{s / \sqrt{n}}
+$$
+Let's just do this on the first column to start with.
+
+```{r}
+Tstat <- (mean(rnd[,1]) - 5) / (sd(rnd[,1]) / sqrt(10))
+df <- 10 - 1
+```
+
+[NB: Here the degrees of freedom is n - 1]
+
+Let's check this against the distribution for $t_9$
+
+```{r}
+library(ggplot2)
+library(dplyr)
+x <- seq(-3, 3, length.out = 100)
+y <- dt(x, df)
+data <- data_frame(x = x, y = y)
+ggplot(data, aes(x = x, y = y)) +
+  geom_line() +
+  geom_ribbon(data = filter(data, x > abs(Tstat)),
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+	geom_ribbon(data = filter(data, x < -abs(Tstat)),
+              aes(x= x, ymax =y, ymin = 0),
+              fill = "grey") +
+  geom_vline(xintercept = c(-1, 1)*Tstat) +
+  theme_bw() +
+  labs(x = "Z", y = "") +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank(),
+        axis.line.x = element_line(colour = "black"),
+        panel.border = element_blank(),
+        panel.grid = element_blank())
+```
+
+a) *Do you think we have a low or high probability of observing this $t$-statistic?*
+Let's check
+
+```{r}
+2*pt(abs(Tstat), df, lower.tail = FALSE)
+```
+
+
+# Multiple Hypothesis Testing
+
+## Recap
+
+We also learned about:
+
+1. Type I and Type II errors
+2. The Family-Wise Error Rate (FWER)
+3. The Bonferroni Adjustment
+4. The False Discovery Rate
+
+### Q6
+
+We could do this for every column in our matrix of random samples, which we know is a sample of 10 from $\mathcal{N}(5, 1)$
+
+```{r}
+Tstat <- (colMeans(rnd) - 5) / (colSds(rnd) / sqrt(10))
+pValues <- 2*pt(abs(Tstat), df, lower.tail = FALSE)
+```
+
+In many analyses, we use $p < 0.05$ to reject $H_0$
+
+a) *How many pValues out of our $m = 1000$ tests do we see below 0.05?*
+
+```{r}
+sum(pValues < 0.05)
+```
+
+b) Should we reject $H_0$ for these random samples? 
+c) If so, would this be a correct rejection of $H_0$, a Type I error or a Type II error?
+
+We could use the Bonferroni procedure to reduce our Type I errors, and control the Family Wise Error Rate (FWER)
+
+```{r}
+alpha <- 0.05/1000
+sum(pValues < alpha)
+```
+
+In `R` we can simply adjust our $p$-values using the function `p.adjust()`.
+This will give identical results to the above, but instead each adjusted-$p$ value will be $min(1, p*m)$, where $m = 1000$ represents the number of tests we are performing.
+
+```{r}
+adjustedP <- p.adjust(pValues, method = "bonferroni")
+sum(adjustedP < 0.05)
+```
+
+An alternative we briefly mentioned in lectures would be to allow a small number of false discoveries in our set of results.
+This is known as the FDR and we can easily obtain this in `R`.
+
+```{r}
+fdrP <- p.adjust(pValues, method = "fdr")
+sum(fdrP < 0.05) 
+```
+
+d) *Did you obtain different results using the two different methods?*
+e) *Explain why or why not?*
+
+# Non-parametric Testing
+
+## The Wilcoxon Rank-Sum Test
+
+All of the above examples refer to normally distributed data.
+Let's say we have some pretty extreme values.
+
+```{r}
+sample1 <- c(5.5, 2.45, 1000, 6)
+sample2 <- c(-1.1, 1.2, 2.4, -40)
+```
+
+### Q7
+
+a) *Do you think these values come from the same distribution?*
+
+Let's do a quick $t$-test in `R` and see what the results are.
+The null and alternative hypotheses for a $t$-test are:
+$$
+H_0: \mu_1 = \mu_2 \quad \text{Vs} \quad H_A: \mu_1 \neq \mu_2
+$$
+
+```{r}
+t.test(sample1, sample2)
+```
+
+We can clearly see that these two samples are drawn from different distributions.
+The problem is that our data is not normally distributed (especially sample 1) so the $t$-test cannot cope with these extreme violations of normality.
+
+An alternative would be the Wilcoxon Rank-Sum Test, where each value is given a rank and the ranks are compared.
+
+$$
+H_0: \text{The two samples are drawn from the same distribution} \\
+VS  \\
+H_A: \text{The two samples are drawn from different distributions}
+$$
+
+```{r}
+wTest <- wilcox.test(sample1, sample2)
+wTest
+```
+
+The ranks for each value can be seen using the following code:
+
+```{r}
+ order(c(sample1, sample2), decreasing = TRUE)
+```
+
+Note that because we use the ranks, instead of the values, this procedure is robust to changes in the actual values which don't affect the ranks.
+
+b) *If we change the value `1000` to `10` will it change the results of the Wilcoxon Rank Sum Test?*
+c) *Would it change the results for a $t$-test?*
+
+```{r}
+sample1[3] <- 10
+sample1
+t.test(sample1, sample2)
+wilcox.test(sample1, sample2)
+```
+
+## Fisher's Exact Test
+
+Fisher's Exact Test can be used for comparing counts in a $2 \times 2$ contingency table.
+In the hypoxia example above these values would be:
+
+```{r}
+counts <- matrix(c(10, 94, 32, 86), ncol = 2)
+rownames(counts) <- c("Normoxia", "Hypoxia")
+colnames(counts) <- c("Allele A", "Allele B")
+```
+
+```{r, echo=FALSE, results='asis'}
+pander::pander(counts, justify = c("lrr"))
+```
+
+Here the null hypothesis & alternative are:
+
+$$
+H_0: \text{There is no association between alleles and survival in hypoxic conditions} \\
+Vs \\
+H_A: \text{There is an association between alleles and survival in hypoxic conditions}
+$$
+
+a) *Do you think there is an association just by looking at the data?*
+
+In `R` we can simply conduct the test using `fisher.test()`
+
+```{r}
+fisher.test(counts)
+```
+
+Alternatively, we could've used a $\chi^2$ test, however we would've need to ensure that now cell in the table had an expected count $<5$.
+
+```{r}
+chisq.test(counts)
+```
+
+b) *Would you reject $H_0$ using either test?*
