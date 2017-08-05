@@ -4,6 +4,7 @@
 ## Week 3: Introduction to Bash
 {:.no_toc}
 
+* TOC
 {:toc}
 
 ### Introduction
