@@ -136,16 +136,20 @@ This is an essential skill when logged into an HPC or a VM.
 
 ### Important
 
-Although we haven't directly discovered it yet, a Linux-based file system such as Ubuntu or Mac OS-X is also *case-sensitive*, whilst Windows is not.
-For example, the command `PWD` is completely different to `pwd` and if `PWD` is the name of a command which has been defined in your shell, you will get completely different results than from the intended `pwd` command.
+*Although we haven't directly discovered it yet, a Linux-based file system such as Ubuntu or Mac OS-X is also *case-sensitive*, whilst Windows is not.
+For example, the command `PWD` is completely different to `pwd` and if `PWD` is the name of a command which has been defined in your shell, you will get completely different results than from the intended `pwd` command.*
 
 ### Looking at the Contents of a Directory
 
 There is another built-in command `ls` that we can use to **list** the contents of a directory.
+This is a way to get our familiar folder view in the terminal.
 Enter the `ls` command as it is and it will print the contents of the current directory.
 ```
 ls
 ```
+
+This is the list of files that we normally see in our graphical folder view.
+Check using this method if you'd like.
 
 Alternatively, we can specify which directory we wish to view the contents of, without having to change into that directory.
 We simply type the `ls` command, followed by a space, then the directory we wish to view the contents of.
@@ -161,10 +165,6 @@ Among them should be the `/home` directory which is one level above your own hom
 #### Questions
  Try to think of two ways we could inspect the contents of the `/home` directory from your own home directory.
 
-<div id="arrowHintButton">
-<div id="arrowHint">
-     When working in the terminal, you can scroll through your previous commands by using the up arrow to go backward, and the down arrow to move forward.
-     This can be a big time saver if you've typed a long command with a simple typo, or if you have to do a series of similar commands.
-</div>
-<button id="button" onclick="showhide()">Click For a Hint</button>
-</div>
+*Hint:
+When working in the terminal, you can scroll through your previous commands by using the up arrow to go backward, and the down arrow to move forward.
+This can be a big time saver if you've typed a long command with a simple typo, or if you have to do a series of similar commands.*
