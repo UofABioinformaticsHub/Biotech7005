@@ -162,9 +162,7 @@ Among them should be the `/home` directory which is one level above your own hom
  Try to think of two ways we could inspect the contents of the `/home` directory from your own home directory.
 
 <div id="arrowHint">
-     <p>
      When working in the terminal, you can scroll through your previous commands by using the up arrow to go backward, and the down arrow to move forward.
      This can be a big time saver if you've typed a long command with a simple typo, or if you have to do a series of similar commands.
-     </p>
-     <button id="button" onclick="showhide()">Click For a Hint</button>
 </div>
+<button id="button" onclick="showhide()">Click For a Hint</button>
