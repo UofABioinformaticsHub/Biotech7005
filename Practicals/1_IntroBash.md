@@ -90,7 +90,7 @@ The string `..` is the convention for *one directory above*, whilst a single dot
 
 
 Enter the above command and notice that the location immediately to the left of the \$ has now changed.
-This is also what will be given as the output if we enterd the command `pwd` again.
+This is also what will be given as the output if we entered the command `pwd` again.
 If we now enter
 ```
 cd ..
@@ -175,7 +175,7 @@ This can be a big time saver if you've typed a long command with a simple typo, 
 ### Creating a New Directory
 
 Now we know how to move around and view the contents of a directory, we should learn how to create a new directory using bash instead of the GUI folder you are used to.
-If you alredy have a directory for this course, navigate to this directory using the `cd` command, remembering that your home directory is represented by the `~` symbol.
+If you already have a directory for this course, navigate to this directory using the `cd` command, remembering that your home directory is represented by the `~` symbol.
 
 Now we are in a suitable location, let's create a directory called `Bash_Practical`, just like we did for the `R_Practicals`.
 To do this we use the `mkdir` command as follows:
@@ -383,19 +383,19 @@ For example, we can also use `touch` to create an empty file using the command s
 
 ### Tab auto-complete
 
-A very helpful & time-saving tool in the command line is the ability to automatically complete a command, file or directory name using the `< tab >` key.
+A very helpful & time-saving tool in the command line is the ability to automatically complete a command, file or directory name using the `<tab>` key.
 Move the the directory above the `Bash_Practical` directory using the `cd` command.
 (If you're already in this directory, you'll simply need `cd ..`).
 
-Now try typing `ls Bash` & then hit the `< tab >` key.
+Now try typing `ls Bash` & then hit the `<tab>` key.
 Notice how `Bash_Practical` is completed automatically!
 This functionality will automatically fill as far as it can until conflicting options are reached.
 In this case, there was only one option so it was able to complete all the way to the end of the file path.
-Where multiple options are present, you can hit the `< tab >` key twice and all options will be given to you.
+Where multiple options are present, you can hit the `<tab>` key twice and all options will be given to you.
 
 This can be used to also find command names.
-Type in `he` followed by two strike of the `< tab >` key and it will show you all of the commands that being with the string `he`, such as `head`, `help` or any others that may be installed on your computer.
-If we'd hit the `< tab >` key after typing `hea`, then the command `head` would have auto-completed, although clearly this wouldn't have saved you any typing.
+Type in `he` followed by two strike of the `<tab>` key and it will show you all of the commands that being with the string `he`, such as `head`, `help` or any others that may be installed on your computer.
+If we'd hit the `<tab>` key after typing `hea`, then the command `head` would have auto-completed, although clearly this wouldn't have saved you any typing.
 
 ## Putting It All Together
 
@@ -404,9 +404,9 @@ We'll download a file from the internet, then look through the file.
 **In each step remember to add the filename if it's not given!**
 
 1. Use the `cd` command to make sure you are in the folder `Bash_Practical`
-2. Use the command `wget` to download the `gtf` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
+2. Use the command `wget` to download the `gff` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
 3. Now unzip this file using the command `gunzip`.
-After typing `gunzip`, use tab auto-complete to add the file name.
+(Hint: After typing `gunzip`, use tab auto-complete to add the file name.)
 4. Change the name of the file to `dm6.gff` using the command `mv Drosophila_melanogaster.BDGP6.89.gff3 dm6.gff`
 5. Look at the first 10 lines using the `head` command
 6. Change this to the first 5 lines using `head -n5`
