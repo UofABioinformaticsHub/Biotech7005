@@ -13,6 +13,7 @@ Instructors:
 - Jimmy Breen
 - Stephen Pederson
 - Dan Kortschak
+- Hien To
 
 __*Course Contact*__
 Dan Kortschak
@@ -40,7 +41,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 |----------|------------|---------------|---------------|
 | **1** | 24/7 | Introduction to Bioinformatics (Dan)| [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
 | **2** | 31/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
-| **3** | 7/8  | Evolutionary Processes (Dan) | Command-line (Steve) (1) |
+| **3** | 7/8  | Evolutionary Processes (Dan) | [Introduction To Bash (Steve) (1)](Practicals/Bash_Practicals/1_IntroBash) |
 | **4** | 14/8 | Alignment Process (Dan) | Command-line (Steve) (2) |
 | **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 28/8 | Next-generation sequencing (Dan) | NGS data practical (Steve/Jimmy) (1) |
@@ -54,14 +55,14 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **12** | 23/10 | The Future — wooooooo (Dan) | Wrap-up (Jimmy/Dan/Steve)  |
 
 
-## Assessment 
+## Assessment
 
 ### Assessment Schedule & Weighting
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
 | [Assessment 1](Assignments/Assignment1) | R programming | 7% | Friday 4th August |
-| Assessment 2 | Command-line | 7% | Friday 18th August |
+| Assessment 2 | Bash Scripting | 7% | Friday 18th August |
 | Assessment 3 | Evolutionary processes | 7% | Friday 25th August |
 | Assessment 4 | NGS data practical | 7% | Friday 8th September |
 | Assessment 5 | RNAseq practical | 7% | Friday 15th September |
@@ -110,7 +111,3 @@ You have the freedom to choose any dataset you would like before we start week 5
 [How To Ask Questions The Smart Way](http://www.catb.org/esr/faqs/smart-questions.html)
 
 [How to write a good bug report](https://musescore.org/en/developers-handbook/how-write-good-bug-report-step-step-instructions)
-
-
-
-
