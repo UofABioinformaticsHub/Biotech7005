@@ -181,6 +181,7 @@ If you already have a directory for this course, navigate to this directory usin
 
 Now we are in a suitable location, let's create a directory called `Bash_Practical`, just like we did for the `R_Practicals`.
 To do this we use the `mkdir` command as follows:
+
 ```
 mkdir Bash_Practical
 ```
@@ -357,27 +358,27 @@ Inspect the `man` pages for the commands in the following table  & fill in the a
 Have a look at the useful options & try to understand what they will do if specified when invoking the command.
 Write your answers on a piece of paper, or in a plain text file.
 
-| **Command** | **Description of function**  | **Useful options** |
-|:----------- |:---------------------------- |:------------------ |
-| `man`       | Display on-line manual       | -k                 |
+| **Command** | **Description of function**   | **Useful options** |
+|:----------- |:----------------------------- |:------------------ |
+| `man`       | Display on-line manual        | -k                 |
 | `pwd`       | Print working directory, i.e show where you are | none commonly used |
-| `ls`        | List contents of a directory | -a, -h, -l         |
-| `cd`        | Change directory             | (scroll down in `man builtins` to find `cd`) |
-| `mv`        |                              | -b, -f, -u        |
-| `cp`        |                              | -b, -f, -u        |
-| `rm`        |                              | -r (careful...)   |
-| `rmdir`     |                              |                   |
-| `mkdir`     |                              | -p                |
-| `cat`       |                              |                   |
-| `less`      |                              |                   |
-| `wc`        |                              | -l                |
-| `head`      |                              | -n# (e.g., -n100) |
-| `tail`      |                              | -n# (e.g., -n100) |
-| `echo`      |                              |  -e               |
-| `cut`       |                              | -d, -f, -s        |
-| `sort`      |                              |                   |
-| `uniq`      |                              |                   |
-| `wget`      | (May not be available in `git bash`) |           |
+| `ls`        | List contents of a directory  | -a, -h, -l         |
+| `cd`        | Change directory              | (scroll down in `man builtins` to find `cd`) |
+| `mv`        |                               | -b, -f, -u         |
+| `cp`        |                               | -b, -f, -u         |
+| `rm`        |                               | -r (careful...)    |
+| `rmdir`     |                               |                    |
+| `mkdir`     |                               | -p                 |
+| `cat`       |                               |                    |
+| `less`      |                               |                    |
+| `wc`        |                               | -l                 |
+| `head`      |                               | -n# (e.g., -n100)  |
+| `tail`      |                               | -n# (e.g., -n100)  |
+| `echo`      |                               |  -e                |
+| `cut`       |                               | -d, -f, -s         |
+| `sort`      |                               |                    |
+| `uniq`      |                               |                    |
+| `wget`      | (Not available in `git bash`) |                    |
 
 
 Sometimes the side effects of a command can also be useful.
