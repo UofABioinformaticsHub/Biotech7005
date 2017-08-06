@@ -44,7 +44,7 @@ If you have Windows 8, you'll need to install git bash from the following link: 
 ## Initial Goals
 
 1. Gain familiarity and confidence within the Linux command-line environment
-2. Learn how to navigate directories, as well as to copy, move \& delete the files within them
+2. Learn how to navigate directories, as well as to copy, move & delete the files within them
 3. Look up the name of a command needed to perform a specified task
 
 ## Finding your way around
@@ -205,7 +205,7 @@ The above will give one or more lines of output, and one of the first lines shou
 
 `drwxrwxr-x 2 your_login_name your_login_name 4096 Aug 7 hh:mm Bash_Practical`
 
-where \texttt{mmm dd hh:mm} are time and date information.
+where `mmm dd hh:mm` are time and date information.
 
 The letter `d` at the beginning of the initial string of codes `drwxr-xr-x` indicates that this is a directory.
 Most often, these letters are known as flags which identify key attributes about each file or directory, and beyond the first flag (`d`) they appear in strict triplets.
@@ -280,3 +280,116 @@ Some options to try are: \\
 
 `Ctrl+c` is usually the first port of call when things go wrong.
 However, sometimes `Ctrl+c` doesn't work but `Ctrl+d` or `Ctrl+z` does.
+
+## Manuals and Help Pages
+
+### Accessing Manuals
+
+In order to help us find what options are able to be specified, every command built-in to the shell has a manual, or a help page which can take some time to get familiar with.
+*These help pages are displayed using the pager known as* `less` which essentially turns the terminal window into a text viewer so we can display text in the terminal window, but with no capacity for us to edit the text.
+
+To display the help page for `ls` enter the command
+```
+man ls
+```
+As beforehand, the space between the two is important & in the first word we are invoking the command `man` which then looks for the *manual* associated with the command `ls`.
+To navigate through the manual page, we need to know a few shortcuts which are part of the `less` pager.
+
+Although we can navigate through the `less` pager using up & down arrows on our keyboards, some helpful shortcuts are:
+
+| Command    | Action |
+|:---------- |:------ |
+| `<enter>`  | go down one line |
+| `spacebar` | go down one page (i.e. a screenful) |
+| `b`        | go **b**ackwards one page |
+| `<`        | go to the beginning of the document |
+| `>`        | go to the end of the document |
+| `q`        | quit |
+
+
+Look through the manual page for the `ls` command.
+
+#### Question
+{:.no_toc}
+
+*If we wanted to hide the group names in the long listing format, which extra options would we need set when searching our home directory?*
+
+We can also find out more about the `less` pager by calling it's own `man` page.
+Type the command:
+```
+man less
+```
+and the complete page will appear.
+This can look a little overwhelming, so try pressing `h` which will take you to a summary of the shortcut keys within `less`.
+There are a lot of them, so try out a few to jump through the file.
+
+A good one to experiment with would be to search for patterns within the displayed text by prefacing the pattern with a slash.
+Try searching for a common word like *the* or *to* to see how the function behaves, then try searching for something a bit more useful, like the word *move*.
+
+### Accessing Help Pages
+
+As well as entering the command `man` before the name of a command you need help with, you can often just enter the name of the command with the options `-h` or `--help` specified.
+Note the convention of a single hyphen which indicates an individual letter will follow, or a double-hyphen which indicates that a word will follow.
+Unfortunately the methods can vary a little from command to command, so if one method doesn't get you the manual, just try one of the others.
+
+Sometimes it can take a little bit of looking to find something and it's important to be realise we won't break the computer or accidentally launch a nuclear bomb when we look around.
+It's very much like picking up a piece of paper to see what's under it.
+If you don't find something  at first, just keep looking and you'll find it eventually.
+
+
+#### Questions
+{:.no_toc}
+
+Try accessing the manual for the command `man` all three ways.
+*Was there a difference in the output depending on how we asked to view the manual?*
+
+*Could we access the help page for the command `ls` all three ways?*
+
+
+### Some More Useful Commands
+
+So far we have explored the commands `pwd`, `cd`, `ls` & `man` as well as the pager `less`.
+Inspect the `man` pages for the commands in the following table  & fill in the appropriate fields.
+Have a look at the useful options & try to understand what they will do if specified when invoking the command.
+Write your answers on a piece of paper, or in a plain text file.
+
+| **Command** | **Description of function**  | **Useful options** |
+|:----------- |:---------------------------- |:------------------ |
+| `man`       | Display on-line manual       | -k (search for keywords if you don't know the command) |
+| `pwd`       | Print working directory, i.e show where you are | none commonly used |
+| `ls`        | List contents of a directory | -a, -h, -l         |
+| `cd`        | Change directory             | (scroll down in `man builtins` to find `cd`) |
+| `mv`        |                              | -b, -f, -u      |
+| `cp`        |                              | -b, -f, -u      |
+| `rm`        |                              | -r (careful...) |
+| `rmdir`     |                              |                 |
+| `mkdir`     |                              |                 |
+| `cat`       |                              |                 |
+| `less`      |                              |                 |
+| `wc`        |                              | -l              |
+| `head`      |                              | -n# (e.g., -n100) |
+| `tail`      |                              | -n# (e.g., -n100) |
+| `echo`      |                              |  -e               |
+| `cut`       |                              | -d, -f, -s        |
+| `sort`      |                              |                   |
+| `uniq`      |                              |                   |
+
+
+Sometimes the side effects of a command can also be useful.
+We can also use `touch` to create an empty file using the command string `touch filename`.
+
+### Tab auto-complete
+
+A very helpful & time-saving tool in the command line is the ability to automatically complete a command, file or directory name using the `< tab >` key.
+Move the the directory above the `Bash_Practical` directory using the `cd` command.
+(If you're in this directory, you'll simply need `cd ..`).
+
+Now try typing `ls Bash` & then hit the `< tab >` key.
+Notice how `Bash_Practical` is completed automatically!
+This functionality will automatically fill as far as it can until conflicting options are reached.
+In this case, there was only one option so it was able to complete all the way to the end of the file path.
+Where multiple options are present, you can hit the `< tab >` key twice and all options will be given to you.
+
+This can be used to also find command names.
+Type in `he` followed by two strike of the `< tab >` key and it will show you all of the commands that being with the string `he`, such as `head`, `help` or any others that may be installed on your computer.
+If we'd hit the `< tab >` key after typing `hea`, then the command `head` would have auto-completed, although clearly this wouldn't have saved you any typing.
