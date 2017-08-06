@@ -427,13 +427,14 @@ Instead of searching strictly for a word or text string, we can search using les
 For example, we could search for a sequence that is either `AGT` or `ACT` by using the patterns  `A[GC]T` or  `A(G|C)T`.
 These two patterns will search for an  `A`, followed by either a  `G` or  `C`, then followed strictly by a  `T`.
 Similarly a match to `ANNT` can be found by using the patterns `A[AGCT][AGCT]T` or  `A[AGCT]{2}T`.
+We'll dicuss that syntax below, so don't worry if those patterns didn't make much sense.
 
 Whilst the bash shell has a great capacity for searching a file to matches to regular expressions, this is where languages like *perl* and *python* offer a great degree more power.
 The commands `awk` & `sed` which we will look at later also use regular expressions to great effect.
 
 ## The command `grep`
 The built-in command which searches using regular expressions in the terminal is `grep`.
-This function searches a file or input on a line-by-line basis, so patterns contained with a linecan be found, but patterns split across lines are more difficult to find.
+This function searches a file or input on a line-by-line basis, so patterns contained with a line can be found, but patterns split across lines are more difficult to find.
 This can be overcome by using regular expressions in a programming language like Python or Perl.  
 
 The `man grep` page contains more detail on regular expressions under the `REGULAR EXPRESSIONS` header (scroll down a few pages).  
