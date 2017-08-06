@@ -135,8 +135,9 @@ Now we know how to navigate folders using `bash` instead of the GUI.
 This is an essential skill when logged into an HPC or a VM.
 
 ### Important
+{:.no_toc}
 
-*Although we haven't directly discovered it yet, a Linux-based file system such as Ubuntu or Mac OS-X is also *case-sensitive*, whilst Windows is not.
+*Although we haven't directly discovered it yet, a Linux-based file system such as Ubuntu or Mac OS-X is also* **case-sensitive**, *whilst Windows is not.
 For example, the command `PWD` is completely different to `pwd` and if `PWD` is the name of a command which has been defined in your shell, you will get completely different results than from the intended `pwd` command.*
 
 ### Looking at the Contents of a Directory
@@ -162,9 +163,120 @@ ls /
 Here you can see a whole raft of directories which contain the vital information for the computer's operating system.
 Among them should be the `/home` directory which is one level above your own home directory, and where the home directories for all users are located.
 
-#### Questions
+#### Question
+{:.no_toc}
+
  Try to think of two ways we could inspect the contents of the `/home` directory from your own home directory.
 
 *Hint:
 When working in the terminal, you can scroll through your previous commands by using the up arrow to go backward, and the down arrow to move forward.
 This can be a big time saver if you've typed a long command with a simple typo, or if you have to do a series of similar commands.*
+
+### Creating a New Directory
+
+Now we know how to move around and view the contents of a directory, we should learn how to create a new directory using bash instead of the GUI folder you are used to.
+If you alredy have a directory for this course, navigate to this directory using the `cd` command, remembering that your home directory is represented by the `~` symbol.
+
+Now we are in a suitable location, let's create a directory called `Bash_Practical`, just like we did for the `R_Practicals`.
+To do this we use the `mkdir` command as follows:
+```
+mkdir Bash_Practical
+```
+
+Importantly, this command can only make a directory directly below the one we are currently in.
+If automating this process via a script it is very important to understand the difference between *absolute* and *relative* paths, as discussed above.
+
+### Adding Options To Commands
+
+So far, the commands we have used were given either without the use of any subsequent arguments, e.g. `pwd` & `ls`, or with a specific directory as the second argument, e.g. `cd ../` & `ls /home`.
+Many commands have the additional capacity to specify different options as to how they perform, and these options are often specified between the command name, and the file being operated on.
+Options are commonly a single letter prefaced with a single dash (`-`), or a word prefaced with two dashes (`--`).
+The `ls` command can be given with the option `-l` specified between the command & the directory.
+This options gives the output in what is known as *long listing* format.
+
+*Inspect the contents of your current directory using the long listing format.
+Please make sure you can tell the difference between the characters `l` & `1`.*
+
+```
+ls -l
+```
+
+The above will give one or more lines of output, and one of the first lines should be something similar to:
+
+`drwxrwxr-x 2 your_login_name your_login_name 4096 Aug 7 hh:mm Bash_Practical`
+
+where \texttt{mmm dd hh:mm} are time and date information.
+
+The letter `d` at the beginning of the initial string of codes `drwxr-xr-x` indicates that this is a directory.
+Most often, these letters are known as flags which identify key attributes about each file or directory, and beyond the first flag (`d`) they appear in strict triplets.
+The first entry shows the file type and for most common files, this entry will be `-`.
+The triplet values `rwx` simply refer to who is able to read, write or execute the contents of the file or directory.
+These triplets refer to 1) the file's owner, 2) the current user & 3) all users, and will only contain the values "r" (read), "w" (write), "x" (execute) or "-" (not enabled).
+These are very helpful attributes for data security & protection against malicious software.
+
+The entries `your_login_name your_login_name` respectively refer to who is the owner of the directory (or file) & to which group of users it belongs.
+Again, this information won't be particularly relevant to us today, but this type of information is used to control who can read and write to a file or directory.
+Finally, the value `4096` is the size of the directory structure in bytes, whilst the date & time refer to when the directory was created.
+
+Let's look in your home directory (`~`).
+
+```
+ls -l ~
+```
+
+This directory should contain numerous files and folders.
+There is also a `-` instead of a `d` at the beginning of the initial string of flags will help indicate the difference between files and folders.
+On Ubuntu or git bash files and folders will also be displayed with different colours, but this may or may not be the case for those of you on OSX.
+
+There are many more options that we could specify to give a slightly different output from the `ls` command.
+Two particularly helpful ones are the options `-h` and
+`-R`.
+We could have specified the previous command as
+```
+ls -l -h ~
+```
+
+This will change the file size to `human-readable` format, whilst leaving the remainder of the output unchanged.
+Try it & you will notice that where we initially saw `4096` bytes, the size is now given as `4.0K`, and other file sizes will also b given in Mb etc.
+This can be particularly helpful for larger files, as most files in bioinformatics are very large indeed.
+
+The additional option `-R` tells the `ls` command to look through each directory recursively.
+If we enter
+
+```
+ls -l -R ~
+```
+
+the output will be given in multiple sections.
+The first is what we have seen previously, but following that will be the contents of each sub-directory.
+It should become immediately clear that the output from setting this option can get very large & long depending on which directory you start from.
+It's probably not a good idea to enter `ls -l -R /` as this will print out the entire contents of your file system.
+
+In the case of the `ls` command we can also specify all the above options together in the command \\
+```
+ls -lhR ~
+```
+
+This can often save some time, but it is worth noting that not all programmers write their commands in such a way that this convention can be followed.
+The built-in shell commands are usually fine with this, but many NGS data processing functions do not accept this convention.
+
+#### How To Not Panic
+{:.no_toc}
+
+It's easy for things to go wrong when working in the command-line, but if you've accidentally:
+
+- set something running which you need to exit or
+- if you can't see the command prompt, or
+- if the terminal is not responsive
+
+there are some simple options for stopping a process & getting you back on track.
+Some options to try are: \\
+
+| Command  | Result |
+|:-------- |:------ |
+| `Ctrl+c` | Kill the current job |
+| `Ctrl+d` | End of input         |
+| `Ctrl+z` | Suspend current job  |
+
+`Ctrl+c` is usually the first port of call when things go wrong.
+However, sometimes `Ctrl+c` doesn't work but `Ctrl+d` or `Ctrl+z` does.
