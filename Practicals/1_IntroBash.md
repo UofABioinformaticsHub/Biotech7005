@@ -1,4 +1,5 @@
 # Week 3 Practicals
+{:.no_toc}
 
 * TOC
 {:toc}

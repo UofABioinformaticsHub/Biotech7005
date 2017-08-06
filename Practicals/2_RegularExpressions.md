@@ -56,11 +56,11 @@ First change into your `Bash_Practical` directory, then enter the following comm
 
 - OSX: `cp /usr/share/dict/words words`
 - Ubuntu: `cp /usr/share/dict/words words`
+- Git Bash: Download the file from `http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt` into your `Bash_Practical` directory, then rename using `mv wordsEn.txt words`
 
-Change into this directory & page through the first few lines of the file to get an idea about what it contains.
-Make sure you're in the correct directory or else `grep` won't be able to find the file `words`.
+Now page through the first few lines of the file using `less` to get an idea about what it contains.
 
-Now let's try a few searches, and to get a feel for the basic syntax of the command, try to describe what you're searching for on your notes \textbf{BEFORE} you enter the command.
+Let's try a few searches, and to get a feel for the basic syntax of the command, try to describe what you're searching for on your notes **BEFORE** you enter the command.
 Do the results correspond with what you expected to see?
 
 ```
@@ -85,11 +85,10 @@ grep -E 'cat|dog' words
 grep -E '^w.+(cat|dog)' words
 ```
 
-
-
 In the above, we were changing the pattern to extract different results from the files.
 Now we'll try a few different options to change the output, whilst leaving the pattern unchanged.
 If you're unsure about some of the options, don't forget to consult the `man` page.
+
 ```
 grep -E 'louse' words
 ```
@@ -107,12 +106,12 @@ grep -c 'louse' words
 ```
 
 
-\begin{information}
 In most of the above commands we used the option `-E` to specify the extended version of `grep`.
 An alternative to this is to use the command `egrep`, which is the same as `grep -E`.
-\end{information}
+Repeat a few of the above commands using `egrep` instead of `grep -E`.
 
-\subsection{Pattern Matching in DNA sequences}
+## Pattern Matching in DNA sequences
+
 Now we can have a look through the RAD-Seq file that we moved & renamed earlier.
 Before we search the the file `RADSeq_R1.fq`, we should know what we this data actually is.
 These are a small subset of 100bp reads from a RAD-Seq experiment & are from the first sample in a set of paired reads.
