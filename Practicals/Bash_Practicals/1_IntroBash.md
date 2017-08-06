@@ -422,7 +422,7 @@ We'll download a file from the internet, then look through the file.
 ## Introduction
 Regular expressions are a powerful & flexible way of searching for text strings amongst a large document or file.
 Most of us are familiar with searching for a word within a file, but regular expressions allow us to search for these with more flexibility, particularly in the context of genomics.
-We briefly saw this idea in the `R` practical using he functions `str_extract()` and `str_replace()`.
+We briefly saw this idea in the `R` practical using the functions `str_extract()` and `str_replace()`.
 Instead of searching strictly for a word or text string, we can search using less strict matching criteria.
 For example, we could search for a sequence that is either `AGT` or `ACT` by using the patterns  `A[GC]T` or  `A(G|C)T`.
 These two patterns will search for an  `A`, followed by either a  `G` or  `C`, then followed strictly by a  `T`.
