@@ -603,7 +603,8 @@ for f in ${FILES};
 
 #### Task
 {:.no_toc}
-Save this as a script in the `Bash_Practical` folder called `lineCount.sh`, but add comments where you think you need them to understand what's happening.
+Save this as a script in the `Bash_Practical` folder called `lineCount.sh`.
+**Add comments** where you think you need them to make sure you understand what's happening.
 
 
 ## A More Advanced Script
