@@ -7,7 +7,7 @@ Your answers to all questions should be submitted to myUni as a `.zip` file cont
 ## Required scripts [*13 marks*]
 
 1. Write a script to:
-    + Download the gff3 file for your assigned species ([see bottom of page](species-for-question-1)) to your current directory from Ensembl [*1 mark*]
+    + Download the gff3 file for your assigned species ([see bottom of page](#species-for-question-1)) to your current directory from Ensembl [*1 mark*]
     + Count how many of each feature type there is [*2 marks*]
     + Export the results to a file with a name of the form `my_species_gff_features.txt` where you use your assigned species name instead of `my_species` [*1 mark*]
     + Include one or more comment lines before the table detailing which build of the genome was used, and the code executed to generate the summary [*2 marks*]
@@ -22,11 +22,11 @@ Your answers to all questions should be submitted to myUni as a `.zip` file cont
 
 In a single Rmarkdown file answer the following questions:
 
-1. Two strains of barley have bene genotyped at 100,000 SNPs. Differences between strains at each SNP are unknown, and of great interest to researchers investigating drought tolerance. 50 plants from each strain have been genotyped to estimate SNP frequencies between the two populations.
+1. Two strains of barley have been genotyped at 100,000 SNPs. Differences between strains at each SNP are unknown, and of great interest to researchers investigating drought tolerance. 50 plants from each strain have been genotyped to estimate SNP frequencies between the two populations.
     a) For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]
     b) Define $H_0$ and $H_A$ for each individual SNP. [*2 marks*]
     c) If there was no true difference in any SNP frequencies s between the two strains, how many p-values would you expect to see < 0.05 [*1 mark*]
-    d) Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP to have different frequencies betwen strains, i.e. to reject $H_0$ [*1 mark*]
+    d) Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP to have different frequencies between strains, i.e. to reject $H_0$ [*1 mark*]
 
 2. An experiment was repeated 5 times, in which GFP fluorescence was measured in a cell culture as a measurement of gene expression, both *before* and *after* treatment with rapamycin.
 GFP was present on a plasmid as a reporter for activity at a specific promoter.
