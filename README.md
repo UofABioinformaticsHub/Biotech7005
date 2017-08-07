@@ -77,7 +77,7 @@ Have you:
 
 - [ ] Answered all the questions?
 - [ ] Followed naming conventions for Assessments?
-- [ ] Attached an assessment coversheet?
+- [ ] Attached an assessment coversheet? (Available [here](http://www.sciences.adelaide.edu.au/current-students/forms/assessment%20cover%20sheet-28mar.pdf)).
 	- This is a course requirement. See the [Academic Honesty Policy](http://www.adelaide.edu.au/policies/230/).
 - [ ] Identified the work as yours?
 	- Emails should have the course and assessment task names.
