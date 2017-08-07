@@ -441,13 +441,13 @@ This is another optional coding style, but can also make things clear for you as
 Most command line tools use strictly lower-case names, so this is another reason the upper-case variable names can be helpful.
 
 #### Question
-{.:no_toc}
+{:.no_toc}
 In the above script, there are two variables.
 Although we have initially set them to be one value, they are still variables.
 *What are their names?*
 
 ### Writing and Executing Our First Script
-{.:no_toc}
+{:.no_toc}
 
 Let's create an empty file which will become our script.
 We'll give it the suffix `.sh` as that is the common convention for bash scripts.
@@ -489,7 +489,7 @@ You should see output similar to this:
 - Next come the three Read/Write/Execute triplets which are `rw-` followed by `rw-` and `r--`
 
 #### Question
-{.:no_toc}
+{:.no_toc}
 
 *Interpret the final triplet? What are these permissions indicating, and for whom?*
 
@@ -547,7 +547,7 @@ ls -lh *sh
 ```
 
 #### Question
-{.:no_toc}
+{:.no_toc}
 *What will the final 4 in the above settings do?*
 
 ### Modifying our script
@@ -602,7 +602,7 @@ for f in ${FILES};
 ```
 
 #### Task
-{.:no_toc}
+{:.no_toc}
 Save this as a script in the `Bash_Practical` folder called `lineCount.sh`, but add comments where you think you need them to understand what's happening.
 
 
@@ -666,7 +666,7 @@ Now run it passing the `.fa` file as the first argument.
 ./getLocations.sh Drosophila_melanogaster.BDGP6.ncrna.fa
 ```
 
-### Writing a Script To Include Options
+## Writing a Script To Include Options
 
 In our final script, we'll change this to allow specifying the file using an argument (or option).
 We'll also demonstrate a file checking step.
