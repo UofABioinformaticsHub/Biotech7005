@@ -23,19 +23,20 @@ Your answers to all questions should be submitted to myUni as a `.zip` file cont
 In a single Rmarkdown file answer the following questions:
 
 1. Two strains of barley have been genotyped at 100,000 SNPs. Differences between strains at each SNP are unknown, and of great interest to researchers investigating drought tolerance. 50 plants from each strain have been genotyped to estimate SNP frequencies between the two populations.
-    a) For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]
-    b) Define $H_0$ and $H_A$ for each individual SNP. [*2 marks*]
-    c) If there was no true difference in any SNP frequencies s between the two strains, how many p-values would you expect to see < 0.05 [*1 mark*]
-    d) Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP to have different frequencies between strains, i.e. to reject $H_0$ [*1 mark*]
+
+    a. For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]  
+    b. Define $H_0$ and $H_A$ for each individual SNP. [*2 marks*]  
+    c. If there was no true difference in any SNP frequencies s between the two strains, how many p-values would you expect to see < 0.05 [*1 mark*]  
+    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP to have different frequencies between strains, i.e. to reject $H_0$ [*1 mark*]
 
 2. An experiment was repeated 5 times, in which GFP fluorescence was measured in a cell culture as a measurement of gene expression, both *before* and *after* treatment with rapamycin.
 GFP was present on a plasmid as a reporter for activity at a specific promoter.
-The change in fluorescence obtained are given below as the vector `x`, presented on the log2 scale.
-    a) Define $H_0$ and $H_A$ [*2 marks*]
-    b) Calculate the sample mean and sample variance in `R` [*2 marks*]
-    c) Calculate the *T*-statistic using `R`. [*1 mark*]
-    d) What would the degrees of freedom be for a *t*-test? [*1 mark*]
-    e) Calculate the *p*-value using `R` [*1 mark*]
+The change in fluorescence obtained are given below as the vector `x`, presented on the log2 scale.  
+    a. Define $H_0$ and $H_A$ [*2 marks*]  
+    b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
+    c. Calculate the *T*-statistic using `R`. [*1 mark*]
+    d. What would the degrees of freedom be for a *t*-test? [*1 mark*]  
+    e. Calculate the *p*-value using `R` [*1 mark*]
 
 ```{r}
 x <- c(3, 1.9, 2.7, 3.4, 4.1)
