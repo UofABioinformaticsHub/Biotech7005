@@ -41,8 +41,8 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 |----------|------------|---------------|---------------|
 | **1** | 24/7 | Introduction to Bioinformatics (Dan)| [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
 | **2** | 31/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
-| **3** | 7/8  | Evolutionary Processes (Dan) | [Introduction To Bash (Steve) (1)](Practicals/Bash_Practicals/1_IntroBash) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics)|
-| **4** | 14/8 | Alignment Process (Dan) | Introduction To Bash (Steve) (2) |
+| **3** | 7/8  | Evolutionary Processes (Dan) | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
+| **4** | 14/8 | Alignment Process (Dan) | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
 | **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 28/8 | Next-generation sequencing (Dan) | NGS data practical (Steve/Jimmy) (1) |
 | **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | NGS data practical (Steve/Jimmy) (2) |
