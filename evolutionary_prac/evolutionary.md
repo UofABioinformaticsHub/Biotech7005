@@ -204,10 +204,10 @@ Answer the questions in **bold** above.
 
 ### Maximum parsimony
 
-Given the phylogenetic tree below, calculate:
-1. the sequence of the top node;
-2. the Fitsch score for the tree; and
-3. the Sankoff (Generalised Parsimony) score for the tree.
+Given the phylogenetic tree below:
+1. How many positions can be unambiguously determined using the Fitsch algorithm?
+2. Calculate the Fitsch score for the tree; and
+3. the Sankoff (Generalised Parsimony) score for the tree and the root sequence.
 
 ![Parsimony Tree and Scores](parsimony-tree.png)
 
