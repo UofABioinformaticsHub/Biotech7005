@@ -50,8 +50,8 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **-** | 18/9 | Semester Break |
 | **-** | 25/9 | Semester Break |
 | **9** | 2/10 (PH) | Epigenetics (Jimmy) | No practical (PH) |
-| **10** | 9/10 | Introduction to Systems Biology (Dan)  | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
-| **11** | 16/10 | Systems Biology (Ville) | Systems Biology practical (Ville) (1) |
+| **10** | 9/10 | Systems Biology (Ville) | Systems Biology practical (Ville) (1) |
+| **11** | 16/10 | Introduction to Systems Biology (Dan)  | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
 | **12** | 23/10 | The Future — wooooooo (Dan) | Wrap-up (Jimmy/Dan/Steve)  |
 
 
