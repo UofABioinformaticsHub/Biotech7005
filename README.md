@@ -19,7 +19,7 @@ __*Course Contact*__
 Dan Kortschak
 Email: dan.kortschak@adelaide.edu.au
 Phone: 08 8313 0928
-Office: Braggs 2.27
+Office: Braggs 2.60
 
 ### Contact Hours
 
