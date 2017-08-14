@@ -245,6 +245,7 @@ For today, there are two key `sed` functionalities that we want to introduce.
 - Please enter the following in your terminal
 
 ```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install gnu-sed --with-default-names
 ```
 
