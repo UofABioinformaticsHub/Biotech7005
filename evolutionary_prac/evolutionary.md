@@ -49,7 +49,7 @@ seaview bovidea_118_mtDNA-muscle.mfa
 
 Look at the alignment. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
 
-**What is the reason for this? (*Hint: use the accession numbers in the name to search [Enztrez](https://www.ncbi.nlm.nih.gov/genome/) for the annotation.*)**
+**What is the reason for this? (*Hint: use the accession numbers in the name to search [Entrez](https://www.ncbi.nlm.nih.gov/genome/) for the annotation.*)**
 
 ### Convert to NEXUS format
 
