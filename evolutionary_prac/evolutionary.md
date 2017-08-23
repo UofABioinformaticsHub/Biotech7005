@@ -17,7 +17,7 @@ muscle -in bovidea_118_mtDNA.fa -out bovidea_118_mtDNA-muscle.mfa
 ```
 
 ```
-mafft bovidae_118_mtDNA.fa > bovidea_118_mtDNA-mafft.mfa
+mafft bovidea_118_mtDNA.fa > bovidea_118_mtDNA-mafft.mfa
 ```
 
 Have a look at the resulting alignments using `jalview`.
@@ -36,8 +36,20 @@ sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_118_mtDNA-muscle.m
 
 **What does this command do?**
 
+### Reduced the size of the dataset
+
+This is done now due to time constraints.
+
+Run the following command using your student number for id:
+```
+subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
+```
+
+This selects 50 sequences from the input alignment according to your student number and writes them to a new file.
+This is nor normal practice, and is only necessary because of prac time limits.
+
 Now we can use Gblocks to remove the non-conserved regions of the alignment.
-This will give you a file `bovidea_118_mtDNA-named.mfa-gb`.
+This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
 
 **Why do we need to do this? (*Hint:read the [Gblocks documentation](http://molevol.cmima.csic.es/castresana/Gblocks.html)*)**
 
@@ -56,8 +68,8 @@ Look at the alignment. At the beginning of the alignment and near the end there 
 The program we will be using to perform phylogenetic reconstruction uses a sequence (and other character) format called NEXUS.
 The NEXUS format is fairly widely used for phylogenetic data as it can be used to encode a variety characters, not limited to sequence data.
 Unfortunately there is no simple command line tool to convert from FASTA to NEXUS (it would be easy to write), so we will use SeaView.
-Start SeaView by entering `seaview bovidea_118_mtDNA-named.mfa-gb` into a terminal.
-Save this file as a NEXUS file, the save file dialogue will suggest "bovidea_118_mtDNA-named.nxs", use that.
+Start SeaView by entering `seaview bovidea_50_mtDNA-named.mfa-gb` into a terminal.
+Save this file as a NEXUS file, the save file dialogue will suggest "bovideai\_50\_mtDNA-named.nxs", use that.
 
 Note that SeaView can be used as an interface to the program PhyML which does Maximum Likelihood phylogenetic tree reconstruction.
 However, the communication between SeaView and PhyML appears to be broken as the work done by PhyML is dropped on the floor by SeaView after completion.
