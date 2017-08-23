@@ -46,7 +46,7 @@ subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-nam
 ```
 
 This selects 50 sequences from the input alignment according to your student number and writes them to a new file.
-This is nor normal practice, and is only necessary because of prac time limits.
+This is not normal practice, and is only necessary because of prac time limits.
 
 Now we can use Gblocks to remove the non-conserved regions of the alignment.
 This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
