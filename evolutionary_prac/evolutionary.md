@@ -226,7 +226,7 @@ Given the phylogenetic tree below:
 Produce a Bayesean tree for the whole miotochondrial genome of Marsupials.
 
 1. What two species are the best to use as an outgroup?
-2. Which two leaves are the closest related/have the shortest branch? How may differences are there between these two leaves?
+2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
 3. Which of the following two species are more closely related?
     1. silky-shrew oppossum
     2. Tasmanian wolf
