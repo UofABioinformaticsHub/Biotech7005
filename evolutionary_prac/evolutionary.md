@@ -208,7 +208,7 @@ Repeat the analysis with another model and compare the trees using the Archeopte
 
 ![Decker *et al.* 2009 10.1073/pnas.0904691106](nuclear-tree.jpg)
 
-## Tasks (due 25/8/2017)
+## Tasks (due 8/9/2017)
 
 ### Practical questions
 
@@ -218,8 +218,6 @@ Answer the questions in **bold** above.
 
 Given the phylogenetic tree below:
 1. How many positions can be unambiguously determined using the Fitsch algorithm?
-2. Calculate the Fitsch score for the tree; and
-3. the Sankoff (Generalised Parsimony) score for the tree and the root sequence.
 
 ![Parsimony Tree and Scores](parsimony-tree.png)
 
@@ -228,7 +226,7 @@ Given the phylogenetic tree below:
 Produce a Bayesean tree for the whole miotochondrial genome of Marsupials.
 
 1. What two species are the best to use as an outgroup?
-2. Which two leaves are the closest related/have the shortest branch? How may differences are there between these two leaves?
+2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
 3. Which of the following two species are more closely related?
     1. silky-shrew oppossum
     2. Tasmanian wolf
