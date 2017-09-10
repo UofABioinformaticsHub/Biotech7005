@@ -46,7 +46,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 28/8 | Next-generation sequencing (Dan) | NGS data practical (Steve/Jimmy) (1) |
 | **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | NGS data practical (Steve/Jimmy) (2) |
-| **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | RNAseq practical (Steve) (1) |
+| **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical) |
 | **-** | 18/9 | Semester Break |
 | **-** | 25/9 | Semester Break |
 | **9** | 2/10 (PH) | Epigenetics (Jimmy) | No practical (PH) |
