@@ -15,8 +15,8 @@ The `.zip` filename must start with your student number [*1 marks*] and your bas
     + Identify how many chromosomes are in the genome [*1 marks*]
     + How many unique genes are located in the genome? [*3 marks*]
     + Download the sequencing data contained at these links: [*1 marks*]
-        - [https://universityofadelaide.box.com/s/dt7e057xqhmt9m5bnp1vytro2empsz8m](https://universityofadelaide.box.com/s/dt7e057xqhmt9m5bnp1vytro2empsz8m)
-        - [https://universityofadelaide.box.com/s/xwm9oej9jxcui16sl7jmzqssxeqry6qa](https://universityofadelaide.box.com/s/xwm9oej9jxcui16sl7jmzqssxeqry6qa)
+        - [https://universityofadelaide.box.com/shared/static/iksl6s5kifvumb80ar8io037kysevg54.gz](https://universityofadelaide.box.com/shared/static/iksl6s5kifvumb80ar8io037kysevg54.gz)
+        - [https://universityofadelaide.box.com/shared/static/69alyh4haw8zbb1ln5in3tptchk5e9vv.gz](https://universityofadelaide.box.com/shared/static/69alyh4haw8zbb1ln5in3tptchk5e9vv.gz)
     + Create a genome index [*1 marks*], trim your data for poor quality (base quality > 10) and adapters using cutadapt [*1 marks*], and align paired-end reads to the genome index using `bwa mem`, resulting in a `.bam` file [*1 marks*]
     + Create a `.bam` file that only contains mapped reads [*1 marks*]
     + How many reads were mapped? [*1 marks*]
