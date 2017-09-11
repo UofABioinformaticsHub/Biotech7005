@@ -44,9 +44,9 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **3** | 7/8  | Evolutionary Processes (Dan) | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
 | **4** | 14/8 | Alignment Process (Dan) | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
 | **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
-| **6** | 28/8 | Next-generation sequencing (Dan) | NGS data practical (Steve/Jimmy) (1) |
-| **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | NGS data practical (Steve/Jimmy) (2) |
-| **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | RNAseq practical (Steve) (1) |
+| **6** | 28/8 | Next-generation sequencing (Dan) | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **8** | 11/9 | Non-coding RNA/Transcriptomics (Steve) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical/Transcriptomic_Practical) |
 | **-** | 18/9 | Semester Break |
 | **-** | 25/9 | Semester Break |
 | **9** | 2/10 (PH) | Epigenetics (Jimmy) | No practical (PH) |
@@ -63,9 +63,9 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 |----------------|-------------|------------|--------------|
 | [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 4th August |
 | [Assessment 2](Assignments/Assignment2.md) | Bash Scripting | 7% | Monday 21st August |
-| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 8st September |
-| Assessment 4 | NGS data practical | 7% | Friday 15th September |
-| Assessment 5 | RNAseq practical | 7% | Friday 22th September |
+| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 8th September |
+| [Assessment 4](Assignments/practical_assignment4_ngs.md) | NGS data practical | 7% | Friday 15th September |
+| Assessment 5 | RNAseq practical | 7% | Friday 29th September |
 | Assessment 6 | Graphical analyses | 7% | Monday 23rd October |
 | Active Participation | | 3% | |
 | Project | Complete Dataset | 15% | Friday 20th October |
