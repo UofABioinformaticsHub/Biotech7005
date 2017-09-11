@@ -123,42 +123,6 @@ chmod +x getData.sh
 This will being the download for the 6 files we'll use today. 
 The download should take approximately 30 mins, so while this is happening let's set-up the rest of the work for the session
 
-<!-- # Laptop Setup -->
-
-<!-- ## FileZilla -->
-
-<!-- We'll use the file transfer tool `FileZilla` today as well. -->
-<!-- This will enable us to get data from our local machine to the VM, and vice-versa. -->
-<!-- Follow the installation instructions for your OS -->
-
-<!-- https://filezilla-project.org/download.php?type=client -->
-
-<!-- ### OSX -->
-
-<!-- OSX users can also use the command -->
-
-<!-- ``` -->
-<!-- brew install filezilla -->
-<!-- ``` -->
-
-<!-- ### Ubuntu -->
-
-<!-- Ubuntu users can alternatively use  -->
-<!-- ``` -->
-<!-- sudo apt-getinstall filezilla -->
-<!-- ``` -->
-
-<!-- Once it has installed, open the program `FileZilla`. -->
-<!-- Log onto your VM by -->
-
-<!-- 1. Enter the IP address of your VM where it says `Host` -->
-<!-- 2. Enter `hub` for the `Username` -->
-<!-- 3. Enter `hub` for the `Password` -->
-<!-- 4. Enter `22` for the `Port` -->
-
-<!-- This will log you onto the VM ready for file transfer. -->
-<!-- We'll use this for transferring the output from alignments and `FastQC` -->
-
 # VM Setup
 
 <!-- ## FastQC -->
@@ -447,7 +411,9 @@ Some of the columns are not relevant for us today, so we'll first load the file,
 
 (If your alignments are not ready, the file can be found [here](counts.out))
 
-However, first we need to load the `R` packages for differential gene analysis
+However, first we need to load the `R` packages for differential gene analysis.
+
+*If you'd like to directly download the data from your VM instead of using the provided file, install FileZilla for easy data transfer between your local laptop and the VM (see the end of this page)*
 
 ```{r}
 library(readr)
@@ -715,3 +681,38 @@ arrange(goRes, P.DE) %>% head
 ```
 
 
+# Laptop Setup
+
+## FileZilla
+
+We'll use the file transfer tool `FileZilla` today as well.
+This will enable us to get data from our local machine to the VM, and vice-versa.
+Follow the installation instructions for your OS
+
+https://filezilla-project.org/download.php?type=client
+
+### OSX
+
+OSX users can also use the command
+
+```
+brew install filezilla
+```
+
+### Ubuntu
+
+Ubuntu users can alternatively use
+```
+sudo apt-getinstall filezilla
+```
+
+Once it has installed, open the program `FileZilla`.
+Log onto your VM by
+
+1. Enter the IP address of your VM where it says `Host`
+2. Enter `hub` for the `Username`
+3. Enter `hub` for the `Password`
+4. Enter `22` for the `Port`
+
+This will log you onto the VM ready for file transfer.
+We'll use this for transferring the output from alignments and `FastQC`
