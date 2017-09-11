@@ -167,71 +167,71 @@ The download should take approximately 30 mins, so while this is happening let's
 <!-- It should already be installed from last week, so you'll only need to perform this step if you haven't done last week's practical. -->
 <!-- If you need to do this, call a tutor over. -->
 
-<!-- ## HISAT2 -->
+## HISAT2
 
-<!-- The aligner we'll use today is called `hisat2` and it's an aligner which is splice aware, meaning it's able to handle alignments which contain sequences from two separate exons. -->
-<!-- **On your VM open another terminal while the downloads are completing** -->
+The aligner we'll use today is called `hisat2` and it's an aligner which is splice aware, meaning it's able to handle alignments which contain sequences from two separate exons.
+**On your VM open another terminal while the downloads are completing**
 
-<!-- ```bash -->
-<!-- cd ~/Downloads -->
-<!-- wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip -->
-<!-- unzip hisat2-2.1.0-Linux_x86_64.zip -->
-<!-- rm hisat2-2.1.0-Linux_x86_64.zip  -->
-<!-- cd -->
-<!-- nano .bashrc -->
-<!-- ``` -->
+```bash
+cd ~/Downloads
+wget ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip
+unzip hisat2-2.1.0-Linux_x86_64.zip
+rm hisat2-2.1.0-Linux_x86_64.zip
+cd
+nano .bashrc
+```
 
-<!-- We have just installed `hisat2` into your `Downloads` folder and we need to tell your session where to find it. -->
-<!-- We'll now add it to your `PATH`. -->
+We have just installed `hisat2` into your `Downloads` folder and we need to tell your session where to find it.
+We'll now add it to your `PATH`.
 
-<!-- Inside the `nano` editor` go to the final line, where you'll see -->
+Inside the `nano` editor` go to the final line, where you'll see
 
-<!-- ```bash -->
-<!-- export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre -->
-<!-- ``` -->
+```bash
+export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre
+```
 
-<!-- At the end of this line add `:/home/hub/Downloads/hisat2-2.1.0` so that this line will look like the following -->
+At the end of this line add `:/home/hub/Downloads/hisat2-2.1.0` so that this line will look like the following
 
-<!-- ```bash -->
-<!-- export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre:/home/hub/Downloads/hisat2-2.1.0 -->
-<!-- ``` -->
+```bash
+export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre:/home/hub/Downloads/hisat2-2.1.0
+```
 
-<!-- Exit using `Ctrl+x` answering `y` to save the file. -->
-<!-- Now enter the following -->
+Exit using `Ctrl+x` answering `y` to save the file.
+Now enter the following
 
-<!-- ```bash -->
-<!-- source .bashrc -->
-<!-- whereis hisat2 -->
-<!-- ``` -->
+```bash
+source .bashrc
+whereis hisat2
+```
 
-<!-- This should give you the output `/home/hub/Downloads/hisat2-2.1.0/hisat2` -->
+This should give you the output `/home/hub/Downloads/hisat2-2.1.0/hisat2`
 
-<!-- ## Feature Counts -->
+## Feature Counts
 
-<!-- We'll also need the softwar `featureCounts` from the `Subread` set of tools, and this can be installed as follows: -->
+We'll also need the software `featureCounts` from the `Subread` set of tools, and this can be installed as follows:
 
-<!-- ```bash -->
-<!-- cd ~/Downloads -->
-<!-- wget https://downloads.sourceforge.net/project/subread/subread-1.5.3/subread-1.5.3-Linux-x86_64.tar.gz -->
-<!-- tar zxvf subread-1.5.3-Linux-x86_64.tar.gz -->
-<!-- rm  subread-1.5.3-Linux-x86_64.tar.gz -->
-<!-- cd -->
-<!-- nano .bashrc -->
-<!-- ``` -->
+```bash
+cd ~/Downloads
+wget https://downloads.sourceforge.net/project/subread/subread-1.5.3/subread-1.5.3-Linux-x86_64.tar.gz
+tar zxvf subread-1.5.3-Linux-x86_64.tar.gz
+rm  subread-1.5.3-Linux-x86_64.tar.gz
+cd
+nano .bashrc
+```
 
-<!-- Once again, we'll need to add this location to our path, so change the final line to be -->
+Once again, we'll need to add this location to our path, so change the final line to be
 
-<!-- ```bash -->
-<!-- export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre:/home/hub/Downloads/hisat2-2.1.0:/home/hub/Downloads/subread-1.5.3-Linux-x86_64/bin -->
-<!-- ``` -->
+```bash
+export PATH=$PATH:/opt/bwa-0.7.16a:/opt/sabre:/home/hub/Downloads/hisat2-2.1.0:/home/hub/Downloads/subread-1.5.3-Linux-x86_64/bin
+```
 
-<!-- Exit using `Ctrl+x` answering `y` to save the file. -->
-<!-- Now enter the following -->
+Exit using `Ctrl+x` answering `y` to save the file.
+Now enter the following
 
-<!-- ```bash -->
-<!-- source .bashrc -->
-<!-- whereis featureCounts -->
-<!-- ``` -->
+```bash
+source .bashrc
+whereis featureCounts
+```
 
 ## Genome Information
 
@@ -279,7 +279,7 @@ Open `Rstudio`, then Copy & Paste the following directly in the Console
 
 ```{r, eval=FALSE}
 source("https://bioconductor.org/biocLite.R")
-biocLite(c("limma", "voom", "edgeR", "Glimma", "biomaRt"))
+biocLite(c("limma", "edgeR", "biomaRt"))
 ```
 
 <!-- ### Create a Folder for Today -->
@@ -690,7 +690,7 @@ etResults %>%
 ## Downstream analysis
 
 From here, the next steps would be to explore any enrichment of GO terms, KEGG terms, functional pathways, or any other pre-defined gene groupings.
-An easy way to do this would be to convert our gene identifiers to EntrezGeneidentifiers, then use the functions `goana()` or `kegga()` in the limma package.
+An easy way to do this would be to convert our gene identifiers to EntrezGene identifiers, then use the functions `goana()` or `kegga()` in the limma package.
 
 To do this we'd need to first convert our IDs using the package `biomaRt`
 
