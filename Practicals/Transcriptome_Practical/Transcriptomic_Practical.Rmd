@@ -243,17 +243,17 @@ Open `Rstudio`, then Copy & Paste the following directly in the Console
 
 ```{r, eval=FALSE}
 source("https://bioconductor.org/biocLite.R")
-biocLite(c("limma", "edgeR", "biomaRt"))
+biocLite(c("limma", "edgeR", "biomaRt", "GO.db"))
 ```
 
-<!-- ### Create a Folder for Today -->
+### Create a Folder for Today
 
-<!-- Let's create a folder for today, and an `RProject` to go with it. -->
-<!-- This folder should be in your `Documents`, or `My Documents` folder depending on your OS, and let's call it `RNA_Practical`. -->
+Let's create a folder for today, and an `RProject` to go with it.
+This folder should be in your `Documents`, or `My Documents` folder depending on your OS, and let's call it `RNA_Practical`.
 
-<!-- Once you've created this folder, create an R Project in this folder. -->
+Once you've created this folder, create an R Project in this folder.
 
-<!-- `File > New Project > Existing Directory > Browse to this new folder` -->
+`File > New Project > Existing Directory > Browse to this new folder`
 
 
 **That's everything done for the setup!!!**
