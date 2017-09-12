@@ -14,9 +14,9 @@ The `.zip` filename must start with your student number [*1 marks*] and your bas
     + Download the genome fasta and gff3 annotation file of the model plant _Arabidopsis thaliana_ to your current directory from the Ensembl ftp directory (link below) [*1 marks*]
     + Identify how many chromosomes are in the genome [*1 marks*]
     + How many unique genes are located in the genome? [*3 marks*]
-    + Download the sequencing data contained at these links: [*1 marks*]
-        - [https://universityofadelaide.box.com/shared/static/iksl6s5kifvumb80ar8io037kysevg54.gz](https://universityofadelaide.box.com/shared/static/iksl6s5kifvumb80ar8io037kysevg54.gz)
-        - [https://universityofadelaide.box.com/shared/static/69alyh4haw8zbb1ln5in3tptchk5e9vv.gz](https://universityofadelaide.box.com/shared/static/69alyh4haw8zbb1ln5in3tptchk5e9vv.gz)
+    + Download the sequencing data contained at these links (using `curl` or `wget`): [*1 marks*]
+        - [SRR5882792_1.fastq.gz](https://universityofadelaide.box.com/shared/static/iksl6s5kifvumb80ar8io037kysevg54.gz)
+        - [SRR5882792_2.fastq.gz](https://universityofadelaide.box.com/shared/static/69alyh4haw8zbb1ln5in3tptchk5e9vv.gz)
     + Create a genome index [*1 marks*], trim your data for poor quality (base quality > 10) and adapters using cutadapt [*1 marks*], and align paired-end reads to the genome index using `bwa mem`, resulting in a `.bam` file [*1 marks*]
     + Create a `.bam` file that only contains mapped reads [*1 marks*]
     + How many reads were mapped? [*1 marks*]
