@@ -480,6 +480,14 @@ Image Source: Trapnell et al Differential analysis of gene regulation at transcr
     - Exact Test (Robinson & Smyth) for comparison of two groups, or;
     - Generalised Linear Models
     
+## Normalisation
+
+- Counts are directly impacted by library size
+    - Smaller libraries will have lower counts
+- In contrast to microarrays, we do not directly adjust our counts
+    - Include a term in models
+    - `dgeList$samples$norm.factors`
+    
 ## Other Considerations
 
 - Do we need to account for Type I errors? $\implies$ FDR

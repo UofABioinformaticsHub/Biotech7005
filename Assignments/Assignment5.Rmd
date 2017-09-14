@@ -88,8 +88,8 @@ c. At the bottom this document, you have been assigned a GO Term.
 
 |     | Genes with GO term | Genes without GO term | Total Genes |
 |:--- | ------------------:| ---------------------:| -----------:|
-| DE Genes |               |                       | 318         |
-| Not DE Genes |           |                       | 1692        |
+| DE Genes |               |                       | 322         |
+| Not DE Genes |           |                       | 1697        |
 
 # GO IDs for Q3
 
