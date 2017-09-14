@@ -1,0 +1,129 @@
+---
+title: "Assignment 5 [25 marks]"
+author: "Biotech 7005: Bioinformatics & Systems Modelling"
+date: "Due 5pm, 29 September 2017"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Instructions
+
+Submit your answers as a single `rmarkdown` file. Please ensure that your student number appears in the file name.
+
+
+# Question 1 [6 marks]
+
+Our gene of interest has two possible transcripts, A and B.
+The shorter transcript (A) is 400bp long, whilst the longer transcript (B) is 1200bp long.
+In our RNA Seq experiment using 150bp single-end reads, we observed 100 reads in each of our two conditions, however:
+
+- in our Control sample we know that the reads all came from transcript B.
+- in our Treated sample we know that the reads all came from transcript A.
+
+a. Would you consider this gene to be differentially expressed? Explain your reasoning.
+b. Imagine these same samples were hybridised to Affymetrix 3' Microarrays, and that these transcripts terminate in the same 3' exons. Would you expect to see differential expression in this microarray experiment? Why, or why not?
+c. Can you imagine a set of transcripts for another gene, where a 3' microarray would be able to detect this type of differential transcript usage?
+
+# Question 2 [7 marks]
+
+For the following table, our mRNA of interest is from DOCK1, and we have used ACTB as the housekeeper.
+
+a. Calculate the $\Delta C_T$ value for each replicate and treatment. 
+
+
+| Replicate   | Group   | $C_T$ DOCK1 | $C_T$ ACTB | $\Delta C_T$ |
+| ----------- | ------- | ----------- | ---------- | ------------ |
+| Replicate 1 | Treated | 21.3 | 8.1 |    |
+| Replicate 1 | Control | 19.4 | 8.3 |    |
+| Replicate 2 | Treated | 19.1 | 6.6 |    |
+| Replicate 2 | Control | 17.5 | 6.7 |    |
+| Replicate 3 | Treated | 22.4 | 8.7 |    |
+| Replicate 3 | Control | 20.1 | 8.4 |    |
+
+
+b. Was DOCK1 or ACTB more abundant in the original samples? Explain in reference to $C_T$ values.
+c. Now calculate the $\Delta \Delta C_T$ values for each replicate 
+
+| Replicate | $\Delta \Delta C_T$ |
+| --------- | ------------------- |
+| Replicate 1 |                   |
+| Replicate 2 |                   |
+| Replicate 3 |                   |
+
+d. Conduct a $T$-test on the $\Delta \Delta C_T$ values using `R`
+e. Referring to the above results, do you think DOCK1 was up or down regulated in the treated samples? Explain this in reference to the original $C_T$ values.
+
+# Question 3 [12 marks]
+
+For this question, ensure you include your `R` code for parts `b` and `c`
+
+Referring to the data in the RNA-Seq practical session:
+
+a. Fill in the following table
+
+| Sample | Total Alignments | Total Aligned Within Genes |
+|:------ | ----------------:| --------------------------:|
+| sampleA1 |                |                            |
+| sampleA2 |                |                            |
+| sampleA3 |                |                            |
+| sampleB1 |                |                            |
+| sampleB2 |                |                            |
+| sampleB3 |                |                            |
+
+b. Use the `R` package `biomaRt` to obtain the list of GO terms associated with each gene in our dataset. (Hint: The new attribute you'll need to specify in the object `attr2get` is `go_id`.)
+
+c. At the bottom this document, you have been assigned a GO Term. 
+    i. Use the `dplyr` function `filter()` to count how many genes in the `sigGenes` object have your GO term
+    ii. Repeat this to count how many genes *NOT* in the `sigGenes` object have your GO term
+    iii. Complete the table below
+    iv. Use *Fisher's Exact Test* to test for enrichment of your GO term
+    v. We have only performed this test for one GO term. In the context of the entire class testing a single GO term each, would you consider your results significant?
+    v. Find the name and definition of your assigned GO term using `biomaRt`. The attributes you will need to return are `attr2get <- c("go_id", "name_1006", "definition_1006")`. (Hint: What filter will you need to use, and what values will you need to supply?)
+
+|     | Genes with GO term | Genes without GO term | Total Genes |
+|:--- | ------------------:| ---------------------:| -----------:|
+| DE Genes |               |                       | 318         |
+| Not DE Genes |           |                       | 1692        |
+
+# GO IDs for Q3
+
+|    ID    |    GOID    |
+|:-------- |:---------- |
+| a1735804 | GO:0032869 |
+| a1696678 | GO:0032868 |
+| a1611214 | GO:0043434 |
+| a1691643 | GO:0071375 |
+| a1667810 | GO:1901652 |
+| a1733239 | GO:1901653 |
+| a1718998 | GO:0051170 |
+| a1731952 | GO:0030496 |
+| a1710508 | GO:0048754 |
+| a1690770 | GO:0043231 |
+| a1652167 | GO:0006260 |
+| a1714893 | GO:1905952 |
+| a1702741 | GO:0071248 |
+| a1701030 | GO:0061138 |
+| a1662822 | GO:0071241 |
+| a1606913 | GO:0043227 |
+| a1731155 | GO:0001763 |
+| a1713960 | GO:0007565 |
+| a1674898 | GO:2001057 |
+| a1729128 | GO:0008514 |
+| a1719003 | GO:0030099 |
+| a1660066 | GO:1901699 |
+| a1710741 | GO:0016053 |
+| a1673245 | GO:0046394 |
+| a1701389 | GO:0008202 |
+| a1701747 | GO:0006606 |
+| a1643251 | GO:0044744 |
+| a1735934 | GO:1902593 |
+| a1738360 | GO:1901698 |
+| a1619733 | GO:0006720 |
+| a1683838 | GO:0030666 |
+
