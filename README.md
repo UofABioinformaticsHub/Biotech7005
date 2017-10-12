@@ -39,21 +39,22 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 
 | **Week** | **Monday** |**Lecture**    | **Practical/Tutorial** |
 |----------|------------|---------------|---------------|
-| **1** | 24/7 | Introduction to Bioinformatics (Dan)| [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
+| **1** | 24/7 | [Introduction to Bioinformatics (Dan)](http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide)\* | [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
 | **2** | 31/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
-| **3** | 7/8  | Evolutionary Processes (Dan) | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
-| **4** | 14/8 | Alignment Process (Dan) | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
-| **5** | 21/8 | Alignment Process (Dan) | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
-| **6** | 28/8 | Next-generation sequencing (Dan) | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
-| **7** | 4/9  | Genomics/Repeats/Metagenomics (Jimmy) | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **3** | 7/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
+| **4** | 14/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
+| **5** | 21/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide#29)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
+| **6** | 28/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **7** | 4/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
 | **8** | 11/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical/Transcriptomic_Practical) |
 | **-** | 18/9 | Semester Break |
 | **-** | 25/9 | Semester Break |
-| **9** | 2/10 (PH) | Epigenetics (Jimmy) | No practical (PH) |
-| **10** | 9/10 | Systems Biology (Ville) | [Systems Biology practical (Ville) (1)](http://vipmak.fi/mbio17/) |
-| **11** | 16/10 | Introduction to Systems Biology (Dan)  | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
-| **12** | 23/10 | The Future — wooooooo (Dan) | Wrap-up (Jimmy/Dan/Steve)  |
+| **9** | 2/10 (PH) | [Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\* | No practical (PH) |
+| **10** | 9/10 | [Systems Biology (Ville)](http://vipmak.fi/mbio17/lecture.pdf) | [Systems Biology practical (Ville) (1)](http://vipmak.fi/mbio17/) |
+| **11** | 16/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
+| **12** | 23/10 | [The Future — wooooooo (Dan)](http://biotech7005.services.adelaide.edu.au/12-future.slide)\* | Wrap-up (Jimmy/Dan/Steve)  |
 
+\* Slides not visible outside UofA network.
 
 ## Assessment
 
