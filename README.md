@@ -27,7 +27,7 @@ Lectures: Thursday 9am, Barr Smith South 534 Forum Lecture Theatre
 - 27 Jul — 14 Sep
 - 5 Oct — 26 Oct
 
-Tutorials: Friday 9am-11pm, Mawson, 134, Sprigg Room
+Tutorials: Friday 9am-11am, Mawson, 134, Sprigg Room
 - 28 Jul — 15 Sep
 - 6 Oct — 27 Oct
 
