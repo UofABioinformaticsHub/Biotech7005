@@ -4,16 +4,14 @@
 ## Biotech 7005: Frontiers of Biotechnology: Bioinformatics and Systems Modelling
 {:.no_toc}
 
-Semester 2 2017
+Semester 2 2018
 
 Coordinator:
-- Dan Kortschak
+- Dave Adelson
 
 Instructors:
-- Jimmy Breen
-- Stephen Pederson
 - Dan Kortschak
-- Hien To
+- TBD
 
 __*Course Contact*__
 Dan Kortschak
@@ -24,52 +22,52 @@ Office: Braggs 2.60
 ### Contact Hours
 
 Lectures: Thursday 9am, Barr Smith South 534 Forum Lecture Theatre
-- 27 Jul — 14 Sep
-- 5 Oct — 26 Oct
+- 23 Jul — 10 Sep
+- 1 Oct — 22 Oct
 
 Tutorials: Friday 9am-11am, Mawson, 134, Sprigg Room
-- 28 Jul — 15 Sep
-- 6 Oct — 27 Oct
+- 24 Jul — 11 Sep
+- 2 Oct — 23 Oct
 
 Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
-- 24 Jul — 11 Sep
-- 9 Oct — 23 Oct
+- 23 Jul — 10 Sep
+- 8 Oct — 22 Oct
 
-### Timetable
+### Timetable (Provisional)
 
 | **Week** | **Monday** |**Lecture**    | **Practical/Tutorial** |
 |----------|------------|---------------|---------------|
-| **1** | 24/7 | [Introduction to Bioinformatics (Dan)](http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide)\* | [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
-| **2** | 31/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
-| **3** | 7/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
-| **4** | 14/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
-| **5** | 21/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide#29)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
-| **6** | 28/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
-| **7** | 4/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
-| **8** | 11/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical/Transcriptomic_Practical) |
-| **-** | 18/9 | Semester Break |
-| **-** | 25/9 | Semester Break |
-| **9** | 2/10 (PH) | [Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\* | No practical (PH) |
-| **10** | 9/10 | [Systems Biology (Ville)](http://vipmak.fi/mbio17/lecture.pdf) | [Systems Biology practical (Ville) (1)](http://vipmak.fi/mbio17/) |
-| **11** | 16/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
-| **12** | 23/10 | [The Future — wooooooo (Dan)](http://biotech7005.services.adelaide.edu.au/12-future.slide)\* | Wrap-up (Jimmy/Dan/Steve)  |
+| **1** | 23/7 | [Introduction to Bioinformatics (Dan)](http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide)\* | [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
+| **2** | 30/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
+| **3** | 6/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
+| **4** | 14/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scriptin3 In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
+| **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
+| **6** | 27/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **7** | 3/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
+| **8** | 10/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical/Transcriptomic_Practical) |
+| **-** | 17/9 | Semester Break |
+| **-** | 24/9 | Semester Break |
+| **9** | 1/10 (PH) | [Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\* | No practical (PH) |
+| **10** | 8/10 | [Systems Biology (Ville)](http://vipmak.fi/mbio17/lecture.pdf) | [Systems Biology practical (Ville) (1)](http://vipmak.fi/mbio17/) |
+| **11** | 15/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
+| **12** | 22/10 | [The Future — wooooooo (Dan)](http://biotech7005.services.adelaide.edu.au/12-future.slide)\* | Wrap-up (Jimmy/Dan/Steve)  |
 
 \* Slides not visible outside UofA network.
 
 ## Assessment
 
-### Assessment Schedule & Weighting
+### Assessment Schedule & Weighting (Provisional)
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
-| [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 4th August |
-| [Assessment 2](Assignments/Assignment2.md) | Bash Scripting | 7% | Monday 21st August |
-| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 8th September |
-| [Assessment 4](Assignments/practical_assignment4_ngs.md) | NGS data practical | 7% | Friday 15th September |
-| [Assessment 5](Assignments/Assignment5) | RNAseq practical | 7% | Friday 29th September |
-| [Assessment 6](https://github.com/kortschak/graphprac) | Graphical analyses | 7% | Monday 23rd October |
+| [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 3th August |
+| [Assessment 2](Assignments/Assignment2.md) | Bash Scripting | 7% | Monday 20st August |
+| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
+| [Assessment 4](Assignments/practical_assignment4_ngs.md) | NGS data practical | 7% | Friday 14th September |
+| [Assessment 5](Assignments/Assignment5) | RNAseq practical | 7% | Friday 28th September |
+| [Assessment 6](https://github.com/kortschak/graphprac) | Graphical analyses | 7% | Monday 22rd October |
 | Active Participation | | 3% | |
-| [Project](Assignments/major_project.md) | Complete Dataset | 15% | Friday 27th October |
+| [Project](Assignments/major_project.md) | Complete Dataset | 15% | Friday 26th October |
 | Exam | | 40% | |
 
 ### Assessment Checklist
