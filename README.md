@@ -21,11 +21,11 @@ Office: Braggs 2.60
 
 ### Contact Hours
 
-Lectures: Thursday 9am, Barr Smith South 534 Forum Lecture Theatre
+Lectures: Monday 11am, Benham G10 Lecture Theatre
 - 23 Jul — 10 Sep
 - 1 Oct — 22 Oct
 
-Tutorials: Friday 9am-11am, Mawson, 134, Sprigg Room
+Tutorials: Tuesday 12pm-2am, Mawson, G12 Computer Suite
 - 24 Jul — 11 Sep
 - 2 Oct — 23 Oct
 
@@ -40,7 +40,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **1** | 23/7 | [Introduction to Bioinformatics (Dan)](http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide)\* | [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
 | **2** | 30/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals) |
 | **3** | 6/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md) <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
-| **4** | 14/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scriptin3 In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
+| **4** | 14/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
 | **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 27/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* | [NGS data practical (Steve/Jimmy) (1)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
 | **7** | 3/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)](http://uofabioinformaticshub.github.io/Intro-NGS/pdfs-latest/trainee_handout.pdf) |
@@ -60,12 +60,12 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 
 | **Assessment** | **Subject** | **Weight** | **Due Date** |
 |----------------|-------------|------------|--------------|
-| [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 3th August |
-| [Assessment 2](Assignments/Assignment2.md) | Bash Scripting | 7% | Monday 20st August |
+| [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 3rd August |
+| [Assessment 2](Assignments/Assignment2.md) | Bash Scripting | 7% | Monday 20th August |
 | [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
 | [Assessment 4](Assignments/practical_assignment4_ngs.md) | NGS data practical | 7% | Friday 14th September |
 | [Assessment 5](Assignments/Assignment5) | RNAseq practical | 7% | Friday 28th September |
-| [Assessment 6](https://github.com/kortschak/graphprac) | Graphical analyses | 7% | Monday 22rd October |
+| [Assessment 6](https://github.com/kortschak/graphprac) | Graphical analyses | 7% | Monday 22nd October |
 | Active Participation | | 3% | |
 | [Project](Assignments/major_project.md) | Complete Dataset | 15% | Friday 26th October |
 | Exam | | 40% | |
