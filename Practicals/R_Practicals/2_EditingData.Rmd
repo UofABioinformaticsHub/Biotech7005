@@ -2,7 +2,7 @@
 title: "Topic 2: Editing Data in R"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "24 July 2017"
+date: "23 July 2018"
 output: 
   html_document: 
     fig_caption: yes
@@ -48,18 +48,18 @@ The datasets required are contained in the files 1) `transport.csv` and 2) `pcr.
 
 ## Starting with `dplyr`
 
-Data for this session:
+This package is also loaded by default when we enter `library(tidyverse)`.
+For this session we'll use the same data as for the previous session.
 
 ```{r, results='hide'}
-library(dplyr)
-library(readr)
+library(tidyverse)
 csvFile <- file.path("data", "transport.csv")
 file.exists(csvFile)
 data <- read_csv(csvFile)
 data
 ```
 
-So we have a `r nrow(data)` x `r ncol(data)` `data frame`, which has the familiar structure of rows and columns. 
+So we have a `r nrow(data)` x `r ncol(data)` `data frame`, which has the familiar structure of rows and columns, and may look a little like a spreadsheet in Excel.
 We can check the dimensions of this object.
 
 ```{r, results='hide'}
@@ -334,12 +334,10 @@ We could simply remove them from the `Ct` column using the `filter()` function f
 As we can see, the `Treatment` column contains two piecs of information and we may want to place these in two separate columns.
 The `mutate()` function would be a good choice, but how do we separate those values on either side of the `_` symbol?
 
-For this we'll use the package `stringr` and discuss **regular expressions** first.
-The key functions here will be `str_extract()`, `str_replace()` and `str_replace_all()`
+For this we'll use functions from the package `stringr` and we'll discuss **regular expressions** first.
+The key functions here will be `str_extract()`, `str_replace()` and `str_replace_all()`.
+As we saw wih `dplyr` and `readr`, the package `stringr` is loaded with the `tidyverse`.
 
-```{r}
-library(stringr)
-```
 
 ### Text Manipulation 
 

@@ -2,7 +2,7 @@
 title: "Topic 1: Introduction to R and R Studio"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "24 July 2017"
+date: "23 July 2018"
 output: 
   html_document: 
     fig_caption: yes
@@ -41,13 +41,9 @@ R offers numerous advantages over Excel, GraphPad Prism & the like:
 
 ### Installing R
 
-Please follow instructions for your OS, and install `R` on your laptop.
-Only install R. 
-We will install RStudio next.
+Please follow the instructions for your OS, and install `R` on your laptop followed by RStudio.
 
-- [Ubuntu](install/ubuntuInstall)
-- [OSX](install/osxInstall)
-- [Windows](install/windowsInstall)
+[Installation Instructions](./install)
 
 ### Running R
 
@@ -61,6 +57,8 @@ Enter the following in the console, followed by `Enter`
 
 ```{r, eval = FALSE}
 1 + 1
+2 * 2
+3 ^ 2
 ```
 
 Mess around with a few more simple calculations, then exit `R` by typing `q()`.
@@ -68,8 +66,9 @@ When asked to save the Workspace image, choose `n`.
 
 ## Introduction to R Studio
 
-Now continue the instructions to install `R Studio Desktop`, then open `R Studio`.
+Now open `R Studio`.
 This is the way we usually interact with `R` on our laptop or desktop computers.
+The screen we have just seen will appear within RStudio as a tab called **Console**.
 
 ### Starting with R Studio: Creating an `R Project`
 
@@ -123,7 +122,7 @@ As well as performing simple calculations:
 
 - `R` has what we call an `Environment` (i.e. a Workspace)
 - We can define objects here, or import data
-   - Like a worksheet in Excel, but **much more** flexible & powerful
+   - These are like a worksheet in Excel, but **much more** flexible & powerful
 - `R` performs calculations & runs processes on these objects
 
 To create an `R` object:
@@ -298,11 +297,11 @@ Save and close the first script we used, then create a new one
 3. Enter this line at the top of the script
 
 ```{r}
-library(dplyr)
+library(tidyverse)
 ```
 
 Once you've entered this in your script, send it to the console using one of the above methods.
-This will load the package `dplyr`, which contains many useful functions for the following section.
+This will load several packages which contains many useful functions for the following section.
 
 A common (and strongly advised) practice is to place all of your `library()` commands at the top of your script.
 This will be helpful for any collaborators, and for yourself when you look back at a script in 6 months.
@@ -351,7 +350,7 @@ knitr::include_graphics("images/importGUI_code.png")
 ```
 
 Once you have copied this code, click `Import` and the data will pop open inside `RStudio`.
-Before you go any further, go to your `DataImport.R` script and paste the code directly below the line `library(dplyr)`.
+Before you go any further, go to your `DataImport.R` script and paste the code directly below the line `library(tidyverse)`.
 
 ### Undertanding the Executed Code
 
@@ -359,9 +358,10 @@ The code we copied has 3 lines:
 
 1. `library(readr)`
     + The package `readr` contains the function `read_csv()`
+    + We have already loaded this package when we entered `library(tidyverse)`, so this line is a little redundant but won't hurt to include.
 2. `transport <- read_csv("~path/to/data/transport.csv")`
     + This is the code executed to load the data into your `R Environment`
-    + It created an object named `transport` by using the file name.
+    + It created an object named `transport` by using the file name without the suffix.
     + The location of the file on your hard drive was passed to the function
 3. `View(transport)` opened a preview in a familiar `Excel-like` format
     + I never use this
@@ -376,7 +376,7 @@ To demonstrate this:
 
 1. In the `Environment Tab` click the broom icon (![](images/broom.png))
     + This will delete everything from your `R Environment`
-    + It won't unload the packages `dplyr` or `readr`
+    + It won't unload the packages loaded by `tidyverse` 
 2. Select the code we've just pasted and run it (Reloading the packages won't hurt anything)
 3. Check the `Environment Tab` again and `transport` is back
 
@@ -448,8 +448,7 @@ file.exists(transportFile)
 Thus an experienced bioinformatician may write the original importing code as:
 
 ```{r}
-library(dplyr)
-library(readr)
+library(tidyverse)
 transportFile <- file.path("data", "transport.csv")
 file.exists(transportFile)
 transport <- read_csv(transportFile)
