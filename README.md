@@ -23,7 +23,7 @@ Office: Braggs 2.60
 
 Lectures: Monday 11am, Benham G10 Lecture Theatre
 - 23 Jul — 10 Sep
-- 1 Oct — 22 Oct
+- 8 Oct — 22 Oct
 
 Tutorials: Tuesday 12pm-2am, Mawson, G12 Computer Suite
 - 24 Jul — 11 Sep
