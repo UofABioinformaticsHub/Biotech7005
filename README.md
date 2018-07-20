@@ -47,7 +47,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **8** | 10/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)](Practicals/Transcriptome_Practical/Transcriptomic_Practical) |
 | **-** | 17/9 | Semester Break |
 | **-** | 24/9 | Semester Break |
-| **9** | 1/10 (PH) | [Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\* | No practical (PH) |
+| **9** | 1/10 (PH) | ~~[Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\*~~ | No practical (PH) |
 | **10** | 8/10 | [Systems Biology (Ville)](http://vipmak.fi/mbio17/lecture.pdf) | [Systems Biology practical (Ville) (1)](http://vipmak.fi/mbio17/) |
 | **11** | 15/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac)  |
 | **12** | 22/10 | [The Future — wooooooo (Dan)](http://biotech7005.services.adelaide.edu.au/12-future.slide)\* | Wrap-up (Jimmy/Dan/Steve)  |
