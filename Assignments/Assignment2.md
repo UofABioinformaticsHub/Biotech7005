@@ -1,6 +1,6 @@
 # Assignment 2 [*25 marks*]
 
-**Due before 12pm, Monday 21st August**
+**Due before 12pm, Monday 20th August**
 
 Your answers to all questions should be submitted to myUni as a `.zip` file containing both scripts, and the answers to the statistics questions in Rmarkdown format.
 
