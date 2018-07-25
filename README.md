@@ -25,7 +25,7 @@ Lectures: Monday 11am, Benham G10 Lecture Theatre
 - 23 Jul — 10 Sep
 - 8 Oct — 22 Oct
 
-Tutorials: Tuesday 12pm-2am, Mawson, G12 Computer Suite
+Tutorials: Tuesday 12pm-2pm, Mawson, G12 Computer Suite
 - 24 Jul — 11 Sep
 - 2 Oct — 23 Oct
 
