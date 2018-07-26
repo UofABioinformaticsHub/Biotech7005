@@ -419,7 +419,7 @@ Setting the argument `skip = 3` would then tell `read_csv()` to ignore the first
 transport <- read_csv("path/to/file", skip = 3)
 ```
 
-**What do you think the argument `trim_ws` does?**
+**The `read_csv()` function can take an argument `trim_ws`. What do you think the argument `trim_ws` does?**
 
 ```{r, echo = FALSE}
 opts_chunk$set(eval = FALSE)
