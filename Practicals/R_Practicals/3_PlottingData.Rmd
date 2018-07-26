@@ -32,14 +32,14 @@ opts_chunk$set(echo = TRUE, include = TRUE,
 __Go to the `Examples` at the bottom of each help page and copy a few lines__
 
 The package `ggplot2` gives much more flexibility and power.
-However, it has a unique syntax and approach where we plot by adding layers of relevant information.
+However, it has a unique syntax and approach where we plot by adding layers of relevant information, based on the concepts outlined in [The Grammar of Graphics](https://www.springer.com/gp/book/9780387245447).
 
 ## The package `ggplot2` 
 
-First we need to load the package.
+First we need to load the package, which is part of the core `tidyverse` packages.
 
 ```{r}
-library(ggplot2)
+library(tidyverse)
 ```
 
 We'll also use the transport dataset from our previous session.
@@ -50,8 +50,6 @@ Hopefully you can see the usefulness of the `%>%` from this example.
 **Remember to load all packages at the top of your `R` script for easier reference in the future!**
 
 ```{r}
-library(dplyr)
-library(readr)
 csvFile <- file.path("data", "transport.csv")
 file.exists(csvFile)
 data <- read_csv(csvFile) %>%
@@ -62,7 +60,7 @@ data
 ```
 
 The main function is `ggplot()`.
-In this first stage we set the plotting aesthetics using `aes()`.
+In this first stage we first define the aesthetic mappings using `aes()`.
 These simply define what is plotted on which axis, and what defines the colour/shape etc.
 When calling this function alone no data will be plotted, and we get the plot area only.
 
@@ -72,7 +70,7 @@ ggplot(data, aes(x = weight, y = height))
 
 ### Adding geometry
 
-After defining the plot aesthetics, we:
+After defining the aesthetic mappings, we:
 
 1. Tell R that "*more is to come*" by adding a `+` symbol at the end of the line
 2. Add the geometry using various `geom_...()` functions
@@ -105,7 +103,7 @@ ggplot(data, aes(x = weight, y = height, colour = transport, shape = gender)) +
   geom_point()
 ```
 
-Let's leave the general aesthetics in `ggplot()`, with the colour and the shape specific aesthetics in that line.
+Let's leave the general aesthetics in `ggplot()`, with the colour and the shape aesthetics specifically assigned to the points.
 
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
@@ -124,7 +122,7 @@ ggplot(data, aes(x = weight, y = height)) +
 ### Layering Multiple Geometry Types
 
 In addition to the points, we can easily add a smoothed line.
-This defaults to a loess fit, so let's select a regression line straight away.
+This defaults to a loess fit, so let's select a regression line straight away by setting the `method` argument to `"lm"`.
 
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
@@ -149,7 +147,7 @@ The default values are the column names, so we can tidy those up fairly easily.
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
   geom_point(aes(colour = transport, shape = gender)) +
-  geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) +
   labs(x = "Weight (kg)", y = "Height (cm)", 
        shape = "Gender", colour = "Transport")
 ```
@@ -164,7 +162,7 @@ This will also plot separate regression lines.
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
   geom_point(aes(colour = transport, shape = gender)) +
-  geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) +
   labs(x = "Weight (kg)", y = "Height (cm)", 
        shape = "Gender", colour = "Transport") +
   facet_wrap(~gender) 
@@ -190,7 +188,7 @@ ggplot(data, aes(x = gender, y =height, fill = gender)) +
   geom_boxplot()
 ```
 
-We could facet these on transport as well
+We could plot separate facets based on the transport method as well.
 
 ```{r}
 ggplot(data, aes(x = gender, y =height, fill = gender)) +
@@ -216,6 +214,7 @@ ggplot(data, aes(x = height)) +
 ### Combining With `dplyr`
 
 We can use `dplyr` (or any other) function to summarise our data before plotting, then _pipe_ (`%>%`) into `ggplot()` without modifying our original data object.
+As we saw last time, this is loaded by default when we called `library(tidyverse)`.
 
 Let's start working towards a barplot with error bars, which will use `geom_bar()`.
 This has a slightly unusual set of default values, we we need to tell it not to summarise anything by setting `stat = "identity"`, and we need to tell it to plot bars next to each other by using `position ="dodge"`.
@@ -257,13 +256,6 @@ ggplot(data, aes(x = gender, y = height, fill = gender)) +
 ```
 
 Try some of the alternatives like `theme_void()` and `theme_classic()`
-
-You can also set a default theme for a workspace using `theme_set()`.
-This would be placed near the call to `library(ggplot2)` at the start of your script.
-
-```{r}
-theme_set(theme_bw())
-```
 
 The `theme()` function is also where you set `axis.text`, `legend` and a whole raft of other attributes.
 The syntax often uses _elements_ to set an attribute, which can take a while to come to grips with.
