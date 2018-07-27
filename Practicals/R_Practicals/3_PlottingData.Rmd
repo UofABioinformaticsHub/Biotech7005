@@ -2,7 +2,7 @@
 title: "Topic 3: Plotting Data"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "31 July 2017"
+date: "30 July 2018"
 output: 
   html_document: 
     fig_caption: yes
