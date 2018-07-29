@@ -95,7 +95,7 @@ In our *in vitro* experiment, we found that 90% of HeLa cells were lysed by expo
 All population parameters are considered to be fixed values, e.g. 
 
 - Allele frequency ($\pi$) in a population
-- The **average change** in mRNA levels 
+- The **average difference** in mRNA levels 
 
 ## Hypothesis Testing | The Null Hypothesis
 
@@ -117,7 +117,7 @@ $$
 H_0: \mu = 0 \quad Vs \quad H_A: \mu \neq 0
 $$
 
-Where $\mu$ represents the average change in a value (e.g. mRNA expression levels)
+Where $\mu$ represents the average difference in a value (e.g. mRNA expression levels)
 
 ## The Sample Mean | Normally Distributed Data
 
@@ -151,18 +151,18 @@ x <- c(2.1, 2.8, 2.5, 2.6)
 ```
 
 - Comparing expression levels of *FOXP3* in T~reg~ and T~h~ cells ($n = `r length(x)`$ donors)
-- The change within each donor is obtained as $\Delta \Delta C_t$ values 
+- The difference within each donor is obtained as $\Delta \Delta C_t$ values 
 - $\mathbf{x} =$ (`r pander(x)`)
 
 ## The Sample Mean | A qPCR Experiment
 
 - Comparing expression levels of *FOXP3* in T~reg~ and T~h~ cells ($n = `r length(x)`$ donors)
-- The change within each donor is obtained as $\Delta \Delta C_t$ values 
+- The difference within each donor is obtained as $\Delta \Delta C_t$ values 
 - $\mathbf{x} =$ (`r pander(x)`)
 
 <center>$H_0: \mu = 0$ Vs $H_A: \mu \neq 0$ </center><br>
 
-where $\mu$ is the average change in *FOXP3* expression in the entire population
+where $\mu$ is the average difference in *FOXP3* expression in the entire population
 
 ## The Sample Mean | A qPCR Experiment
 
@@ -176,7 +176,7 @@ $$
 \end{aligned}
 $$
 
-This is our estimate of the true change in expression ($\mu$)
+This is our estimate of the true difference in expression ($\mu$)
 
 ## The Sample Mean | A qPCR Experiment
 And the sample variance:
