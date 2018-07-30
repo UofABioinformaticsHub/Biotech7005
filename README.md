@@ -38,7 +38,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **Week** | **Monday** |**Lecture**    | **Practical/Tutorial** |
 |----------|------------|---------------|---------------|
 | **1** | 23/7 | [Introduction to Bioinformatics (Dan)](http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide)\* | [Introduction to R (Steve) (1)](Practicals/R_Practicals) |
-| **2** | 30/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals)  <br> [Tutorial: Statistics](Tutorials/Wk3_Statistics.html)|
+| **2** | 30/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals)  <br> [Tutorial: Statistics](Tutorials/Wk2_Statistics.html)|
 | **3** | 6/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md)|
 | **4** | 13/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
 | **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |

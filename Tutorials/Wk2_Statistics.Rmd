@@ -1,7 +1,7 @@
 ---
 title: 'Biotech 7005: Statistics Tutorial'
 author: "Steve Pederson"
-date: "11 August 2017"
+date: "31 July 2018"
 output: 
   html_document: 
     fig_caption: yes
@@ -13,6 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE, results = "hide",
 											fig.show = "hide",
 											message = FALSE, warning = FALSE)
+library(pander)
 ```
 
 
@@ -25,7 +26,7 @@ In the lectures we discussed a few things:
 ### Normally Distributed Data
 
 1. Every experiment is a random sample of the complete set of all possible samples
-2. We define a *null hypothesis* ($H_0$) so we can describe what our data will look like if there are no effects due to our experiment
+2. We define a *null hypothesis* ($H_0$) so we can describe what our data will look like if there are **no effects due to our experiment**
 3. The sample mean ($\bar{x}$) is Normally Distributed around the population mean ($\mu$)
 4. We can use our sample variance ($s^2$) to estimate population variance ($\sigma^2$)
 5. A $T$-statistic can be calculated using the formula <br> <center>$T = \frac{\bar{x} - \mu}{s / \sqrt{n}}$</center>
@@ -46,7 +47,7 @@ In the following, try to describe the value that the experiment is investigating
 
 a. The SNP at http://exac.broadinstitute.org/variant/3-8787263-G-A was found in 0.09% of 16366 South Asian genomes, and 0.05% of 8644 East Asian genomes. 
     i. *What do these numbers represent?*
-    ii. *Do you think that these values are normally distributed?*
+    ii. *Do you think that these values represent normally distributed data?*
 b. In a qPCR experiment, the gene CTLA4 was found to be expressed in Treg cells at levels 10 times higher than those found in Th cells. *What is this number an estimate of?*
 c. In three transfection experiments, the average transfection efficiency was found to be 6%. *What is this number estimating?*
 
@@ -57,13 +58,13 @@ The average age of all students at the University of Adelaide was calculated. *I
 
 ### Q3
 
-a) We think that a gene will be silenced by overexpression of a targeted siRNA. *What would our null hypothesis and alternate hypothesis be?*
+a) We think that a gene will be silenced by over-expression of a targeted siRNA. *What would our null hypothesis and alternate hypothesis be?*
 b) We suspect that a given SNP will provide increased zebrafish survival in a low-oxygen environment. We place 100 fish in a low-oxygen tank, and 100 fish in a normal-oxygen tank for 6 hours. At the end, we collect the survivors in each tank and genotype them at this SNP, giving the following results:
 
 |          | Allele A | Allele B |
 |:-------- | --------:| --------:|
-| Normoxia | 10       |      32  |
-| Hypoxia  | 94       |      86  |
+| Hypoxia  | 10       |      32  |
+| Normoxia | 94       |      86  |
 
 *What would the null and alternate hypotheses be for this experiment?*
 
@@ -102,7 +103,7 @@ xbar <- colMeans(rnd)
 hist(xbar, breaks = 50, freq = FALSE)
 ```
 
-This is a histogram of the sample means. 
+This is a histogram of the sample means from each of our random samples. 
 
 c) *Does it look like a normal distribution?*
 
@@ -126,7 +127,8 @@ We can clearly see that each sample mean is truly a single random sample from th
 ### Q5
 
 In the above, we knew the variance ($\sigma = 1$) because we set this in our random sampling step.
-In reality we don't know this, so we use our sample variance ($s^2$) and a $t$-test.
+In reality we don't know this, so we would use our sample variance ($s^2$) and a $t$-test.
+Let's have a look at how the sample variances are distributed.
 
 ```{r}
 library(matrixStats)
@@ -134,12 +136,12 @@ s2 <- colVars(rnd)
 hist(s2, breaks = 50)
 ```
 
-[Notice that the sample variances ($s^2$) are not normally distributed around the true variance ($\sigma = 1$).]
+Notice that the sample variances ($s^2$) are not normally distributed around the true variance ($\sigma = 1$).
 
-We know the true value for the population mean of these random samples ($\mu = 5$).
-In reality, **we wouldn't know this** and we'd need to conduct a hypothesis test with a null hypothesis and alternate hypoethesis.
+For these random samples, we knew the true value for the population mean  ($\mu = 5$).
+In reality, **we wouldn't know this** and we'd need to conduct a hypothesis test with a null hypothesis and alternate hypothesis.
 
-Let's test the hypothesis:
+Let's test the hypothesis using $\mu = 5$ as the value of interest:
 
 $$
 H_0: \mu = 5 \quad \text{Vs} \quad H_A: \mu \neq 5
@@ -157,27 +159,30 @@ Tstat <- (mean(rnd[,1]) - 5) / (sd(rnd[,1]) / sqrt(10))
 df <- 10 - 1
 ```
 
-[NB: Here the degrees of freedom is n - 1]
+NB: Here the degrees of freedom is n - 1, so we would check this against the distribution for $t_9$.
+In my simulations I got the value $T =$ `r pander(Tstat)`.
+**What value did you get from the first column in your simulations?**
 
-Let's check this against the distribution for $t_9$
+Let's visualise this by first plotting the density of a $t_9$ distribution, then adding vertical lines for our obtained statistic.
+By my estimation, 1 in 20 of you should get a relatively extreme $T$-statistic.
+(Feel free to just copy & paste this code chunk, but do try to understand what each line is doing.)
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-x <- seq(-3, 3, length.out = 100)
-y <- dt(x, df)
-data <- data_frame(x = x, y = y)
+library(tidyverse)
+x <- seq(-4, 4, length.out = 101) # Create a vector for the x-axis
+y <- dt(x, df) # Find the value of the density at each value of x
+data <- data_frame(x = x, y = y) # Combine x & y into a data_frame
 ggplot(data, aes(x = x, y = y)) +
   geom_line() +
   geom_ribbon(data = filter(data, x > abs(Tstat)),
               aes(x= x, ymax =y, ymin = 0),
               fill = "grey") +
-	geom_ribbon(data = filter(data, x < -abs(Tstat)),
+  geom_ribbon(data = filter(data, x < -abs(Tstat)),
               aes(x= x, ymax =y, ymin = 0),
               fill = "grey") +
   geom_vline(xintercept = c(-1, 1)*Tstat) +
   theme_bw() +
-  labs(x = "Z", y = "") +
+  labs(x = "T", y = "") +
   scale_y_continuous(expand = c(0, 0)) +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -280,6 +285,7 @@ t.test(sample1, sample2)
 
 We can clearly see that these two samples are drawn from different distributions.
 The problem is that our data is not normally distributed (especially sample 1) so the $t$-test cannot cope with these extreme violations of normality.
+It is also pretty clear that for data like this, our estimates of the population variance will be much larger than the difference.
 
 An alternative would be the Wilcoxon Rank-Sum Test, where each value is given a rank and the ranks are compared.
 
@@ -319,12 +325,12 @@ In the hypoxia example above these values would be:
 
 ```{r}
 counts <- matrix(c(10, 94, 32, 86), ncol = 2)
-rownames(counts) <- c("Normoxia", "Hypoxia")
+rownames(counts) <- c("Hypoxia", "Normoxia")
 colnames(counts) <- c("Allele A", "Allele B")
 ```
 
 ```{r, echo=FALSE, results='asis'}
-pander::pander(counts, justify = c("lrr"))
+pander(counts, justify = c("lrr"))
 ```
 
 Here the null hypothesis & alternative are:
@@ -345,12 +351,11 @@ In `R` we can simply conduct the test using `fisher.test()`
 fisher.test(counts)
 ```
 
-Alternatively, we could've used a $\chi^2$ test, however we would've need to ensure that now cell in the table had an expected count $<5$.
+Alternatively, we could've used a $\chi^2$ test, however we would've need to ensure that no cell in the table had an expected count $<5$.
 
 ```{r}
 chisq.test(counts)
 ```
 
 b) *Would you reject $H_0$ using either test?*
-
 
