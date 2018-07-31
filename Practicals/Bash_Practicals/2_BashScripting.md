@@ -6,7 +6,21 @@
 
 # More Command Line Tips & Tricks
 
+## Standard Output
+
+All of the output we saw in the previous session was 'printed' to your terminal.
+Each function returned output to you using a data stream called *standard out*, or `stdout` for short.
+Most of these tools also send information to another data stream called *standard error* (or `stderr`), and this is where many error messages go.
+This is actually sent to your terminal as well, and you may have seen this if you've made any mistakes so far.
+This basic data flow can be visualised in the following chart from www.linuxunit.com.
+
+![](https://www.linuxunit.com/images/stdin-stdout-stderr.png)
+
+Note also that everything you've typed on your keyboard is sent to each command as a data stream called `stdin`.
+Any guesses what that is short for?
+
 ## Text In the Terminal
+
 We can display a line of text in `stdout` by using the command `echo`.
 The most simple function that people learn to write in most languages is called `Hello World` and we'll do the same thing today.
 
@@ -21,9 +35,9 @@ echo 'This computer will self destruct in 10 seconds!'
 ```
 
 There are a few subtleties about text which are worth noting.
-Inspect the `man echo` page & note the effects of the `-e` option.
-This allows you to specify tabs, new lines & other special characters by using the backslash to signify these characters.
-This is an important concept & the use of a backslash to *escape* the normal meaning of a character is very common.
+If you have `man` pages accessible, inspect the `man echo` page & note the effects of the `-e` option. (Unfortunately you can't access this using `echo --help` on Linux. Maybe you can on `OSX` or `git bash` though, so give it a shot but don't be surprised if you don't see the help page.)
+The `-e` option allows you to specify tabs (`\t`), new lines (`\n`) & other special characters by using the backslash to signify these characters.
+This is an important concept & the use of a backslash to *escape* the normal meaning of a character is very common, as we saw with `grep` last time.
 Try the following three commands & see what effects these special characters have.
 
 ```
@@ -46,14 +60,15 @@ echo ~
 ### Using the `>` symbol
 
 So far, the only output we have seen has been in the terminal, which is known as the *standard output*, or `stdout` for short.
-Similar to the pipe command, we can redirect the output of a command to a file instead of to standard output, and we do this using the greater than symbol (>), which we can almost envisage as an arrow.
+Similar to the `magrittr` in `R`, we can redirect the output of a command to a file instead of to standard output, and we do this using the greater than symbol (>), which we can almost envisage as an arrow.
 
 Let's get a file to work with for today.
-**Make sure you are in your `Bash_Practical` directory**, then download the following file using `wget`
+**Make sure you are in your `Bash_Practical` directory**, then download the following file using `curl` 
+```
+curl ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz > Drosophila_melanogaster.BDGP6.ncrna.fa.gz
+```
 
-```
-wget ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz
-```
+If we hadn't placed this symbol at the end of this command, `curl` would literally stream all of the contents of this file to `stdout`, but now we have redirected this to a file.
 
 After you've downloaded this file, unzip it using `gunzip`.
 
@@ -66,18 +81,19 @@ egrep '^>' Drosophila_melanogaster.BDGP6.ncrna.fa
 ```
 
 This will just dump the information to `stdout`, and will appear as a stream of identifiers.
-If we want to capture `stdout` and send it to a file, we can use the `>` symbol at the end of the above command, and provide a filename to write to.
+If we want to capture `stdout` and send it to a file, we can use the `>` symbol again at the end of the above command, and provide a filename to write to.
 This will create the file as an empty file, then add the data stream from `stdout` to the blank file.
 
 ```
 egrep '^>' Drosophila_melanogaster.BDGP6.ncrna.fa > SeqIDs.txt
 less SeqIDs.txt
 ```
-Once you've had a quick look at the file, exit the less pager and delete the file using the `rm` command.
+Once you've had a quick look at the file, exit the less pager (`q`) and delete the file using the `rm` command.
 
 ### Using the `>>` symbol
 
-Another alternative is to use the `>>` symbol, which doesn't create an empty file first, but instead adds the data from `stdout` to the end of any existing data.
+Another alternative is to use the `>>` symbol, which only creates a blank file if one doesn't exist.
+If one with that name already exists, this symbol doesn't create an empty file first, but instead adds the data from `stdout` **to the end** of the existing data within that file.
 
 ```
 echo -e '# Sequence identifiers for all ncrna in dm6' > SeqIDs.txt
@@ -105,7 +121,8 @@ egrep '^>' Drosophila_melanogaster.BDGP6.ncrna.fa >> SeqIDs.txt
 ## Redirection Using The Pipe Symbol
 
 Sometimes we need to build up our series of commands & send the results of one to another.
-The *pipe* symbol (|) is the way we do this & it can literally be taken as placing the output from one command into a pipe & redirecting it somewhere new.
+The *pipe* symbol (`|`) is the way we do this & it can literally be taken as placing the output from one command into a pipe & redirecting it somewhere new.
+This is where thinking about the output of a command as a *data stream* can be very helpful.
 
 As a simple example, we could take the output from an `ls` command & send it to the pager `less`.
 
@@ -115,7 +132,11 @@ ls -lh /usr/bin | less
 
 Page through the output until you get bored, then hit `q` to quit.
 
-Now we'll download the file GCF_000182855.2_ASM18285v1_genomic.gff for *Lactobacillus amylovorus* from the NCBI database.
+This process can also be visualised using the following diagram from Unix Bootcamp:
+
+![](https://camo.githubusercontent.com/1652e94dd89d73b1e5ad43feabe12d5aac7e033b/68747470733a2f2f646f63732e676f6f676c652e636f6d2f64726177696e67732f642f3161444b397a716163677572465a537a6a704c4d5653676f64306a462d4b4648576553565f53554c387668452f7075623f773d39313626683d333534)
+
+Now we'll download the file GCF_000182855.2_ASM18285v1_genomic.gff for *Lactobacillus amylovorus* from the NCBI database. (Use `curl` if you don't have `wget`)
 
 ```
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/182/855/GCF_000182855.2_ASM18285v1/GCF_000182855.2_ASM18285v1_genomic.gff.gz
@@ -123,7 +144,7 @@ gunzip GCF_000182855.2_ASM18285v1_genomic.gff.gz
 ```
 
 The first 5 lines of this file is what we refer to as a *header*, which contains important information about how the file was generated in a standardised format.
-Many file formats have these structures at the beginning but for our purposes today we don't need to use any of this information so we can move on.
+Many file formats have these structures at the beginning, but for our purposes today we don't need to use any of this information so we can move on.
 Have a look at the beginning of the file just to see what it looks like.
 
 ```
@@ -152,7 +173,7 @@ or
 grep -c '^[^#]' GCF_000182855.2_ASM18285v1_genomic.gff
 ```
 
-**Make sure you understand both of the above commands!**
+**Make sure you understand both of the above commands as it may not be immediately obvious!**
 
 As mentioned above, this file contains multiple features such as *regions*, *genes*, *CDSs*, *exons* or *tRNAs*.
 If we wanted to find how many regions are annotated in this file we could use the processes we've learned above:
@@ -227,7 +248,7 @@ Note that we haven't edited the file on disk, we've just streamed the data conta
 
 # sed: The Stream Editor
 
-One very useful command in the terminal is `sed`, which is short for *stream editor*.
+One additional and very useful command in the terminal is `sed`, which is short for *stream editor*.
 Instead of the `man` page for `sed` the `info sed` page is larger but a little easier to digest.
 This is a very powerful command which can be a little overwhelming at first.
 If using this for your own scripts & you can't figure something out, remember 'Google is your friend' & sites like \url{www.stackoverflow.com} are full of people wrestling with similar problems to you.
@@ -254,7 +275,7 @@ Ask for help if this doesn't work.
 
 ## Altering a file or other input
 
-`sed` uses *regular expressions* that we have come across under the `grep` section, and we can use these to replace strings or characters within a text string.
+`sed` uses *regular expressions* that we have come across under the `grep` section, and we can use these to replace strings or characters within a text string, like we did in `R` using `str_extract()` and `str_replace()`.
 The command works in the form `sed 'SCRIPT' INPUT`, and the script section is where all the action happens.
 Input can be given to `sed` as either a file, or just as a text stream via the *pipe* that we have already introduced.
 
@@ -295,6 +316,7 @@ echo 'ATGCCAGTA' | sed -r 's/ATG(.{3})GTA/ATG\1\1\1GTA/g'
 
 The `\1` entry takes the contents of the first parenthesis and uses it in the substitution, even though you don't know what the bases are.
 Note that the `-r` option was set for these operations, which turns on extended regular expression capabilities.
+If you're on OSX and this hasn't worked for you, call a tutor over to check you installation of `sed`
 This can be a powerful tool & multiple parentheses can also be used:
 
 ```
@@ -309,7 +331,7 @@ Taking care to be clear when writing these types of procedures can be an importa
 
 ## Displaying a region from a file
 
-The command `sed` can also be used to replicate the functionality of the `head` & grep commands, but with a little more power at your fingertips.
+The command `sed` can also be used to replicate the functionality of the `head` & `grep` commands, but with a little more power at your fingertips.
 By default `sed` will print the entire input stream it receives, but setting the option `-n` will turn this off.
 Try this by adding an `n` immediately after the `-r` in one of the above lines & you will notice you receive no output.
 This is useful if we wish to restrict our output to a subset of lines within a file, and by including a `p` at the end of the script section, only the section matching the results of the script will be printed.
@@ -334,7 +356,7 @@ The `fastq` file format from NGS data, and which we'll look at in week 6 will us
 
 
 
-We can also make sed operate like `grep` by making it only print the lines which match a pattern.
+We can also make `sed` operate like `grep` by making it only print the lines which match a pattern.
 ```
 sed -rn '/TGCAGGCTC.+(GA){2}.+/ p' Drosophila_melanogaster.BDGP6.ncrna.fa
 ```
@@ -381,7 +403,7 @@ If statements are those which only have a binary `yes' or `no' response.
 For example, we could specify things like:
 
 - **if** (`i>1`) then `do` something, or
-- **if** (`fileName==bob.txt`) then `do` something else
+- **if** (`fileName == bob.txt`) then `do` something else
 
 
 Notice that in the second `if` statement, there was a double equals sign (`==`).
