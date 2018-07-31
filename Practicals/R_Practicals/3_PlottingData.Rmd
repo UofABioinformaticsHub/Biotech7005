@@ -217,7 +217,7 @@ We can use `dplyr` (or any other) function to summarise our data before plotting
 As we saw last time, this is loaded by default when we called `library(tidyverse)`.
 
 Let's start working towards a barplot with error bars, which will use `geom_bar()`.
-This has a slightly unusual set of default values, we we need to tell it not to summarise anything by setting `stat = "identity"`, and we need to tell it to plot bars next to each other by using `position ="dodge"`.
+This has a slightly unusual set of default arguments, so we need to provide the argument `stat = "identity"`, which tells it to use the values provided and not to try summing anything.
 
 ```{r}
 data %>%
