@@ -76,7 +76,7 @@ Have you:
 
 - [ ] Answered all the questions?
 - [ ] Followed naming conventions for Assessments?
-- [ ] Attached an assessment coversheet? (Available [here](COVERSHEET.md)).
+- [ ] Attached an assessment coversheet? (Available [here](https://github.com/UofABioinformaticsHub/Biotech7005/blob/master/COVERSHEET.text)).
 	- This is a course requirement. See the [Academic Honesty Policy](http://www.adelaide.edu.au/policies/230/).
 - [ ] Identified the work as yours?
 	- Emails should have the course and assessment task names.
