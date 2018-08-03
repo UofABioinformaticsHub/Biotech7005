@@ -184,7 +184,7 @@ Most `bash` tools are named using all lower-case, but there are exceptions.
 There is another built-in command (`ls`) that we can use to **list** the contents of a directory.
 This is a way to get our familiar folder view in the terminal.
 Enter the `ls` command as it is and it will print the contents of the current directory.
-```
+```bash
 ls
 ```
 
@@ -195,7 +195,7 @@ Alternatively, we can specify which directory we wish to view the contents of, w
 We simply type the `ls` command, followed by a space, then the directory we wish to view the contents of.
 To look at the contents of the root directory of the file system, we simply add that directory after the command `ls`.
 
-```
+```bash
 ls /
 ```
 
@@ -219,7 +219,7 @@ If you already have a directory for this course, **navigate to this directory us
 Now we are in a suitable location, let's create a directory called `Bash_Practical`, just like we did for the `R_Practicals`.
 To do this we use the `mkdir` command as follows:
 
-```
+```bash
 mkdir Bash_Practical
 ```
 
@@ -271,6 +271,7 @@ On Ubuntu or git bash, files and folders should also be displayed with different
 There are many more options that we could specify to give a slightly different output from the `ls` command.
 Two particularly helpful ones are the options `-h` and `-R`.
 We could have specified the previous command as
+
 ```bash
 ls -l -h ~
 ```
@@ -291,7 +292,8 @@ The first is what we have seen previously, but following that will be the conten
 It should become immediately clear that the output from setting this option can get very large & long depending on which directory you start from.
 It's probably not a good idea to enter `ls -l -R /` as this will print out the entire contents of your file system.
 
-In the case of the `ls` command we can also *glob* all the above options together in the command \\
+In the case of the `ls` command we can also *glob* all the above options together in the command
+
 ```bash
 ls -lhR ~
 ```
@@ -328,6 +330,7 @@ In order to help us find what options are able to be specified, every command bu
 *These help pages are displayed using the pager known as* `less` which essentially turns the terminal window into a text viewer so we can display text in the terminal window, but with no capacity for us to edit the text, almost like primitive version of Acrobat Reader.
 
 To display the help page for `ls` enter the command
+
 ```bash
 man ls
 ```
@@ -356,6 +359,7 @@ Look through the manual page for the `ls` command.
 
 We can also find out more about the `less` pager by calling it's own `man` page.
 Type the command:
+
 ```bash
 man less
 ```
