@@ -10,7 +10,7 @@
 
 Over the first two weeks we introduced the language `R`, which is heavily used in bioinformatics.
 `R` is particularly effective for interacting with and visualising data, as well as performing statistical analyses.
-However, in modern bioinformatics `R` is commonly used in the mid to late stage of many analyses.
+However, in modern bioinformatics `R` is commonly used in the middle to late stage of many analyses.
 An important step in many analyses is moving data around on a high-performance computer (HPC), and setting jobs running than can take hours, days or even weeks to perform.
 For this, we need to learn how to write scripts which perform these actions, and the primary language for this is `bash`.
 
@@ -24,76 +24,106 @@ This is often referred to as *Reproducible Research*, and in reality, our script
 
 ## Setup
 
-We will use `bash` on our own computers again for these sessions.
-Window laptops may require some setup, whilst Ubuntu computers and OSX computers have `bash` already installed.
+We have instantiated a separate virtual machine for all of you, which will be yours for the remainder of the semester.
+Your IP address will be given to you in the class, as well as the login information in terms of your username and password.
 
-### OSX
+These machines will be identical and allow us to all work in the same environment and layout, and all are running Ubuntu which is a commonly used flavour of the Linux operating system.
+Most HPC systems you use will require a knowledge of Linux so these practicals will give you the basics skills for working in this environment.
 
-OSX (Mac) computers have a terminal included, which runs `bash` by default so if you have a Mac, you simply need to open a terminal.
-This can be done by following the instructions in [this video](https://www.youtube.com/watch?v=QROX039ckO8).
+### Accessing Your VM
 
-### Windows 10
+For the remainder of the course, we will be able to access our VMs using the software [X2Go](https://wiki.x2go.org/doku.php/download:start).
+You will need to install this on your laptop so please do so before proceeding further.
 
-If you have Windows 10, you are able to install the additional Operating System, known as Ubuntu.
-This is a Linux operating system which usually runs independently of Windows, however this version has recently been made available.
-To install this, please follow [this link](https://www.microsoft.com/en-au/store/p/ubuntu/9nblggh4msv6?rtc=1) and install the app.
+Once you have this installed, please follow these steps:
 
-After installation, this will open a terminal running `bash` whenever you open Ubuntu.
+1. Open the X2Go Software
+2. Enter “Biotech7005” or something similar in the Session name field at the top
+3. Enter your assigned IP address in the Host field
+4. Enter `biotech7005` as the Login. *Note that this is case sensitive*
+5. Under `Session Type`, use the drop-down menu to select `XFCE`
+6. Enter OK
 
-### Windows 8
+This will not log you in, but will have setup the “session” which is the basic login configuration, and a link to this will have appeared in the top-right of the X2Go program window.
+Once you’ve figured out what we mean, click this link and you will be taken to a login which requires you to enter your password.
+Enter the password provided to you and you should be connected to your VM desktop, with layout as below.
 
-If you have Windows 8, you'll need to install git bash from the following link: https://git-scm.com/download/win
+![](https://big-sa.github.io/Intro-NGS-July-2018/images/VM_Desktop.png)
 
-### Ubuntu
+We encourage you to maximise your screen containing the VM desktop, and to switch between your browser & the VM, please use `Alt+Tab`.
 
-If you're already running Ubuntu, well done! Just hit `Ctrl + Alt + T` to open a terminal running `bash`
+Also note that those of you on OSX may already have used `bash` in your terminal.
+Whilst the vast majority of commands are compatible between OSX and Linux, there are occasionally some subtle differences in the arguments supplied to commands.
+If something works on your VM but doesn't on your Mac, this will likely be one of those few differences.
+
+### Changing your password
+{:.no_toc}
+
+We **strongly advise changing your password as the first thing you do**, to provide a level of security.
+To change your password, open a terminal inside your VM by clicking the terminal icon at the bottom of your screen.
+Then type
+
+```bash
+passwd
+```
+and enter your initial password, followed by your new password as instructed.
+You will need to use this new password every time you login.
+Please remember this as *we will not have it on record anywhere*.
+
 
 ## Initial Goals
+
+Now we have setup our VM connection, the basic aims of the following sessions are:
 
 1. Gain familiarity and confidence within the Linux command-line environment
 2. Learn how to navigate directories, as well as to copy, move & delete the files within them
 3. Look up the name of a command needed to perform a specified task
 
+---
+
 ## Finding your way around
 
-Firstly we need to open a terminal as described above
+Firstly we need to open a terminal as described above, or just keep working on the one you opened when you changed your password.
 You will notice some text describing your computer of the form
 
 ```
-user@computer:~$
+biotech7005@biotech7005-xx:~$
 ```
 
-
-The tilde represents your current directory (see below), whilst the dollar sign just indicates the end of the address & the beginning of where you will type commands.
+The tilde represents your current directory (see below), whilst the dollar sign just indicates the end of this path & the beginning of where you will type commands.
 This is the standard interface for the Bourne-again Shell, or `bash`.
-(Historically, `bash` is a replacement for the earlier Bourne Shell, written by Stephen Bourne, so the name is actually a hilarious joke.)
+In some material you may see online, `bash` examples are given on lines beginning with `$`.
+We never really need to use this at the beginning of a line, so please do be aware of this.
+
+Historically, `bash` is a replacement for the earlier Bourne Shell, written by Stephen Bourne, so the name is actually a hilarious joke.
 We'll explore a few important commands below, and the words *shell* and *bash* will often be used interchangeably with the terminal window.
 Our apologies to any purists.
 
-If you've ever heard of the phrase **shell scripts**, this refers to a series of commands strung together into a text file which is then able to be run as a single process.
+If you've ever heard of the phrase **shell scripts**, this refers to a series of commands like we will learn, strung together into a text file, which is then able to be run as a single process.
 
-### Where are we?
+#### Where are we?
+{:.no_toc}
 
 Type the command `pwd` in the terminal and you will see the output which describes the `home` directory for your login.
 
-```
+```bash
 pwd
 ```
 
-The command `pwd` is what we use to **p**rint the current (i.e. **w**orking) **d**irectory.
+The command `pwd` is what we use to __p__rint the current (i.e. __w__orking) __d__irectory.
 By default `bash` will open in a directory that will be referred to as your *home* directory for the remainder of the workshop.
 This may vary a little depending on your operating system, but on Linux computers this is usually `/home/username`, whilst on Mac this will be `/Users/username`
 This is also the information that the tilde (`~`) represents as a shorthand version, so whenever you see `~` in a directory path, it is interpreted as this directory.
 
-In the above command, the home directory began with a slash, i.e. `/`.
+In output from `pwd`, the home directory began with a slash, i.e. `/`.
 On a unix-based system (i.e. Mac & Linux), this is considered to be the root directory of the file system.
 Windows users would be more familiar with seeing `C:\` as the root of the computer, and this is an important difference in the two directory structures.
 Note also that whilst Windows uses the backslash (\\) to indicate a new directory, a Linux-based system uses the forward slash (/), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
 
-Another bash command is `cd` which we use to **c**hange **d**irectory.
+Another bash command is `cd` which we use to __c__hange __d__irectory.
 No matter where we are in a file system, we can move up a directory in the hierarchy by using the command
 
-```
+```bash
 cd ..
 ```
 
@@ -103,7 +133,7 @@ The string `..` is the convention for *one directory above*, whilst a single dot
 Enter the above command and notice that the location immediately to the left of the \$ has now changed.
 This is also what will be given as the output if we entered the command `pwd` again.
 If we now enter
-```
+```bash
 cd ..
 ```
 one more time we should be in the root directory of the file system.
@@ -113,26 +143,26 @@ The output should be the root directory given as `/`.
 
 We can change back to the original location by entering one of either:
 
-```
+```bash
 cd ~
 ```
-or 
-```
+or
+```bash
 cd
 ```
 
 
-The approach taken above to move through the directories used what we refer to as a *relative path*, where each move was made relative to the current directory.
-An *absolute path* on Linux/Mac will always begin with the root directory symbol `/`.
+The approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
+An __absolute path__ on Linux/Mac will always begin with the root directory symbol `/`.
 
-For example, `/path` would refer to a directory called `path` in the root directory of the file system (NB: This directory doesn't really exist, it's an example).
+For example, `/foo` would refer to a directory called `foo` in the root directory of the file system (NB: This directory doesn't really exist, it's an example).
 In contrast, a *relative path* can begin with either the current directory (indicated by `./`) or a higher-level directory (indicated by `../` as mentioned above).
-A subdirectory `path` of the current directory could thus be specified as `./path`, whilst a subdirectory of the next higher directory would be specified by `../path`.
+A subdirectory `foo` of the current directory could thus be specified as `./foo`, whilst a subdirectory of the next higher directory would be specified by `../foo`.
 Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory.
 
 We can also move through multiple directories in one command by separating them with the forward slash `/`.
 For example, we could also get to the root directory from our home directory by typing
-```
+```bash
 cd ../../
 ```
 
@@ -206,13 +236,13 @@ The `ls` command can be given with the option `-l` specified between the command
 *Inspect the contents of your current directory using the long listing format.
 Please make sure you can tell the difference between the characters `l` & `1`.*
 
-```
+```bash
 ls -l
 ```
 
 The above will give one or more lines of output, and one of the first lines should be something similar to:
 
-`drwxrwxr-x 2 your_login_name your_login_name 4096 Aug 6 hh:mm Bash_Practical`
+`drwxrwxr-x 2 biotech7005 biotech7005 4096 Aug 6 hh:mm Bash_Practical`
 
 where `mmm dd hh:mm` are time and date information.
 
@@ -223,25 +253,25 @@ Beyond this first position, the triplet of values `rwx` simply refer to who is a
 These triplets refer to 1) the file's owner, 2) the group of users that the owner belongs to & 3) all users, and will only contain the values "r" (read), "w" (write), "x" (execute) or "-" (not enabled).
 These are very helpful attributes for data security, protection against malicious software, and accidental file deletions.
 
-The entries `your_login_name your_login_name` respectively refer to who is the owner of the directory (or file) & to which group of users the owner belongs.
+The entries `biotech7005 biotech7005` respectively refer to who is the owner of the directory (or file) & to which group of users the owner belongs.
 Again, this information won't be particularly relevant to us today, but this type of information is used to control who can read and write to a file or directory.
 Finally, the value `4096` is the size of the directory structure in bytes, whilst the date & time refer to when the directory was created.
 
 Let's look in your home directory (`~`).
 
-```
+```bash
 ls -l ~
 ```
 
 This directory should contain numerous files and folders.
-There is also a `-` instead of a `d` at the beginning of the initial string of flags will help indicate the difference between files and folders.
+There is a `-` instead of a `d` at the beginning of the initial string of flags indicates the difference between files and folders.
 On Ubuntu or git bash, files and folders should also be displayed with different colours, but this may or may not be the case for those of you on OSX.
+**Can you see only folders, or do you have any files present in your home directory?**
 
 There are many more options that we could specify to give a slightly different output from the `ls` command.
-Two particularly helpful ones are the options `-h` and
-`-R`.
+Two particularly helpful ones are the options `-h` and `-R`.
 We could have specified the previous command as
-```
+```bash
 ls -l -h ~
 ```
 
@@ -252,7 +282,7 @@ This can be particularly helpful for larger files, as most files in bioinformati
 The additional option `-R` tells the `ls` command to look through each directory recursively.
 If we enter
 
-```
+```bash
 ls -l -R ~
 ```
 
@@ -262,7 +292,7 @@ It should become immediately clear that the output from setting this option can 
 It's probably not a good idea to enter `ls -l -R /` as this will print out the entire contents of your file system.
 
 In the case of the `ls` command we can also *glob* all the above options together in the command \\
-```
+```bash
 ls -lhR ~
 ```
 
@@ -298,11 +328,9 @@ In order to help us find what options are able to be specified, every command bu
 *These help pages are displayed using the pager known as* `less` which essentially turns the terminal window into a text viewer so we can display text in the terminal window, but with no capacity for us to edit the text, almost like primitive version of Acrobat Reader.
 
 To display the help page for `ls` enter the command
-```
+```bash
 man ls
 ```
-
-(If you are on OSX and this doesn't work, try using `ls --help | less`. This may seem a bit complex but we'll explain all this soon.)
 
 As beforehand, the space between the arguments is important & in the first argument we are invoking the command `man` which then looks for the *manual* associated with the command `ls`.
 To navigate through the manual page, we need to know a few shortcuts which are part of the `less` pager.
@@ -328,10 +356,10 @@ Look through the manual page for the `ls` command.
 
 We can also find out more about the `less` pager by calling it's own `man` page.
 Type the command:
-```
+```bash
 man less
 ```
-and the complete page will appear (`less --help | less` for OSX).
+and the complete page will appear.
 This can look a little overwhelming, so try pressing `h` which will take you to a summary of the shortcut keys within `less`.
 There are a lot of them, so try out a few to jump through the file.
 
@@ -352,7 +380,7 @@ If you don't find something  at first, just keep looking and you'll find it even
 #### Questions
 {:.no_toc}
 
-Try accessing the manual for the command `man` all ways you can think of.
+Try accessing the manual for the command `man` all the ways you can think of.
 *Was there a difference in the output depending on how we asked to view the manual?*
 
 *Could we access the help page for the command `ls` all three ways?*
@@ -416,7 +444,6 @@ We'll download a file from the internet, then look through the file.
 
 1. Use the `cd` command to **make sure you are in the folder** `Bash_Practical`
 2. Use the command `wget` to download the `gff` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
-    + If you are on `git bash` or `OSX` this command probably won't work, and you'll need to use `curl ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz > Drosophila_melanogaster.BDGP6.89.gff3.gz`
 3. Now unzip this file using the command `gunzip`.
 (Hint: After typing `gunzip`, use tab auto-complete to add the file name.)
 4. Change the name of the file to `dm6.gff` using the command `mv Drosophila_melanogaster.BDGP6.89.gff3 dm6.gff`
@@ -425,6 +452,8 @@ We'll download a file from the internet, then look through the file.
 7. Look at the end of the file using the command `tail`
 8. Page through the file using the pager `less`
 9. Count how many lines are in the file using the command `wc -l`
+
+---
 
 # Regular Expressions
 
@@ -447,11 +476,7 @@ This function searches a file or input on a line-by-line basis, so patterns cont
 This can be overcome by using regular expressions in a programming language like Python or Perl.  
 
 The `man grep` page (`grep --help | less` for those without `man` pages) contains more detail on regular expressions under the `REGULAR EXPRESSIONS` header (scroll down a few pages).  
-As can be seen in the `man` page, the command follows the form
-
-```
-grep [OPTIONS] 'pattern' filename
-```
+As can be seen in the `man` page, the command follows the form `grep [OPTIONS] 'pattern' filename`
 
 The option `-E` is preferable as it it stand for *Extended*, which we can also think of as *Easier*.
 As well as the series of conventional numbers and characters that we are familiar with, we can match to characters with special meaning, as we saw above where enclosing the two letters in brackets gave the option of matching either.
@@ -480,34 +505,35 @@ In this section we'll learn the basics of using the `grep` command & what forms 
 Firstly, we'll need to get the file that we'll search in this section.
 First **change into your `Bash_Practical` directory** using the `cd` command, then enter the following, depending on your operating system:
 
-- OSX: `cp /usr/share/dict/words words`
-- Ubuntu: `cp /usr/share/dict/words words`
-- Git Bash: Download the file from `http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt` into your `Bash_Practical` directory using `wget` or `curl`, then rename using `mv wordsEn.txt words`
+```bash
+cp /usr/share/dict/words words
+```
+
 
 Now page through the first few lines of the file using `less` to get an idea about what it contains.
 
 Let's try a few searches, and to get a feel for the basic syntax of the command, try to describe what you're searching for on your notes **BEFORE** you enter the command.
 Do the results correspond with what you expected to see?
 
-```
+```bash
 grep -E 'fr..ol' words
 ```
-```
+```bash
 grep -E 'fr.[jsm]ol' words
 ```
-```
+```bash
 grep -E 'fr.[^jsm]ol' words
 ```
-```
+```bash
 grep -E 'fr..ol$' words
 ```
-```
+```bash
 grep -E 'fr.+ol$' words
 ```
-```
+```bash
 grep -E 'cat|dog' words
 ```
-```
+```bash
 grep -E '^w.+(cat|dog)' words
 ```
 
@@ -515,19 +541,19 @@ In the above, we were changing the pattern to extract different results from the
 Now we'll try a few different options to change the output, whilst leaving the pattern unchanged.
 If you're unsure about some of the options, don't forget to consult the `man` page.
 
-```
+```bash
 grep -E 'louse' words
 ```
-```
+```bash
 grep -Ew 'louse' words
 ```
-```
+```bash
 grep -Ewn 'louse' words
 ```
-```
+```bash
 grep -EwC2 'louse' words
 ```
-```
+```bash
 grep -c 'louse' words
 ```
 
