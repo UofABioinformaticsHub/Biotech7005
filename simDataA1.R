@@ -21,7 +21,6 @@ library(readr)
 library(stringr)
 library(magrittr)
 
-setwd("/media/steve/Data/Bioinformatics/Courses/Biotech7005")
 students <- read_tsv("enrolments.tsv")
 ids <- students$Emplid
 
