@@ -1,15 +1,17 @@
-# Assignment 2 [*25 marks*]
+# Assignment 2 [*29 marks*]
 
 **Due before 12pm, Monday 20th August**
 
-Your answers to all questions should be submitted to myUni as a `.zip` file containing both scripts, and the answers to the statistics questions in Rmarkdown format.
+Your answers to all questions should be submitted to myUni as a `.zip` file containing separate scripts for Q1 and Q2, and the answers to the statistics questions (Q3 and Q4) in a single Rmarkdown document.
+Note that the file `my_species_gff_features.txt` is not required as part of your submission for Q1, only the script which will generate this file.
+Similarly, for Q2, only the script is required.
 
-## Required scripts [*13 marks*]
+## Required scripts [*14 marks*]
 
 1. Write a script to:
     + Download the gff3 file for your assigned species ([see bottom of page](#species-for-question-1)) to your current directory from Ensembl [*1 mark*]
-    + Count how many of each feature type there is [*2 marks*]
-    + Export the results to a file with a name of the form `my_species_gff_features.txt` where you use your assigned species name instead of `my_species` [*1 mark*]
+    + Count how many of each feature type there is, sorted in numerical order [*3 marks*]
+    + Export the results to a file with a name of the form `my_species_gff_features.txt` **where you use your assigned species name instead of** `my_species` [*1 mark*]
     + Include one or more comment lines before the table detailing which build of the genome was used, and the code executed to generate the summary [*2 marks*]
 
 2. For the file we used in the practicals (Drosophila_melanogaster.BDGP6.ncrna.fa), add to the final practical script provided so that:
@@ -18,23 +20,30 @@ Your answers to all questions should be submitted to myUni as a `.zip` file cont
     + the output includes: a) gene id; b) chromosome; c) start; d) stop; e) strand and f) gene_biotype [*3 marks*]
     + Any comments which make the script easier to understand [*1 mark*]
 
-## Statistics questions [*12 marks*]
+## Statistics questions [*15 marks*]
 
 In a single Rmarkdown file answer the following questions:
 
-1. Two strains of barley have been genotyped at 100,000 SNPs. Differences between strains at each SNP are unknown, and of great interest to researchers investigating drought tolerance. 50 plants from each strain have been genotyped to estimate SNP frequencies between the two populations.
+3. Two groups of people have volunteered to take part in a genetic study. Group 1 (n = 126) are volunteers with no history of Type I Diabetes in their immediate family, whilst Group 2 (n = 183) have all been diagnosed with Type I Diabetes. A genotyping study was undertaken on these volunteers using 25,786 SNPs selected due to their proximity to key immune genes.
+Researchers are looking to identify any SNP genotypes which may increase the risk of Type I Diabetes. In your answer, consider the reference SNP allele as `A` and the alternate SNP allele as `B`, using the genotypes `AA`, `AB` and `BB`.
 
     a. For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]  
-    b. Define $H_0$ and $H_A$ for each individual SNP. [*2 marks*]  
-    c. If there was no true difference in any SNP frequencies s between the two strains, how many p-values would you expect to see < 0.05 [*1 mark*]  
-    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP to have different frequencies between strains, i.e. to reject $H_0$ [*1 mark*]
+    b. Define H~0~ and H~A~ for the genotype at each individual SNP. [*2 marks*]  
+    c. If there was no true difference in any genotypes between the two groups, how many p-values would you expect to see < 0.05 [*1 mark*]  
+    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP as being associated with an increased risk of Type I diabetes, i.e. to reject H~0~ [*1 mark*]
+    e. Given the following genotype table, would you accept or reject H~0~?[*3 marks*]
+
+| Group | AA   | AB  | BB |
+| ----- | ---- | --- | --- |
+| Control | 23 | 61  | 42 |
+| T1D     | 23 | 56 | 104 |
 
 
-2. An experiment was repeated 5 times, in which GFP fluorescence was measured in a cell culture as a measurement of gene expression, both *before* and *after* treatment with rapamycin.
+4. An experiment was repeated 7 times, in which GFP fluorescence was measured in a cell culture as a measurement of gene expression, both *before* and *after* viral transfection.
 GFP was present on a plasmid as a reporter for activity at a specific promoter.
-The change in fluorescence obtained are given below as the vector `x`, presented on the log2 scale.  
+The change in fluorescence values obtained are given below as the vector `x`, presented on the log~2~ scale.  
 
-    a. Define $H_0$ and $H_A$ [*2 marks*]  
+    a. Define H~0~ and H~A~ [*2 marks*]  
     b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
     c. Calculate the *T*-statistic using `R`. [*1 mark*]
     d. What would the degrees of freedom be for a *t*-test? [*1 mark*]  
@@ -42,7 +51,7 @@ The change in fluorescence obtained are given below as the vector `x`, presented
 
 
 ```{r}
-x <- c(3, 1.9, 2.7, 3.4, 4.1)
+x <- c(3.1, 2.9, 0.7, 3.4, -0.2, 2.6, 1.9)
 ```
 
 
@@ -50,36 +59,39 @@ x <- c(3, 1.9, 2.7, 3.4, 4.1)
 
 *If your student number is not listed, please contact Dan to ensure you are added to the list*
 
-|ID       |Organism     |Species                    |
-|:--------|:------------|:--------------------------|
-|a1735804 |Cat          |Felis catus                |
-|a1696678 |Fugu         |Takifugu rubripes          |
-|a1611214 |Olive baboon |Papio anubis               |
-|a1691643 |Spotted gar  |Lepisosteus oculatus       |
-|a1667810 |Rat          |Rattus norvegicus          |
-|a1733239 |Duck         |Anas platyrhynchos         |
-|a1718998 |Tilapia      |Oreochromis niloticus      |
-|a1731952 |Xenopus      |Xenopus tropicalis         |
-|a1710508 |Opossum      |Monodelphis domestica      |
-|a1690770 |Coelacanth   |Latimeria chalumnae        |
-|a1652167 |Pig          |Sus scrofa                 |
-|a1714893 |Platypus     |Ornithorhynchus anatinus   |
-|a1702741 |Mouse        |Mus musculus               |
-|a1701030 |Orangutan    |Pongo abelii               |
-|a1662822 |Hyrax        |Procavia capensis          |
-|a1606913 |Human        |Homo sapiens               |
-|a1731155 |Anole lizard |Anolis carolinensis        |
-|a1713960 |Zebrafish    |Danio rerio                |
-|a1674898 |Macaque      |Macaca mulatta             |
-|a1729128 |C.savignyi   |Ciona savignyi             |
-|a1719003 |Squirrel     |Ictidomys tridecemlineatus |
-|a1660066 |Armadillo    |Dasypus novemcinctus       |
-|a1710741 |Dolphin      |Tursiops truncatus         |
-|a1673245 |Flycatcher   |Ficedula albicollis        |
-|a1701389 |Cave fish    |Astyanax mexicanus         |
-|a1701747 |Chimpanzee   |Pan troglodytes            |
-|a1643251 |Gorilla      |Gorilla gorilla gorilla    |
-|a1735934 |Rabbit       |Oryctolagus cuniculus      |
-|a1738360 |Megabat      |Pteropus vampyrus          |
-|a1619733 |Ferret       |Mustela putorius furo      |
-|a1683838 |Mouse Lemur  |Microcebus murinus         |
+| ID       | Species                  | Taxonomy ID | Common Name                    |
+|:---------|:-------------------------|------------:|:-------------------------------|
+| a1077937 | Dipodomys ordii          |       10020 | Ord's Kangaroo Rat             |
+| a1606913 | Papio anubis             |        9555 | Olive Baboon                   |
+| a1614956 | Astyanax mexicanus       |        7994 | Mexican Tetra                  |
+| a1619861 | Dasypus novemcinctus     |        9361 | Nine-Banded Armadillo          |
+| a1634284 | Pan troglodytes          |        9598 | Chimpanzee                     |
+| a1653192 | Anolis carolinensis      |       28377 | Green Anole                    |
+| a1679812 | Mus caroli               |       10089 | Ryukyu Mouse                   |
+| a1680333 | Heterocephalus glaber    |       10181 | Naked Mole-Rat                 |
+| a1688727 | Microcebus murinus       |       30608 | Gray Mouse Lemur               |
+| a1689798 | Rattus norvegicus        |       10116 | Norway Rat                     |
+| a1696632 | Aotus nancymaae          |       37293 | Ma's Night Monkey              |
+| a1711220 | Rhinopithecus bieti      |       61621 | Black Snub-Nosed Monkey        |
+| a1711533 | Tupaia belangeri         |       37347 | Northern Tree Shrew            |
+| a1711935 | Callithrix jacchus       |        9483 | White-Tufted-Ear Marmoset      |
+| a1715156 | Latimeria chalumnae      |        7897 | Coelacanth                     |
+| a1729553 | Drosophila melanogaster  |        7227 | Fruit Fly                      |
+| a1731217 | Erinaceus europaeus      |        9365 | Western European Hedgehog      |
+| a1733230 | Procavia capensis        |        9813 | Cape Rock Hyrax                |
+| a1733253 | Gallus gallus            |        9031 | Chicken                        |
+| a1735373 | Macaca nemestrina        |        9545 | Pig-Tailed Macaque             |
+| a1737554 | Tetraodon nigroviridis   |       99883 | Spotted Green Pufferfish       |
+| a1737558 | Gasterosteus aculeatus   |       69293 | Three-Spined Stickleback       |
+| a1737886 | Rhinopithecus roxellana  |       61622 | Golden Snub-Nosed Monkey       |
+| a1739624 | Cercocebus atys          |        9531 | Sooty Mangabey                 |
+| a1742674 | Danio rerio              |        7955 | Zebrafish                      |
+| a1743741 | Petromyzon marinus       |        7757 | Sea Lamprey                    |
+| a1745148 | Gorilla gorilla          |        9593 | Western Gorilla                |
+| a1751618 | Saccharomyces cerevisiae |        4932 | Baker's Yeast                  |
+| a1752614 | Peromyscus maniculatus   |       10042 | North American Deer Mouse      |
+| a1755150 | Oryctolagus cuniculus    |        9986 | Rabbit                         |
+| a1759891 | Colobus angolensis       |       54131 | Angolan Colobus                |
+| a1760382 | Sarcophilus harrisii     |        9305 | Tasmanian Devil                |
+| a1761942 | Caenorhabditis elegans   |        6239 |                                |
+| a1762813 | Ciona savignyi           |       51511 | Pacific Transparent Sea Squirt |
