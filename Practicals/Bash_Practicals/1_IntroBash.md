@@ -430,6 +430,16 @@ A very helpful & time-saving tool in the command line is the ability to automati
 Move to the directory above the `Bash_Practical` directory using the `cd` command.
 (If you're already in this directory, you'll simply need `cd ..`).
 
+#### Tab Key not working when using Xfce desktop
+When using the Xfce desktop, users may notice that the tab key does not work. This is due to a bug in Xfce sending a super key modifier with the command.
+
+[See Xfce bug 10760](https://bugzilla.xfce.org/show_bug.cgi?id=10760).
+
+To fix this:
+- Open the Xfce `Application Menu` > `Settings` > `Window Manager`.
+- Click on the `Keyboard` Tab
+- Clear the `Switch window for same application` setting.
+
 Now try typing `ls Bash` & then hit the `<tab>` key.
 Notice how `Bash_Practical` is completed automatically!
 This functionality will automatically fill as far as it can until conflicting options are reached.
