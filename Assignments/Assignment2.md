@@ -61,37 +61,38 @@ x <- c(3.1, 2.9, 0.7, 3.4, -0.2, 2.6, 1.9)
 
 | ID       | Species                  | Taxonomy ID | Common Name                    |
 |:---------|:-------------------------|------------:|:-------------------------------|
-| a1077937 | Dipodomys ordii          |       10020 | Ord's Kangaroo Rat             |
-| a1606913 | Papio anubis             |        9555 | Olive Baboon                   |
-| a1614956 | Astyanax mexicanus       |        7994 | Mexican Tetra                  |
-| a1619861 | Dasypus novemcinctus     |        9361 | Nine-Banded Armadillo          |
-| a1634284 | Pan troglodytes          |        9598 | Chimpanzee                     |
-| a1653192 | Anolis carolinensis      |       28377 | Green Anole                    |
-| a1679812 | Mus caroli               |       10089 | Ryukyu Mouse                   |
-| a1680333 | Heterocephalus glaber    |       10181 | Naked Mole-Rat                 |
-| a1688727 | Microcebus murinus       |       30608 | Gray Mouse Lemur               |
-| a1689798 | Rattus norvegicus        |       10116 | Norway Rat                     |
-| a1696632 | Aotus nancymaae          |       37293 | Ma's Night Monkey              |
-| a1711220 | Rhinopithecus bieti      |       61621 | Black Snub-Nosed Monkey        |
-| a1711533 | Tupaia belangeri         |       37347 | Northern Tree Shrew            |
-| a1711935 | Callithrix jacchus       |        9483 | White-Tufted-Ear Marmoset      |
-| a1715156 | Latimeria chalumnae      |        7897 | Coelacanth                     |
-| a1729553 | Drosophila melanogaster  |        7227 | Fruit Fly                      |
-| a1731217 | Erinaceus europaeus      |        9365 | Western European Hedgehog      |
-| a1733230 | Procavia capensis        |        9813 | Cape Rock Hyrax                |
-| a1733253 | Gallus gallus            |        9031 | Chicken                        |
-| a1735373 | Macaca nemestrina        |        9545 | Pig-Tailed Macaque             |
-| a1737554 | Tetraodon nigroviridis   |       99883 | Spotted Green Pufferfish       |
-| a1737558 | Gasterosteus aculeatus   |       69293 | Three-Spined Stickleback       |
-| a1737886 | Rhinopithecus roxellana  |       61622 | Golden Snub-Nosed Monkey       |
-| a1739624 | Cercocebus atys          |        9531 | Sooty Mangabey                 |
-| a1742674 | Danio rerio              |        7955 | Zebrafish                      |
-| a1743741 | Petromyzon marinus       |        7757 | Sea Lamprey                    |
-| a1745148 | Gorilla gorilla          |        9593 | Western Gorilla                |
+| a1077937 | Rattus norvegicus        |       10116 | Norway Rat                     |
+| a1606913 | Sarcophilus harrisii     |        9305 | Tasmanian Devil                |
+| a1614956 | Gasterosteus aculeatus   |       69293 | Three-Spined Stickleback       |
+| a1619861 | Pan troglodytes          |        9598 | Chimpanzee                     |
+| a1634284 | Astyanax mexicanus       |        7994 | Mexican Tetra                  |
+| a1653192 | Papio anubis             |        9555 | Olive Baboon                   |
+| a1679812 | Drosophila melanogaster  |        7227 | Fruit Fly                      |
+| a1680333 | Callithrix jacchus       |        9483 | White-Tufted-Ear Marmoset      |
+| a1688727 | Petromyzon marinus       |        7757 | Sea Lamprey                    |
+| a1689798 | Mus caroli               |       10089 | Ryukyu Mouse                   |
+| a1696632 | Latimeria chalumnae      |        7897 | Coelacanth                     |
+| a1711220 | Rhinopithecus roxellana  |       61622 | Golden Snub-Nosed Monkey       |
+| a1711533 | Erinaceus europaeus      |        9365 | Western European Hedgehog      |
+| a1711935 | Dasypus novemcinctus     |        9361 | Nine-Banded Armadillo          |
+| a1715156 | Macaca mulatta           |        9544 | Rhesus Monkey                  |
+| a1729553 | Gorilla gorilla          |        9593 | Western Gorilla                |
+| a1731217 | Microcebus murinus       |       30608 | Gray Mouse Lemur               |
+| a1733230 | Oryctolagus cuniculus    |        9986 | Rabbit                         |
+| a1733253 | Macaca nemestrina        |        9545 | Pig-Tailed Macaque             |
+| a1735373 | Aotus nancymaae          |       37293 | Ma's Night Monkey              |
+| a1737554 | Procavia capensis        |        9813 | Cape Rock Hyrax                |
+| a1737558 | Cercocebus atys          |        9531 | Sooty Mangabey                 |
+| a1737886 | Tetraodon nigroviridis   |       99883 | Spotted Green Pufferfish       |
+| a1739624 | Peromyscus maniculatus   |       10042 | North American Deer Mouse      |
+| a1742674 | Heterocephalus glaber    |       10181 | Naked Mole-Rat                 |
+| a1743741 | Gallus gallus            |        9031 | Chicken                        |
+| a1745148 | Rhinopithecus bieti      |       61621 | Black Snub-Nosed Monkey        |
 | a1751618 | Saccharomyces cerevisiae |        4932 | Baker's Yeast                  |
-| a1752614 | Peromyscus maniculatus   |       10042 | North American Deer Mouse      |
-| a1755150 | Oryctolagus cuniculus    |        9986 | Rabbit                         |
-| a1759891 | Colobus angolensis       |       54131 | Angolan Colobus                |
-| a1760382 | Sarcophilus harrisii     |        9305 | Tasmanian Devil                |
-| a1761942 | Caenorhabditis elegans   |        6239 |                                |
-| a1762813 | Ciona savignyi           |       51511 | Pacific Transparent Sea Squirt |
+| a1752614 | Tupaia belangeri         |       37347 | Northern Tree Shrew            |
+| a1755150 | Caenorhabditis elegans   |        6239 |                                |
+| a1759891 | Dipodomys ordii          |       10020 | Ord's Kangaroo Rat             |
+| a1760382 | Danio rerio              |        7955 | Zebrafish                      |
+| a1760769 | Ciona savignyi           |       51511 | Pacific Transparent Sea Squirt |
+| a1761942 | Anolis carolinensis      |       28377 | Green Anole                    |
+| a1762813 | Colobus angolensis       |       54131 | Angolan Colobus                |
