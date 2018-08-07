@@ -42,7 +42,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **3** | 6/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md)|
 | **4** | 13/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
 | **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)]() |
-| **6** | 27/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* | |[NGS data practical (Steve/Jimmy) (1)]() | 
+| **6** | 27/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* |[NGS data practical (Steve/Jimmy) (1)]() | 
 | **7** | 3/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)]() |
 | **8** | 10/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)]() |
 | **-** | 17/9 | Semester Break |
