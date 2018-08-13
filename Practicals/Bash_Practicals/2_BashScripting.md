@@ -35,7 +35,7 @@ echo 'This computer will self destruct in 10 seconds!'
 ```
 
 There are a few subtleties about text which are worth noting.
-If you have `man` pages accessible, inspect the `man echo` page & note the effects of the `-e` option. (Unfortunately you can't access this using `echo --help` on Linux. Maybe you can on `OSX` or `git bash` though, so give it a shot but don't be surprised if you don't see the help page.)
+If you have `man` pages accessible, inspect the `man echo` page & note the effects of the `-e` option. (Unfortunately you can't access this using `echo --help`.)
 The `-e` option allows you to specify tabs (`\t`), new lines (`\n`) & other special characters by using the backslash to signify these characters.
 This is an important concept & the use of a backslash to *escape* the normal meaning of a character is very common, as we saw with `grep` last time.
 Try the following three commands & see what effects these special characters have.
@@ -82,7 +82,7 @@ Once you've looked at it, delete it using the command `rm` to make sure you keep
 
 
 Let's get a more serious file to work with for today.
-**Make sure you are in your `Bash_Practical` directory**, then download the following file using `curl` 
+**Make sure you are in your `Bash_Practical` directory**, then download the following file using `curl`
 ```
 curl ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz > Drosophila_melanogaster.BDGP6.ncrna.fa.gz
 ```
@@ -281,8 +281,8 @@ For today, there are two key `sed` functionalities that we want to introduce.
 ## For those using OSX
 {:.no_toc}
 
-Note that the default version of `sed` on OSX is slightly different to Linux. 
-This has to do with licensing as all Linux installations use GNU tools which have felxible licences if your not charging for the OS. 
+Note that the default version of `sed` on OSX is slightly different to Linux.
+This has to do with licensing as all Linux installations use GNU tools which have felxible licences if your not charging for the OS.
 Due to the problems with these licenses, OSX uses the BSD versions of these tools and these can occasionally be subtly different.
 `sed` is one of these so the commands you use today may not work if you're using `sed` on your local laptop.
 To install the GNU version of `sed` locally enter the following commands and you should be able to use the same version of `sed` that we have on the VMs.
