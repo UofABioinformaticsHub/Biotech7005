@@ -62,7 +62,25 @@ echo ~
 So far, the only output we have seen has been in the terminal, which is known as the *standard output*, or `stdout` for short.
 Similar to the `magrittr` in `R`, we can redirect the output of a command to a file instead of to standard output, and we do this using the greater than symbol (>), which we can almost envisage as an arrow.
 
-Let's get a file to work with for today.
+As a simple example we can write text to a file.
+Using the command `echo` prints text to `stdout`
+
+```
+echo "Hello there"
+```
+
+However, we can 'capture' this text and redirect it to a file using the `>` symbol.
+
+```
+echo "Hello there" > hello.txt
+```
+
+Notice that the text no longer appeared in your terminal!
+This is because we sent it to the file `hello.txt`.
+To look at the contents of `hello.txt` use either one of the commands `less`, `cat` or `head`.
+
+
+Let's get a more serious file to work with for today.
 **Make sure you are in your `Bash_Practical` directory**, then download the following file using `curl` 
 ```
 curl ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz > Drosophila_melanogaster.BDGP6.ncrna.fa.gz
