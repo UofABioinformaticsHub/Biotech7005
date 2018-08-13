@@ -180,7 +180,7 @@ The first feature is annotated as a *region* in the third field, whilst the seco
 - *How many features are contained in this file?*
 - *If we tried the following*: `wc -l GCF_000182855.2_ASM18285v1_genomic.gff` *would it be correct?*
 
-This will give 4432, but we know the first 5 lines are header lines.
+This will give 4446, but we know the first 5 lines are header lines.
 To count the non-header lines you could try several things:
 
 ```
@@ -282,7 +282,7 @@ For today, there are two key `sed` functionalities that we want to introduce.
 {:.no_toc}
 
 Note that the default version of `sed` on OSX is slightly different to Linux.
-This has to do with licensing as all Linux installations use GNU tools which have felxible licences if your not charging for the OS.
+This has to do with licensing as all Linux installations use GNU tools which have flexible licences if your not charging for the OS.
 Due to the problems with these licenses, OSX uses the BSD versions of these tools and these can occasionally be subtly different.
 `sed` is one of these so the commands you use today may not work if you're using `sed` on your local laptop.
 To install the GNU version of `sed` locally enter the following commands and you should be able to use the same version of `sed` that we have on the VMs.
