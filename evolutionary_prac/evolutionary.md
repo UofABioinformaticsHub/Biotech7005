@@ -1,4 +1,4 @@
-# Evolutionary Processes assignment (21/9/2017)
+# Evolutionary Processes assignment (20/8/2017)
 
 ## Prepare the sequence data
 
@@ -208,7 +208,7 @@ Repeat the analysis with another model and compare the trees using the Archeopte
 
 ![Decker *et al.* 2009 10.1073/pnas.0904691106](nuclear-tree.jpg)
 
-## Tasks (due 8/9/2017)
+## Tasks (due 7/9/2017)
 
 ### Practical questions
 
@@ -223,7 +223,7 @@ Given the phylogenetic tree below:
 
 ### Bayesean Trees with whole mitochondrian genomes
 
-Produce a Bayesean tree for the whole miotochondrial genome of Marsupials.
+Produce a Bayesean tree for the whole mitochondrial genome of Marsupials.
 
 1. What two species are the best to use as an outgroup?
 2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
