@@ -214,13 +214,6 @@ Repeat the analysis with another model and compare the trees using the Archeopte
 
 Answer the questions in **bold** above.
 
-### Maximum parsimony
-
-Given the phylogenetic tree below:
-1. How many positions can be unambiguously determined using the Fitsch algorithm?
-
-![Parsimony Tree and Scores](parsimony-tree.png)
-
 ### Bayesean Trees with whole mitochondrian genomes
 
 Produce a Bayesean tree for the whole miotochondrial genome of Marsupials.
