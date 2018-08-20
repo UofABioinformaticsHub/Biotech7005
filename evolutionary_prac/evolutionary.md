@@ -1,4 +1,4 @@
-# Evolutionary Processes assignment (21/9/2017)
+# Evolutionary Processes assignment (20/8/2017)
 
 ## Prepare the sequence data
 
@@ -216,7 +216,7 @@ Answer the questions in **bold** above.
 
 ### Bayesean Trees with whole mitochondrian genomes
 
-Produce a Bayesean tree for the whole miotochondrial genome of Marsupials.
+Produce a Bayesean tree for the whole mitochondrial genome of Marsupials.
 
 1. What two species are the best to use as an outgroup?
 2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
