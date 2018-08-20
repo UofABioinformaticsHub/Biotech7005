@@ -41,7 +41,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **2** | 30/7 | [Statistics (Steve)](Lectures/02-statistics.html) | [Introduction to R (Steve) (2)](Practicals/R_Practicals)  <br> [Tutorial: Statistics](Tutorials/Wk2_Statistics.html)|
 | **3** | 6/8  | [Evolutionary Processes (Dan)](http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide)\* | [Introduction To Bash (Steve)](Practicals/Bash_Practicals/1_IntroBash.md)|
 | **4** | 13/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Scripting In Bash (Steve)](Practicals/Bash_Practicals/2_BashScripting.md) |
-| **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)]() |
+| **5** | 20/8 | [Alignment Process (Dan)](http://biotech7005.services.adelaide.edu.au/04-alignment.slide)\* | [Evolutionary processes (Dan) (1)](evolutionary_prac/evolutionary.md) |
 | **6** | 27/8 | [Next-generation sequencing (Dan)](http://biotech7005.services.adelaide.edu.au/06-sequencing.slide)\* |[NGS data practical (Steve/Jimmy) (1)]() | 
 | **7** | 3/9  | [Genomics/Repeats/Metagenomics (Jimmy)](http://biotech7005.services.adelaide.edu.au/07-genomics.slide)\* | [NGS data practical (Steve/Jimmy) (2)]() |
 | **8** | 10/9 | [Transcriptomics (Steve)](Lectures/08-transcriptomics.html) | [RNAseq practical (Steve)]() |
@@ -62,7 +62,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 |----------------|-------------|------------|--------------|
 | [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 3rd August |
 | [Assessment 2](Assignments/Assignment2.md) | Bash Scripting & Statistics | 7% | Tuesday 21st August |
-| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 8th September |
+| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
 | [Assessment 4]() | NGS data practical | 7% | Friday 14th September |
 | [Assessment 5]() | RNAseq practical | 7% | Friday 28th September |
 | [Assessment 6]() | Graphical analyses | 7% | Monday 22nd October |
