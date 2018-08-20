@@ -45,6 +45,8 @@ Run the following command using your student number for id:
 subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
 ```
 
+(The subset command can be obtained from [here](subset).)
+
 This selects 50 sequences from the input alignment according to your student number and writes them to a new file.
 This is not normal practice, and is only necessary because of prac time limits.
 
