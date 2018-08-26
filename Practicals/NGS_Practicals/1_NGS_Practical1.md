@@ -395,9 +395,14 @@ sabre --help
 ```
 
 If you ask us, this isn't helpful and this is a common problem with tools for NGS data.
-As we're going to to be using this tool in paired-end mode
-To read a better description head to https://github.com/najoshi/sabre for a (slightly) better description of the tool.
-(At least there are examples)
+As we're going to to be using this tool in paired-end mode we can find the help we need using
+
+```
+sabre pe --help
+```
+
+Many NGS (and other) tools use this strategy of having a sub-command following the main command which tells the main tool (`sabre`) to operate in a specific stage or mode (`pe`).
+We can then call the specific help page for this mode.
 
 ```
 mkdir -p ../../02_demultiplexedData/fastq
