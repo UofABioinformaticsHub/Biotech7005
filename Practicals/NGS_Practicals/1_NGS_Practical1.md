@@ -401,8 +401,8 @@ Please try running all this code before moving on.
 conda remove sabre
 cd /opt
 sudo wget https://github.com/najoshi/sabre/archive/master.zip
-sudo unzip sabre-master.zip
-sudo mv sabre-master sabre
+sudo unzip master.zip
+sudo mv master sabre
 cd sabre
 sudo make
 cd /usr/local/bin
