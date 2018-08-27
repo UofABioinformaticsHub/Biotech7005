@@ -396,6 +396,10 @@ sabre --help
 
 Unfortunately the installation of `sabre` we've used is not behaving correctly.
 Please try running all this code before moving on.
+Note the use of `sudo` before some of these commands.
+This stands for *superuser do*  and is basically running as the systems admin.
+You'll need the password the first time you type a command preceded by `sudo`.
+Please ignore any `Could not resolve host` or similar messages.
 
 ```
 conda remove sabre
