@@ -251,10 +251,8 @@ We will deal with trimming the reads in a later section, but start to think abou
 
 **Per Tile Sequence Quality**
 This section just gives a quick visualisation about any physical effects on sequence quality due to the tile within the each flowcell or lane.
-For the first file, you will notice an even breakdown in the quality of sequences near the end of the reads across all tiles.
-In our second QC report, you will notice a poor quality around the 25th base in the 2nd (or 3rd) tile.
-Generally, this would only be of note if drilling deeply to remove data from tiles with notable problems.
-Most of the time we don’t factor in spatial effects, unless alternative approaches fail to address the issues we are dealing with.
+Most of the time we don't use this plot for many trimming or filtering decisions, however it can alert us to any problems with the flow cell, or camera, or if there's been a blockage in the lane.
+If we see clear spatial effects, we may think about contacting the sequence provider for a repeat run of our material.
 
 **Per Sequence Quality Scores** This is just the distribution of average quality scores for each sequence.
 There’s not much of note for us to see here.
