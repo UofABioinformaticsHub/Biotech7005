@@ -407,7 +407,7 @@ We can then call the specific help page for this mode.
 ```
 mkdir -p ../../02_demultiplexedData/fastq
 cd ../../02_demultiplexedData/fastq
-sabre pe -m 1 -f ../../01_rawData/fastq/Run1_R1.fastq -r ../../01_rawData/fastq/Run1_R2.fastq -b ../../barcodes_R1.txt 
+sabre pe -m 1 -f ../../01_rawData/fastq/Run1_R1.fastq -r ../../01_rawData/fastq/Run1_R2.fastq -b ../../barcodes_R1.txt -u unknown_R1.fastq -w unknown_R2.fastq 
 ```
 
 How many read pairs were extracted in each sample?
@@ -418,6 +418,20 @@ Note the clear directory structure that we've used.
 This can lead to a command that is tricky to understand at first, but try to keep track of the file paths.
 *Why do you think we might use this particular file structure?*
 In a real-world context, we'd probably script this too so file paths may be declared as variables.
+
+<!---
+If we're having trouble with sabre on the VMs, it may be due to the conda installation behaving strangely
+```
+cd /opt
+wget https://github.com/najoshi/sabre/archive/master.zip
+unzip sabre-master.zip
+mv sabre-master sabre
+cd sabre
+make
+cd /usr/local/bin
+ln -s /opt/sabre/sabre ./sabre
+```
+--->
 
 ## Removal of Low Quality Reads and Adapters
 
