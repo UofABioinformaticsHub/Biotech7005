@@ -394,6 +394,21 @@ Before we run this let's check the help page
 sabre --help
 ```
 
+Unfortunately the installation of `sabre` we've used is not behaving correctly.
+Please try running all this code before moving on.
+
+```
+conda remove sabre
+cd /opt
+wget https://github.com/najoshi/sabre/archive/master.zip
+unzip sabre-master.zip
+mv sabre-master sabre
+cd sabre
+make
+cd /usr/local/bin
+ln -s /opt/sabre/sabre ./sabre
+```
+
 If you ask us, this isn't helpful and this is a common problem with tools for NGS data.
 As we're going to to be using this tool in paired-end mode we can find the help we need using
 
