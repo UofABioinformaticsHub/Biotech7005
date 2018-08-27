@@ -400,13 +400,13 @@ Please try running all this code before moving on.
 ```
 conda remove sabre
 cd /opt
-wget https://github.com/najoshi/sabre/archive/master.zip
-unzip sabre-master.zip
-mv sabre-master sabre
+sudo wget https://github.com/najoshi/sabre/archive/master.zip
+sudo unzip sabre-master.zip
+sudo mv sabre-master sabre
 cd sabre
-make
+sudo make
 cd /usr/local/bin
-ln -s /opt/sabre/sabre ./sabre
+sudo ln -s /opt/sabre/sabre ./sabre
 ```
 
 If you ask us, this isn't helpful and this is a common problem with tools for NGS data.
