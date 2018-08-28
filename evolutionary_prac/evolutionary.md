@@ -223,6 +223,8 @@ These genomes can be obtained from [here](https://www.ncbi.nlm.nih.gov/genome/br
 The NC\_nnnnnn.1 links in the "Replicons" column link to the sequence pages.
 In the sequence page, use the "Send to" menu to send to a file as FASTA (you will want to do this on the virtual machine).
 When you have all the sequences, concatenate them with the `cat` command to a multiple FASTA file.
+An alternative is to use [this program](fetch) (you will need to `chmod +x` to get it to work and will also need to curate the sequences since a number of species are represented more than once).
+If you use `fetch`, you need to invoke it as `fetch -email <youremailaddress> -out <outfile>`, otherwise the sequence will be dumped to the screen.
 
 1. What two species are the best to use as an outgroup?
 2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
