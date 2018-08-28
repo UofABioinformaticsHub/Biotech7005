@@ -456,7 +456,7 @@ Adapter removal is an important step in many sequencing projects, mainly project
 
 Previously we would run multiple steps to remove both low-quality reads, but today's trimming algorithms have become better at removing low-quality data and the same time as removing adapters.
 
-The tool we'll use today is `cutadapt` \& it's one of the few bioinformatics tools to have a helpful webpage, [so head to the site](http://cutadapt.readthedocs.org/).
+The tool we'll use today is `cutadapt` & it's one of the few bioinformatics tools to have a helpful webpage, [so head to the site](http://cutadapt.readthedocs.org/).
 
 
 Now we can trim the raw data using the Illumina Nextera paired-end adapters obtained from [this website](https://support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html)
@@ -471,6 +471,10 @@ cutadapt -m 35 -q 20 -a CTGTCTCTTATACACATCT -A CTGTCTCTTATACACATCT \
     -o 02_trimmedData/fastq/SRR2003569_sub_1.fastq.gz -p 02_trimmedData/fastq/SRR2003569_sub_2.fastq.gz \
     01_rawData/fastq/SRR2003569_sub_1.fastq.gz 01_rawData/fastq/SRR2003569_sub_2.fastq.gz > cutadapt.log
 ```
+
+Note that the symbol `\` has been included at the end of some of these lines.
+This is often used in a script to break a long command over multiple lines to make it easier to read.
+It can cause problems if you cut & paste the above though, so if `cutadapt` doesn't appear to work, you'll need to remove these symbols before executing this command.
 
 #### Question
 {:.no_toc}
