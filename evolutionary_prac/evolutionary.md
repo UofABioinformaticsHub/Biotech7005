@@ -1,4 +1,4 @@
-# Evolutionary Processes assignment (20/8/2017)
+# Evolutionary Processes assignment (20/8/2018)
 
 ## Prepare the sequence data
 
@@ -210,7 +210,7 @@ Repeat the analysis with another model and compare the trees using the Archeopte
 
 ![Decker *et al.* 2009 10.1073/pnas.0904691106](nuclear-tree.jpg)
 
-## Tasks (due 7/9/2017)
+## Tasks (due 7/9/2018)
 
 ### Practical questions
 
