@@ -219,6 +219,10 @@ Answer the questions in **bold** above.
 ### Bayesean Trees with whole mitochondrian genomes
 
 Produce a Bayesean tree for the whole mitochondrial genome of Marsupials.
+These genomes can be obtained from [here](https://www.ncbi.nlm.nih.gov/genome/browse#!/organelles/) with a search of "metatheria".
+The NC\_nnnnnn.1 links in the "Replicons" column link to the sequence pages.
+In the sequence page, use the "Send to" menu to send to a file as FASTA (you will want to do this on the virtual machine).
+When you have all the sequences, concatenate them with the `cat` command to a multiple FASTA file.
 
 1. What two species are the best to use as an outgroup?
 2. Which two leaves are the closest related/have the shortest branch? What is the evolutionary distance between these two leaves?
