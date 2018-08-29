@@ -62,7 +62,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 |----------------|-------------|------------|--------------|
 | [Assessment 1](Assignments/Assignment1.md) | R programming | 7% | Friday 3rd August |
 | [Assessment 2](Assignments/Assignment2.md) | Bash Scripting & Statistics | 7% | Tuesday 21st August |
-| [Assessment 3](evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
+| [Assessment 3](Practicals/evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
 | [Assessment 4]() | NGS data practical | 7% | Friday 14th September |
 | [Assessment 5]() | RNAseq practical | 7% | Friday 28th September |
 | [Assessment 6]() | Graphical analyses | 7% | Monday 22nd October |
