@@ -202,7 +202,7 @@ sumt
 This will output a large quantity of data about the estimated paramaters and the statistical support for branch nodes, and two trees, one showing the consensus branch lengths and one showing the branch node support.
 It will also output a consensus tree file called "model-\<num\>.con.tre".
 
-Repeat the analysis with another model and compare the trees using the Archeopteryx program.
+Repeat the analysis with another model and compare the trees using the [Archeopteryx program](https://sites.google.com/site/cmzmasek/home/software/archaeopteryx).
 
 **Do the trees from the two models differ? How does the branch support differ between the two trees? Do the trees agree with the known taxonomic groupings?**
 
