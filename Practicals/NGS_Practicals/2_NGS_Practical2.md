@@ -280,7 +280,7 @@ However, before we start calling variants we will need to **sort the alignments*
 The original file will contain alignments in the order they were found inthe original fastq file, so sorting arranges them in *genomic order*.
 
 ```
-samtools sort SRR2003569_chI.bam SRR2003569_chI.sorted
+samtools sort SRR2003569_chI.bam -o SRR2003569_chI.sorted
 ```
 
 This helps the variant caller to run the calling algorithm efficiently and prevents additional time to be allocated to going back and forth along the genome. This is command for most NGS downstream programs, such as RNA gene quantification and ChIPseq peak calling.
