@@ -33,11 +33,11 @@ head chrI.fa
 
 Note that the first line describes the following sequence & begins with a \> symbol.  We can use this to search within the file using regular expressions \& print all of these description lines.
 
-Let's place this in it's own folder called `Ref/Athaliana`
+Let's place this in it's own folder called `Ref/Celegans`
 
 ```
-mkdir -p Ref/Athaliana
-mv chrI.fa Ref/Athaliana
+mkdir -p Ref/Celegans
+mv chrI.fa Ref/Celegans
 ```
 
 
@@ -59,7 +59,7 @@ bwa index
 Using this particular process you can usually just run the command on the fasta file and the index will be called by the same file-name.  However in this case, we will name the index "Celegans_chrI" by using the `-p` flag/parameter Now that we’ve had a look, type to following command which will take a few minutes to run.
 
 ```
-cd Ref/Athaliana
+cd Ref/Celegans
 bwa index chrI.fa -p Celegans_chrI
 ```
 
@@ -93,7 +93,7 @@ This will help you figure out what is going wrong if you get some error messages
 First up here's the command
 
 ```
-bwa mem -t 2 ~/NGS_Practical/Ref/Athaliana/Celegans_chrI SRR2003569_sub_1.fastq.gz SRR2003569_sub_2.fastq.gz | samtools view -bhS -F4 - > SRR2003569_chI.bam
+bwa mem -t 2 ~/NGS_Practical/Ref/Celegans/Celegans_chrI SRR2003569_sub_1.fastq.gz SRR2003569_sub_2.fastq.gz | samtools view -bhS -F4 - > SRR2003569_chI.bam
 mv SRR2003569_chI.bam ../../03_alignedData/bam
 ```
 
