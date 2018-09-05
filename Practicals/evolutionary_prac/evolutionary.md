@@ -42,7 +42,7 @@ This is done now due to time constraints.
 
 Run the following command using your student number for id:
 ```
-subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
+./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
 ```
 
 (The subset command can be obtained from [here](subset).)
