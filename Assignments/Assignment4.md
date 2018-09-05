@@ -22,8 +22,8 @@ All other folders must be created as subdirectories of this. [*1 mark*]
     + Identify how many unique genes are located in the genome, and send this information to `stdout`? [*2 marks*]
     + Create a genome index [*1 marks*]
 2. Write a second script to download the sequencing data contained at these links (using `curl` or `wget`) to the directory `01_rawData/fastq`: [*2 marks*]
-        - [SRR5882792_10M_1.fastq.gz](https://universityofadelaide.box.com/shared/static/egl3n16r0ziaxlvbs9074xqd1liktnuz.gz)
-        - [SRR5882792_10M_2.fastq.gz](https://universityofadelaide.box.com/shared/static/g2ly4kzz1blus5juy426i37zl45o38pu.gz)
+    - [SRR5882792_10M_1.fastq.gz](https://universityofadelaide.box.com/shared/static/egl3n16r0ziaxlvbs9074xqd1liktnuz.gz)
+    - [SRR5882792_10M_2.fastq.gz](https://universityofadelaide.box.com/shared/static/g2ly4kzz1blus5juy426i37zl45o38pu.gz)
     + Trim your data for poor quality bases and remove adapters using cutadapt. Write your output to the directory `02_trimmedData/fastq` [*3 marks*]
     + Align paired-end reads to the genome index using `bwa mem`, resulting in a single `.bam` file in the directory `03_alignedData/bam`. Ensure there are no intermediary `.sam` files saved. [*3 marks*]
     + Sort and index your bam file [*2 marks*]
