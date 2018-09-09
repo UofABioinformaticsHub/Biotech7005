@@ -2,7 +2,7 @@
 title: "08 Transcriptomics"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "14 September 2017"
+date: "10 September 2018"
 output: 
   ioslides_presentation: 
     widescreen: yes
@@ -59,7 +59,7 @@ library(reshape2)
 
 1. Introduction
 2. The Development Of Transcriptomics
-    - SAGE Tags
+    - Expressed Sequence Tags
     - RT-PCR (qPCR)
     - Microarrays
     - RNA Seq
@@ -88,21 +88,32 @@ the complete set of transcripts in a cell, or a population of cells, for a speci
 
 - mRNA is the intermediary step between the genome (DNA) and proteins
 - smallRNA and ncRNA play significant roles in gene regulation
-- Will be different in each individual cell *but* will share many common features within cell types
-
-## What Can We Discover?
-
+- Will be different in each individual cell but will share *many common and specific features within cell types*
 - Is always a snapshot of a dynamic process
-- The level of (or changes in) transcriptional activity at a locus: *Gene Expression Levels*
-- Transcript usage within a locus
-- Allele specific expression
+
+## Why Study the Transcriptome?
+
+- Is often focussed around the level of (or changes in) transcriptional activity at each locus:
+    - *Gene Expression Levels*
+    - Transcript usage within a locus
+    - Allele specific expression
+    - Expression quantitative trait loci (eQTL)
+- May even discover new transcripts: *de novo* transcriptome assembly
+
+## Why Study the Transcriptome?
+
+- Often take results and perform downstream analysis
+    - Pathway Analysis
+    - Identification of Transcription Factor binding motifs
 - Make inference about the *biological processes* driving our observations
+    - Targets for curing disease
+    - Biomarkers for tumour detection etc.
 
 # Background
 
 ## Recap of Transcription 
 
-<footnote content="Image Source = http://www.web-books.com/MoBio/Free/Ch5A.htm">mRNA Processing</footnote>
+<footnote content="Image Source = http://www.web-books.com/MoBio/Free/Ch5A.htm">Canonical mRNA Processing</footnote>
 
 ```{r, fig.align='center'}
 knitr::include_graphics("images/rnaProcessing.gif")
@@ -120,38 +131,39 @@ The first attempt at capturing the transcriptome was in <footnote content="Adams
 knitr::include_graphics("images/gr2.jpg")
 ```
 
-## Serial Analysis of Gene Expression
+<!-- ## Serial Analysis of Gene Expression -->
 
-<footnote content="Velculescu et al Serial analysis of gene expression, Science 1995">SAGE</footnote> was an important first step used to increase throughput:
+<!-- <footnote content="Velculescu et al Serial analysis of gene expression, Science 1995">SAGE</footnote> was an important first step used to increase throughput: -->
 
-- Conversion of mRNA to cDNA using biotinylated primers
-- Anchored to beads
-- Restriction Enzymes produce 11-mer tags from within a transcript
-- Tags were concatenated before sequencing
-- 99bp contains 9 tags, 550bp contains 50 tags etc
+<!-- - Conversion of mRNA to cDNA using biotinylated primers -->
+<!-- - Anchored to beads -->
+<!-- - Restriction Enzymes produce 11-mer tags from within a transcript -->
+<!-- - Tags were concatenated before sequencing -->
+<!-- - 99bp contains 9 tags, 550bp contains 50 tags etc -->
 
-## Serial Analysis of Gene Expression {.smaller}
+<!-- ## Serial Analysis of Gene Expression {.smaller} -->
 
-```{r, fig.align='center', out.height='500px'}
-knitr::include_graphics("images/Summary_of_SAGE.svg")
-```
+<!-- ```{r, fig.align='center', out.height='500px'} -->
+<!-- knitr::include_graphics("images/Summary_of_SAGE.svg") -->
+<!-- ``` -->
 
-<div style="font-size:50%;text-align:center">
-Image Source: Thomas Shafee; Wiki
-</div>
+<!-- <div style="font-size:50%;text-align:center"> -->
+<!-- Image Source: Thomas Shafee; Wiki -->
+<!-- </div> -->
 
-## Cap Analysis of Gene Expression
+<!-- ## Cap Analysis of Gene Expression -->
 
-A variant technique (<footnote content="Kodzius et al CAGE: cap analysis of gene expression, Nature Methods 2006">CAGE</footnote>)
+<!-- A variant technique (<footnote content="Kodzius et al CAGE: cap analysis of gene expression, Nature Methods 2006">CAGE</footnote>) -->
 
-- Specifically targets Transcription Start Site (TSS) via the 5' cap
-- Heavily used in FANTOM (Functional ANnoTation Of the Mammalian genome) projects
+<!-- - Specifically targets Transcription Start Site (TSS) via the 5' cap -->
+<!-- - Heavily used in FANTOM (Functional ANnoTation Of the Mammalian genome) projects -->
 
 
 ## Quantative PCR
 
+- "Gold-standard" for measurement of transcription levels
 - **Not** a high-throughput technique
-    - Targets a **specific** gene with **specific** primers
+    - Targets a **single** transcript region with **specific** primers
     - cDNA produced is fluorescently labelled
 - Measure *Cycle Threshold* (C~T~) Value
     - Is the PCR cycle that fluorescence passes a given threshold
@@ -172,7 +184,17 @@ Image Source: Mingxiao et al TaqMan MGB Probe Fluorescence Real-Time Quantitativ
     - Using a dilution series and standard curve
 - Estimate **relative quantity** of target
     - Compares between two different samples
-    - Housekeeper gene (or genes) are used to correct for technical artefacts
+
+*What might be a key consideration when comparing two samples?*
+    
+## Quantative PCR
+
+- Estimate **absolute quantity** of target
+    - Using a dilution series and standard curve
+- Estimate **relative quantity** of target
+    - Compares between two different samples
+    - Housekeeper genes are used to correct for technical artefacts: **Normalisation**
+    - Works well to account for differences in quantity *due to pipetting variability*
     
 ## Measuring Changes In Gene Expression
 
@@ -181,15 +203,15 @@ Image Source: Mingxiao et al TaqMan MGB Probe Fluorescence Real-Time Quantitativ
     - e.g. A 2-fold **increase** in abundance $\log_2 2 = 1$ 
     - e.g. A 2-fold **decrease** in abundance $\log_2 \frac{1}{2} = -1$
     - This is often abbreviated as **logFC**
-- In qPCR this value is <footnote content="Schmittgen & Livak Analyzing real-time PCR data by the comparative CT method, Nature Protocols, 2008">$\Delta\Delta C_T$</footnote>
+- In qPCR this value is <footnote content="Schmittgen & Livak Analyzing real-time PCR data by the comparative CT method, Nature Protocols, 2008">$\Delta\Delta C_T$ ^[^ </footnote> ^]^
 
 ## Measuring Changes In Gene Expression | $\Delta\Delta C_T$
 
 1. First we find $\Delta C_T = C_{T[\text{gene}]} - C_{T[\text{HK}]}$ 
-    - This enables correction for pipetting variability etc within each run
+    - This enables correction for pipetting variability etc. within each run
 2. Then we compare samples $\Delta\Delta C_T = - (\Delta C_{T[\text{treat}]} - \Delta C_{T[\text{control}]})$
 
-- Assuming an amplification efficiency of 2 (i.e. doubling of quantity for every cycle)
+- Assuming an amplification efficiency of 2 (i.e. **doubling of quantity for every cycle**)
     - $\Delta\Delta C_T = 1 \implies$ logFC of 1
     
 # Microarrays
@@ -252,7 +274,7 @@ Image Source: Shalon et al A DNA Microarray System for Analyzing Complex DNA Sam
 - Single channel
 - >1,000,000 25-mer probes 
 - Probes targeted the 3' end of the transcript
-- Usually about 11 probes per transcript
+- Usually about 11 probes per transcript (aka probeset)
 
 ## Affymetrix Microarrays 
 
@@ -277,19 +299,19 @@ Image Source: https://universe-review.ca/R11-16-DNAsequencing.htm
 
 ## Affymetrix Microarrays | WT Arrays
 
-- Exon & Gene arrays targeted the whole transcript
+- Exon/Gene arrays targeted the whole transcript
 - $\leq$ 4 probes / exon
 - No successful methods for determining alternate transcript usage
 - Released in mid-2000s
 
 ## Affymetrix Microarrays 
 
-```{r, fig.align='center', out.width='1000px', out.height='450px'}
-knitr::include_graphics("images/ArrayProbeLayout.jpg")
+```{r, fig.align='center', out.width='900px', out.height='405px'}
+knitr::include_graphics("images/ArrayProbeLayout.png")
 ```
 
 <div style="font-size:50%;text-align:center">
-Image Source: Kapur et al Exon arrays provide accurate assessments of gene expression, Genome Biology, 2007
+Image Source: Affymetrix Technical Note
 </div>  
 
 ---
@@ -302,11 +324,28 @@ knitr::include_graphics("images/timeTrends.PNG")
 Image Source: Lowe et al Transcriptomics Technologies, PLOS Computational biology 2017
 </div>
 
-## Other Manufacturers
+## Illumina Arrays
 
-- Illumina produced a microarray of 65-mer probes using barcoded beads
-- Agilent also produce two-colour arrays
-- Arrays still heavily used in methylation analysis (Illumina 450k and EpiC arrays)
+- Illumina produced a microarray of 50-mer probes using barcoded beads
+    - Multiple beads per gene $\implies$ randomly distributed across the array
+    - Dealt with spatial artefacts more effectively
+
+```{r, fig.align='center', out.height='280px',out.width='430px'}
+knitr::include_graphics("images/Beads.png")
+```
+
+<div style="font-size:50%;text-align:center">
+Image Source: https://bioconductor.org/help/course-materials/2007/BioC2007/labs/beadarray/BioC2007_beadarray_slides.pdf
+</div>
+
+## Illumina Arrays | Methylation
+
+- Still heavily used in methylation analysis (Illumina 450k and EpiC arrays)
+- Sample is bi-sulphite treated prior to hybridisation 
+    - Converts unmethylated C to T (i.e Uracil)
+- Probes for unmethylated (C $\rightarrow$ T) and methylated (C $\rightarrow$ C) sequences
+- We compare proportions of methylated signal
+- Target >450,000 genomic CpG dinucleotides
 
 # Analysis Of Microarray Data
 
@@ -314,20 +353,22 @@ Image Source: Lowe et al Transcriptomics Technologies, PLOS Computational biolog
 
 Two Initial Problems to solve
 
-1. Removal of Technical Artefacts (variability in overall signal)
+1. Adjust for overall differences in signal
     - Normalisation
-2. Removal of Background Signal (non-specific binding)
+2. Removal of Background Signal (non-specific binding + optical noise)
     - Background Correction
     
 ## Normalisation
 
 - We need the exact same amount of sample on each array
+    - If one sample had more material hybridised, all genes would appear upregulated
+    - In qPCR we used a 'housekeeper gene'
 - Can be performed *in silico* by adjusting probe intensities directly
 - Quantile Normalisation is the most robust
 
 ## Normalisation
 
-```{r, fig.align='center'}
+```{r, fig.align='center', out.height='85%'}
 knitr::include_graphics("images/preNorm.png")
 knitr::include_graphics("images/postNorm.png")
 ```
@@ -339,30 +380,55 @@ Image Source: Bolstad, Probe Level Quantile Normalization for High Density Oligo
 ## Quantile Normalisation
 
 1. Find the probe with the lowest signal on each array
-2. Give each probe the average of all probes with the lowest signal
+2. Give each lowest signal' probe the average of all 'lowest signal' probes
 3. Find the probe with the second lowest signal on each array
-4. Rinse and repeat
+4. Repeat until all probes have been given new values
+
+## Quantile Normalisation
 
 - Final result is identical intensity distributions on all arrays
-- The lowest probe on each array will probably target a different sequence, and so forth
+- Equivalent to having identical amounts of source material (mRNA)
+- The lowest probe on each array will probably target a different gene
+
+## BG Correction
+
+- Can be performed without using probe sequence information (RMA)
+- Or by using probe sequence information (GC-RMA)
+- Illumina arrays (50-mer probes) are less prone to non-specific binding than Affymetrix arrays (25-mer probes) 
 
 ## Analysis
 
-- After BG correction (RMA), we have an estimate of true signal for each probe
-- For each gene:
-    - $\geq 11$ probes per gene (or transcript)
-    - A single estimate of expression is obtained for each array
-    - (Models for this are appropriate for 3'arrays)
-- We then fit standard linear regression models for each genes
-    - Or perform simple $t$-tests for $H_0$: No difference in average gene expression levels
+- After BG correction (RMA), we have an estimate of true signal for **each probe**
+- $\geq 11$ probes *per gene* (or transcript) per array
+- A **single estimate of expression** is obtained by averaging probe signals within each array/sample
+
+## Analysis
+
+- Gives a continuous value: Assume Normality
+- We then fit standard linear regression models for each gene
+    - Or perform simple $t$-tests to obtain a $p$-value
+    - $H_0$: No difference in average gene expression levels
+    - $H_A$: Some difference in average gene expression levels
     
 ## Multiple Comparisons
 
 - We will perform 15-25,000 hypothesis tests
-     - 20,000 genes where $H_0$ is true will give ~ 1000 $p < 0.05$
-- Controlling the FWER will be too strict
-- Instead control the FDR (usually FDR $\leq 0.05$)
-    - Assume that the signal will dominate the noise
+     - 25,000 genes where $H_0$ is true would give ~ 1250 $p < 0.05$
+     
+## The Bonferroni Adjusment
+
+- If we set the rejection value to $\alpha* = \frac{\alpha}{m}$ we control the FWER at the level $\alpha$
+- To ensure that $p$(one or more Type I errors) = 0.05 in our example:<br><br>$\implies$ Reject $H_0$ if $p < \frac{0.05}{25000} = 2 \times 10^6$
+- Controlling the FWER (Bonferroni) may often be too strict
+    - Leads to a high Type II error rate (false negatives)
+
+
+## The False Discovery Rate
+
+- An alternative is to allow a small number of Type I Errors in our results $\implies$ we have a False Discovery Rate (FDR)
+- Instead of controlling the FWER at $\alpha = 0.05$, we control the FDR at $\alpha = 0.05$:
+    - We allow up to 5% of our list to be Type I Errors
+    - Can perform downstream inference assuming that the signal will dominate the noise
     
 ## Moderated T tests
 
@@ -386,14 +452,15 @@ $$
 s_p = \sqrt{\frac{(n_A - 1)s_A^2 + (n_B-1)s_B^2}{n_A + n_B - 2}}
 $$
 
-- $s_p \rightarrow \infty; T \rightarrow 0$  
+- $s_p \rightarrow \infty; T \rightarrow 0$ 
 - $s_p \rightarrow 0; T \rightarrow \infty$
 
 ## Moderated T tests
 
-- We can use the entire distribution of $\hat{\sigma}$ across all 20,000 genes
+- We can use the entire distribution of $s = \hat{\sigma}$ across all genes
 - Calculates a Bayesian 'shrunken' estimate for $s_p$
-    - Genes with large $T$ due to small $s_p$ will have shrunken $T^*$
+- Use  this to obtain a moderated $T$-statistic ($T^*$)
+    - Genes with large $T$ due to small $s_p$ will have lower $T^*$
     - Genes with small $T$ due to large $s_p$ will have higher $T^*$
 - Strongly reduces both false positives (Type I errors) and false negatives (Type II errors)
 
@@ -419,19 +486,31 @@ knitr::include_graphics("images/weightedPCA.png")
 
 # RNA Seq
 
-## Types of RNA Seq
+## Fundamental Differences
 
-- poly-A libraries (mRNA is extracted)
-    - Will contain intact mRNA only
+- Microarray probes target known sequences
+    - Give a fluorescence intensity $\propto$ expression level
+- RNA-seq contains sequence information
+    - No non-specific binding issues
+    - We **count** amplified fragments from source material
+    - Not restricted to known sequences
+    - Can *de novo* assemble a transcriptome: novel transcripts
+    - Possibility of detecting alternate isoform usage
+
+
+## Common Types of RNA Seq
+
+- poly-A enriched (mRNA is extracted)
+    - Will contain intact mRNA only (and ncRNA with polyA tail)
 - Total RNA libraries (rRNA is reduced)
     - Will include ncRNA, pre-mRNA, partially degraded RNA
 - smallRNA libraries 
-    - Targets miRNA, piRNA etc
+    - Targets miRNA, piRNA etc.
 
 ## Workflow Outline
 
 1. Clean up raw reads
-2. Align to genome
+2. Align to genome or transcriptome
 3. Count
 
 ## Counting
@@ -442,9 +521,9 @@ Are we interested in activity at a locus:
 
 Are we interested in transcript-level information
 
-- How do we count reads now?
-- Reads can align to multiple transcripts
+- How do we count reads now? Reads can align to multiple transcripts
 - Do we summarise splice junctions?
+- Is alternate isoform usage the same as differential expression?
 
 ## Counting
 
@@ -545,7 +624,7 @@ Choosing suitable control/background genes is very important
 ## Differential Transcript Usage
 
 - Counting alignments become important
-- Salmon & Kallisto both align to transcriptome using $k$-mers
+- Kallisto aligns to transcriptome using $k$-mers
     - Produce pseudo-alignments, or list of possible transcripts a read can align to
     - Deals with multi-mapping problems
 - Algorithms for analysis are far from settled!!!
