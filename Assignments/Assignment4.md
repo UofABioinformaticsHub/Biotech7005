@@ -2,7 +2,7 @@
 
 # Assignment 4 [*34 marks*]
 
-**Due before 12pm, Tuesday 18th September**
+**Due before 12pm, Friday 21th September**
 
 Your answers to all questions should be submitted to myUni as a `.zip` file containing three bash scripts, and a single file containing the answers to the questions 3,4 and 5 (can be in any readable format). [*1 marks*]
 

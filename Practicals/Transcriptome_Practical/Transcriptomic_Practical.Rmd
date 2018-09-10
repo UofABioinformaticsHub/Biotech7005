@@ -155,9 +155,9 @@ Let's run FastQC to make sure they're acceptable.
 #### FastQC
 
 ```
-cd 
-mkdir ~/RNA_Practical/01_rawData/FastQC
-fastqc -o ~/RNA_Practical/01_rawData/FastQC *gz
+cd ~/RNA_Practical/01_rawData
+mkdir FastQC
+fastqc -o FastQC fastq/*gz
 ```
 
 As we have logged onto our VM using RStudio, we can inspect these reports directly in our browser.
@@ -185,7 +185,7 @@ gunzip Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
 wget ftp://ftp.ensembl.org/pub/release-93/gtf/homo_sapiens/Homo_sapiens.GRCh38.93.chr.gtf.gz
 ```
 
-The more alert will realise that this `gtf` contains all the information for the entire genome, so we'll need to create one containing just the gene information for `chr1`.
+You may have already realised that this `gtf` contains all the information for the entire genome, so we'll need to create one containing just the gene information for `chr1`.
 
 First we'll copy the file header.
 
