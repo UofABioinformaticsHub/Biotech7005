@@ -13,8 +13,8 @@ knitr::opts_chunk$set(echo = TRUE, results = "hide",
                       message = FALSE, warning = FALSE)
 ```
 
-```{r loadPackages, echo=FALSE}
-library(tideyverse)
+```{r loadPackages, echo=FALSE, eval=TRUE}
+library(tidyverse)
 library(limma)
 library(ggrepel)
 library(pander)
@@ -28,7 +28,7 @@ library(DiagrammeR)
 theme_set(theme_bw())
 ```
 
-# Introduction
+## Introduction
 
 The motivation behind many RNA-Seq or transcriptomic studies is to detect the level of activity at a genomic locus, and determine if any changes are evident due to the specific biological question.
 Whilst we use RNA-Seq as one of the most common data types, in this context the sequence content is secondary to the abundances of genes/transcripts.
@@ -43,29 +43,31 @@ However, sequence information is still highly important as we can use this infor
 
 In the interests of time, we will focus primarily on quantifying gene abundances today.
 
-## Workflow summary
+### Workflow summary
 
 The basic outline of a common RNA-Seq analysis workflow is given in the following diagram.
-Today we'll focus primarily on the gene-level analysis.
+Today we'll focus primarily on the gene-level analysis which follows the path shown on the left.
+This uses the genome as the reference, with alignment performed by `hisat2`.
+An alternative would be to align to the transcriptome using `kallisto`, however this is beyond the limits of what we can realistically do in a two-hour session.
 
-```{r Pipeline, echo=FALSE, results='asis', fig.height=5}
+```{r Pipeline, echo=FALSE, results='asis', fig.height=5, eval = TRUE}
 steps <- 6
 nodes <- create_node_df(
   n = steps ,
-  label = c("Raw Data", "Trimmed Data", "Aligned Data", "Transcripts", "Genes", "Downstream\nAnalysis"),
+  label = c("Raw Data", "Trimmed Data", "Aligned Data", "Transcript Level\nCounts", "Gene Level\nCounts", "Downstream\nAnalysis"),
   type = "number",
   shape = "rectangle",
   style = "filled",
-  fillcolor = colorRampPalette(ngsReports::pwf %>% ngsReports::getColours() %>% extract(3:1))(steps),
+  fillcolor = colorRampPalette(ngsReports::pwf %>% ngsReports::getColours() %>% magrittr::extract(3:1))(steps),
   fontcolor = rgb(0, 0, 0),
   fontsize = 12,
   width = 1.5
 )
 edges <- create_edge_df(
-  from = c(1, 2, 3, 3, 4, 5),
+  from = c(1, 2, 2, 3, 4, 5),
   to = c(2, 3, 4, 5, 6, 6),
   rel = "leading_to",
-  label = c("Adapter Removal", "HISAT2", "Salmon", "featureCounts"),
+  label = c("Adapter Removal\nQuality Trimming", "HISAT2", "kallisto", "featureCounts"),
   fontsize = 10
 )
 graph_attrs <- c("layout = neato", "overlap = FALSE", "outputorder = nodesfirst")
@@ -74,9 +76,9 @@ create_graph(nodes_df = nodes, edges_df = edges,
   render_graph()
 ```
 
-# VM Setup
+## VM Setup
 
-## Today's Data
+### Today's Data
 
 Today we will perform the initial steps on your VM, with the later `R` sections performed on your local machine.
 
@@ -85,21 +87,21 @@ This came from an analysis in which multiple analytic methods were investigated 
 
 **Log onto your VM**
 
-- Enter the following commands carefully. Cut & Paste is fine, but remember you'll need to use `Ctrl+Shift+V` to paste into the terminal on your VM:
+Enter the following commands carefully. Cut & Paste is fine, but remember you'll need to use `Ctrl+Shift+V` to paste into the terminal on your VM.
+You will be prompted for a password, and this is `biotech7005`.
 
 ```
 cd ~
 scp -r biotech7005@10.150.8.124:/home/biotech7005/RNA_Practical ./
 ```
 
-You will be prompted for the password, and this is `biotech7005`.
 As you may be able to tell, this will copy the files from a spare VM to your own, so this should be fairly quick.
-This should also have copied across the correct file paths for today.
+This should also have copied across the correct file paths for beginning the tasks today.
 
 Now let's just check our installations first to make sure nothing has gone wrong during setup.
 If you don't get the expected results, call Steve over.
 
-## HISAT2
+### HISAT2
 
 The aligner we'll use today is called `hisat2` and it's an aligner which is splice aware, meaning it's able to handle alignments which contain sequences from two separate exons.
 Let's check that it's installed
@@ -110,7 +112,7 @@ whereis hisat2
 
 This should give you the output `/home/biotech7005/miniconda/bin/hisat2`
 
-## Feature Counts
+### Feature Counts
 
 We'll also need the software `featureCounts` from the `Subread` set of tools.
 
@@ -130,7 +132,7 @@ In the address bar go to: `your.ip.address:8787`
 
 ### Create an R Project for This Practical
 
-Earlier, we made a folder called `RNA_Practical`.
+Earlier, we made a folder called `RNA_Practical` when we copied the data across.
 Let's make an R Project for this folder
 
 1. `File` > `New Project`
@@ -142,19 +144,11 @@ Let's make an R Project for this folder
 
 **That's everything done for the setup!!!**
 
-# RNA Seq Analysis
+## RNA Seq Analysis
 
-## Raw Data
+### Raw Data
 
-By now, your data will have completed downloading so we'll need to unzip everything.
-We can do this in one line so copy & paste the following
-
-```
-cd ~/RNA_Practical/01_rawData/fastq/
-for f in $(ls *zip); do unzip ${f}; done
-rm *zip
-```
-
+By now, your data will have completed downloading.
 Here we have our 6 samples, with 3 from `sampleA` and another 3 from `sampleB`.
 Let's run FastQC to make sure they're acceptable.
 
@@ -175,7 +169,7 @@ These should all look pretty good, but we can get a few pieces of key informatio
 **How many reads are in each file?**  
 **How long are the reads?**
 
-## Genome Information
+### Genome Information
 
 For this section, we need Sequence (fasta) and Gene Descriptions(gtf) files
 
@@ -212,7 +206,7 @@ To avoid confusing ourselves, let's delete the full gtf so we only have the one.
 rm Homo_sapiens.GRCh38.93.chr.gtf.gz
 ```
 
-## Aligning our data
+### Aligning our data
 
 Before we align our data, we need to create an index of the genome.
 This basically allows the algorithm to perform the alignments quickly.
@@ -280,7 +274,7 @@ chmod +x runAlignments.sh
 
 These alignments will take quite a while, so while we're waiting, go to the hisat2 page https://ccb.jhu.edu/software/hisat2/manual.shtml
 
-### Questions
+#### Questions
 
 1. Explain what the following parameters meant during the call to hisat2
     a. `-x ${IDX}`
@@ -294,7 +288,7 @@ These alignments will take quite a while, so while we're waiting, go to the hisa
 5. Once at least one sample has finished being aligned, have a look at the log files. Can you interpret the output?
 6. Do you have any suggestions for improving the above script?
 
-## Counting Alignments
+### Counting Alignments
 
 Once we've aligned our data, we need to count how many reads have aligned to each gene, and we'll do this using the software `featureCounts`.
 This is the fastest part of today's practical, especially as we sorted our `bam` files.
@@ -326,9 +320,9 @@ featureCounts \
   -o ${COUNTDIR}/counts.out ${BAMS}
 ```
 
-# RNA Seq Analysis using `R`
+## RNA Seq Analysis using `R`
 
-## Loading the data into `R`
+### Loading the data into `R`
 
 The above script will create a file with a single header line, followed by column names and the data.
 Some of the columns are not relevant for us today, so we'll first load the file, then remove all the columns which are not required.
@@ -417,7 +411,7 @@ dgeList <- calcNormFactors(dgeList)
 Notice that now the column `norm.factors`is no longer all `1`.
 This is used by all downstream functions in `edgeR`.
 
-## Data Exploration
+### Data Exploration
 
 One of the things we look for in a dataset, is that the samples from each treatment,group together when we apply dimensional reduction techniques such as Principal Component Analysis (PCA) or Multi Dimensional Scaling (MDS).
 The package `edgeR` comes with a convenient function to allow this.
@@ -442,7 +436,7 @@ head(cpm(dgeList))
 
 You can see from this first 6 genes, that we have one highly abundant gene, and a couple with far lower expression levels.
 
-## Filtering out genes
+### Filtering out genes
 
 Genes with low count numbers give us minimal statistical power to detect an changes in expression level, so a common approach is to filter out these genes.
 This reduces the issues which we will face due to multiple hypothesis testing, effectively increasing the statistical power of a study.
@@ -484,7 +478,7 @@ dgeList <- dgeList[genes2keep, ]
 ```
 
 
-## Calculating moderated dispersions
+### Calculating moderated dispersions
 
 Most RNA-Seq analysis is performed using the *Negative Binomial Distribution*.
 This is similar to a *Poisson* distribution, where we **count** the number of times something appears in a given interval.
@@ -508,7 +502,7 @@ design
 dgeList <- estimateDisp(dgeList, design = design)
 ```
 
-## Performing differential expression analysis
+### Performing differential expression analysis
 
 The most common analytic approach we use is an Exact Test, proposed by Robinson and Smyth.
 This is analogous to Fisher's Exact Test, as once again we are dealing with count data, not Normally distributed data.
