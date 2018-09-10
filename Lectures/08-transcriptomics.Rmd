@@ -559,6 +559,8 @@ Image Source: Trapnell et al Differential analysis of gene regulation at transcr
     - Exact Test (Robinson & Smyth) for comparison of two groups, or;
     - Generalised Linear Models
     
+# Bonus Material
+    
 ## Normalisation
 
 - Counts are directly impacted by library size
