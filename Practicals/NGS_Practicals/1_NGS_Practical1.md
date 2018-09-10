@@ -404,7 +404,7 @@ conda remove sabre
 cd /opt
 sudo wget https://github.com/najoshi/sabre/archive/master.zip
 sudo unzip master.zip
-sudo mv master sabre
+sudo mv sabre-master sabre
 cd sabre
 sudo make
 cd /usr/local/bin
