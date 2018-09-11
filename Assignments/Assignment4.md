@@ -41,7 +41,7 @@ All other folders must be created as subdirectories of this. [*1 mark*]
 6. What does the CIGAR string "26M2I78M" mean? [*2 marks*]
 
 
-### Genes For Question 1
+### Genes For Question 3
 
 *If your student number is not listed, please contact Steve to ensure you are added to the list*
 
