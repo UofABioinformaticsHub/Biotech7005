@@ -18,7 +18,7 @@ Each of these NGS approaches uses similar programs and analysis approaches, such
 |References                 |5%   |
 |Analysis scripts           |30%  |
 
-**You have the freedom to choose any dataset from any research article you would like**, however you need to let either Dan oe Steve know beforehand.
+**You have the freedom to choose any dataset from any research article you would like**, however you need to let either Dan or Steve know beforehand.
 
 If you cannot find a suitable dataset, we have provided a dataset from a plant RNAseq profiling study, which has multiple mutants of the histone deacetylase gene [`hda`](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4848314/), which is involved in the regulation of flowering time in *Arabidopsis thaliana*. The details of the sequencing experiment [are found at this GEO link](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE78946). To ensure that everyone is not working on the same data, each student should work on a separate sample group:
 
