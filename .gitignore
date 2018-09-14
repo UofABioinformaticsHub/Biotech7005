@@ -4,5 +4,6 @@
 .Ruserdata
 *.Rproj
 Assignments/Submissions/*
+Submissions/*
 *Results*
 *fastq.gz
