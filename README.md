@@ -48,7 +48,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | **-** | 17/9 | Semester Break |
 | **-** | 24/9 | Semester Break |
 | **9** | 1/10 (PH) | ~~[Epigenetics (Jimmy)](http://biotech7005.services.adelaide.edu.au/09-epigenetics.slide)\*~~ | No practical (PH) |
-| **10** | 8/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)]()  |
+| **10** | 8/10 | [Introduction to Systems Biology (Dan)](http://biotech7005.services.adelaide.edu.au/10-graphs.slide)\* | [Graphical analyses (Dan) (1)](https://github.com/kortschak/graphprac/)  |
 | **11** | 15/10 | [Systems Biology (Ville)](http://vipmak.fi/mbio17/lecture.pdf) | [Systems Biology practical (Ville) (1)]() |
 | **12** | 22/10 | [The Future — wooooooo (Dan)](http://biotech7005.services.adelaide.edu.au/12-future.slide)\* | Wrap-up (Jimmy/Dan/Steve)  |
 
@@ -65,7 +65,7 @@ Practicals: Monday 1pm-3pm, Mawson, G12 Computer Suite
 | [Assessment 3](Practicals/evolutionary_prac/evolutionary.md) | Evolutionary processes | 7% | Friday 7th September |
 | [Assessment 4](Assignments/Assignment4.md) | NGS data practical | 7% | Friday 21st September |
 | [Assessment 5](Assignments/Assignment5.html) | RNAseq practical | 7% | Friday 12th October |
-| [Assessment 6]() | Graphical analyses | 7% | Monday 22nd October |
+| [Assessment 6](https://github.com/kortschak/graphprac/) | Graphical analyses | 7% | Monday 22nd October |
 | Active Participation | | 3% | |
 | [Project](Assignments/major_project.md) | Complete Dataset | 15% | Friday 26th October |
 | Exam | | 40% | |
