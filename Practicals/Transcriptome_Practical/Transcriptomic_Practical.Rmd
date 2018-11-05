@@ -250,7 +250,7 @@ for f in ${FQDIR}/*gz
     echo -e "Running alignment on ${f}"
     SAM=${SAMDIR}/$(basename ${f} _1.fq.gz).sam
     BAM=${BAMDIR}/$(basename ${f} _1.fq.gz).sorted.bam
-    hisat2 --known-splicesite-infile ${z10_splicesites} \
+    hisat2 \
     -x ${IDX} \
     -p 3 \
     -U ${f} \
