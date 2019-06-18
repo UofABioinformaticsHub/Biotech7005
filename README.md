@@ -25,15 +25,19 @@ Office: Braggs 2.60
 
 Lectures: Thursday 1pm, Barr Smith South, 3022
 - 1 Aug — 8 Aug
-- 12 Aug *(Monday 4pm, Hughes 309 Lecture theatre)*
+- 12 Aug ‡ *(Monday 4pm, Hughes 309 Lecture theatre)*
 - 22 Aug — 29 Aug
-- 2 Sep *(Monday 4pm, Hughes 309 Lecture theatre)*
+- 2 Sep ‡ *(Monday 4pm, Hughes 309 Lecture theatre)*
 - 12 Sep — 19 Sep
 - 10 Oct — 31 Oct
 
 Tutorials: Thursday 9am-11am, Benham, G25
 - 1 Aug — 8 Aug
+- 12 Aug ‡ *(Monday 9-10am, Benham, G25)*
+- 16 Aug ‡ *(Friday 4-5pm, Ligertwood, 113)*
 - 22 Aug — 29 Aug
+- 2 Sep ‡ *(Monday 9-10am, Benham, G25)*
+- 6 Sep ‡ *(Friday 4-5pm, Ligertwood, 113)*
 - 12 Sep — 19 Sep
 - 10 Oct — 31 Oct
 
@@ -43,23 +47,24 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 
 ### Timetable (Provisional)
 
-| **Week** | **Monday** |**Lecture**                                    | **Practical**                     | **Tutorial**                             |
+| **Week** | **Monday** | **Lecture**                                   | **Practical**                     | **Tutorial**                             |
 |----------|------------|-----------------------------------------------|-----------------------------------|------------------------------------------|
-| **1**    | 29/7       | [Introduction to Bioinformatics][1]\* (Dan)   | [Introduction to R] (1) (Steve)  | *Discussion*                             |
-| **2**    | 5/8        | [Statistics][2] (Steve)                       | [Introduction to R] (2) (Steve)  | Continue practical                       |
-| **3**    | 12/8\*     | [Evolutionary Processes][3]\* (Dan)           | [Introduction To Bash] (Steve)   | *Stats Test* <br> [Statistics worksheet] |
-| **4**    | 19/8       | [Alignment Process][4]\* (Nathan)             | [Scripting In Bash] (Steve)      | *Evolution test*                         |
-| **5**    | 26/8       | [Alignment Process][5]\* (Nathan)             | [Evolutionary processes] (Dan)   |                                          |
-| **6**    | 2/9\*      | [Next-generation sequencing][6]\*  (Dan)      | [NGS data practical (1)] (Steve) | *Alignment test*                         |
-| **7**    | 9/9        | Genome assembly (Lloyd)                       | [NGS data practical (2)] (Steve) | *NGS sequencing test*                    |
-| **8**    | 16/9       | [Transcriptomics][8] (Nathan)                 | [RNAseq practical] (Steve)       | *Genome assembly test*                          |
+| **1**    | 29/7       | [Introduction to Bioinformatics][1]\* (Dan)   | [Introduction to R] (1) (Steve)   | *Discussion*                             |
+| **2**    | 5/8        | [Statistics][2] (Steve)                       | [Introduction to R] (2) (Steve)   | Continue practical                       |
+| **3**    | 12/8‡      | [Evolutionary Processes][3]\* (Dan)           | [Introduction To Bash] (Steve)    | *Stats Test* <br> [Statistics worksheet] |
+| **4**    | 19/8       | [Alignment Process][4]\* (Nathan)             | [Scripting In Bash] (Steve)       | *Evolution test*                         |
+| **5**    | 26/8       | [Alignment Process][5]\* (Nathan)             | [Evolutionary processes] (Dan)    |                                          |
+| **6**    | 2/9‡       | [Next-generation sequencing][6]\*  (Dan)      | [NGS data practical (1)] (Steve)  | *Alignment test*                         |
+| **7**    | 9/9        | Genome assembly (Lloyd)                       | [NGS data practical (2)] (Steve)  | *NGS sequencing test*                    |
+| **8**    | 16/9       | [Transcriptomics][8] (Nathan)                 | [RNAseq practical] (Steve)        | *Genome assembly test*                   |
 | **-**    | 23/9       | Semester Break                                |                                   |                                          |
 | **-**    | 30/9       | Semester Break                                |                                   |                                          |
 | **9**    | 7/10 (PH)  | Systems Biology (Ville)                       | No practical (PH)                 | *Transcriptomics test*                   |
-| **10**   | 14/10      | [Introduction to Systems Biology][10]\* (Dan) | [Graphical analyses] (Dan)       |                                          |
+| **10**   | 14/10      | [Introduction to Systems Biology][10]\* (Dan) | [Graphical analyses] (Dan)        |                                          |
 | **11**   | 21/10      | [Epigenetics][11]\* (Jimmy)                   |                                   | *Systems biology test*                   |
 | **12**   | 28/10      | [The Future — wooooooo][12]\* (Dan)           |                                   | Wrap-up (Jimmy/Dan/Steve) *Q&A*          |
 
+‡ Lectures and tutorials at special times.
 \* Slides not visible outside UofA network.
 
 [1]: http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide
