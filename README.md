@@ -23,7 +23,7 @@ Office: Braggs 2.60
 
 ### Contact Hours
 
-Lectures: Thursday 11am, Barr Smith South, 3022
+Lectures: Thursday 1pm, Barr Smith South, 3022
 - 1 Aug — 8 Aug
 - 12 Aug *(Monday 4pm, Hughes 309 Lecture theatre)*
 - 22 Aug — 29 Aug
