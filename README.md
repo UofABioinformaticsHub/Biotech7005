@@ -11,7 +11,9 @@ Coordinator:
 
 Instructors:
 - Dan Kortschak
-- TBD
+- Nathan Watson-Haigh
+- Steve Pederson
+- Jimmy Breen
 
 __*Course Contact*__
 Dan Kortschak
@@ -43,18 +45,18 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 
 | **Week** | **Monday** |**Lecture**                                    | **Practical**                     | **Tutorial**                             |
 |----------|------------|-----------------------------------------------|-----------------------------------|------------------------------------------|
-| **1**    | 29/7       | [Introduction to Bioinformatics][1]\* (Dan)   | [Introduction to R]\ (1) (Steve)  | *Discussion*                             |
-| **2**    | 5/8        | [Statistics][2] (Steve)                       | [Introduction to R]\ (2) (Steve)  | Continue practical                       |
-| **3**    | 12/8\*     | [Evolutionary Processes][3]\* (Dan)           | [Introduction To Bash]\ (Steve)   | *Stats Test* <br> [Statistics worksheet] |
-| **4**    | 19/8       | [Alignment Process][4]\* (Dan)                | [Scripting In Bash]\ (Steve)      | *Evolution test*                         |
-| **5**    | 26/8       | [Alignment Process][5]\* (Dan)                | [Evolutionary processes]\ (Dan)   |                                          |
-| **6**    | 2/9\*      | [Next-generation sequencing][6]\*  (Dan)      | [NGS data practical (1)]\ (Steve) | *Alignment test*                         |
-| **7**    | 9/9        | Genome assembly (Lloyd)                       | [NGS data practical (2)]\ (Steve) | *NGS sequencing test*                    |
-| **8**    | 16/9       | [Transcriptomics][8] (Steve)                  | [RNAseq practical]\ (Steve)       | *Genome assembly test*                          |
+| **1**    | 29/7       | [Introduction to Bioinformatics][1]\* (Dan)   | [Introduction to R] (1) (Steve)  | *Discussion*                             |
+| **2**    | 5/8        | [Statistics][2] (Steve)                       | [Introduction to R] (2) (Steve)  | Continue practical                       |
+| **3**    | 12/8\*     | [Evolutionary Processes][3]\* (Dan)           | [Introduction To Bash] (Steve)   | *Stats Test* <br> [Statistics worksheet] |
+| **4**    | 19/8       | [Alignment Process][4]\* (Nathan)             | [Scripting In Bash] (Steve)      | *Evolution test*                         |
+| **5**    | 26/8       | [Alignment Process][5]\* (Nathan)             | [Evolutionary processes] (Dan)   |                                          |
+| **6**    | 2/9\*      | [Next-generation sequencing][6]\*  (Dan)      | [NGS data practical (1)] (Steve) | *Alignment test*                         |
+| **7**    | 9/9        | Genome assembly (Lloyd)                       | [NGS data practical (2)] (Steve) | *NGS sequencing test*                    |
+| **8**    | 16/9       | [Transcriptomics][8] (Nathan)                 | [RNAseq practical] (Steve)       | *Genome assembly test*                          |
 | **-**    | 23/9       | Semester Break                                |                                   |                                          |
 | **-**    | 30/9       | Semester Break                                |                                   |                                          |
 | **9**    | 7/10 (PH)  | Systems Biology (Ville)                       | No practical (PH)                 | *Transcriptomics test*                   |
-| **10**   | 14/10      | [Introduction to Systems Biology][10]\* (Dan) | [Graphical analyses]\ (Dan)       |                                          |
+| **10**   | 14/10      | [Introduction to Systems Biology][10]\* (Dan) | [Graphical analyses] (Dan)       |                                          |
 | **11**   | 21/10      | [Epigenetics][11]\* (Jimmy)                   |                                   | *Systems biology test*                   |
 | **12**   | 28/10      | [The Future — wooooooo][12]\* (Dan)           |                                   | Wrap-up (Jimmy/Dan/Steve) *Q&A*          |
 
