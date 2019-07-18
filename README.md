@@ -51,8 +51,8 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 |----------|------------|-----------------------------------------------|-----------------------------------|------------------------------------------|
 | **1**    | 29/7       | [Introduction to Bioinformatics][1]\* (Dan)   | [Introduction to R] (1) (Steve)   | *Discussion*                             |
 | **2**    | 5/8        | [Evolutionary Processes][3]\* (Dan)           | [Introduction to R] (2) (Steve)   | Continue practical                       |
-| **3**    | 12/8‡      | [Statistics][2] (Steve)                       | [Introduction To Bash] (Steve)    | *Stats Test* <br> [Statistics worksheet] |
-| **4**    | 19/8       | [Alignment Process][4]\* (Nathan)             | [Scripting In Bash] (Steve)       | *Evolution test*                         |
+| **3**    | 12/8‡      | [Statistics][2] (Steve)                       | [Introduction To Bash] (Steve)    | *Evolution test*                         |
+| **4**    | 19/8       | [Alignment Process][4]\* (Nathan)             | [Scripting In Bash] (Steve)       | *Stats Test* <br> [Statistics worksheet] |
 | **5**    | 26/8       | [Alignment Process][5]\* (Nathan)             | [Evolutionary processes] (Dan)    |                                          |
 | **6**    | 2/9‡       | [Next-generation sequencing][6]\*  (Dan)      | [NGS data practical (1)] (Steve)  | *Alignment test*                         |
 | **7**    | 9/9        | Genome assembly (Lloyd)                       | [NGS data practical (2)] (Steve)  | *NGS sequencing test*                    |
