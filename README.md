@@ -122,12 +122,6 @@ Have you:
 	- Emails should have a meaningful subject.
 - [ ] Handed in the assignment before the due time (Friday tutorial 9am)?
 
-### Active Participation (3%)
-
-A small component of the course assessment will be for active participation in practicals and tutorials.
-Since the majority of the course material is open source, issues filed against errors found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
-This can be done by submitting bug reports to [the issues page](https://github.com/uofabioinformaticshub/Biotech7005/issues).
-
 ### Major Project (15%)
 
 In this course, the following next-generation sequencing (NGS) datasets/protocols will be in detail:
