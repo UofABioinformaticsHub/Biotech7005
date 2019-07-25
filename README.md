@@ -34,7 +34,7 @@ Lectures: Thursday 1pm, Barr Smith South, 3022
 Tutorials: Thursday 9am-11am, Benham, G25
 - 1 Aug — 8 Aug
 - 12 Aug ‡ *(Monday 9-10am, Benham, G25)*
-- 16 Aug ‡ *(Friday 4-5pm, Ligertwood, 113)*
+- ~16 Aug ‡ *(Friday 4-5pm, Ligertwood, 113)*~
 - 22 Aug — 29 Aug
 - 2 Sep ‡ *(Monday 9-10am, Benham, G25)*
 - 6 Sep ‡ *(Friday 4-5pm, Ligertwood, 113)*
@@ -121,12 +121,6 @@ Have you:
 - [ ] Used appropriate electronic communication with assessors?
 	- Emails should have a meaningful subject.
 - [ ] Handed in the assignment before the due time (Friday tutorial 9am)?
-
-### Active Participation (3%)
-
-A small component of the course assessment will be for active participation in practicals and tutorials.
-Since the majority of the course material is open source, issues filed against errors found in practicals, tutorials and lectures, and contributions to fixing those errors will count to this component.
-This can be done by submitting bug reports to [the issues page](https://github.com/uofabioinformaticshub/Biotech7005/issues).
 
 ### Major Project (15%)
 
