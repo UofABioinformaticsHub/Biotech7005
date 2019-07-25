@@ -34,7 +34,7 @@ Lectures: Thursday 1pm, Barr Smith South, 3022
 Tutorials: Thursday 9am-11am, Benham, G25
 - 1 Aug — 8 Aug
 - 12 Aug ‡ *(Monday 9-10am, Benham, G25)*
-- 16 Aug ‡ *(Friday 4-5pm, Ligertwood, 113)*
+- ~16 Aug ‡ *(Friday 4-5pm, Ligertwood, 113)*~
 - 22 Aug — 29 Aug
 - 2 Sep ‡ *(Monday 9-10am, Benham, G25)*
 - 6 Sep ‡ *(Friday 4-5pm, Ligertwood, 113)*
