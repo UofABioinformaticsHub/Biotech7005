@@ -50,7 +50,7 @@ This enables highly reproducible (and reputable) research!
 
 `R` can be installed on any laptop and the most common method for interacting with R is the IDE known as **RStudio**.
 When using RStudio, we can think of RStudio as being like the cabin of a car, whilst `R` itself is the engine.
-RStudio has a whole of extra features not diectly related to `R`, but that make our experience much more enjoyable whilst working with `R`.
+RStudio has a whole of extra features not directly related to `R`, but that make our experience much more enjoyable whilst working with `R`.
 
 For these practicals we have given you a Virtual Machine (VM) and we will use these to ensure minimal issues with the entire practical series.
 RStudio is how we will primarily interact with our VMs
@@ -176,7 +176,7 @@ Let's take a tour through the various panes and tools within RStudio.
 
 - Where we can execute commands directly, as we've already seen
 - This is essentially the _engine_
-- In recent versions of RStudio we also have a `Terminal` which we have already used to change our password. We'll also spend a fair bit of time here laer in the course.
+- In recent versions of RStudio we also have a `Terminal` which we have already used to change our password. We'll also spend a fair bit of time here later in the course.
 
 As well as performing simple calculations in the Console, as we've already done:
 
@@ -273,7 +273,7 @@ In R, we never click on anything and this pane will tempt you into bad habits.
 We usually have this disabled as it serves literally no purpose.
 
 <details><summary><b>How to disable the Packages pane</b></summary>
-If you'd like to do this, using the RStudio menu bar select `Tools > Global Options > Packages`, then untick the box next to `Enable packages pane`.
+If you'd like to do this, using the RStudio menu bar select `Tools > Global Options > Packages`, then uncheck the box next to `Enable packages pane`.
 </details>  
 
 
