@@ -26,7 +26,7 @@ This is also known as the prompt.
 2. Type the command `passwd` followed by <kbd>Enter</kbd>
     - You will now be asked to enter your existing password. NOTE THAT WHEN ENTERING YOUR PASSWORD **NO TEXT WILL APPEAR AT THE PROMPT**. This is a security feature.
     - Enter a new password. Again, *you will not see any characters appear*.
-    - Re-enter your new password to confirm you haven't made any typos. (If you do make a typo, the process will abort, so just begin again by typing `passwd` + <kbd>Enter</kbd>)
+    - Re-enter your new password to confirm you haven't made any typos. (If you do make a mistake, the process will abort, so just begin again by typing `passwd` + <kbd>Enter</kbd>)
     - **PLEASE REMEMBER THIS PASSWORD**
 3. At the top right of RStudio, next to `biotech7005`, click the logout (![logout](R_Practicals/images/logout.png)) symbol.
 4. Login once again using your new password.
