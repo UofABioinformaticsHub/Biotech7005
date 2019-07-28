@@ -1,8 +1,8 @@
 ---
-title: "Practical 1: Importing Data Into R"
+title: "Practical 1.2: Importing Data Into R"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Bioinformatics Hub, University of Adelaide"
-date: "23 July 2018"
+date: "29 July 2019"
 output: 
   html_document: 
     fig_caption: yes
@@ -80,7 +80,7 @@ This will be helpful for any collaborators, and for yourself when you look back 
 
 Now we've gone through some formalities, let's import some data using the Graphical User Interface (GUI) that comes with RStudio
 
-1. Navigate to your `data/intro_r` folder using the `Files` Tab.
+1. Navigate to your `~/data/intro_r` folder using the `Files` Tab.
     - First click the ![](images/home.png) icon then click into `data`.then `intro_r`
 2. Click on the file `transport.csv`
 3. Select `View File`
@@ -134,7 +134,7 @@ The code we copied has 3 lines:
     + The package `readr` contains the function `read_csv()`
     + We have already loaded this package when we entered `library(tidyverse)`, so this line is a little redundant but won't hurt to include.
     Reloading a package generally does nothing.
-2. `transport <- read_csv("~path/to/data/transport.csv")`
+2. `transport <- read_csv("~/data/intro_r/transport.csv")`
     + This is the code executed to load the data into your `R Environment`
     + It created an object named `transport` by using the file name without the suffix. (`transport <-`)
     + The location of the file on your hard drive was passed to the function `read_csv()`
@@ -148,6 +148,12 @@ The code we copied has 3 lines:
 We have just loaded data using the default settings of `read_csv()`.
 (If we'd change any options in the GUI, the code would have changed.)
 **Now we've saved the code in our script, we no longer have any need the GUI to perform this operation again.**
+
+<details><summary><b>The `~ symbol</b></summary>
+You may have seen the `~` symbol in the code above.
+This is MacOS and Linux shorthand for your home directory.
+We'll cover this in more details once we get to our Bash Practicals, but is shorthand for the directory `/home/biotech7005` on your VM.
+</details>
 
 To demonstrate this:
 
@@ -179,13 +185,13 @@ This function has numerous arguments given with names like `file`, `col_names` e
 For example:
 
 ```{r, eval=FALSE}
-transport <- read_csv("data/transport.csv")
+transport <- read_csv("~/data/intro_r/transport.csv")
 ```
 
 Is equivalent to:
 
 ```{r, eval=FALSE}
-transport <- read_csv(file = "data/transport.csv")
+transport <- read_csv(file = "~/data/intro_r/transport.csv")
 ```
 
 #### Questions

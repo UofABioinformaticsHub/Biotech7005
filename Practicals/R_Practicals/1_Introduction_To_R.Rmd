@@ -1,8 +1,8 @@
 ---
-title: "Practical 1: Introduction to R and R Studio"
+title: "Practical 1.1: Introduction to R and R Studio"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Bioinformatics Hub, University of Adelaide"
-date: "23 July 2018"
+date: "29 July 2019"
 output: 
   html_document: 
     fig_caption: yes

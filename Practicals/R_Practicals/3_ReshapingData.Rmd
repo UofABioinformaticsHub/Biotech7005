@@ -1,29 +1,28 @@
 ---
-title: "Topic 2: Editing Data in R"
+title: "Practical 1.3: Reshaping Data in R"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
-author: "Steve Pederson"
-date: "23 July 2018"
+author: "Bioinformatics Hub, University of Adelaide"
+date: "29 July 2019"
 output: 
   html_document: 
     fig_caption: yes
     toc: yes
-    toc_depth: 2
 ---
 
 ```{r, echo = FALSE}
 library(knitr)
 opts_chunk$set(echo = TRUE,
-               # eval = FALSE,
+               eval = FALSE,
                results = "hide",
                message = FALSE, warning =  FALSE)
 ```
 
 
-# Working with Data Frames
+## Working with Data Frames
 
-## Introduction
+### Introduction
 
-This is also known as _data munging_ and is one of the most common processes in any bioinformatics analysis.
+This is also known as _data munging_ or _data wrangling_ and is one of the most common processes in any bioinformatics or statistical analysis.
 
 We'll cover:
 
@@ -34,26 +33,28 @@ We'll cover:
     - `arrange()`: reordering columns
     - `summarise()`: obtaining summary values for a column
     - `group_by()`: defining grouping variables for summaries
-- Changing from wide to long form using `reshape2`
-    - `melt()`: changing from wide to long form
-    - `dcast()`: changing from long to wide form
+- Changing from wide to long form using `tidyr`
+    - `gather()`: changing from wide to long form
+    - `spread()`: changing from long to wide form
 - Editing text using `stringr`
     - `str_extract_all()`: using regular expressions to extract patterns within strings
 
 
 The datasets required are contained in the files 1) `transport.csv` and 2) `pcr.csv`
+Create a new R Script called `DataWrangling.R`
 
+## The package `dplyr`
 
-# The package `dplyr`
-
-## Starting with `dplyr`
+### Starting with `dplyr`
 
 This package is also loaded by default when we enter `library(tidyverse)`.
 For this session we'll use the same data as for the previous session.
+Note that now we'll define it as an R object and then we'll pass it to `read_csv()`.
+To check that we have this correct, we'll first check that the file exists, using the appropriately named function `file.exists()`.
 
 ```{r, results='hide'}
 library(tidyverse)
-csvFile <- file.path("data", "transport.csv")
+csvFile <- file.path("~", "data", "intro_r", "transport.csv")
 file.exists(csvFile)
 data <- read_csv(csvFile)
 data
@@ -96,7 +97,7 @@ The package `dplyr` has an additional method of selecting columns, by using the 
 select(data, name, transport)
 ```
 
-*Note that we have only printed the results to the screen and haven't created any new `R` objects.*
+*Note that in the above, we have only printed the results to the screen and haven't created any new `R` objects.*
 
 An advantage of this method, as opposed to the square brackets is the use of some helper functions `starts_with()`, `ends_with()`, `contains()` and `everything()`.
 We can use these to reorder the columns easily.
@@ -123,13 +124,20 @@ If we delete a column and then realise we need it back , we can just rerun our c
 data <- select(data, -X1)
 ```
 
+This is an alternate method to skipping the column when importing using `read_csv()`.
 In the function `select()`, we can also use column numbers but in general it is best practice to use column names.
-*Why would this be?*
+
+<details><summary><b>Why would using column names be better than numbers</b></summary>
+Using column names is much easier to read back, and to cummincate with others.
+We immediately know what we've done, whereas if we use numbers, we would have to reload the object, then look to see what columns correspond to the given numbers.
+Given that you'll often be looking back at your own code, this is a very good habit to get into, and you will be making your life easier.
+</details>
+
 
 ### Adding extra columns
 
 We can add extra columns using `mutate()`.
-It's clear that the height here is provided in *cm*, but for BMI calculations we'll need height in *m*.
+It's clear that the height here is provided in *cm*, but for BMI calculations we would need height in *m*.
 We can add a column and perform calculations add the same time.
 
 ```{r}
@@ -144,6 +152,8 @@ mutate(data, height_m = height/100, BMI = weight / height_m^2)
 
 Note that we haven't overwritten our original object, so let's add those columns permanently to our `data.frame`.
 **Don't forget to add this line to your script!**
+Add a comment explaining what you've done if you like.
+It's probably a good idea for reading your code back.
 
 ```{r}
 data <- mutate(data, height_m = height/100, BMI = weight / height_m^2)
@@ -275,17 +285,16 @@ It's all happened in `R` while our original file is still unchanged on our hard-
 This can aid with reproducible research, and also help prevent catastrophes.
 
 
-# Reshaping Data and Regular Expressions
-
-## The package `reshape2`
+## Reshaping Data
 
 ### Wide Form Vs Long Form
 
 In this section we will need the `pcr.csv` dataset in the data folder.
-Let's load the data first.
+Let's load the data first by placing this at the beginning of your new script file.
 
 ```{r}
-pcrFile <- file.path("data", "pcr.csv")
+library(tidyverse)
+pcrFile <- file.path("~", "data", "intro_r", "pcr.csv")
 file.exists(pcrFile)
 pcrData <- read_csv(pcrFile)
 ```
@@ -297,124 +306,35 @@ This dataset is in what we refer to as `wide` form where we have a row of measur
 The information is _structured around the gene_.
 In `long` form, the information would be  _structured around the measurement_.
 
-To perform this in`R` we can simply use the package `reshape2`, and the function `melt()`
+To perform this in`R` we can simply use the package `tidyr` which is loaded with the call to `library(tidyverse)`.
+The function we'll use is `gather()`, which *gathers* multiple columns into a single column. 
 
 ```{r}
-library(reshape2)
-melt(pcrData, id.vars = "Gene")
+pcrData %>% gather(key = "variable", value = "value", -Gene)
 ```
 
-Notice that this has held the `Gene` column fixed but the remainder of the columns have been 'melted' downthe screen, with the column names in a new column called `variable`, and the values in a column called `value`.
+Notice that this has held the `Gene` column fixed but the remainder of the columns have been 'gathered' down the screen.
+The column names are in a new column called `variable`, and the values are in a column called `value`.
 Now you can see that we have a unique row for each measurement, containing all the information about that measurement.
+
+By adding the final `-Gene` we are telling gather to ignore the `Gene` column.
+An alternative method would be to use `ends_with("hr")`.
+Try it if you are interested.
 
 Let's save that as a new object, and give those columns better names while we're at it.
 
 ```{r}
-pcrLong <- melt(pcrData, id.vars = "Gene", variable.name = "Treatment", value.name = "Ct")
+pcrLong <- pcrData %>% gather(key = "Treatment", value = "Ct", -Gene)
 head(pcrLong)
 ```
 
-This time we have a plain `data.frame` without the pretty `tibble` wrapping paper on it, so can avoid the 'information dump' on our screens by looking at the first few rows using `head()`.
-
-If we wanted to return this to wide form we can use the function `dcast()`.
-Now we are seeing the `R` formula syntax with the `~` symbol for the first time.
-This can be taken to mean `depends on` and in this context that value before the `~` will produce the row variable, whilst the values following will produce the column variables.
-
-
-```{r}
-dcast(pcrLong, Gene~Treatment)
-dcast(pcrLong, Treatment~Gene)
-```
-
-In addition to the convenience of this form for many statistical processes and plotting, this makes removal of encoded missing values simple.
-We could simply remove them from the `Ct` column using the `filter()` function from `dplyr`.
-
-## Regular Expressions
-
-As we can see, the `Treatment` column contains two piecs of information and we may want to place these in two separate columns.
-The `mutate()` function would be a good choice, but how do we separate those values on either side of the `_` symbol?
-
-For this we'll use functions from the package `stringr` and we'll discuss **regular expressions** first.
-The key functions here will be `str_extract()`, `str_replace()` and `str_replace_all()`.
-As we saw wih `dplyr` and `readr`, the package `stringr` is loaded with the `tidyverse`.
-
-
-### Text Manipulation 
-
-Matching obvious patterns uses a simple syntax.
-The first argument is the original `string`, which is follwed by the search `pattern` and the `replacement`.
-
-```{r}
-str_replace("Hi Mum", "Mum", "Dad")
-```
-
-Here we are searching the the `string` "Hi Mum" for the `pattern` "Mum", and replacing  with the string "Dad".
-
-### Wild-cards
-
-In regular expressions, we can specify wild-cards as `.` which means "match anything".
-
-```{r}
-str_replace("Hi Mum", "M..", "Dad")
-```
-
-We can also match any number of wild-cards by using `+`, so in the following we are searching for `M` followed by *anything*, *one or more times*.
-
-```{r}
-str_replace("Hi Mum", "M.+", "Dad")
-str_replace("Hi Mother", "M.+", "Dad")
-```
-
-### Text captures
-
-We can also capture words/phrases/patterns using the round brackets containing or target `(pattern)`.
-We can then return these in the order we capture them by using the double backslash symbol followed by their capture number.
-*This is `R`-specific syntax and doesn't apply when we move to bash in a few weeks*.
-
-```{r}
-str_replace("Hi Mother", "(M.+)(h.+)", "\\2\\1")
-```
-
-### Specific character sets
-
-We can also specify specific strict alternatives instead of wild-cards y placing options inside square brackets (`[]`).
-The function `str_replace()` will only replace the first instance in each string, whilst `str_replace_all()` will replace *all* instances.
-
-```{r}
-str_replace("Hi Mum", "[Mm]", "b")
-str_replace_all("Hi Mum", "[Mm]", "b")
-str_replace_all("Hi Mum", "[aeiou]", "o")
-str_replace_all("Hi Mum", "[a-z]", "o")
-```
-
-### Alternative Patterns
-
-Alternative patterns can be specified using the conventional `OR` symbol `|` inside the curved brackets.
-
-```{r}
-str_replace_all("Hi Mum", "(Mum|Dad)", "Parent")
-str_replace_all("Hi Dad", "(Mum|Dad)", "Parent")
-str_replace_all("Hi Dad", "Hi (Mum|Dad)", "Hello Parent")
-```
-
-
-### Returning to our data
-
-Here we are going to use `str_extract` to grab our timepoint, and `str_replace()` to remove it from the `Treatment` column.
+The important column here is called `Treatment` and contains data that should be placed in two columns.
+We can separate this column at the `_` using the function `separate()`.
 
 ```{r}
 pcrLong %>%
-  mutate(TimePoint = str_extract(Treatment, "(0hr|12hr|24hr)"),
-         Treatment = str_replace(Treatment, "_(0hr|12hr|24hr)", ""))
+  separate(Treatment, into = c("Treatment", "Timepoint"), sep = "_")
 ```
 
-We could now combine this with our `select()` function to reorder the columns, whilst overwriting the previous version of the object.
 
-```{r}
-pcrLong <- pcrLong %>%
-  mutate(TimePoint = str_extract(Treatment, "(0hr|12hr|24hr)"),
-         Treatment = str_replace(Treatment, "_(0hr|12hr|24hr)", "")) %>%
-  select(Gene, TimePoint, everything())
-```
-
-Once you're happy with all of the above processes, head to the Data Visualisation section.
+If we wanted to return this to wide form we can use the function `spread()`.
