@@ -11,6 +11,7 @@ The data for the first practical is located [here](data.zip).
 Please download this and extract as a directory called `data` within a directory called `R_Practicals`.
 
 [1 Introduction](1_Introduction_To_R.html)<br>
+[2 Importing Data](2_ImportingData.html)<br>
 [2 Editing Data](2_EditingData.html)
 
 ## Practical 2: 30th July, 2018
