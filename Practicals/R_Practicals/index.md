@@ -7,9 +7,6 @@ Assessment 1 requires these sessions to be completed.
 
 ## Practical 1: 29th July, 2019
 
-The data for the first practical is located [here](data.zip).
-Please download this and extract as a directory called `data` within a directory called `R_Practicals`.
-
 [1.1 Introduction](1_Introduction_To_R.html)<br>
 [1.2 Importing Data](2_ImportingData.html)<br>
 [1.3 Reshaping Data](3_ReshapingData.html)
@@ -19,3 +16,7 @@ Please download this and extract as a directory called `data` within a directory
 <!-- Add regex/stringr here -->
 [2.2 Plotting Data](3_PlottingData.html)<br>
 [2.3 RMarkdown](4_UsingRMarkdown.html)
+
+## Assessment 1
+
+TBA
