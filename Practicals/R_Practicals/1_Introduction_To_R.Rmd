@@ -118,8 +118,8 @@ These are a simple way of managing your code for multiple analyses or datasets, 
 These are not essential, but are very useful and make good practice.
 If you don't follow this step, you will be making your life immeasurably harder and will not be following 'best practice' for R.
 
-In the middle of the screen you will see the home icon (![images/home.png]).
-Click on ![images/NewFolder.png] directly above this and call this folder `Practical_1`.
+In the middle of the screen you will see the home icon (![home](images/home.png)).
+Click on ![NewFolder](images/NewFolder.png) directly above this and call this folder `Practical_1`.
 **Please ensure you spell this correctly, including the underscore and capitalised first letter**
 
 This is where we'll run everything for today's session.
