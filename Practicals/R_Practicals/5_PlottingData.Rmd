@@ -1,13 +1,12 @@
 ---
-title: "Topic 3: Plotting Data"
+title: "Practical 2.2: Plotting Data"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
-author: "Steve Pederson"
-date: "30 July 2018"
+author: "University of Adelaide, Bioinformatics Hub"
+date: "5 August 2019"
 output: 
   html_document: 
     fig_caption: yes
     toc: yes
-    toc_depth: 2
 ---
 
 ```{r, loadPackages, echo = FALSE, include = FALSE}
@@ -17,11 +16,12 @@ opts_chunk$set(echo = TRUE, include = TRUE,
                results = 'hide', fig.show = 'hide')
 ```
 
-# Data Visualisation Using the Package `ggplot2`
+## Data Visualisation Using the Package `ggplot2`
 
-## The package `graphics`
+### The package `graphics`
 
-`R` has numerous plotting functions in the base package `graphics`
+`R` has numerous plotting functions in the base package `graphics`.
+Whilst they can be useful for quickly drawing up a plot, customising them can prove highly challenging.
 
 ```{r, eval = FALSE}
 ?plot
@@ -33,10 +33,14 @@ __Go to the `Examples` at the bottom of each help page and copy a few lines__
 
 The package `ggplot2` gives much more flexibility and power.
 However, it has a unique syntax and approach where we plot by adding layers of relevant information, based on the concepts outlined in [The Grammar of Graphics](https://www.springer.com/gp/book/9780387245447).
+As a result, we won't explore the base `graphics` capabilities of `R` any further as `ggplot2` is generally far superior.
+`ggplot2` is also one of the core `tidyverse` packages.
 
-## The package `ggplot2` 
+![](images/tidy_workflow.png)
 
-First we need to load the package, which is part of the core `tidyverse` packages.
+### The package `ggplot2` 
+
+Start a new script for this topic called `DataVisualisation.R` and add the usual first line.
 
 ```{r}
 library(tidyverse)
@@ -46,23 +50,24 @@ We'll also use the transport dataset from our previous session.
 This time, we'll just overwrite the `height` column with the same values in *m* instead of *cm*.
 We'll also remove `X1` and add the BMI information directly as we're loading the data.
 Hopefully you can see the usefulness of the `%>%` from this example.
+This way we never need to edit our raw data files, but perform all manipulation in `R` in a completely reproducible manner.
+This strategy also allows for additional data to be provided as more experiments or data points are added.
 
 **Remember to load all packages at the top of your `R` script for easier reference in the future!**
 
 ```{r}
-csvFile <- file.path("data", "transport.csv")
+csvFile <- file.path("~", "data", "intro_r", "transport.csv")
 file.exists(csvFile)
 data <- read_csv(csvFile) %>%
-  mutate(height = height/100, 
-         BMI = weight / height^2) %>%
+  mutate(height = height/100, BMI = weight / height^2) %>%
   select(-X1)
 data
 ```
 
-The main function is `ggplot()`.
-In this first stage we first define the aesthetic mappings using `aes()`.
+The main `ggplot2` function is `ggplot()`.
+In this first stage we first *define the aesthetic mappings using* `aes()`.
 These simply define what is plotted on which axis, and what defines the colour/shape etc.
-When calling this function alone no data will be plotted, and we get the plot area only.
+When calling this function alone **no data will be plotted**, and we get a blank plot area only.
 
 ```{r, fig.show='hide'}
 ggplot(data, aes(x = weight, y = height))
@@ -73,7 +78,7 @@ ggplot(data, aes(x = weight, y = height))
 After defining the aesthetic mappings, we:
 
 1. Tell R that "*more is to come*" by adding a `+` symbol at the end of the line
-2. Add the geometry using various `geom_...()` functions
+2. Add the required geometry using various `geom_...()` functions
 
 Let's start by plotting points, for which we need `geom_point()`.
 
@@ -103,7 +108,8 @@ ggplot(data, aes(x = weight, y = height, colour = transport, shape = gender)) +
   geom_point()
 ```
 
-Let's leave the general aesthetics in `ggplot()`, with the colour and the shape aesthetics specifically assigned to the points.
+Let's leave the general aesthetics in `ggplot()`, with the colour and the shape aesthetics being specifically assigned to the points.
+Whilst this looks the same on the plot, this will help as we build up the complexity of the plot.
 
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
@@ -130,12 +136,12 @@ ggplot(data, aes(x = weight, y = height)) +
   geom_smooth(method = "lm")
 ```
 
-The standard errors for the line are represented by shading by default, and we can remove these by setting `se = FALSE`.
+By default, the standard errors for the line are represented by shading, and we can remove these bands by setting `se = FALSE`.
 
 ```{r}
 ggplot(data, aes(x = weight, y = height)) +
   geom_point(aes(colour = transport, shape = gender)) +
-  geom_smooth(method = "lm", se= FALSE)
+  geom_smooth(method = "lm", se = FALSE)
 ```
 
 
@@ -148,8 +154,7 @@ The default values are the column names, so we can tidy those up fairly easily.
 ggplot(data, aes(x = weight, y = height)) +
   geom_point(aes(colour = transport, shape = gender)) +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Weight (kg)", y = "Height (cm)", 
-       shape = "Gender", colour = "Transport")
+  labs(x = "Weight (kg)", y = "Height (m)", shape = "Gender", colour = "Transport")
 ```
 
 
@@ -163,10 +168,12 @@ This will also plot separate regression lines.
 ggplot(data, aes(x = weight, y = height)) +
   geom_point(aes(colour = transport, shape = gender)) +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Weight (kg)", y = "Height (cm)", 
-       shape = "Gender", colour = "Transport") +
+  labs(x = "Weight (kg)", y = "Height (cm)", shape = "Gender", colour = "Transport") +
   facet_wrap(~gender) 
 ```
+
+In important piece of syntax we have just seen for the first time is the use of the tilde (`~`).
+In `R` this is how we often define statistical models, and con often be interpreted as *depends on*, so in this call to `facet_wrap()` we are asking `ggplot` to draw facets that depend on the values in the `gender` column.
 
 ### Different geoms
 
@@ -174,7 +181,7 @@ Enter `geom_` in the Console followed by the `tab` key.
 Numerous options will appear such as `geom_density()` and `geom_boxplot()`.
 You may need to think carefully about what is plotted on which axis for some of these so pay careful attention.
 
-Here's `geom_density()`
+Here's `geom_density()` setting a degree of transparency to look amazing.
 
 ```{r}
 ggplot(data, aes(x = height, fill = gender)) +
@@ -203,7 +210,7 @@ ggplot(data, aes(x = height)) +
   geom_histogram(bins = 20)
 ```
 
-These tend to need a little tweaking though.
+These tend to look terrible out of the box and need a little tweaking though.
 
 ```{r}
 ggplot(data, aes(x = height)) +
@@ -211,13 +218,14 @@ ggplot(data, aes(x = height)) +
 ```
 
 
-### Combining With `dplyr`
+## Combining With `dplyr`
 
 We can use `dplyr` (or any other) function to summarise our data before plotting, then _pipe_ (`%>%`) into `ggplot()` without modifying our original data object.
 As we saw last time, this is loaded by default when we called `library(tidyverse)`.
 
 Let's start working towards a barplot with error bars, which will use `geom_bar()`.
-This has a slightly unusual set of default arguments, so we need to provide the argument `stat = "identity"`, which tells it to use the values provided and not to try summing anything.
+`geom_bar()` has a slightly unusual set of default arguments, so we will need to provide the argument `stat = "identity"`.
+This simply tells `geom_bar()` to use the values provided and not to try summing anything before plotting.
 
 ```{r}
 data %>%
@@ -226,7 +234,7 @@ data %>%
   ggplot(aes(x = transport, y = mn_height, fill = transport)) +
   geom_bar(stat = "identity") +
   facet_wrap(~gender) +
-  guides(fill =FALSE)
+  guides(fill = FALSE)
 ```
 
 To add error bars we now just use `geom_errorbar()`
@@ -237,12 +245,21 @@ data %>%
   summarise(mn_height = mean(height), sd_height = sd(height)) %>%
   ggplot(aes(x = transport, y = mn_height, fill = transport)) +
   geom_bar(stat = "identity") +
-  geom_errorbar(aes(ymin = mn_height - sd_height,
-                    ymax = mn_height + sd_height),
-                width = 0.6)+
+  geom_errorbar(
+    aes(ymin = mn_height - sd_height, ymax = mn_height + sd_height),
+    width = 0.6
+  ) +
   facet_wrap(~gender) +
-  guides(fill =FALSE)
+  guides(fill = FALSE)
 ```
+
+Notice that `geom_errorbar()` needed a lot of information, so we spread our code out across multiple lines.
+This is a fairly useful trick for making your code more readable at a later point in time.
+
+
+## Bonus Material
+
+**Please only attempt this section if you have more than an hour left of the practical session. Otherwise, this is simply here as a helpful guide for future reference.**
 
 ### Setting Themes
 
@@ -278,18 +295,14 @@ Hopefully this gives you enough ideas on how to customise your own plots.
 ggplot(data, aes(x = gender, y = height, fill = gender)) +
   geom_boxplot() +
   theme_bw() +
-  theme(axis.text.x = element_text(family = "Times", size = 15, angle = 90, colour = "blue"))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 ```
 
-To remove all attributes use `element_blank()` in place of `element_rect()`, `element_text()` or `element_line()`.
-In the following, we'll remove the grid-lines.
-
-```{r}
-ggplot(data, aes(x = gender, y = height, fill = gender)) +
-  geom_boxplot() +
-  theme_bw() +
-  theme(panel.grid = element_blank())
-```
+<details><summary><b>What do hjust and vjust do in the above code?</b></summary>
+They control the horizontal and vertical adjustment of the text, using the direction of the letters as the reference point.
+`hjust = 1` means right alignment of the text in the horizontal direction, whilst `vjust = 0.5` means centre alignment in the vertical direction.
+Both these values take vales between 0 & 1.
+</details>
 
 ### Legend Positions
 
@@ -314,17 +327,16 @@ ggplot(data, aes(x = gender, y = height, fill = gender)) +
 
 ### Colours and Axes
 
-The scale of axes can also be set manually to be reverse or on the log10 scale.
-**Note that this code has switched to a plot of weight not height.**
+The scale of axes or fill colours can also be set manually to be reverse or on the log10 scale.
 
 ```{r}
-ggplot(data, aes(x = gender, y = weight, fill = gender)) +
+ggplot(data, aes(x = gender, y = height, fill = gender)) +
   geom_boxplot() +
   theme_bw() +
   theme(legend.position = c(0.85, 0.15)) +
-  scale_y_log10(breaks = c(50, 60, 70, 80, 90)) +
+  scale_y_continuous(limits = c(1.5, 2)) +
   scale_fill_manual(values = c("grey70", "lightblue"))
 ```
 
 In the last line of the above, we've also set the colour manually.
-Once you get this plotting approach, it's very easy to customise and make great looking plots.
+Once you get used to this plotting approach, it's very easy to customise and make great looking plots.
