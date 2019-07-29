@@ -13,9 +13,9 @@ Assessment 1 requires these sessions to be completed.
 
 ## Practical 2: 5th August, 2018
 
-<!-- Add regex/stringr here -->
-[2.2 Plotting Data](3_PlottingData.html)<br>
-[2.3 RMarkdown](4_UsingRMarkdown.html)
+[2.1 Working With Text](4_TextManipulation)<br>
+[2.2 Plotting Data](5_PlottingData.html)<br>
+[2.3 RMarkdown](6_UsingRMarkdown.html)
 
 ## Assessment 1
 

@@ -1,0 +1,173 @@
+---
+title: "Practical 2.1: Working With Text In R"
+subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
+author: "Bioinformatics Hub, University of Adelaide"
+date: "5 August 2019"
+output: 
+  html_document: 
+    fig_caption: yes
+    toc: yes
+---
+
+```{r, echo = FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  results = 'hide',
+  message = FALSE, 
+  warnings =  FALSE
+)
+```
+
+
+## Setup
+
+Please start a new R Project for today called `Practical_2`.
+
+1. `File` > `New Project` 
+2. When asked if you'd like to `Save Current Workspace`, choose `Don't Save`.
+3. Choose `New Directory` > `New Project`
+    + Enter `Practical_2` as the Directory name:
+    + `Create Project`
+
+Although most of what we're doing can be done in the Console, please start a new R Script for today and save this as `TextManipulation.R`.
+A good habit to get into is to write a line (or two) explaining what is happening on the following line, then have your code.
+Try and get into this habit of writing messages for the future version of yourself, or for other collaborators.
+Remember, each *comment* starts with a `#` and this is what we need to write ourselves messages.
+Otherwise `R` will try and execute what we are writing and you'll see horrible error messages.
+
+## The package `stringr`
+
+Last week, we learned how to:
+
+1. import data (`readr`)
+2. tidy data (`tidyr`)
+3. use SQL-like syntax to manipulate data (`dplyr`)
+4. chain functions together using the magrittr (`%>%`)
+
+As we continue our exploration of Data Wrangling, we'll introduce a very useful package for working with any text strings (or character vectors), known as `stringr`.
+This package is also part of the core `tidyverse`.
+In the `Wrangle` section of the following workflow you'll see it listed alongside `dplyr` and `magrittr` (`%>%`).
+The package `lubridate` is excellent for managing time & date data, whilst `forcats` is for categorical data, however we won't really explore these in this course.
+
+![](images/tidy_workflow.png)
+
+Some immediately useful functions in the `stringr` package are `str_to_lower()`, `str_to_upper()` and `str_to_title()`.
+Let's load last week's pcr.csv file to have a look.
+
+```{r, results='hide'}
+library(tidyverse)
+pcrFile <- file.path("~", "data", "intro_r", "pcr.csv")
+file.exists(pcrFile)
+pcrData <- read_csv(pcrFile)
+```
+
+We can actually just grab the `Gene` column out from this `tibble` using the `$` symbol followed by the column name.
+Note that auto-complete will be your friend here.
+
+```{r}
+pcrData$Gene
+```
+
+Here all the genes are given as upper case, but what our collaborators failed to realise is that these are *mouse* genes.
+Only *human* genes follow the convention of every letter being upper-case, whilst *mouse* genes have only the first letter as upper-case.
+Here `stringr` is our friend and we can use the function `str_to_title()`.
+(There are no bold or italic fonts in the R Console so we can't really distinguish genes and proteins.)
+
+```{r}
+str_to_title(pcrData$Gene)
+```
+
+Notice how we're able to modify a whole set of values (i.e. a column or character vector) with only one command.
+If we wanted to do this in Excel, we'd have to go to a blank column, call the function `PROPER` and point it to the first value in the column to be converted, then fill down until we have all the values in a new column.
+
+R gives us at least two ways to replace these values.
+The first would be using `mutate()`
+
+```{r}
+pcrData <- mutate(pcrData, Gene = str_to_title(Gene))
+```
+
+The second would be to use the `$` operator to extract just the single column.
+
+```{r}
+pcrData$Gene <- str_to_title(pcrData$Gene)
+```
+
+Explore what you can do with `str_to_lower()` and `str_to_upper()` just to get a feel for them.
+
+## Regular Expressions
+
+### Text Manipulation 
+
+Regular Expressions are an important concept in `R`, `bash` and most common languages used for bioinformatics.
+Matching obvious patterns uses a simple syntax.
+The first argument is the original `string`, which is followed by the search `pattern` and the `replacement`.
+Here we are searching the `string` "Hi Mum" for the `pattern` "Mum", and replacing  with the string "Dad".
+
+```{r}
+str_replace(string = "Hi Mum", pattern = "Mum", replacement =  "Dad")
+```
+
+Note that we didn't technically need specify the argument name as we called them in order.
+A more succinct version of the above code would be.
+
+```{r}
+str_replace("Hi Mum", "Mum", "Dad")
+```
+
+- **Which do you think is easier to read, and which do you think your future self would like to see?**
+- **Which is easiest to type? Does auto-complete help at all?**
+
+### Wild-cards
+
+In regular expression syntax, we specify wild-cards as `.` which means "match anything".
+This is quite different to many other contexts where we would use an asterisk (`*`) as a wild-card.
+Asterisks have a different meaning entirely when using regular expressions.
+
+```{r}
+str_replace(string = "Hi Mum", pattern = "M..", replacement = "Dad")
+```
+
+We can also match one or more wild-cards by using `+`, so in the following we are searching for `M` followed by *anything*, *one or more times*.
+
+```{r}
+str_replace(string = "Hi Mum", pattern = "M.+", replacement = "Dad")
+str_replace(string = "Hi Mother", pattern = "M.+", replacement = "Dad")
+```
+
+### Text captures
+
+We can also capture words/phrases/patterns using the round brackets containing or target `(pattern)`.
+We can then return these in the order we capture them by using the double backslash symbol followed by their capture number.
+*The double backslash is `R`-specific syntax and won't apply when we move to bash in a couple of weeks*.
+
+```{r}
+str_replace(string = "Hi Mother", pattern = "(H.+) (M.+)", replacement = "\\2! \\1!")
+```
+
+Note the strategic use of spaces in the patterns to recognise and return.
+
+### Specific character sets
+
+We can also specify strict ranges of values instead of wild-cards by placing options inside square brackets (`[]`) during the pattern matching.
+It's also worth noticing that the function `str_replace()` will only replace the first instance in each string, whilst `str_replace_all()` will replace *all* instances.
+
+```{r}
+str_replace("Hi Mum", "[Mm]", "b")
+str_replace_all("Hi Mum", "[Mm]", "b")
+str_replace_all("Hi Mum", "[aeiou]", "o")
+str_replace_all("Hi Mum", "[a-z]", "o")
+```
+
+### Alternative Patterns
+
+Alternative patterns can be specified using the conventional `OR` symbol `|` inside the curved brackets.
+Think vary carefully about the following substitutions to make sure you can see what's happening.
+
+```{r}
+str_replace_all("Hi Mum", "(Mum|Dad)", "Parent")
+str_replace_all("Hi Dad", "(Mum|Dad)", "Parent")
+str_replace_all("Hi Dad", "Hi (Mum|Dad)", "Dear Beloved Parent")
+```
