@@ -15,8 +15,8 @@ Please extract the complete set of files, and use the file labelled with your st
 **Do not change the name of the file you obtain, but continue to work with this file as a1xxxxxx.csv**.
 
 Please note that R Markdown will require this file to be in the same directory as the markdown file itself is in.
-Your file can be uploaded to your VM using the `Upload` button in the files pane.
-**We strongly suggest creating a directory called `Assignment_1` and placing both your RMarkdown and your file in this directory.**
+Your file can be uploaded to your VM using the `Upload` button in the RStudio Files pane.
+**We strongly suggest creating a directory called `Assignment_1` on your VM and placing both your RMarkdown and your file in this directory.**
 
 ## Tasks in R
 
