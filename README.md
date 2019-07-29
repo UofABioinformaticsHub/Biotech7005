@@ -96,14 +96,14 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 
 | **Assessment**                                               | **Subject**                 | **Weight** | **Due Date**          |
 |--------------------------------------------------------------|-----------------------------|------------|-----------------------|
-| [Assessment 1](Assignments/Assignment1.md)                   | R programming               | 6%         | Monday 12th August    |
-| [Assessment 2](Assignments/Assignment2.md)                   | Bash Scripting & Statistics | 6%         | Monday 26th August    |
-| [Assessment 3](Practicals/evolutionary_prac/evolutionary.md) | Evolutionary processes      | 6%         | Monday 9th September  |
-| [Assessment 4](Assignments/Assignment4.md)                   | NGS data practical          | 6%         | Monday 23rd September |
-| [Assessment 5](Assignments/Assignment5.html)                 | RNAseq practical            | 6%         | Monday 30th September |
-| [Assessment 6](https://github.com/kortschak/graphprac/)      | Graphical analyses          | 6%         | Monday 28th October   |
+| [Assessment 1](Assignments/Assignment1.md)                   | R programming               | 6%         | Tuesday 13th August    |
+| [Assessment 2]()                   | Bash Scripting & Statistics | 6%         | Monday 26th August    |
+| [Assessment 3]() | Evolutionary processes      | 6%         | Monday 9th September  |
+| [Assessment 4]()                   | NGS data practical          | 6%         | Monday 23rd September |
+| [Assessment 5]()                 | RNAseq practical            | 6%         | Monday 30th September |
+| [Assessment 6]()      | Graphical analyses          | 6%         | Monday 28th October   |
 | Tests                                                        |                             | 9%         |                       |
-| [Project](Assignments/major_project.md)                      | Complete Dataset            | 15%        | Monday 4th November   |
+| [Project]()                      | Complete Dataset            | 15%        | Monday 4th November   |
 | Exam                                                         |                             | 40%        |                       |
 
 ### Assessment Checklist

@@ -19,4 +19,4 @@ Assessment 1 requires these sessions to be completed.
 
 ## Assessment 1
 
-TBA
+[Now available here.](../../Assignments/Assignment1.md) Due 5pm, Tuesday 13th August

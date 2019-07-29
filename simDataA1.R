@@ -15,14 +15,11 @@
 #' Metadata about each object will be added in the first few lines, 
 #' using a mixture of comment symbols.
 #' Some files will contain an additional blank line after the header
-library(dplyr)
-library(tibble)
-library(readr)
-library(stringr)
+library(tidyverse)
 library(magrittr)
 
-students <- read_tsv("enrolments.tsv")
-ids <- students$Emplid
+students <- read_tsv("VMs.tsv")
+ids <- students$Emplid %>% str_remove_all("a") %>% as.integer() %>% na.omit()
 
 # Set the possible cell comparisons
 cellComparisons <- c("Th", "Treg", 
@@ -30,6 +27,7 @@ cellComparisons <- c("Th", "Treg",
                      "HeLa", "LNCaP",
                      "HEK293", "CD25Hi",
                      "Jurkat", "CD34+",
+                     "Lesion", "Tissue",
                      "PBMC", "CD4+",
                      "NKT", "CD8+",
                      "Naive", "Memory",
@@ -42,6 +40,7 @@ treats <- c("WT", "KO",
             "Control", "Transfected",
             "Control", "TCM",
             "Methotrexate", "Cyclophosphamide",
+            "Control", "DSS",
             "ZIKV-", "ZIKV+") %>%
   matrix(ncol = 2, byrow = TRUE)
 
@@ -52,7 +51,9 @@ chars <- c("#", "<!--", "@", "%", "_", "//", "--")
 nas <- c("-", "9999", "#N/A", "")
 
 # Genes
-genes <- c("FOXP3", "TGFB", "IL-2", "IL-17", "ITGA", "RORa", "SATB1", "NELL2", "SEPT9", "JUN")
+genes <- c("FOXP3", "TGFB", "IL-2", "IL-17", "ITGA", "RORa", "SATB1", "NELL2", "SEPT9", "JUN", "PSEN1", "SORL1", "HIF1A")
+
+dir.create("Assignments/DataForA1")
 
 ids %>%
   lapply(function(x){
@@ -97,3 +98,7 @@ ids %>%
     writeLines(hdr, outFile)
     write_csv(vals, outFile, append = TRUE, col_names = TRUE)
   })
+
+## Now zip the folder and remove the original folder
+system2("zip", "-j -r Assignments/DataForA1.zip Assignments/DataForA1/*")
+system2("rm", "-r Assignments/DataForA1/")
