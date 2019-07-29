@@ -171,3 +171,35 @@ str_replace_all("Hi Mum", "(Mum|Dad)", "Parent")
 str_replace_all("Hi Dad", "(Mum|Dad)", "Parent")
 str_replace_all("Hi Dad", "Hi (Mum|Dad)", "Dear Beloved Parent")
 ```
+
+## Additional Functions
+
+We have only just scratched the surface of text manipulation.
+Many other functions that may come in handy are:
+
+- `str_detect()`: Return a `TRUE` or `FALSE` value for each tested character string
+- `str_count()`: Count the number of appearances of a character.
+- `str_extract()` / `str_extract_all()`: extract just the given string from our query
+- `str_remove()` / `str_remove_all()`: removes the given pattern
+
+Note that we've switched to a `magrittr` style of syntax here.
+
+<details><summary><b>Do you think this makes it easier or harder to read?</b></summary>
+There is no right or wrong answer. It's up to you... 
+</details><br>
+
+
+```{r}
+pcrData$Gene %>% str_detect("A")
+pcrData$Gene %>% str_count("[A-C]")
+colnames(pcrData) %>% str_extract("(Resting|Stim)")
+colnames(pcrData) %>% str_remove_all("hr")
+```
+
+Whilst all of the above return a character vector *of the same length as the original*, some other functions do not.
+If we wanted to split our treatments using the column names, we could use `str_split()` or more conveniently `str_split_fixed()` which allows us to specify how many columns to form from the original data.
+
+```{r}
+colnames(pcrData) %>% str_split_fixed("_", n = 2)
+```
+

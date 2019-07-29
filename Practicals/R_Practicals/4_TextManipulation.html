@@ -382,6 +382,7 @@ summary {
 <li><a href="#specific-character-sets">Specific character sets</a></li>
 <li><a href="#alternative-patterns">Alternative Patterns</a></li>
 </ul></li>
+<li><a href="#additional-functions">Additional Functions</a></li>
 </ul>
 </div>
 
@@ -468,6 +469,27 @@ str_replace_all(&quot;Hi Mum&quot;, &quot;[a-z]&quot;, &quot;o&quot;)</code></pr
 str_replace_all(&quot;Hi Dad&quot;, &quot;(Mum|Dad)&quot;, &quot;Parent&quot;)
 str_replace_all(&quot;Hi Dad&quot;, &quot;Hi (Mum|Dad)&quot;, &quot;Dear Beloved Parent&quot;)</code></pre>
 </div>
+</div>
+<div id="additional-functions" class="section level2">
+<h2>Additional Functions</h2>
+<p>We have only just scratched the surface of text manipulation. Many other functions that may come in handy are:</p>
+<ul>
+<li><code>str_detect()</code>: Return a <code>TRUE</code> or <code>FALSE</code> value for each tested character string</li>
+<li><code>str_count()</code>: Count the number of appearances of a character.</li>
+<li><code>str_extract()</code> / <code>str_extract_all()</code>: extract just the given string from our query</li>
+<li><code>str_remove()</code> / <code>str_remove_all()</code>: removes the given pattern</li>
+</ul>
+<p>Note that we’ve switched to a <code>magrittr</code> style of syntax here.</p>
+<details>
+<summary><b>Do you think this makes it easier or harder to read?</b></summary> There is no right or wrong answer. It’s up to you…
+</details>
+<p><br></p>
+<pre class="r"><code>pcrData$Gene %&gt;% str_detect(&quot;A&quot;)
+pcrData$Gene %&gt;% str_count(&quot;[A-C]&quot;)
+colnames(pcrData) %&gt;% str_extract(&quot;(Resting|Stim)&quot;)
+colnames(pcrData) %&gt;% str_remove_all(&quot;hr&quot;)</code></pre>
+<p>Whilst all of the above return a character vector <em>of the same length as the original</em>, some other functions do not. If we wanted to split our treatments using the column names, we could use <code>str_split()</code> or more conveniently <code>str_split_fixed()</code> which allows us to specify how many columns to form from the original data.</p>
+<pre class="r"><code>colnames(pcrData) %&gt;% str_split_fixed(&quot;_&quot;, n = 2)</code></pre>
 </div>
 
 
