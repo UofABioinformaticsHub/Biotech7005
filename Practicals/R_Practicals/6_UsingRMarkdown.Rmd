@@ -1,13 +1,12 @@
 ---
-title: "Topic 4: Using R Markdown"
+title: "Practical 2.3 Using R Markdown"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
-author: "Steve Pederson & Jimmy Breen"
-date: "30 July 2018"
+author: "University of Adelaide, Bioinformatics Hub"
+date: "5 August 2019"
 output: 
   html_document: 
     fig_caption: yes
     toc: yes
-    toc_depth: 2
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -23,6 +22,7 @@ library(pander)
 
 * `rmarkdown` is a cohesive way to
     + Load & tidy data 
+    + Add plain text section between code (i.e. no need for comments)
     + Analyse data, including figures & tables
     + Publish everything in a complete report/analysis
 * Everything is one document, with our analysis code embedded alongside our results
@@ -63,16 +63,17 @@ include_graphics("images/NewRMarkdown.png")
 ```
 
 1. Change the Title to: My First Report
-2. Change the Author to your own name
-3. Leave everything else as it is & hit OK
+2. Change the Author to *your own name*
+3. Leave everything else as it is & click OK
 4. Save the file as `RMarkdownTutorial.Rmd`
 
-#### Looking at the file automatically created
+### Looking at the file automatically created
 
-A *header section* is contained between the `---` lines at the top
+There are quite a few features of note here.
+Starting at the top, a *header section* is contained between the two sets of `---` lines on line 1 and line 6
 
-- __Nothing can be placed before this!__
-- Uses YAML (**Y**AML **A**in't **M**arkup **L**anguage)
+- __Nothing can be placed before this section!__
+- This section uses YAML (**Y**AML **A**in't **M**arkup **L**anguage)
 
 Editing the YAML header is beyond the scope of this course, however using this we can set custom `.css` files, load LaTeX packages and control numerous output parameters
 
@@ -80,14 +81,14 @@ Immediately following the header (lines 8 to 10) is a code `chunk`
 
 - Chunks always begin with ```{r}
 - Chunks always end with ```
-- The executed code goes between these two delineators
-- Chunk names are optional and directly follow the `r` (before any commas). These can make it easier to navigate through your document.
+- Any code to be executed goes between these two delineators
+- Chunk names are optional and directly follow the `r` (before any commas). These are highly advisable & can make it far easier to navigate through your document.
 - Other parameters are also here, e.g. do we show/hide the code and this first line is often referred to as the chunk header.
 
 Line 12 is a Section Heading, starting with `##`
 
 - Click the _staggered text_ symbol in the top-right corner of the markdown document to open the _document outline_
-- Chunk names can be shown here in _italics_. (Call a tutor if you can't see them)
+- Chunk names can be shown here in _italics_. (Call a tutor if you can't see them. There's a setting in `Tools` > `Global Options` > `RMarkdown` that needs to be set.)
 - Section Names appear in plain text
 
 Check the help for a guide to the syntax.
@@ -117,13 +118,13 @@ A preview window will appear with the compiled report
 We could also export this as an MS Word document by clicking the small 'down' arrow next to the word `Knit`.
 By default, this will be Read-Only, but can be helpful for sharing with collaborators.
 
-Saving as a `.PDF` may require an installation of $\LaTeX$, so we'll ignore that for now.
+Saving as a `.PDF` usually requires an installation of $\LaTeX$, so we'll ignore that for now.
 
 ### Making our own report
 
 Now we can modify the code to create our own analysis.
 
-- Delete everything in your R Markdown file EXCEPT the header
+- Delete everything in your R Markdown file EXCEPT the YAML header
 - We'll analyse the `PlantGrowth` dataset which comes with `R`
 - First we'll need to describe the data
 
@@ -142,12 +143,14 @@ Now let's add a section header for our analysis to start the report
 1. Type `# Data Description` after the header and after leaving a blank line
 2. Use your own words to describe the data
 
-My example text was:
+<details><summary><b>My example text was</b></summary>
 
 > Plants were treated with two different herbicides and the effects on growth were compared using the dried weight of the plants after one month.
 Both treatments were compared to a control group of plants which were not treated with any herbicide.
 Each group contained 10 plants, giving a total of 30 plants.
 
+</details>
+<br>
 Hopefully you mentioned that there were 10 plants in each group, with a total of 30.
 
 __Can we get that information from the data itself?__
@@ -182,8 +185,7 @@ Add the following in a code chunk.
 ```{r, eval=FALSE}
 PlantGrowth %>% 
   group_by(group) %>% 
-  summarise(n = n(),
-            Mean = mean(weight)) 
+  summarise(n = n(), Mean = mean(weight)) 
 ```
 
 (Recompile...)
@@ -200,8 +202,7 @@ Then head back to the code chunk and add the following.
 ```{r, eval=FALSE}
 PlantGrowth %>% 
   group_by(group) %>% 
-  summarise(n = n(),
-            Mean = mean(weight)) %>%
+  summarise(n = n(), Mean = mean(weight)) %>%
   pander(caption = "Sample Sizes and average weights for each group")
 ```
 
@@ -210,8 +211,14 @@ PlantGrowth %>%
 The package `pander` is great for formatting `R` output as well, including vectors.
 Add the following line to your data description:
 
-> "The three groups are classified as \``r` `pander(levels(PlantGrowth[,"group"]))`\`"
+> "The three groups are classified as \``r` `pander(levels(PlantGrowth$group))`\`"
 
+<details><summary><b>What did levels(PlantGrowth$group) mean?</b></summary>
+This column is considered by `R` to be a categorical variable.
+`R` stores these as a data-type called a factor, and the different values it can take are known as `levels`.
+Here we have three different categories (or treatments) which represent the control and two treatments.
+<details>
+<br>
 
 #### Add a plot of the data
 
@@ -272,7 +279,7 @@ You can change the default captions if you like using the argument `caption = "m
 After you're happy with the way your analysis looks
 
 - A good habit is to finish with a section called `Session Info`
-- Add a code chunk which calls the *R* command `sessionInfo()`
+- Add a code chunk which calls the `R` command `sessionInfo()`
 - We can also wrap the output of `sessionInfo()` inside the `pander()` function to provide yet another nicely formatted section in our report.
 
 So far we've been compiling everything as HTML, but let's switch to an MS Word document.
@@ -282,8 +289,8 @@ We could email this to our supervisors, or upload to Google docs for collaborato
 
 This basic process is incredibly useful
 
-- We never need to cut & paste anything between R and other documents
-- Every piece of information can be drawn directly from our *R* analysis
+- We never need to cut & paste anything between `R` and other documents
+- Every piece of information can be drawn directly from our `R` analysis
 - We can very easily incorporate new data as it arrives
 - We can describe our code using either comments, or plain text in the surrounding paragraphs
 - Creates *reproducible research*
