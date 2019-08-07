@@ -11,7 +11,7 @@
 Over the first two weeks we introduced the language `R`, which is heavily used in bioinformatics.
 `R` is particularly effective for interacting with and visualising data, as well as performing statistical analyses.
 However, in modern bioinformatics `R` is commonly used in the middle to late stage of many analyses.
-An important step in many analyses is moving data around on a high-performance computer (HPC), and setting jobs running than can take hours, days or even weeks to perform.
+An important step in many analyses is moving data around on a high-performance computer (HPC), and setting jobs running that can take hours, days or even weeks to perform.
 For this, we need to learn how to write scripts which perform these actions, and the primary language for this is `bash`.
 
 We can utilise `bash`in two primary ways:
@@ -21,59 +21,45 @@ We can utilise `bash`in two primary ways:
 
 For much of today we will work interactively, however a complete analysis should be scripted so we have a record of everything we do.
 This is often referred to as *Reproducible Research*, and in reality, our scripts are like an electronic lab book and can be used to protect our discoveries when we all patent our cures for cancer.
+Likewise, when you're writing your thesis, referring back to your scripts will be very useful for writing your methods section.
 
-## Setup
+## Setup the directory for today
 
-We have instantiated a separate virtual machine for all of you, which will be yours for the remainder of the semester.
-Your IP address will be given to you in the class, as well as the login information in terms of your username and password.
+Just as we've created a new `R Project` for practicals 1 and 2, let's create a new one for today to make sure we're all in the same place.
 
-These machines will be identical and allow us to all work in the same environment and layout, and all are running Ubuntu which is a commonly used flavour of the Linux operating system.
-Most HPC systems you use will require a knowledge of Linux so these practicals will give you the basics skills for working in this environment.
+- Using the `File` menu at the top left, select `New Project`
+- Select `New Directory`
+- Select `New Project`
+- If you're not already asked to create this project as a subdirectory of `~/biotech7005`, navigate to the directory `biotech7005` using the <kbd>Browse</kbd> button 
+- In the `Directory Name` space, enter `Practical_3`, then hit the <kbd>Create Project</kbd> button.
 
-### Accessing Your VM
+This again helps us keep our code organised and is good practice.
 
-For the remainder of the course, we will be able to access our VMs using the software [X2Go](https://wiki.x2go.org/doku.php/download:start).
-You will need to install this on your laptop so please do so before proceeding further.
+## Running `bash` on your VM
 
-Once you have this installed, please follow these steps:
+All computers running MacOS and Linux have a terminal built-in as part of the standard setup, whilst for Windows there are several options, including `git bash` which also enables use of version control for your scripts.
+To keep everything consistent for this practical, we'll use the terminal which is available inside `RStudio`.
+Note that even though we're using `RStudio`, we won't be interacting with `R` today as `R` runs interactively in the `Console`.
+Instead we'll be using one of the other features provided by `RStudio` to access `bash`
 
-1. Open the X2Go Software
-2. Enter “Biotech7005” or something similar in the Session name field at the top
-3. Enter your assigned IP address in the Host field
-4. Enter `biotech7005` as the Login. *Note that this is case sensitive*
-5. Under `Session Type`, use the drop-down menu to select `XFCE`
-6. Enter OK
+To access this, open `RStudio` as you have for the previous praticals and make sure the `Console` window is visible.
+Inside this pane, you will see a **Terminal** Tab so click on this and you will be at an interactive terminal running `bash`.
 
-This will not log you in, but will have setup the “session” which is the basic login configuration, and a link to this will have appeared in the top-right of the X2Go program window.
-Once you’ve figured out what we mean, click this link and you will be taken to a login which requires you to enter your password.
-Enter the password provided to you and you should be connected to your VM desktop, with layout as below.
+Historically, `bash` is a replacement for the earlier Bourne Shell, written by Stephen Bourne, so the name is actually a hilarious joke.
+We'll explore a few important commands below, and the words *shell* and *bash* will often be used interchangeably with the terminal window.
+Our apologies to any purists.
 
-![](https://big-sa.github.io/Intro-NGS-July-2018/images/VM_Desktop.png)
+If you've ever heard of the phrase **shell scripts**, this refers to a series of commands like we will learn in these sessions, strung together into a plain text file, and which is then able to be run as a single process.
 
-We encourage you to maximise your screen containing the VM desktop, and to switch between your browser & the VM, please use `Alt+Tab`.
-
-Also note that those of you on OSX may already have used `bash` in your terminal.
-Whilst the vast majority of commands are compatible between OSX and Linux, there are occasionally some subtle differences in the arguments supplied to commands.
-If something works on your VM but doesn't on your Mac, this will likely be one of those few differences.
-
-### Changing your password
-{:.no_toc}
-
-We **strongly advise changing your password as the first thing you do**, to provide a level of security.
-To change your password, open a terminal inside your VM by clicking the terminal icon at the bottom of your screen.
-Then type
-
-```bash
-passwd
-```
-and enter your initial password, followed by your new password as instructed.
-You will need to use this new password every time you login.
-Please remember this as *we will not have it on record anywhere*.
+Although we haven't specifically mentioned this up until now, your virtual machines are actually running the *Ubuntu* flavour of Linux, and we can access these machines by logging in remotely, as well as through the `RStudio` interface.
+(We'll cover this later in the practical course.)
+Most High-Performance Computing (HPC) systems you use will require a knowledge of Linux so these practicals will give you the basics skills for working in this environment.
+Most of the data analysis performed by the Bioinformatics Hub relies on the University of Adelaide HPC for data storage and data processing.
 
 
 ## Initial Goals
 
-Now we have setup our VM connection, the basic aims of the following sessions are:
+Now we have setup our VM, the basic aims of the following sessions are:
 
 1. Gain familiarity and confidence within the Linux command-line environment
 2. Learn how to navigate directories, as well as to copy, move & delete the files within them
@@ -83,44 +69,60 @@ Now we have setup our VM connection, the basic aims of the following sessions ar
 
 ## Finding your way around
 
-Firstly we need to open a terminal as described above, or just keep working on the one you opened when you changed your password.
-You will notice some text describing your computer of the form
+Once you're in the `Terminal` section of `RStudio`, you will notice some text describing your computer of the form
 
 ```
-biotech7005@biotech7005-xx:~$
+biotech7005@2019-biotech7005-xx:~/Practical_3$
 ```
 
-The tilde represents your current directory (see below), whilst the dollar sign just indicates the end of this path & the beginning of where you will type commands.
+The first section of this describes your username (`biotech7005`) and the machine `@2019-biotech7005-xx`.
+The end of the machine identifier is marked with a colon (`:`).
+
+After the colon, the string (`~/Practical_3`) represents your current directory, whilst the dollar sign (`$`) indicates the end of this path & the beginning of where you will type commands.
 This is the standard interface for the Bourne-again Shell, or `bash`.
-In some material you may see online, `bash` examples are given on lines beginning with `$`.
-We never really need to use this at the beginning of a line, so please do be aware of this.
 
-Historically, `bash` is a replacement for the earlier Bourne Shell, written by Stephen Bourne, so the name is actually a hilarious joke.
-We'll explore a few important commands below, and the words *shell* and *bash* will often be used interchangeably with the terminal window.
-Our apologies to any purists.
+### Where are we?
 
-If you've ever heard of the phrase **shell scripts**, this refers to a series of commands like we will learn, strung together into a text file, which is then able to be run as a single process.
-
-#### Where are we?
+#### pwd
 {:.no_toc}
 
-Type the command `pwd` in the terminal and you will see the output which describes the `home` directory for your login.
+Type the command `pwd` in the terminal then press the <kbd>Enter</kbd> key and you will see the output which describes the current directory you are in.
 
 ```bash
 pwd
 ```
 
 The command `pwd` is what we use to __p__rint the current (i.e. __w__orking) __d__irectory.
-By default `bash` will open in a directory that will be referred to as your *home* directory for the remainder of the workshop.
-This may vary a little depending on your operating system, but on Linux computers this is usually `/home/username`, whilst on Mac this will be `/Users/username`
-This is also the information that the tilde (`~`) represents as a shorthand version, so whenever you see `~` in a directory path, it is interpreted as this directory.
+Even though we are not using `R`, if you have setup the R project like we instructed above this command will probably return the directory. 
 
-In output from `pwd`, the home directory began with a slash, i.e. `/`.
-On a unix-based system (i.e. Mac & Linux), this is considered to be the root directory of the file system.
+```
+/home/biotech7005/Practical_3
+```
+
+Check with your neighbour to see if you get the same thing.
+If not, see if you can figure out why.
+
+At the beginning of this section we mentioned that `~/Practical_3` represented your current directory, but now our machine is telling us that our directory is `/home/biotech7005/Practical_3`.
+This raises an important and very useful point.
+In `bash` the `~` symbol is a shortcut for the home directory of the current user.
+If Dan was logged in, this would be `/home/Dan` whilst if Steve was logged in this would be `/home/Steve`.
+As we are all logged on as `biotech7005`, this now stands for `/home/biotech7005`.
+(Formally, `~` is  a variable, but we'll deal with variables later.)
+
+Importantly every user with an account on a machine will have their own home directory of the format `/home/username1`, `/home/username2` etc..
+Notice that they will all live in the directory `/home` which is actually the parent directory that all users will have a home directory in, as we've just tried to explain.
+This can be confusing for many people, so hopefully we'll clear this up in the next section or two.
+
+In the above, the `/home` directory itself began with a slash, i.e. `/`.
+On a unix-based system (i.e. MacOS & Linux), this is considered to be the root directory of the file system.
 Windows users would be more familiar with seeing `C:\` as the root of the computer, and this is an important difference in the two directory structures.
-Note also that whilst Windows uses the backslash (\\) to indicate a new directory, a Linux-based system uses the forward slash (/), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
+Note also that whilst Windows uses the **backslash** (\\) to indicate a new directory, a Linux-based system uses the **forward slash** (/), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
 
-Another bash command is `cd` which we use to __c__hange __d__irectory.
+#### cd
+{:.no_toc}
+
+Now we know all about where we are, the next thing we need to do is go somewhere else.
+The `bash` command for this is `cd` which we use to __c__hange __d__irectory.
 No matter where we are in a file system, we can move up a directory in the hierarchy by using the command
 
 ```bash
@@ -131,42 +133,47 @@ The string `..` is the convention for *one directory above*, whilst a single dot
 
 
 Enter the above command and notice that the location immediately to the left of the \$ has now changed.
-This is also what will be given as the output if we entered the command `pwd` again.
+Enter `pwd` again to check this makes sense to you.
+
 If we now enter
 ```bash
 cd ..
 ```
-one more time we should be in the root directory of the file system.
+a couple more times we should be in the root directory of the file system and we will see `/$` at the end of our prompt.
 Try this and print the working directory again (`pwd`).
 The output should be the root directory given as `/`.
-(Again, this may vary a little if using `git bash`)
 
-We can change back to the original location by entering one of either:
+We can change back to our home folder by entering one of either:
 
 ```bash
 cd ~
 ```
 or
+
 ```bash
 cd
 ```
 
 
-The approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
-An __absolute path__ on Linux/Mac will always begin with the root directory symbol `/`.
+The initil approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
+Going up one directory will clearly depend on where we are when we execute the command. 
+
+An alternative is to use an **absolute path**.
+An **absolute path** on Linux/Mac will always begin with the root directory symbol `/`.
 
 For example, `/foo` would refer to a directory called `foo` in the root directory of the file system (NB: This directory doesn't really exist, it's an example).
 In contrast, a *relative path* can begin with either the current directory (indicated by `./`) or a higher-level directory (indicated by `../` as mentioned above).
 A subdirectory `foo` of the current directory could thus be specified as `./foo`, whilst a subdirectory of the next higher directory would be specified by `../foo`.
-Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory.
 
-We can also move through multiple directories in one command by separating them with the forward slash `/`.
+Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory `/home/biotech7005`, which also starts with a `/`.
+
+We can also move through multiple directories in one command by separating them with the slash `/`.
 For example, we could also get to the root directory from our home directory by typing
 ```bash
 cd ../../
 ```
 
-Return to your home directory using `cd`.
+**Return to your home directory using** `cd`.
 
 In the above steps, this has been exactly the same as clicking through directories in our familiar folder interface that we're all familiar with.
 Now we know how to navigate folders using `bash` instead of the GUI.
@@ -175,23 +182,86 @@ This is an essential skill when logged into a High Performance Computer (HPC) or
 ### Important
 {:.no_toc}
 
-*Although we haven't directly discovered it yet, a Unix-based file system such as Ubuntu or Mac OS-X is* **case-sensitive**, whilst **Windows is not**.
-For example, the command `PWD` is completely different to `pwd` and if `PWD` happened to be the name of a command which has been defined in your shell, you would get completely different results than from the intended `pwd` command.
-Most `bash` tools are named using all lower-case, but there are exceptions.
+*Although we haven't directly discovered it yet, a Unix-based file system such as Ubuntu or MacOS is* **case-sensitive**, whilst **Windows is not**.
+For example, the command `PWD` is completely different to `pwd` and doesn't actually exist on your (or any) default installation of `bash`.
+
+If `PWD` happened to be the name of a command which has been defined in your shell, you would get completely different results than from the intended `pwd` command.
+Most `bash` tools are named using all lower-case, but there are a handful of exceptions.
+
+We can also change into a specific directory by giving the path to the `cd` command using text instead of dots and symbols.
+Making sure you're in your home directory we can change back into the Pratical_3 directory
+```bash
+cd
+cd Practical_3
+pwd
+```
+
+This is where we started the session.
+
+#### Tab auto-completion
+
+In a similar way that `RStudio` offered 'suggestions' when we start typing the name of a function, `bash` has the capacity for `auto-completion` as well.
+This will help you avoid a ridiculous number of typos.
+
+If you start typing something bash will complete as far as it can, then will wait for you to complete the path, command or file name.
+If it can complete all the way, it will.
+
+Let's see this in action and start becoming keyboard heroes.
+Change into your home folder.
+
+```
+cd
+```
+
+Now to change back into your Practical_3 folder, type `cd Pr` without hitting enter.
+Instead hit your <kbd>tab</kbd> key and `bash` will complete as far as it can.
+If you have setup your directories correctly, you should see this complete to `cd Practical_` which is unfinished.
+You should have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
+Now it's up to us to enter the final `3` before hitting <kbd>Enter</kbd>.
+
+When faced with multiple choices, we can also hit the <kbd>tab</kbd> key twice and `bash` will give us all available alernatives.
+Let's see this in action by changing back to our home folder.
+
+```
+cd
+```
+
+Now type `cd Pr` and hit the <kbd>tab</kbd> key twice and you will be shown all of the alternatives.
+You'll till have to type the `3` though.
+
+Another example which will complete all the way for you might be to go up one from your home folder.
+
+```
+cd
+cd ..
+```
+
+Now to get back to your home directory (`/home/biotech7005`) start typing `cd b` followed by the <kbd>tab</kbd> key.
+This should auto-complete for you and will save you making any errors.
+This also makes navigating your computer system very fast once you get the hang of it.
+
+Importantly, if tab auto-completion doesn't appear to be working, you've probably made a typo somewhere, or are not where you think you are.
+It's a good check for mistakes.
+
 
 ### Looking at the Contents of a Directory
 
 There is another built-in command (`ls`) that we can use to **list** the contents of a directory.
 This is a way to get our familiar folder view in the terminal.
-Enter the `ls` command as it is and it will print the contents of the current directory.
+Making sure you are in your home directory (`cd ~`), enter the `ls` command as it is and it will print the contents of the current directory.
+
 ```bash
 ls
 ```
 
-This is the list of files that we normally see in our graphical folder view.
-Check using this method if you'd like by navigating to the same folder that you are in using the GUI.
+This is the list of files that we normally see in our traditional folder view that Windows and MacOS show us by default.
+We can actually check this output using `RStudio` too, so head to the **Files** tab in the `Files` window.
+Click on the Home icon (![home](../R_Practicals/images/home.png)) and look at the folders & files you can see there.
+**Do they match the output from `ls`?**
+As for help if not.
 
-Alternatively, we can specify which directory we wish to view the contents of, without having to change into that directory.
+Alternatively, we can specify which directory we wish to view the contents of, **without having to change into that directory**.
+Notice **you can't do actually this using your classic GUI folder view**.
 We simply type the `ls` command, followed by a space, then the directory we wish to view the contents of.
 To look at the contents of the root directory of the file system, we simply add that directory after the command `ls`.
 
@@ -200,36 +270,51 @@ ls /
 ```
 
 Here you can see a whole raft of directories which contain the vital information for the computer's operating system.
-Among them should be the `/home` directory (or `/Users`) which is one level above your own home directory, and where the home directories for all users are located on a Linux system.
+Among them should be the `/home` directory which is one level above your own home directory, and where the home directories for all users are located on a Linux system.
+
+Have a look inside your Practical_1 directory. 
+This is where you needed to have followed our instructions exactly in Week 1.
+If you didn't create your directory exactly as we asked, you'll have to figure this command out for yourself.
+Tab auto-completion may help you a little.
+
+```bash
+cd 
+ls Practical_1
+```
+
+Navigate into this folder using you GUI view in `RStudio` and check that everything matches.
 
 #### Question
 {:.no_toc}
 
- Try to think of two ways we could inspect the contents of the `/` directory from your own home directory.
+Try to think of two ways we could inspect the contents of the `/` directory from your own home directory.
 
-*Hint:
-When working in the terminal, you can scroll through your previous commands by using the up arrow to go backward, and the down arrow to move forward.
-This can be a big time saver if you've typed a long command with a simple typo, or if you have to do a series of similar commands.*
 
 ### Creating a New Directory
 
-Now we know how to move around and view the contents of a directory, we should learn how to create a new directory using bash instead of the GUI folder you are used to.
-If you already have a directory for this course, **navigate to this directory using the `cd` command**, remembering that your home directory is represented by the `~` symbol.
+Now we know how to move around and view the contents of a directory, we should learn how to create a new directory using bash instead of the GUI folder view you are used to.
+Navigate to your `Practical_3` folder using `bash`.
 
-Now we are in a suitable location, let's create a directory called `Bash_Practical`, just like we did for the `R_Practicals`.
+```
+cd ~/Practical_3
+```
+
+Now we are in a suitable location, let's create a directory called `test`.
 To do this we use the `mkdir` command as follows:
 
 ```bash
-mkdir Bash_Practical
+mkdir test
 ```
 
-Importantly, this command can only make a directory directly below the one we are currently in.
+You should see this appear in the GUI view, and if you now enter `ls`, you should also see this directory in your output.
+
+Importantly, the `mkdir` command above will only make a directory directly below the one we are currently in as we have used a relative path.
 If automating this process via a script it is very important to understand the difference between *absolute* and *relative* paths, as discussed above.
 
 ### Adding Options To Commands
 
 So far, the commands we have used were given either without the use of any subsequent arguments, e.g. `pwd` & `ls`, or with a specific directory as the second argument, e.g. `cd ../` & `ls /`.
-Many commands have the additional capacity to specify different options as to how they perform, and these options are often specified between the command name, and the file (or path) being operated on.
+Many commands have the additional capacity to specify different options as to how they perform, and these options are often specified *between* the command name, and the file (or path) being operated on.
 Options are commonly a single letter prefaced with a single dash (`-`), or a word prefaced with two dashes (`--`).
 The `ls` command can be given with the option `-l` specified between the command & the directory and gives the output in what is known as *long listing* format.
 
@@ -242,15 +327,16 @@ ls -l
 
 The above will give one or more lines of output, and one of the first lines should be something similar to:
 
-`drwxrwxr-x 2 biotech7005 biotech7005 4096 Aug 6 hh:mm Bash_Practical`
+`drwxrwxr-x 2 biotech7005 biotech7005 4096 Aug 12 hh:mm test`
 
-where `mmm dd hh:mm` are time and date information.
+where `hh:mm` is the time of file/directory creation.
 
 The letter `d` at the beginning of the initial string of codes `drwxr-xr-x` indicates that this is a directory.
-Most often, these letters are known as flags which identify key attributes about each file or directory, and beyond the first flag (`d`) they appear in strict triplets.
+These letters are known as flags which identify key attributes about each file or directory, and beyond the first flag (`d`) they appear in strict triplets.
 The first entry shows the file type and for most common files this entry will be `-`, whereas for a directory we will commonly see `d`.
+
 Beyond this first position, the triplet of values `rwx` simply refer to who is able to read, write or execute the contents of the file or directory.
-These triplets refer to 1) the file's owner, 2) the group of users that the owner belongs to & 3) all users, and will only contain the values "r" (read), "w" (write), "x" (execute) or "-" (not enabled).
+These three triplets refer to 1) the file's owner, 2) the group of users that the owner belongs to & 3) all users, and will only contain the values "r" (read), "w" (write), "x" (execute) or "-" (not enabled).
 These are very helpful attributes for data security, protection against malicious software, and accidental file deletions.
 
 The entries `biotech7005 biotech7005` respectively refer to who is the owner of the directory (or file) & to which group of users the owner belongs.
@@ -263,9 +349,9 @@ Let's look in your home directory (`~`).
 ls -l ~
 ```
 
-This directory should contain numerous files and folders.
-There is a `-` instead of a `d` at the beginning of the initial string of flags indicates the difference between files and folders.
-On Ubuntu or git bash, files and folders should also be displayed with different colours, but this may or may not be the case for those of you on OSX.
+This directory should contain numerous folders.
+There is a `-` instead of a `d` at the beginning of the initial string of flags indicates the difference between any files and directories.
+On Ubuntu files and directories will also be displayed with different colours.
 **Can you see only folders, or do you have any files present in your home directory?**
 
 There are many more options that we could specify to give a slightly different output from the `ls` command.
@@ -276,11 +362,11 @@ We could have specified the previous command as
 ls -l -h ~
 ```
 
-This will change the file size to `human-readable` format, whilst leaving the remainder of the output unchanged.
+The `-h` option will change the file size to `human-readable` format, whilst leaving the remainder of the output unchanged.
 Try it & you will notice that where we initially saw `4096` bytes, the size is now given as `4.0K`, and other file sizes will also be given in Mb etc.
 This can be particularly helpful for larger files, as most files in bioinformatics are very large indeed.
 
-The additional option `-R` tells the `ls` command to look through each directory recursively.
+An additional option `-R` tells the `ls` command to look through each directory recursively.
 If we enter
 
 ```bash
@@ -320,7 +406,7 @@ Some options to try are: \\
 | `Ctrl+z` | Suspend current job  |
 
 `Ctrl+c` is usually the first port of call when things go wrong.
-However, sometimes `Ctrl+c` doesn't work but `Ctrl+d` or `Ctrl+z` does.
+However, sometimes `Ctrl+c` doesn't work but `Ctrl+d` or `Ctrl+z` will.
 
 ## Manuals and Help Pages
 
@@ -419,36 +505,9 @@ Write your answers on a piece of paper, or in a plain text file.
 | `cut`       |                               | -d, -f, -s         |
 | `sort`      |                               |                    |
 | `uniq`      |                               |                    |
+| `wget`      |                               |                    |
+| `gunzip`    |                               |                    |
 
-
-Sometimes the side effects of a command can also be useful.
-For example, we can also use `touch` to create an empty file using the command string `touch filename`.
-
-### Tab auto-complete
-
-A very helpful & time-saving tool in the command line is the ability to automatically complete a command, file or directory name using the `<tab>` key.
-Move to the directory above the `Bash_Practical` directory using the `cd` command.
-(If you're already in this directory, you'll simply need `cd ..`).
-
-#### Tab Key not working when using Xfce desktop
-When using the Xfce desktop, users may notice that the tab key does not work. This is due to a bug in Xfce sending a super key modifier with the command.
-
-[See Xfce bug 10760](https://bugzilla.xfce.org/show_bug.cgi?id=10760).
-
-To fix this:
-- Open the Xfce `Application Menu` > `Settings` > `Window Manager`.
-- Click on the `Keyboard` Tab
-- Clear the `Switch window for same application` setting.
-
-Now try typing `ls Bash` & then hit the `<tab>` key.
-Notice how `Bash_Practical` is completed automatically!
-This functionality will automatically fill as far as it can until conflicting options are reached.
-In this case, there was only one option so it was able to complete all the way to the end of the file path.
-Where multiple options are present, you can hit the `<tab>` key twice and all options will be given to you.
-
-This can be used to also find command names.
-Type in `he` followed by two strike of the `<tab>` key and it will show you all of the commands that being with the string `he`, such as `head`, `help` or any others that may be installed on your computer.
-If we'd hit the `<tab>` key after typing `hea`, then the command `head` would have auto-completed, although clearly this wouldn't have saved you any typing.
 
 ## Putting It All Together
 
@@ -456,7 +515,7 @@ Now we've learned about a large number of commands, let's try performing somethi
 We'll download a file from the internet, then look through the file.
 **In each step remember to add the filename if it's not given!**
 
-1. Use the `cd` command to **make sure you are in the folder** `Bash_Practical`
+1. Use the `cd` command to **make sure you are in the directory** `test`
 2. Use the command `wget` to download the `gff` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
 3. Now unzip this file using the command `gunzip`.
 (Hint: After typing `gunzip`, use tab auto-complete to add the file name.)
@@ -517,7 +576,7 @@ As well as the series of conventional numbers and characters that we are familia
 ## Pattern Searching
 In this section we'll learn the basics of using the `grep` command & what forms the output can take.
 Firstly, we'll need to get the file that we'll search in this section.
-First **change into your `Bash_Practical` directory** using the `cd` command, then enter the following, depending on your operating system:
+First **change into your `test` directory** using the `cd` command, then enter the following, depending on your operating system:
 
 ```bash
 cp /usr/share/dict/words words
