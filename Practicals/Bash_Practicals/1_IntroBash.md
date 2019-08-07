@@ -494,7 +494,6 @@ Write your answers on a piece of paper, or in a plain text file.
 | `mv`        |                               | -b, -f, -u         |
 | `cp`        |                               | -b, -f, -u         |
 | `rm`        |                               | -r (careful...)    |
-| `rmdir`     |                               |                    |
 | `mkdir`     |                               | -p                 |
 | `cat`       |                               |                    |
 | `less`      |                               |                    |
@@ -515,7 +514,7 @@ Now we've learned about a large number of commands, let's try performing somethi
 We'll download a file from the internet, then look through the file.
 **In each step remember to add the filename if it's not given!**
 
-1. Use the `cd` command to **make sure you are in the directory** `test`
+1. Use the `cd` command to **make sure you are in the directory** `Practical_3`
 2. Use the command `wget` to download the `gff` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
 3. Now unzip this file using the command `gunzip`.
 (Hint: After typing `gunzip`, use tab auto-complete to add the file name.)
