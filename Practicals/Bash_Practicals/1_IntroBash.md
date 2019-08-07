@@ -492,7 +492,7 @@ Write your answers on a piece of paper, or in a plain text file.
 | `ls`        | List contents of a directory  | `-a`, `-h`, `-l`   |
 | `cd`        | Change directory              | (scroll down in `man builtins` to find `cd`) |
 | `mv`        |                               | `-b`, `-f`, `-u`   |
-| `cp`        |                               | `-b`, -f`, `-u`    |
+| `cp`        |                               | `-b`, `-f`, `-u`   |
 | `rm`        |                               | `-r` (careful...)  |
 | `mkdir`     |                               | `-p`               |
 | `cat`       |                               |                    |
