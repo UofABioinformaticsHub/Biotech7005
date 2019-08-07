@@ -42,7 +42,7 @@ To keep everything consistent for this practical, we'll use the terminal which i
 Note that even though we're using `RStudio`, we won't be interacting with `R` today as `R` runs interactively in the `Console`.
 Instead we'll be using one of the other features provided by `RStudio` to access `bash`
 
-To access this, open `RStudio` as you have for the previous praticals and make sure the `Console` window is visible.
+To access this, open `RStudio` as you have for the previous practicals and make sure the `Console` window is visible.
 Inside this pane, you will see a **Terminal** Tab so click on this and you will be at an interactive terminal running `bash`.
 
 Historically, `bash` is a replacement for the earlier Bourne Shell, written by Stephen Bourne, so the name is actually a hilarious joke.
@@ -155,7 +155,7 @@ cd
 ```
 
 
-The initil approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
+The initial approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
 Going up one directory will clearly depend on where we are when we execute the command. 
 
 An alternative is to use an **absolute path**.
@@ -189,7 +189,7 @@ If `PWD` happened to be the name of a command which has been defined in your she
 Most `bash` tools are named using all lower-case, but there are a handful of exceptions.
 
 We can also change into a specific directory by giving the path to the `cd` command using text instead of dots and symbols.
-Making sure you're in your home directory we can change back into the Pratical_3 directory
+Making sure you're in your home directory we can change back into the Practical_3 directory
 ```bash
 cd
 cd Practical_3
@@ -219,7 +219,7 @@ If you have setup your directories correctly, you should see this complete to `c
 You should have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
 Now it's up to us to enter the final `3` before hitting <kbd>Enter</kbd>.
 
-When faced with multiple choices, we can also hit the <kbd>tab</kbd> key twice and `bash` will give us all available alernatives.
+When faced with multiple choices, we can also hit the <kbd>tab</kbd> key twice and `bash` will give us all available alternatives.
 Let's see this in action by changing back to our home folder.
 
 ```
@@ -540,7 +540,6 @@ Similarly a match to `ANNT` can be found by using the patterns `A[AGCT][AGCT]T` 
 We'll discuss that syntax below, so don't worry if those patterns didn't make much sense.
 
 Whilst the bash shell has a great capacity for searching a file to matches to regular expressions, this is where languages like *perl* and *python* offer a great degree more power.
-The commands `awk` & `sed` which we will look at later also implement regular expressions to great effect.
 
 ## The command `grep`
 The built-in command which searches using regular expressions in the terminal is `grep`, which stands for `g`lobal `r`egular `e`xpression `p`rint.
@@ -578,9 +577,8 @@ Firstly, we'll need to get the file that we'll search in this section.
 First **change into your `test` directory** using the `cd` command, then enter the following, depending on your operating system:
 
 ```bash
-cp /usr/share/dict/words words
+cp ~/data/intro_bash/words words
 ```
-
 
 Now page through the first few lines of the file using `less` to get an idea about what it contains.
 
@@ -633,3 +631,7 @@ grep -c 'louse' words
 In most of the above commands we used the option `-E` to specify the extended version of `grep`.
 An alternative to this is to use the command `egrep`, which is the same as `grep -E`.
 Repeat a few of the above commands using `egrep` instead of `grep -E`.
+
+We briefly covered the idea of capturing text in the R practical, however these operations in `bash` are beyond the scope of this course.
+To perform this we usually use the Stream EDitor `sed`.
+For those who are interested, there is a tutorial available at http://www.grymoire.com/Unix/Sed.html.
