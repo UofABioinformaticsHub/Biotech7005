@@ -114,15 +114,15 @@ Notice that they will all live in the directory `/home` which is actually the pa
 This can be confusing for many people, so hopefully we'll clear this up in the next section or two.
 
 In the above, the `/home` directory itself began with a slash, i.e. `/`.
-On a unix-based system (i.e. MacOS & Linux), this is considered to be the root directory of the file system.
+On a unix-based system (i.e. MacOS & Linux), the `/` directory is defined to be the root directory of the file system.
 Windows users would be more familiar with seeing `C:\` as the root of the computer, and this is an important difference in the two directory structures.
-Note also that whilst Windows uses the **backslash** (\\) to indicate a new directory, a Linux-based system uses the **forward slash** (/), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
+Note also that whilst Windows uses the **backslash** (`\`) to indicate a new directory, a Linux-based system uses the **forward slash** (`/`), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
 
 #### cd
 {:.no_toc}
 
 Now we know all about where we are, the next thing we need to do is go somewhere else.
-The `bash` command for this is `cd` which we use to __c__hange __d__irectory.
+The `bash` command for this is `cd` which we use to **c**hange **d**irectory.
 No matter where we are in a file system, we can move up a directory in the hierarchy by using the command
 
 ```bash
@@ -155,14 +155,14 @@ cd
 ```
 
 
-The initial approach taken above to move through the directories used what we refer to as a __relative path__, where each move was made *relative to the current directory*.
+The initial approach taken above to move through the directories used what we refer to as a **relative path**, where each move was made *relative to the current directory*.
 Going up one directory will clearly depend on where we are when we execute the command. 
 
 An alternative is to use an **absolute path**.
 An **absolute path** on Linux/Mac will always begin with the root directory symbol `/`.
 
 For example, `/foo` would refer to a directory called `foo` in the root directory of the file system (NB: This directory doesn't really exist, it's an example).
-In contrast, a *relative path* can begin with either the current directory (indicated by `./`) or a higher-level directory (indicated by `../` as mentioned above).
+In contrast, a **relative path** can begin with either the current directory (indicated by `./`) or a higher-level directory (indicated by `../` as mentioned above).
 A subdirectory `foo` of the current directory could thus be specified as `./foo`, whilst a subdirectory of the next higher directory would be specified by `../foo`.
 
 Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory `/home/biotech7005`, which also starts with a `/`.
@@ -182,7 +182,7 @@ This is an essential skill when logged into a High Performance Computer (HPC) or
 ### Important
 {:.no_toc}
 
-*Although we haven't directly discovered it yet, a Unix-based file system such as Ubuntu or MacOS is* **case-sensitive**, whilst **Windows is not**.
+*Although we haven't directly discovered it yet, most file systems used on Unix-based systems such as Ubuntu are* **case-sensitive**, whilst **Windows file systems are usually not**.
 For example, the command `PWD` is completely different to `pwd` and doesn't actually exist on your (or any) default installation of `bash`.
 
 If `PWD` happened to be the name of a command which has been defined in your shell, you would get completely different results than from the intended `pwd` command.
@@ -214,19 +214,19 @@ cd
 ```
 
 Now to change back into your Practical_3 folder, type `cd Pr` without hitting enter.
-Instead hit your <kbd>tab</kbd> key and `bash` will complete as far as it can.
+Instead hit your <kbd>Tab</kbd> key and `bash` will complete as far as it can.
 If you have setup your directories correctly, you should see this complete to `cd Practical_` which is unfinished.
 You should have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
 Now it's up to us to enter the final `3` before hitting <kbd>Enter</kbd>.
 
-When faced with multiple choices, we can also hit the <kbd>tab</kbd> key twice and `bash` will give us all available alternatives.
+When faced with multiple choices, we can also hit the <kbd>Tab</kbd> key twice and `bash` will give us all available alernatives.
 Let's see this in action by changing back to our home folder.
 
 ```
 cd
 ```
 
-Now type `cd Pr` and hit the <kbd>tab</kbd> key twice and you will be shown all of the alternatives.
+Now type `cd Pr` and hit the <kbd>Tab</kbd> key twice and you will be shown all of the alternatives.
 You'll till have to type the `3` though.
 
 Another example which will complete all the way for you might be to go up one from your home folder.
@@ -236,7 +236,7 @@ cd
 cd ..
 ```
 
-Now to get back to your home directory (`/home/biotech7005`) start typing `cd b` followed by the <kbd>tab</kbd> key.
+Now to get back to your home directory (`/home/biotech7005`) start typing `cd b` followed by the <kbd>Tab</kbd> key.
 This should auto-complete for you and will save you making any errors.
 This also makes navigating your computer system very fast once you get the hang of it.
 
@@ -258,7 +258,7 @@ This is the list of files that we normally see in our traditional folder view th
 We can actually check this output using `RStudio` too, so head to the **Files** tab in the `Files` window.
 Click on the Home icon (![home](../R_Practicals/images/home.png)) and look at the folders & files you can see there.
 **Do they match the output from `ls`?**
-As for help if not.
+Ask for help if not.
 
 Alternatively, we can specify which directory we wish to view the contents of, **without having to change into that directory**.
 Notice **you can't do actually this using your classic GUI folder view**.
@@ -397,16 +397,16 @@ It's easy for things to go wrong when working in the command-line, but if you've
 - if the terminal is not responsive
 
 there are some simple options for stopping a process & getting you back on track.
-Some options to try are: \\
+Some options to try are:
 
 | Command  | Result |
 |:-------- |:------ |
-| `Ctrl+c` | Kill the current job |
-| `Ctrl+d` | End of input         |
-| `Ctrl+z` | Suspend current job  |
+| <kbd>Ctrl</kbd>+<kbd>C</kbd> | Kill the current job |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | End of input         |
+| <kbd>Ctrl</kbd>+<kbd>Z</kbd> | Suspend current job  |
 
-`Ctrl+c` is usually the first port of call when things go wrong.
-However, sometimes `Ctrl+c` doesn't work but `Ctrl+d` or `Ctrl+z` will.
+<kbd>Ctrl</kbd>+<kbd>C</kbd> is usually the first port of call when things go wrong.
+However, sometimes <kbd>Ctrl</kbd>+<kbd>C</kbd> doesn't work but <kbd>Ctrl</kbd>+<kbd>D</kbd> or <kbd>Ctrl</kbd>+<kbd>Z</kbd> will.
 
 ## Manuals and Help Pages
 
@@ -426,14 +426,14 @@ To navigate through the manual page, we need to know a few shortcuts which are p
 
 Although we can navigate through the `less` pager using up & down arrows on our keyboards, some helpful shortcuts are:
 
-| Command    | Action |
+| Key    | Action |
 |:---------- |:------ |
-| `<enter>`  | go down one line |
-| `spacebar` | go down one page (i.e. a screenful) |
-| `b`        | go **b**ackwards one page |
-| `<`        | go to the beginning of the document |
-| `>`        | go to the end of the document |
-| `q`        | quit |
+| <kbd>Enter</kbd>    | go down one line |
+| <kbd>Spacebar</kbd> | go down one page (i.e. a screenful) |
+| <kbd>B</kbd>        | go **b**ackwards one page |
+| <kbd><</kbd>        | go to the beginning of the document |
+| <kbd>></kbd>        | go to the end of the document |
+| <kbd>Q</kbd>        | quit |
 
 
 Look through the manual page for the `ls` command.
@@ -487,21 +487,21 @@ Write your answers on a piece of paper, or in a plain text file.
 
 | **Command** | **Description of function**   | **Useful options** |
 |:----------- |:----------------------------- |:------------------ |
-| `man`       | Display on-line manual        | -k                 |
+| `man`       | Display on-line manual        | `-k`               |
 | `pwd`       | Print working directory, i.e show where you are | none commonly used |
-| `ls`        | List contents of a directory  | -a, -h, -l         |
+| `ls`        | List contents of a directory  | `-a`, `-h`, `-l`   |
 | `cd`        | Change directory              | (scroll down in `man builtins` to find `cd`) |
-| `mv`        |                               | -b, -f, -u         |
-| `cp`        |                               | -b, -f, -u         |
-| `rm`        |                               | -r (careful...)    |
-| `mkdir`     |                               | -p                 |
+| `mv`        |                               | `-b`, `-f`, `-u`   |
+| `cp`        |                               | `-b`, -f`, `-u`    |
+| `rm`        |                               | `-r` (careful...)  |
+| `mkdir`     |                               | `-p`               |
 | `cat`       |                               |                    |
 | `less`      |                               |                    |
-| `wc`        |                               | -l                 |
-| `head`      |                               | -n# (e.g., -n100)  |
-| `tail`      |                               | -n# (e.g., -n100)  |
-| `echo`      |                               |  -e                |
-| `cut`       |                               | -d, -f, -s         |
+| `wc`        |                               | `-l`               |
+| `head`      |                               | `-n#` (e.g., `-n100`) |
+| `tail`      |                               | `-n#` (e.g., `-n100`) |
+| `echo`      |                               | `-e`               |
+| `cut`       |                               | `-d`, `-f`, `-s`   |
 | `sort`      |                               |                    |
 | `uniq`      |                               |                    |
 | `wget`      |                               |                    |
