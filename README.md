@@ -68,7 +68,7 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 \* Slides not visible outside UofA network.
 
 [1]: http://biotech7005.services.adelaide.edu.au/01-bioinformatics.slide
-[2]: Lectures/02-statistics.html
+[2]: Lectures/03-statistics.html
 [3]: http://biotech7005.services.adelaide.edu.au/03-evoprocess.slide
 [4]: http://biotech7005.services.adelaide.edu.au/04-alignment.slide
 [5]: http://biotech7005.services.adelaide.edu.au/04-alignment.slide

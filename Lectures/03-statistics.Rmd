@@ -1,8 +1,8 @@
 ---
-title: "02 Statistics"
+title: "03 Statistics"
 subtitle: "Biotech 7005: Bioinformatics and Systems Modelling"
 author: "Steve Pederson"
-date: "30 July 2018"
+date: "12 August 2019"
 output: 
   ioslides_presentation: 
     widescreen: yes
