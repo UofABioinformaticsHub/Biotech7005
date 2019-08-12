@@ -66,7 +66,7 @@ Every experiment is considered as a **random sample** from all possible repeated
 Most experiments involve measuring something:
 
 - Discrete values e.g. read counts, number of colonies
-- Continuous values e.g. $C_t$ values, fluorescence intensity
+- Continuous values e.g. *C~t~* values, fluorescence intensity
 
 Every experiment is considered as a **random sample** from all possible repeated experiments.
     
@@ -117,7 +117,7 @@ $$
 H_0: \mu = 0 \quad Vs \quad H_A: \mu \neq 0
 $$
 
-Where $\mu$ represents the average difference in a value (e.g. mRNA expression levels)
+Where $\mu$ represents the __true__ average difference in a value (e.g. mRNA expression levels)
 
 ## The Sample Mean | Normally Distributed Data
 
@@ -130,7 +130,8 @@ $$
 \bar{x} = \frac{1}{n}\sum_{i = i}^n x_i
 $$
 
-*This will be a different value every time we repeat the experiment*
+*This will be a different value every time we repeat the experiment*  
+*This is an estimate of the __true__ effect*
 
 ## The Sample Variance | Normally Distributed Data
 
@@ -158,7 +159,7 @@ x <- c(2.1, 2.8, 2.5, 2.6)
 
 - Comparing expression levels of *FOXP3* in T~reg~ and T~h~ cells ($n = `r length(x)`$ donors)
 - The difference within each donor is obtained as $\Delta \Delta C_t$ values 
-- $\mathbf{x} =$ (`r pander(x)`)
+- $\mathbf{x} =$ (`r x`)
 
 <center>$H_0: \mu = 0$ Vs $H_A: \mu \neq 0$ </center><br>
 
@@ -176,7 +177,7 @@ $$
 \end{aligned}
 $$
 
-This is our estimate of the true difference in expression ($\mu$)
+This is our estimate of the __true mean__ difference in expression ($\mu$)
 
 ## The Sample Mean | A qPCR Experiment
 And the sample variance:
@@ -192,17 +193,25 @@ $$
 
 ## The Sample Mean
 
-- Every time we repeat an experiment, we get a different value for $\bar{x}$
+- Every time we repeat an experiment, we obtain a different value for $\bar{x}$
 - Would these follow any specific pattern?
+
+$$
+\mathbf{\bar{x}} = \{\bar{x}_1, \bar{x}_2, \dots, \bar{x}_m \}
+$$
+
+This represents a theoretical set of repeated experiments with a different sample mean for each.  
+
+We usually just have **one** experiment ($\bar{x}$).
 
 ## The Sample Mean
 
-- Every time we repeat an experiment, we get a different value for $\bar{x}$
+- Every time we repeat an experiment, we obtain a different value for $\bar{x}$
 - Would these follow any specific pattern?
 - **They would be normally distributed around the true value!**
 
 $$
-\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
+\mathbf{\bar{x}} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
 $$
 
 where:
@@ -212,17 +221,43 @@ where:
 
 ## The Null Hypothesis
 
-If $H_0$ is true (and we know $\sigma$), **we know what the data will look like**.
-
-- A simple transformation gives us a $Z$ statistic where $Z \sim \mathcal{N}(0, 1)$
+**We know what our experimental results ($\bar{x}$) will look like**.
 
 $$
-Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}}
+\bar{x} \sim \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}})
+$$
+
+If we subtract the population mean:
+
+$$
+\bar{x} - \mu \sim \mathcal{N}(0, \frac{\sigma}{\sqrt{n}})
+$$
+
+NB: We almost always test for no effect $H_0: \mu = 0$ 
+
+## The Null Hypothesis
+
+- One final step gives us a $Z$ statistic where $Z \sim \mathcal{N}(0, 1)$
+
+$$
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \sim \mathcal{N}(0, 1)
 $$
 
 - If  $H_0$ is true $Z$ will come from $\mathcal{N}(0, 1)$
 - If $H_0$ is NOT true $Z$ will come from some other distribution
 - We compare our results (i.e. $Z$) to $\mathcal{N}(0, 1)$ and see if our results are likely or unlikely
+- In reality we usually don't know $\sigma$
+
+## The Null Hypothesis
+
+- We are usually testing for an **unknown population value** (i.e. $\mu$)
+- Commonly we are testing that an average difference is zero ($\mu = 0$)
+- The alternative is that $\mu \neq 0$
+- We use our experiment to draw conclusions about $\mu$
+
+$$
+H_0: \mu = 0 \quad \text{vs} \quad H_A: \mu \neq 0
+$$
 
 
 ## The Null Hypothesis
@@ -307,9 +342,16 @@ ggplot(df, aes(x = x, y = y)) +
 
 **In our qPCR experiment, could the $\Delta \Delta C_t$ values be either side of zero?**
 
+## $p$ Values
+
+**In our qPCR experiment, could the $\Delta \Delta C_t$ values be either side of zero?**
+
+- Gene expression could go up or down after our treatment
 - This means we also need to check the values for the other extreme
 - This distribution is symmetric around zero:
-    + $p(|Z| > 2)$ = $p(Z > 2) + P(Z < -2)$ 
+
+$$p(|Z| > 2) = p(Z > 2) + P(Z < -2)$$
+
 - Known as a *two-sided* test    
 
 **This is the most common way of deciding if $H_0$ is true!**
@@ -362,6 +404,8 @@ To summarise:
 2. Compare this to $\mathcal{N}(0, 1)$ to find the probability ($p$) of observing data as extreme, or more extreme, than we observed if $H_0$ is true
 3. If $p$ is low (e.g. $p<0.05$), we reject $H_0$ as unlikely and accept $H_A$
 
+# The $t$-test
+
 ## $t$-tests
 
 In reality, we will never know the population variance ($\sigma^2$), just like we will never know $\mu$
@@ -387,8 +431,8 @@ The $t$-distribution is very similar to $\mathcal{N}(0, 1)$
 
 - Bell-shaped & symmetrical around zero
 - Has fatter tails $\implies$ extreme values are more likely
-- The parameter *degrees of freedom* (df) specifies how "fat" the tails are
-- As df $\rightarrow 0$ the tails get fatter
+- The parameter *degrees of freedom* ($\nu$) specifies how "fat" the tails are
+- As $\nu \rightarrow 0$ the tails get fatter
 
 
 ## $t$-tests | The t distribution
@@ -423,10 +467,10 @@ df %>%
 At their simplest:
 
 $$
-df = n - 1
+\text{df}  = \nu = n - 1
 $$
 
-As $n$ increases $s^2 \rightarrow \sigma^2$ and $\implies t_{df} \rightarrow Z$
+As $n$ increases $s^2 \rightarrow \sigma^2$ and $\implies t_{\nu} \rightarrow Z$
 
 <!-- More samples:   -->
 <!-- $\implies$ less chance of an extreme value under $H_0$   -->
@@ -575,11 +619,11 @@ $H_0: \mu_A = \mu_B$ Vs $H_A: \mu_A \neq \mu_B$
 
 An example table
 
-```{r}
-x <-matrix(c(12, 20, 12, 4), ncol = 2) %>%
+```{r, out.width=6}
+x <- matrix(c(12, 20, 12, 4), ncol = 2) %>%
   set_rownames(c("Upper Lakes", "Lower Plains")) %>%
   set_colnames(c("A", "B"))
-pander(x)
+pander(x, style = "rmarkdown")
 ```
 
 <br>$H_0:$ **No association** between allele frequencies and location  
