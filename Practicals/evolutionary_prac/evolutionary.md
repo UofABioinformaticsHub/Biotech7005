@@ -1,8 +1,20 @@
-# Evolutionary Processes assignment (20/8/2018)
+# Evolutionary Processes assignment (9/9/2018)
 
 ## Prepare the sequence data
 
 Get the sequences from the [Biotech7005 repository](bovidea_118_mtDNA.fa).
+
+### Reduced the size of the dataset
+
+Run the following command using your student number for id:
+```
+./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
+```
+
+(The subset command can be obtained from [here](subset).)
+
+This selects 50 sequences from the input alignment according to your student number and writes them to a new file.
+This is not normal practice, and is only necessary because of prac time limits.
 
 ### Multiple alignment
 
@@ -20,12 +32,12 @@ muscle -in bovidea_118_mtDNA.fa -out bovidea_118_mtDNA-muscle.mfa
 mafft bovidea_118_mtDNA.fa > bovidea_118_mtDNA-mafft.mfa
 ```
 
-Have a look at the resulting alignments using `jalview`.
-Decide *subjectively* which alignment you think will be better to use (the following instructions assume MUSCLE).
+Have a look at the resulting alignments using `less`.
+Decide *subjectively* which alignment you think will be better to use (the following instructions assume MUSCLE). It is up to you how you decide which is better.
 
 ### Remove non-conserved blocks
 
-Many programs unfortuately have name lenght limitations.
+Many programs unfortunately have name length limitations.
 One of the programs we will be using (Gblocks) cannot have long sequence identifiers and is not open source, so we cannot fix it.
 To get around this problem we will shorten the identifiers in a meaningful way.
 
@@ -36,45 +48,31 @@ sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_118_mtDNA-muscle.m
 
 **What does this command do?**
 
-### Reduced the size of the dataset
+In order to be able to examine the alignments more effectively we will convert the format from FASTA to Phylip format. This will make it easier to see the alignment (we could use this format above to make out decision for which alignment to use).
 
-This is done now due to time constraints.
-
-Run the following command using your student number for id:
 ```
-./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
+seqmagick convert --output-format phylip --alphabet dna bovidea_118_mtDNA-named.mfa bovidea_118_mtDNA-named.phy
 ```
 
-(The subset command can be obtained from [here](subset).)
+Look at the Phylip alignment file. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
 
-This selects 50 sequences from the input alignment according to your student number and writes them to a new file.
-This is not normal practice, and is only necessary because of prac time limits.
+**What is the reason for this? (*Hint: use the accession numbers in the name to search [Entrez](https://www.ncbi.nlm.nih.gov/genome/) for the annotation.*)**
 
-Now we can use Gblocks to remove the non-conserved regions of the alignment.
+The phylogenetic reconstruction methods we will be using cannot handle missing bases, so these must be removed. 
+We can use Gblocks to remove the non-conserved regions of the alignment.
+Gblocks can be obtained from [here](http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z); use `wget` to get the program.
+Extract the program by executing `tar xaf Gblocks_Linux64_0.91b.tar.Z` and then run it by entering `Gblocks_0.91b/Gblocks`.
+Use the menu options in the program to remove the non-conserved regions.
 This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
 
 **Why do we need to do this? (*Hint:read the [Gblocks documentation](http://molevol.cmima.csic.es/castresana/Gblocks.html)*)**
-
-Open the original aligned data (the file output by the multiple alignment program) using Seaview by entering the following command into a terminal.
-
-```
-seaview bovidea_118_mtDNA-muscle.mfa
-```
-
-Look at the alignment. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
-
-**What is the reason for this? (*Hint: use the accession numbers in the name to search [Entrez](https://www.ncbi.nlm.nih.gov/genome/) for the annotation.*)**
 
 ### Convert to NEXUS format
 
 The program we will be using to perform phylogenetic reconstruction uses a sequence (and other character) format called NEXUS.
 The NEXUS format is fairly widely used for phylogenetic data as it can be used to encode a variety characters, not limited to sequence data.
-Unfortunately there is no simple command line tool to convert from FASTA to NEXUS (it would be easy to write), so we will use SeaView.
-Start SeaView by entering `seaview bovidea_50_mtDNA-named.mfa-gb` into a terminal.
-Save this file as a NEXUS file, the save file dialogue will suggest "bovideai\_50\_mtDNA-named.nxs", use that.
 
-Note that SeaView can be used as an interface to the program PhyML which does Maximum Likelihood phylogenetic tree reconstruction.
-However, the communication between SeaView and PhyML appears to be broken as the work done by PhyML is dropped on the floor by SeaView after completion.
+Use `seqmagick` to convert the mfa file to a nexus format with the name `bovidea_118_mtDNA-named.nex`.
 
 ## Run Mr Bayes
 
