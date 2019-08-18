@@ -20,7 +20,7 @@ This again helps us keep our code organised and is good practice.
 
 ## Standard Output
 
-All of the output we saw in the previous pratical was 'printed' to your terminal.
+All of the output we saw in the previous practical was 'printed' to your terminal.
 Each function returned output to you using a data stream called *standard out*, or `stdout` for short.
 Most of these tools also send information to another data stream called *standard error* (or `stderr`), and this is where many error messages go.
 This is actually sent to your terminal as well, and you may have seen this if you've made any mistakes so far.
@@ -177,7 +177,7 @@ This process can also be visualised using the following diagram from Unix Bootca
 ## Inspecting genomic files using bash`
 
 As you may have realised, these file types don't play well with MS Word, Excel and the like.
-We need different ways to lok through these and as we go, hopefully you'll get the hang of this.
+We need different ways to look through these and as we go, hopefully you'll get the hang of this.
 First we'll download the file GCF_000182855.2_ASM18285v1_genomic.gff for *Lactobacillus amylovorus* from the NCBI database. (Use `curl` if you don't have `wget`)
 
 ```
@@ -232,7 +232,7 @@ If we wanted to count how many genes are annotated, the first idea we might have
 
 *Do you think this is the number of regionss & genes?*
 
-- Tyr using the above commands without the `-c` to inspect the results.
+- Try using the above commands without the `-c` to inspect the results.
 - Try searching for the number of coding DNA sequences using the same approach (i.e. CDS) & then add the two numbers?
 - *Is this more than the total number of features we found earlier?*
 - *Can you think of a way around this using regular expressions?*
