@@ -34,7 +34,7 @@ Researchers are looking to identify any SNP genotypes which may increase the ris
     a. For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]  
     b. Define H~0~ and H~A~ for the genotype at each individual SNP. [*2 marks*]  
     c. If there was no true difference in any genotypes between the two groups, how many p-values would you expect to see < 0.05? [*1 mark*]  
-    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP as being associated with an increased risk of Type I diabetes, i.e. to reject H~0~ [*1 mark*]
+    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP as being associated with an increased risk of Type I diabetes, i.e. to reject H~0~ [*1 mark*]  
     e. Given the following genotype table, would you accept or reject H~0~? Provide your working and a full explanation. [*3 marks*]
 
 | Group | AA   | AB  | BB |
@@ -49,7 +49,7 @@ The change in fluorescence values obtained for each repeat are given [below as t
 
     a. Define H~0~ and H~A~ [*2 marks*]  
     b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
-    c. Calculate the *T*-statistic using `R`. [*1 mark*]
+    c. Calculate the *T*-statistic using `R`. [*1 mark*]  
     d. What would the degrees of freedom be for your *t*-test? [*1 mark*]  
     e. Calculate the *p*-value using `R` [*1 mark*]
 
