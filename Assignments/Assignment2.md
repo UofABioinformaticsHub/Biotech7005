@@ -45,7 +45,7 @@ Researchers are looking to identify any SNP genotypes which may increase the ris
 
 4. An experiment was repeated multiple times, in which GFP fluorescence was measured in a cell culture as a measurement of gene expression, both *before* and *after* viral transfection.
 GFP was present on a plasmid as a reporter for activity at a specific promoter.
-The change in fluorescence values obtained for each repeat are given [below as the vector `x`](#values-for-question-4), presented on the log~2~ scale for your individual subset of experiments.  
+The change in fluorescence values obtained for each repeat are given [below as the vector `x`](#values-for-question-4), presented on the log2 scale for your individual subset of experiments.  
 
     a. Define H~0~ and H~A~ [*2 marks*]  
     b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
@@ -100,8 +100,10 @@ Show all working & code.
 
 ## Values For Question 4
 
+*If your student number is not listed, please contact Dan to ensure you are added to the list*
+
 The results you are analysing for Q4 are as follows.
-You can simply paste these values into your RMarkdown document as the object `x` and perform all of you analysis on thse values.
+You can simply paste these values into your RMarkdown document as the object `x` and perform all of you analysis on these values.
 
 | ID       | Values                                                                                      |
 |:---------|:--------------------------------------------------------------------------------------------|
