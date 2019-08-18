@@ -30,7 +30,7 @@ Just as we've created a new `R Project` for practicals 1 and 2, let's create a n
 - Using the `File` menu at the top left, select `New Project`
 - Select `New Directory`
 - Select `New Project`
-- If you're not already asked to create this project as a subdirectory of `~/biotech7005`, navigate to the directory `biotech7005` using the <kbd>Browse</kbd> button 
+- If you're not already asked to create this project as a subdirectory of `~`, navigate to your home directory using the <kbd>Browse</kbd> button 
 - In the `Directory Name` space, enter `Practical_3`, then hit the <kbd>Create Project</kbd> button.
 
 This again helps us keep our code organised and is good practice.
