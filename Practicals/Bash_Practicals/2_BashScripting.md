@@ -6,9 +6,21 @@
 
 # More Command Line Tips & Tricks
 
+## Setup the directory for today
+
+Just as we've created a new `R Project` for practicals 1 to 3, let's create a new one for today to make sure we're all in the same place.
+
+- Using the `File` menu at the top left, select `New Project`
+- Select `New Directory`
+- Select `New Project`
+- If you're not already asked to create this project as a subdirectory of `~`, navigate to the Home directory using the <kbd>Browse</kbd> button 
+- In the `Directory Name` space, enter `Practical_4`, then hit the <kbd>Create Project</kbd> button.
+
+This again helps us keep our code organised and is good practice.
+
 ## Standard Output
 
-All of the output we saw in the previous session was 'printed' to your terminal.
+All of the output we saw in the previous pratical was 'printed' to your terminal.
 Each function returned output to you using a data stream called *standard out*, or `stdout` for short.
 Most of these tools also send information to another data stream called *standard error* (or `stderr`), and this is where many error messages go.
 This is actually sent to your terminal as well, and you may have seen this if you've made any mistakes so far.
@@ -46,21 +58,20 @@ echo -e 'Hello\tWorld'
 echo -e 'Hello\nWorld'
 ```
 
-
 As we've seen above, the command `echo` just repeats any subsequent text.
 Now enter
 ```
 echo ~
 ```
 
-*Why did this happen?*
+**Why did this happen?**
 
 ## Sending Output To A File
 
 ### Using the `>` symbol
 
-So far, the only output we have seen has been in the terminal, which is known as the *standard output*, or `stdout` for short.
-Similar to the `magrittr` in `R`, we can redirect the output of a command to a file instead of to standard output, and we do this using the greater than symbol (>), which we can almost envisage as an arrow.
+So far, the only output we have seen has been in the terminal (`stdout`).
+Similar to the `magrittr` in `R`, we can *redirect the output of a command to a file* instead of to standard output, and we do this using the greater than symbol (>), which we can almost envisage as an arrow.
 
 As a simple example we can write text to a file.
 Using the command `echo` prints text to `stdout`
@@ -82,18 +93,22 @@ Once you've looked at it, delete it using the command `rm` to make sure you keep
 
 
 Let's get a more serious file to work with for today.
-**Make sure you are in your `Bash_Practical` directory**, then download the following file using `curl`
+**Make sure you are in your `Practical_4` directory**, then download the following file using `curl`
 ```
 curl ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz > Drosophila_melanogaster.BDGP6.ncrna.fa.gz
 ```
 
-If we hadn't placed this symbol at the end of this command, `curl` would literally stream all of the contents of this file to `stdout`, but now we have redirected this to a file.
+If we hadn't placed this symbol at the end of this command, `curl` would literally stream all of the contents of this file to `stdout`, but now we have redirected this to a file!
 
 After you've downloaded this file, unzip it using `gunzip`.
+Inspect the contents of the extracted file using `head`.
+
+```
+head Drosophila_melanogaster.BDGP6.ncrna.fa
+```
 
 This file is all the `ncrna` sequences from the current build of *D. melanogaster* in `fasta` format.
-Each sequence has a header row which begins with `>` so if we wanted to just collect the sequence headers we could use `egrep` and write the output to a file.
-To get the sequence header rows, we first need to use `egrep` to extract these lines.
+As you can see, each sequence has a header row which begins with `>` so if we wanted to just collect the sequence headers we could use `egrep` and write the output to a file.
 
 ```
 egrep '^>' Drosophila_melanogaster.BDGP6.ncrna.fa
@@ -111,15 +126,16 @@ Once you've had a quick look at the file, exit the less pager (`q`) and delete t
 
 ### Using the `>>` symbol
 
-Another alternative is to use the `>>` symbol, which only creates a blank file if one doesn't exist.
-If one with that name already exists, this symbol doesn't create an empty file first, but instead adds the data from `stdout` **to the end** of the existing data within that file.
+Another alternative is to use the `>>` symbol, which *only creates a blank file if one doesn't exist.*
+If one with that name already exists, this symbol doesn't create an empty file first, but instead **adds the data from `stdout` to the end** of the existing data within that file.
 
 ```
 echo -e '# Sequence identifiers for all ncrna in dm6' > SeqIDs.txt
 ```
 
 In this command, we've created a header for the file, and we can now add the information we need after this using the `>>` symbol.
-First let's add another row describing where we've obtained the data from.
+This trick of writing a header at the start of a file is very common and can be used to add important information to a file. 
+Now let's add another row describing where we've obtained the data from.
 
 ```
 echo -e '# Obtained from ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz on 2017-08-14' >> SeqIDs.txt
@@ -137,11 +153,14 @@ Now we can add the sequence identifiers
 egrep '^>' Drosophila_melanogaster.BDGP6.ncrna.fa >> SeqIDs.txt
 ```
 
+Inspect this once again using `less`, `head` or `cat`
+
 ## Redirection Using The Pipe Symbol
 
 Sometimes we need to build up our series of commands & send the results of one to another.
 The *pipe* symbol (`|`) is the way we do this & it can literally be taken as placing the output from one command into a pipe & redirecting it somewhere new.
 This is where thinking about the output of a command as a *data stream* can be very helpful.
+This is a very conventional approach when working in `bash` and was the motivation behind the creation of the `magrittr` package in `R`.
 
 As a simple example, we could take the output from an `ls` command & send it to the pager `less`.
 
@@ -155,23 +174,28 @@ This process can also be visualised using the following diagram from Unix Bootca
 
 ![](https://camo.githubusercontent.com/1652e94dd89d73b1e5ad43feabe12d5aac7e033b/68747470733a2f2f646f63732e676f6f676c652e636f6d2f64726177696e67732f642f3161444b397a716163677572465a537a6a704c4d5653676f64306a462d4b4648576553565f53554c387668452f7075623f773d39313626683d333534)
 
-Now we'll download the file GCF_000182855.2_ASM18285v1_genomic.gff for *Lactobacillus amylovorus* from the NCBI database. (Use `curl` if you don't have `wget`)
+## Inspecting genomic files using bash`
+
+As you may have realised, these file types don't play well with MS Word, Excel and the like.
+We need different ways to lok through these and as we go, hopefully you'll get the hang of this.
+First we'll download the file GCF_000182855.2_ASM18285v1_genomic.gff for *Lactobacillus amylovorus* from the NCBI database. (Use `curl` if you don't have `wget`)
 
 ```
 wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/182/855/GCF_000182855.2_ASM18285v1/GCF_000182855.2_ASM18285v1_genomic.gff.gz
 gunzip GCF_000182855.2_ASM18285v1_genomic.gff.gz
 ```
 
+This file is in `gff` format, which is very commonly used.
 The first 5 lines of this file is what we refer to as a *header*, which contains important information about how the file was generated in a standardised format.
 Many file formats have these structures at the beginning, but for our purposes today we don't need to use any of this information so we can move on.
 Have a look at the beginning of the file just to see what it looks like.
 
 ```
-head GCF_000182855.2_ASM18285v1_genomic.gff
+head -n12 GCF_000182855.2_ASM18285v1_genomic.gff
 ```
 
-Notice the header lines begin with one or two hash symbols, and the remainder of the file contains information about the genomic features.
-As there is a lot of information about each feature, note that each line will wrap onto a second line within bash.
+Notice the header lines begin with one or two hash symbols, whilst the remainder of the file contains information about the genomic features in tab-separated format.
+As there is a lot of information about each feature, note that each line after the header will probably wrap onto a second line in the terminal.
 The first feature is annotated as a *region* in the third field, whilst the second feature is annotated as a *gene*.
 
 #### Question
@@ -206,22 +230,26 @@ If we wanted to count how many genes are annotated, the first idea we might have
 #### Question
 {:.no_toc}
 
-*Do you think this is the number of genes?*
+*Do you think this is the number of regionss & genes?*
 
+- Tyr using the above commands without the `-c` to inspect the results.
 - Try searching for the number of coding DNA sequences using the same approach (i.e. CDS) & then add the two numbers?
 - *Is this more than the total number of features we found earlier?*
 - *Can you think of a way around this using regular expressions?*
 
 
-Some of the occurrences of the word *gene* appears in many lines which are not genes.
+Some of the occurrences of the word *gene* or *region* appear in lines which are not genes or regions.
 We could restrict the search to one of the tab-separated fields by including a white-space character in the search.
 The command:
 
 ```
-egrep -n '\sgene\s' GCF_000182855.2_ASM18285v1_genomic.gff | wc -l
+egrep '\sgene\s' GCF_000182855.2_ASM18285v1_genomic.gff | wc -l
 ```
 
 will give a different result again as now we are searching for the word gene surrounded by white-space.
+
+Note that we've also used the pipe here to count results using the `wc` command.
+We could have also used `egrep` with the `-c` flag set.
 
 ### Using `cut`
 
@@ -235,8 +263,10 @@ man cut
 We can simply extract the 3rd field of this tab-delimited file by using the `f3` option.
 
 ```
-cut -f3 GCF_000182855.2_ASM18285v1_genomic.gff | head
+cut -f3 GCF_000182855.2_ASM18285v1_genomic.gff | head -n12
 ```
+
+(You can ignore any errors about a Broken pipe.)
 
 However, this hasn't cut the third field from the header rows as they are not tab-delimited.
 To remove these we need to add one further option.
@@ -258,7 +288,7 @@ A similar question would be: *How many* **types** *of features are in this file?
 The commands `cut`, along with `sort` and `uniq` may prove to be useful when answering this
 
 ```
-cut -f3 -s GCF_000182855.2_ASM18285v1_genomic.gff | sort | uniq | wc -l
+cut -f3 -s GCF_000182855.2_ASM18285v1_genomic.gff | sort | uniq -c
 ```
 
 In the above some of the advantages of the pipe symbol can clearly be seen.
@@ -278,19 +308,6 @@ For today, there are two key `sed` functionalities that we want to introduce.
 1. Using `sed` to alter the contents of a file/input;
 2. Using `sed` to print regions of a file
 
-## For those using OSX
-{:.no_toc}
-
-Note that the default version of `sed` on OSX is slightly different to Linux.
-This has to do with licensing as all Linux installations use GNU tools which have flexible licences if your not charging for the OS.
-Due to the problems with these licenses, OSX uses the BSD versions of these tools and these can occasionally be subtly different.
-`sed` is one of these so the commands you use today may not work if you're using `sed` on your local laptop.
-To install the GNU version of `sed` locally enter the following commands and you should be able to use the same version of `sed` that we have on the VMs.
-
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install gnu-sed --with-default-names
-```
 
 ## Altering a file or other input
 
@@ -301,7 +318,7 @@ Input can be given to `sed` as either a file, or just as a text stream via the *
 In the following example the script begins with an `s` to indicate that we are going to make a substitution.
 The beginning of the first pattern (i.e. the *regexp* we are searching for) is denoted with the backslash, with the identical delimiter indicating the replacement pattern, and this is in turn completed with the same delimiter.
 Try this simple example from the link \url{http://www.grymoire.com/Unix/Sed.html} which is a very detailed & helpful resource about the usage `sed`.
-Here we are sending the input to the command via the pipe, so no `INPUT` section is required:
+Here we are sending the input (`echo Sunday`) to the command via the pipe, so no `INPUT` section is required:
 
 ```
 echo Sunday | sed 's/day/night/'
@@ -327,7 +344,7 @@ If you wanted to match `ATGNNNTGA`, where `N` is any base, and just output these
 echo 'ATGCCAGTA' | sed -r 's/ATG(.{3})GTA/\1/g'
 ```
 
-Or if we needed to replace those three bases with an expanded repeat of them, you could do the following where we capture the undefined string between `ATG` & `GTA`, and expand it to three times:
+Or if we needed to replace those three bases with an expanded tri-nucleotide repeat of them, you could do the following where we capture the undefined string between `ATG` & `GTA`, and expand it to three times:
 
 ```
 echo 'ATGCCAGTA' | sed -r 's/ATG(.{3})GTA/ATG\1\1\1GTA/g'
@@ -335,7 +352,6 @@ echo 'ATGCCAGTA' | sed -r 's/ATG(.{3})GTA/ATG\1\1\1GTA/g'
 
 The `\1` entry takes the contents of the first parenthesis and uses it in the substitution, even though you don't know what the bases are.
 Note that the `-r` option was set for these operations, which turns on extended regular expression capabilities.
-If you're on OSX and this hasn't worked for you, call a tutor over to check you installation of `sed`
 This can be a powerful tool & multiple parentheses can also be used:
 
 ```
@@ -355,7 +371,7 @@ By default `sed` will print the entire input stream it receives, but setting the
 Try this by adding an `n` immediately after the `-r` in one of the above lines & you will notice you receive no output.
 This is useful if we wish to restrict our output to a subset of lines within a file, and by including a `p` at the end of the script section, only the section matching the results of the script will be printed.
 
-Make sure you are in the `Bash_Practical` directory & we can look through the file `Drosophila_melanogaster.BDGP6.ncrna.fa` again.
+Make sure you are in the `Practical_4` directory & we can look through the file `Drosophila_melanogaster.BDGP6.ncrna.fa` again.
 
 ```
 sed -n '1,10 p' Drosophila_melanogaster.BDGP6.ncrna.fa
@@ -373,8 +389,6 @@ This will print every 4th line, beginning at the first, and is very useful for f
 The `fastq` file format from NGS data, and which we'll look at in week 6 will use this format.
 
 
-
-
 We can also make `sed` operate like `grep` by making it only print the lines which match a pattern.
 ```
 sed -rn '/TGCAGGCTC.+(GA){2}.+/ p' Drosophila_melanogaster.BDGP6.ncrna.fa
@@ -384,7 +398,10 @@ Note however, that the line numbers are not present in this output, and the patt
 
 # Writing Scripts
 
-Sometimes we need to perform repetitive tasks on multiple files, or need to perform complex series of tasks and writing the set of instructions as a script is a very powerful way of performing these tasks.
+Now we've had a look at many of the key tools, we'll move on to writing scripts which is one of the most common things a bioinformatician will do.
+We often do this on a HPC to run long data processing pipelines (or workflows).
+
+Scripts are commonly written to perform repetitive tasks on multiple files, or need to perform complex series of tasks and writing the set of instructions as a script is a very powerful way of performing these tasks.
 They are also an excellent way of ensuring the commands you have used in your research are retained for future reference.
 Keeping copies of all electronic processes to ensure reproducibility is a very important component of any research.
 Writing scripts requires an understanding of several key concepts which form the foundation of much computer programming, so let's walk our way through a few of them.
@@ -398,13 +415,14 @@ Two of the most widely used techniques in programming are that of the `for` loop
 A `for` loop is what we use to cycle through an input one item at a time
 
 ```
-for i in 1 2 3; do (echo -e $i^2 = $(($i*$i))); done
+for i in 1 2 3; do (echo "$i^2 = $(($i*$i))"); done
 ```
 
 In the above code the fragment before the semi-colon asked the program to cycle through the values 1, 2 & 3, letting the variable `i` take each value in order of appearance.
 
 - Firstly: i = 1, then i = 2 & finally i = 3.
-- After that was the instruction on what to do for each value, where we multiplied it by itself to give $i^2$
+- After that was the instruction on what to do for each value where we multiplied it by itself `$(($i*$i)) to give $i^2$.
+We placed this as the text string (`"$i^2 = $(($i*$i))"`) for an `echo` command to return.
 
 Note that the value of the variable `i` was *prefaced by the dollar sign ($).*
 **This is how the bash shell knows it is a variable, not the letter `i`.**
@@ -415,6 +433,7 @@ An important concept which was glossed over in the previous paragraph is that of
 These are essentially just *placeholders* which have a value that can change, much like an object in `R`.
 In the above loop, the same operation was performed on the variable `i`, but the value changed from 1 to 2 to 3.
 Variables in shell scripts can hold numbers or text strings and don't have to be formally defined as in some other languages.
+We will commonly use this technique to list files in a directory, then to loop through a series of operations on each file.
 
 ### `If` Statements
 
@@ -493,7 +512,7 @@ Although we have initially set them to be one value, they are still variables.
 
 Let's create an empty file which will become our script.
 We'll give it the suffix `.sh` as that is the common convention for bash scripts.
-Make sure you're in the `Bash_Practical` folder, then enter:
+Make sure you're in the `Practical_4` folder, then enter:
 
 ```
 touch wellDone.sh
@@ -524,7 +543,7 @@ ls -lh *.sh
 
 You should see output similar to this:
 ```
--rw-rw-r-- 1 your_login_name your_login_name  247 Aug  14 14:48 wellDone.sh
+-rw-rw-r-- 1 biotech7005 biotech7005  247 Aug  14 14:48 wellDone.sh
 ```
 
 - Note how the first entry is a dash (`-`) indicating this is a file.
@@ -645,14 +664,14 @@ for f in ${FILES};
 
 #### Task
 {:.no_toc}
-Save this as a script in the `Bash_Practical` folder called `lineCount.sh`.
+Save this as a script in the `Practical_4` folder called `lineCount.sh`.
 **Add comments** where you think you need them to make sure you understand what's happening.
 
 
 ## A More Advanced Script
 
 In this section we'll write a script for the dm6:ncrna fasta file.
-Briefly inspect the file before checking the script.
+Briefly inspect the file before checking the script to remind yourself what it looks like.
 We're going to extract some key information from those sequence header lines.
 
 ```
@@ -709,56 +728,4 @@ Now run it passing the `.fa` file as the first argument.
 ./getLocations.sh Drosophila_melanogaster.BDGP6.ncrna.fa
 ```
 
-## Writing a Script To Include Options
 
-In our final script, we'll change this to allow specifying the file using an argument (or option).
-We'll also demonstrate a file checking step.
-
-```
-#!/bin/bash
-
-INFILE=""
-
-# This version now includes the option -f for specifying the file
-while getopts 'f:' opt ; do
-  case $opt in
-    f) INFILE=$OPTARG ;;
-  esac
-done
-
-# Check the input file exists
-echo "Checking for a valid input file"
-if [[ -a $INFILE ]]; then
-  echo "Found ${INFILE}"
-else
-  echo "Could not find ${INFILE}. Exiting with error"
-  exit 1
-fi
-
-# Check the file has the suffix .fa or .fasta
-SUFFIX=$(echo ${INFILE} | sed -r 's/.+(fasta|fa)$/\1/')
-if [ ${SUFFIX} == "fa" ] || [ ${SUFFIX} == "fasta" ]; then
-  echo File has the suffix ${SUFFIX}
-else
-  echo File does not have the suffix 'fa' or 'fasta'. Exiting with error.
-  exit 1
-fi
-
-# Define the output by changing the suffix to .locations
-OUTFILE=${INFILE%.${SUFFIX}}.locations
-echo Output will be written to $OUTFILE
-
-# Get the header lines which correspond to chromosomes, then collect the
-# gene id, chromosome, start and end and write to the output file
-egrep '^>.+chromosome' ${INFILE} | \
-  sed -r "s/.+BDGP6:([^:]*):([0-9]+):([0-9]+).+gene:([^ ]+).+/\4\t\1\t\2\t\3/g" \
-  > ${OUTFILE}
-
-echo Done
-```
-
-- Notice how we've added a section that looks for an option denoted with `-f`. This is where the script will look for the input file.
-- Next we've performed a checking step to ensure the file exists. The rest of the script is the same.
-
-We could specify any number of options to our script.
-For example, we may wish to change the `BDGP6` to be more flexible for any other genome using a flag and input such as `-g genomeCode`.
