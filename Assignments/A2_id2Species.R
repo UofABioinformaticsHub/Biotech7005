@@ -14,7 +14,7 @@ sp <- ah %>%
 	query(".gtf") %>%
 	mcols() %>%
 	as.data.frame() %>%
-	filter(grepl("release-92", rdatapath)) %>%
+	filter(grepl("release-96", rdatapath)) %>%
 	distinct(species, taxonomyid) %>%
 	as_data_frame()
 

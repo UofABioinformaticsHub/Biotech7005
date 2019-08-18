@@ -1,9 +1,9 @@
 # Assignment 2 [*29 marks*]
 
-**Due before 12pm, Tuesday 21st August**
+**Due before 12pm, Monday 2nd September**
 
 Your answers to all questions should be submitted to myUni as a `.zip` file containing separate scripts for Q1 and Q2, and the answers to the statistics questions (Q3 and Q4) in a single Rmarkdown document.
-Note that the file `my_species_gff_features.txt` is not required as part of your submission for Q1, only the script which will generate this file.
+Note that the file `my_species_gff_features.txt` is not required as part of your submission for Q1, **only the script which will generate this file**.
 Similarly, for Q2, only the script is required.
 
 ## Required scripts [*14 marks*]
