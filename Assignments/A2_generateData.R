@@ -21,7 +21,7 @@ sp <- ah %>%
 	as_tibble()
 
 # Load the students
-ids <- read_tsv("VMs.tsv")
+ids <- read_tsv("VMs.tsv", comment = "#")
 
 # Define a function to map taxa to the common name
 sp2common <- function(sp){
