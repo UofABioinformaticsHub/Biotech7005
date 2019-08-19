@@ -9,13 +9,14 @@ Similarly, for Q2, only the script is required.
 
 ## Required scripts [*14 marks*]
 
-1 Write a script to:
+1. Write a script to:
     + Download the gff3 file for your assigned species ([see bottom of page](#species-for-question-1)) to your current directory from Ensembl [*1 mark*]
     + Count how many of each feature type there is, sorted in numerical order [*3 marks*]
     + Export the results to a file with a name of the form `my_species_gff_features.txt` **where you use your assigned species name instead of** `my_species` [*1 mark*].
     NB: If your actual species is not included in the name, no marks will be given.
     + Include one or more comment lines before the table detailing which build of the genome was used, and the code executed to generate the summary [*2 marks*]
-2 For the file we used in the practicals (Drosophila_melanogaster.BDGP6.ncrna.fa), add to the final practical script provided so that:
+    
+2. For the file we used in the practicals (Drosophila_melanogaster.BDGP6.ncrna.fa), add to the final practical script provided so that:
     + the output contains a meaningful header [*1 mark*]
     + the output contains column names [*2 marks*]
     + the output includes: a) gene id; b) chromosome; c) start; d) stop; e) strand and f) gene_biotype [*3 marks*]
@@ -30,11 +31,11 @@ In a single rmarkdown file answer the following questions:
 3 Two groups of people have volunteered to take part in a genetic study. Group 1 (n = 126) are volunteers with no history of Type I Diabetes in their immediate family, whilst Group 2 (n = 183) have all been diagnosed with Type I Diabetes. A genotyping study was undertaken on these volunteers using 25,786 SNPs selected due to their proximity to key immune genes.
 Researchers are looking to identify any SNP genotypes which may increase the risk of Type I Diabetes. In your answer, consider the reference SNP allele as `A` and the alternate SNP allele as `B`, using the genotypes `AA`, `AB` and `BB`.
 
-    a. For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]  
-    b. Define H₀ and Hₐ for the genotype at each individual SNP. [*2 marks*]  
-    c. If there was no true difference in any genotypes between the two groups, how many p-values would you expect to see < 0.05? [*1 mark*]  
-    d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP as being associated with an increased risk of Type I diabetes, i.e. to reject H₀ [*1 mark*]  
-    e. Given the following genotype table, would you accept or reject H₀? Provide your working and a full explanation. [*3 marks*]
+a. For an individual SNP, what test would be appropriate for this comparison? [*1 mark*]  
+b. Define H₀ and Hₐ for the genotype at each individual SNP. [*2 marks*]  
+c. If there was no true difference in any genotypes between the two groups, how many p-values would you expect to see < 0.05? [*1 mark*]  
+d. Using Bonferroni's method, what would a suitable cutoff value be to consider a SNP as being associated with an increased risk of Type I diabetes, i.e. to reject H₀ [*1 mark*]  
+e. Given the following genotype table, would you accept or reject H₀? Provide your working and a full explanation. [*3 marks*]
 
 | Group | AA   | AB  | BB |
 | ----- | ---- | --- | --- |
@@ -46,11 +47,11 @@ Researchers are looking to identify any SNP genotypes which may increase the ris
 GFP was present on a plasmid as a reporter for activity at a specific promoter.
 The change in fluorescence values obtained for each repeat are given [below as the vector `x`](#values-for-question-4), presented on the log2 scale for your individual subset of experiments.  
 
-    a. Define H₀ and Hₐ [*2 marks*]  
-    b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
-    c. Calculate the *T*-statistic using `R`. [*1 mark*]  
-    d. What would the degrees of freedom be for your *t*-test? [*1 mark*]  
-    e. Calculate the *p*-value using `R` [*1 mark*]
+a. Define H₀ and Hₐ [*2 marks*]  
+b. Calculate the sample mean and sample variance in `R` [*2 marks*]  
+c. Calculate the *T*-statistic using `R`. [*1 mark*]  
+d. What would the degrees of freedom be for your *t*-test? [*1 mark*]  
+e. Calculate the *p*-value using `R` [*1 mark*]
 
 Show all working & code.
 
