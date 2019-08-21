@@ -1,7 +1,7 @@
 ---
 title: 'Biotech 7005: Statistics Tutorial'
 author: "Steve Pederson"
-date: "31 July 2018"
+date: "22 August 2019"
 output: 
   html_document: 
     fig_caption: yes
