@@ -230,7 +230,7 @@ If we wanted to count how many genes are annotated, the first idea we might have
 #### Question
 {:.no_toc}
 
-*Do you think this is the number of regionss & genes?*
+*Do you think this is the number of regions & genes?*
 
 - Try using the above commands without the `-c` to inspect the results.
 - Try searching for the number of coding DNA sequences using the same approach (i.e. CDS) & then add the two numbers?
