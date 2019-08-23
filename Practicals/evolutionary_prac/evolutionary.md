@@ -41,13 +41,13 @@ sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-mafft.mfa
 
 **What does this command do?**
 
-In order to be able to examine the alignments more effectively we will convert the format from FASTA to Phylip format. This will make it easier to see the alignment.
+In order to be able to examine the alignments more effectively we will convert the format from FASTA to NEXUS format. This will make it easier to see the alignment.
 
 ```
-seqmagick convert --output-format phylip --alphabet dna bovidea_50_mtDNA-named.mfa bovidea_50_mtDNA-named.phy
+seqmagick convert --output-format nexus --alphabet dna bovidea_50_mtDNA-named.mfa bovidea_50_mtDNA-named.nex
 ```
 
-Look at the Phylip alignment file. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
+Look at the NEXUS alignment file. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
 
 **What is the reason for this? (*Hint: use the accession numbers in the name to search [Entrez](https://www.ncbi.nlm.nih.gov/genome/) for the annotation.*)**
 
