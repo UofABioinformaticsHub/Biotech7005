@@ -8,7 +8,7 @@ Get the sequences from the [Biotech7005 repository](bovidea_118_mtDNA.fa).
 
 Run the following command using your student number for id:
 ```
-./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA-named.mfa > bovidea_50_mtDNA-named.mfa
+./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA.mfa > bovidea_50_mtDNA.mfa
 ```
 
 (The subset command can be obtained from [here](subset).)
@@ -25,11 +25,11 @@ There are many programs that can be used to do this; two fast programs are MUSCL
 Run the following two commands:
 
 ```
-muscle -in bovidea_118_mtDNA.fa -out bovidea_118_mtDNA-muscle.mfa
+muscle -in bovidea_50_mtDNA.fa -out bovidea_50_mtDNA-muscle.mfa
 ```
 
 ```
-mafft bovidea_118_mtDNA.fa > bovidea_118_mtDNA-mafft.mfa
+mafft bovidea_50_mtDNA.fa > bovidea_50_mtDNA-mafft.mfa
 ```
 
 Have a look at the resulting alignments using `less`.
@@ -43,7 +43,7 @@ To get around this problem we will shorten the identifiers in a meaningful way.
 
 Run the following command to change the sequence IDs:
 ```
-sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_118_mtDNA-muscle.mfa > bovidea_118_mtDNA-named.mfa
+sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-muscle.mfa > bovidea_50_mtDNA-named.mfa
 ```
 
 **What does this command do?**
@@ -51,7 +51,7 @@ sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_118_mtDNA-muscle.m
 In order to be able to examine the alignments more effectively we will convert the format from FASTA to Phylip format. This will make it easier to see the alignment (we could use this format above to make out decision for which alignment to use).
 
 ```
-seqmagick convert --output-format phylip --alphabet dna bovidea_118_mtDNA-named.mfa bovidea_118_mtDNA-named.phy
+seqmagick convert --output-format phylip --alphabet dna bovidea_50_mtDNA-named.mfa bovidea_50_mtDNA-named.phy
 ```
 
 Look at the Phylip alignment file. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
@@ -72,7 +72,7 @@ This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
 The program we will be using to perform phylogenetic reconstruction uses a sequence (and other character) format called NEXUS.
 The NEXUS format is fairly widely used for phylogenetic data as it can be used to encode a variety characters, not limited to sequence data.
 
-Use `seqmagick` to convert the mfa file to a nexus format with the name `bovidea_118_mtDNA-named.nex`.
+Use `seqmagick` to convert the mfa file to a nexus format with the name `bovidea_50_mtDNA-named.nex`.
 
 ## Run Mr Bayes
 
@@ -118,7 +118,7 @@ If you enter `help` at the prompt you will get a list of topics that can be read
 
 First you will need to load the data set that you prepared.
 
-Use the `execute` command to load the NEXUS sequence file you created with SeaView.
+Use the `execute` command to load the NEXUS sequence file you created with seqmagick.
 
 **How many taxa were read into memory? How many characters are being used?**
 
