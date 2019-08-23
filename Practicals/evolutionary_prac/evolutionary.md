@@ -55,7 +55,7 @@ The phylogenetic reconstruction methods we will be using cannot handle missing b
 We can use Gblocks to remove the non-conserved regions of the alignment.
 Gblocks can be obtained from [here](http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z); use `wget` to get the program.
 Extract the program by executing `tar xaf Gblocks_Linux64_0.91b.tar.Z` and then run it by entering `Gblocks_0.91b/Gblocks`.
-Use the menu options in the program to remove the non-conserved regions.
+Use the menu options in the program to remove the non-conserved regions from the `fa` file (not the `nex` file).
 This will give you a file `bovidea_50_mtDNA-named.fa-gb`.
 
 **Why do we need to do this? (*Hint:read the [Gblocks documentation](http://molevol.cmima.csic.es/castresana/Gblocks.html)*)**
