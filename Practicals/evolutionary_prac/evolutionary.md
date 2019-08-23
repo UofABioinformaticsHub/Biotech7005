@@ -25,7 +25,7 @@ There are many programs that can be used to do this; two fast programs are MUSCL
 Run the following commands:
 
 ```
-mafft bovidea_50_mtDNA.fa > bovidea_50_mtDNA-mafft.mfa
+mafft bovidea_50_mtDNA.fa > bovidea_50_mtDNA-mafft.fa
 ```
 
 ### Remove non-conserved blocks
@@ -36,7 +36,7 @@ To get around this problem we will shorten the identifiers in a meaningful way.
 
 Run the following command to change the sequence IDs:
 ```
-sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-mafft.mfa > bovidea_50_mtDNA-named.mfa
+sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-mafft.fa > bovidea_50_mtDNA-named.fa
 ```
 
 **What does this command do?**
@@ -44,7 +44,7 @@ sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-mafft.mfa
 In order to be able to examine the alignments more effectively we will convert the format from FASTA to NEXUS format. This will make it easier to see the alignment.
 
 ```
-seqmagick convert --output-format nexus --alphabet dna bovidea_50_mtDNA-named.mfa bovidea_50_mtDNA-named.nex
+seqmagick convert --output-format nexus --alphabet dna bovidea_50_mtDNA-named.fa bovidea_50_mtDNA-named.nex
 ```
 
 Look at the NEXUS alignment file. At the beginning of the alignment and near the end there are regions that have large gaps and very poor conservation.
@@ -56,7 +56,7 @@ We can use Gblocks to remove the non-conserved regions of the alignment.
 Gblocks can be obtained from [here](http://molevol.cmima.csic.es/castresana/Gblocks/Gblocks_Linux64_0.91b.tar.Z); use `wget` to get the program.
 Extract the program by executing `tar xaf Gblocks_Linux64_0.91b.tar.Z` and then run it by entering `Gblocks_0.91b/Gblocks`.
 Use the menu options in the program to remove the non-conserved regions.
-This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
+This will give you a file `bovidea_50_mtDNA-named.fa-gb`.
 
 **Why do we need to do this? (*Hint:read the [Gblocks documentation](http://molevol.cmima.csic.es/castresana/Gblocks.html)*)**
 
@@ -65,7 +65,8 @@ This will give you a file `bovidea_50_mtDNA-named.mfa-gb`.
 The program we will be using to perform phylogenetic reconstruction uses a sequence (and other character) format called NEXUS.
 The NEXUS format is fairly widely used for phylogenetic data as it can be used to encode a variety characters, not limited to sequence data.
 
-Use `seqmagick` to convert the mfa file to a nexus format with the name `bovidea_50_mtDNA-named.nex`.
+Use `seqmagick` to convert the fa file to a nexus format with the name `bovidea_50_mtDNA-named.nex`.
+Note that you will need to rename the file so that it has an `fa` file extension.
 
 ## Run Mr Bayes
 
