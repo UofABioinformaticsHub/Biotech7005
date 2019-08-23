@@ -65,8 +65,8 @@ This will give you a file `bovidea_50_mtDNA-named.fa-gb`.
 The program we will be using to perform phylogenetic reconstruction uses a sequence (and other character) format called NEXUS.
 The NEXUS format is fairly widely used for phylogenetic data as it can be used to encode a variety characters, not limited to sequence data.
 
-Use `seqmagick` to convert the fa file to a nexus format with the name `bovidea_50_mtDNA-named.nex`.
-Note that you will need to rename the file so that it has an `fa` file extension.
+Use `seqmagick` to convert the `fa-gb` file to a nexus format with the name `bovidea_50_mtDNA-named.nex`.
+Note that you will need to rename the `fa-gb` file so that it has an `fa` file extension.
 
 ## Run Mr Bayes
 
