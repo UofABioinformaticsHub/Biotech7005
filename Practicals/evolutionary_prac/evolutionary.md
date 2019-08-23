@@ -22,18 +22,11 @@ In order to construct a phylogenetic tree, we need to provide positional informa
 This is done by constructing a multiple sequence alignment.
 There are many programs that can be used to do this; two fast programs are MUSCLE and MAFFT
 
-Run the following two commands:
-
-```
-muscle -in bovidea_50_mtDNA.fa -out bovidea_50_mtDNA-muscle.mfa
-```
+Run the following commands:
 
 ```
 mafft bovidea_50_mtDNA.fa > bovidea_50_mtDNA-mafft.mfa
 ```
-
-Have a look at the resulting alignments using `less`.
-Decide *subjectively* which alignment you think will be better to use (the following instructions assume MUSCLE). It is up to you how you decide which is better.
 
 ### Remove non-conserved blocks
 
@@ -43,12 +36,12 @@ To get around this problem we will shorten the identifiers in a meaningful way.
 
 Run the following command to change the sequence IDs:
 ```
-sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-muscle.mfa > bovidea_50_mtDNA-named.mfa
+sed -e 's/^>[^ ]\+ \([^ ]\+\) \([^ ]\+\).*$/>\1_\2/g' bovidea_50_mtDNA-mafft.mfa > bovidea_50_mtDNA-named.mfa
 ```
 
 **What does this command do?**
 
-In order to be able to examine the alignments more effectively we will convert the format from FASTA to Phylip format. This will make it easier to see the alignment (we could use this format above to make out decision for which alignment to use).
+In order to be able to examine the alignments more effectively we will convert the format from FASTA to Phylip format. This will make it easier to see the alignment.
 
 ```
 seqmagick convert --output-format phylip --alphabet dna bovidea_50_mtDNA-named.mfa bovidea_50_mtDNA-named.phy
