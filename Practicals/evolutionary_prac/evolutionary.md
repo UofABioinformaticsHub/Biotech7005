@@ -8,7 +8,7 @@ Get the sequences from the [Biotech7005 repository](bovidea_118_mtDNA.fa).
 
 Run the following command using your student number for id:
 ```
-./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA.mfa > bovidea_50_mtDNA.mfa
+./subset -id aXXXXXXX -n 50 -in bovidea_118_mtDNA.fa > bovidea_50_mtDNA.fa
 ```
 
 (The subset command can be obtained from [here](subset).)
