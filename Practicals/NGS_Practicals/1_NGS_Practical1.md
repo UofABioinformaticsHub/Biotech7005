@@ -14,6 +14,18 @@ mkdir Practical_6
 **Once you have this setup, create a new R Project which can live in this directory.**
 If you can't remember how to do this, call a tutor over.
 
+In addition, we've found that some software wasn't installed as expected on your VMs.
+Please execute the following code.
+Hopefully it makes sense, but if not, ask a tutor.
+
+```
+wget https://raw.githubusercontent.com/UofABioinformaticsHub/Biotech7005/master/updateVMs.sh
+chmod +x updateVMs.sh
+sudo ./updateVMs.sh
+```
+
+After you've entered that line beginning with `sudo`, you'll need to enter your password.
+
 
 # NGS Data 
 
@@ -59,7 +71,7 @@ If you get these correct, all of today's code should just work.
 If you don't get these correct, you may end up being confused.
 
 ```
-mkdkir -p ~/Practical_6/0_rawData/fastq
+mkdir -p ~/Practical_6/0_rawData/fastq
 cd ~/Practical_6/0_rawData/fastq
 wget https://universityofadelaide.box.com/shared/static/0w0fgnm94w18ixh1z0dkmh5e0xht1ajf.gz -O multiplexed.tar.gz
 ```
@@ -95,7 +107,7 @@ These lines are:
 1. The read identifier
 2. The sequence of the read itself
 3. An alternate line for the identifier (commonly left blank as just a + symbol acting as a placeholder)
-4. The quality scores for each position along the read as a series of ascii text characters. Let’s have a brief look at each of these lines and what they mean.
+4. The quality scores for each position along the read as a series of ASCII text characters. Let’s have a brief look at each of these lines and what they mean.
 
 ### 1. The read identifier
 {:.no_toc}
@@ -150,8 +162,8 @@ In early versions of the technology, this repeated the sequence identifier, but 
 ### 3. Quality Scores
 {:.no_toc}
 
-The only other line in the fastq format that really needs some introduction is the quality score information. These  are  presented  as  single *ascii* text characters for simple visual alignment with the sequence.
-In the ascii text system, each character has a numeric value which we can interpret as an integer, and in this context is the quailty score for the corresponding base. Head to the website with a description of these at [ASCII Code table](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart).
+The only other line in the fastq format that really needs some introduction is the quality score information. These  are  presented  as  single *ASCII* text characters for simple visual alignment with the sequence.
+In the ASCII text system, each character has a numeric value which we can interpret as an integer, and in this context is the quailty score for the corresponding base. Head to the website with a description of these at [ASCII Code table](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart).
 
 The first 31 ASCII characters are non-printable & contain things like end-of-line marks and tab spacings, and note that the first printable character after the space (character 32) is "!"  which corresponds to the value 33. 
 In short, the values 33-47 are symbols like \!, \#, \$ etc, whereas the values 48-57 are the characters 0-9. 
@@ -159,11 +171,11 @@ Next are some more symbols (including @ for the value 64), with the upper case c
 
 ## The PHRED +33/64 Scoring System
 
-Now that we understand how to turn the quality scores from an ascii character into a numeric value, we need to know what these numbers represent. 
-The two main systems in common usage are PHRED +33 and PHRED +64 and for each of these coding systems we either subtract 33 or 64 from the numeric value associated with each ascii character to give us a PHRED score. 
+Now that we understand how to turn the quality scores from an ASCII character into a numeric value, we need to know what these numbers represent. 
+The two main systems in common usage are PHRED +33 and PHRED +64 and for each of these coding systems we either subtract 33 or 64 from the numeric value associated with each ASCII character to give us a PHRED score. 
 As will be discussed later, this score ranges between 0 and about 41.
 
-The PHRED system used is determined by the software installed on the sequencing machine, with early machines using PHRED+64 (casava \<1.5), and more recent machines tending to use PHRED+33.  
+The PHRED system used is determined by the software installed on the sequencing machine, with early machines using PHRED+64 (casava <1.5), and more recent machines tending to use PHRED+33.  
 For example, in PHRED+33, the @ symbol corresponds to Q = 64 - 33 = 31, whereas in PHRED +64 it corresponds to Q = 64 - 64 = 0.
 
 The following table demonstrates the comparative coding scale for the different formats:
@@ -223,9 +235,9 @@ To navigate through the file, use the `<spacebar>` to move forward a page, `<b>`
 fastqc -h | less
 ```
 
-FastQC will create an html report for each file you provide, which can then be opened from any web browser such as firefox.
+FastQC will create an html report for each file you provide, which can then be opened from any web browser such as firefox or chrome.
 As seen in the help page, FastQC can be run from the command line or from a graphic user interface (GUI).
-Using a GUI is generally intuitive so today we will look at the command line usage, as that will give you more flexibility & options going forward.
+Using a GUI is generally intuitive but will be unavailable from our VMs, so today we will only look at the command line usage, as that will also give you more flexibility & options going forward.
 Some important options for the command can be seen in the manual.
 As you will see in the manual, setting the `-h` option as above will call the help page.
 Look up the following options to find what they mean.
@@ -236,14 +248,13 @@ Look up the following options to find what they mean.
 | -t     |       |
 
 
-As we have two files, we will first need to create the output directory, then we can run fastqc using 2 threads which will ensure the files are processed in parallel.
+As we have two files, we will first need to create the output directory, then we can run `fastqc` using 2 threads which will ensure the files are processed in parallel.
 This can be much quicker when dealing with large experiments.
 
 ```
-cd ~/Practical_6/0_rawData/
-mkdir FastQC
-cd fastq
-fastqc -o ../FastQC -t 2 *gz
+cd
+mkdir ~/Practical_6/0_rawData/FastQC
+fastqc -o ~/Practical_6/0_rawData/FastQC -t 2 ~/Practical_6/0_rawData/fastq/*gz
 ```
 
 It’s probably a good idea to scribble a note next to each line if you didn’t understand what you did.
@@ -258,7 +269,7 @@ The above command:
 Let's see what we have:
 
 ```
-cd ../FastQC
+cd ~/Practical_6/0_rawData/FastQC
 ls -lh
 ```
 
@@ -294,7 +305,7 @@ We’ll investigate some of the others with some ‘bad’ data later.
 
 Both of the files should be open in firefox in separate tabs.
 Perform the following steps on both files.
-Click on the `Per base sequence quality` hyperlink on the left of the page & you will see a boxplot of the QC score distributions for every position in the read.
+Click on the `Per base sequence quality` hyper-link on the left of the page & you will see a boxplot of the QC score distributions for every position in the read.
 This is the first plot that bioinformaticians will look at for making informed decisions about later stages of the analysis.
 
 *What do you notice about the QC scores as you progress through the read?*
@@ -320,7 +331,7 @@ This is only calculated on a small sample of the library for computational effic
 **Overrepresented Sequences** Here we can see any sequence which are more abundant than would be expected. Sometimes you'll see sequences here that match the adapters used, or you may see highly expressed genes here.
 
 **Adapter Content** This can give a good guide as to our true fragment lengths. If we have read lengths which are longer than our original DNA/RNA fragments (i.e. inserts) then the sequencing will run into the adapters.
-If you have used custom adapters, you may need to supply them to `FastQC` as this only searches for common adapter squences.
+If you have used custom adapters, you may need to supply them to `FastQC` as this only searches for common adapter sequences.
 
 
 ## Some More Example Reports
@@ -360,23 +371,21 @@ We could write a script to extract this information if we had the time.
 However, some members of the Bioinformatics Hub have published an `R` package to help with this, which is available from https://bioconductor.org/packages/release/bioc/html/ngsReports.html & is installed on your VM already.
 It won't be too useful today, but may be useful in the future.
 
-* TOC
-{:toc}
-
 # Trimming and Quality Filtering of NGS data
 
-Once we have inspected our data & have an idea of how accurate our reads are, as well as any other technical issues that may be within the data, we may need to trim adaper sequences or filter the reads to make sure we are aligning or analysing sequences that accurately represent our source material.  
+Once we have inspected our data & have an idea of how accurate our reads are, as well as any other technical issues that may be within the data, we may need to trim adapter sequences or filter the reads to make sure we are aligning or analysing sequences that accurately represent our source material.  
 As we’ve noticed, the quality of reads commonly drops off towards the end of the reads, and dealing with this behaviour is an important part of most  processing pipelines.  Sometimes we will require reads of identical lengths for our downstream analysis, whilst other times we can use reads of varying lengths.  The data cleaning steps we choose for our own analysis will inevitably be influenced by our downstream requirements.
 
 ## The Basic Workflow
 
 Data cleaning & pre-processing can involve many steps, and today we will use the basic work-flow as outlined below.  Every analysis is slightly different so some steps may or may not be required for your own data.  Some steps do have a little overlap, and some pipelines may perform some of these steps for you.
 
-Using today’s datasets, we will take one sequencing experiment hrough demultiplexing and adapter removal, and then use our *C. elegans* WGS to run genome mapping and alignment filtering. We will perform most steps on files at this stage, rather than on a complete library, but the principle is essentially the same.
+Using today’s dataset, we will take one sequencing experiment through de-multiplexing and adapter removal.
+ We will perform most steps on files at this stage, rather than on a complete library, but the principle is essentially the same.
 
 *A basic workflow is:*
 
-1. **Remove Low Quality Reads** (`fastq_illumina_filter`). *This wil usually not be required on recent datasets, and is only required if you see reads with 1:Y:0 or 2:Y:0 in the sequence headers*
+1. **Remove Low Quality Reads** (`fastq_illumina_filter`). *This wil usually not be required on recent datasets, and is only required if you see reads with 1:Y:0 or 2:Y:0 in the sequence headers. These reads have now been excluded by sequence providers for the last few years.*
 2. **Remove Adapters** (`cutadapt` or `Adapter Removal`)
 3. **Remove Low Quality Bases**. This is usually done by our adapter removal tools whilst trimming, and can be performed by trimming:
     1. based on quality scores
@@ -385,37 +394,100 @@ Using today’s datasets, we will take one sequencing experiment hrough demultip
 5. **Alignment** to a reference (`bwa`, `bowtie2`, `STAR`)
 6. **Post-alignment QC** (`picard markDuplicates`, `IGV`)
 
+## Removal of Low Quality Reads and Adapters
+
+Adapter removal is an important step in many sequencing projects, mainly projects associated with small DNA/RNA inserts. 
+For example, a common RNAseq experiment is to sequence small non-coding RNAs that are generated by an individual to regulate other coding sequences. 
+These small RNAs (namely miRNAs, snoRNAs and/or siRNAs) are generally between 19-35bp, which is significantly smaller than the shortest, standard read length of most Illumina MiSeq/NextSeq/HiSeq machines (usually have read length settings such as 50, 75, 100, 125, 250 or 300bp).
+Therefore it is important to trim adapters accurately to ensure that the genome mapping and other downstream analyses are accurate.
+
+Previously we would run multiple steps to remove both low-quality reads, but today's trimming algorithms have become better at removing low-quality data and the same time as removing adapters.
+The tool we'll use today is `cutadapt` & it's one of the few bioinformatics tools to have a helpful web page, [so head to the site](http://cutadapt.readthedocs.org/).
+
+
+Now we can trim the raw data using the Illumina TruSeq paired-end adapters obtained from [this website](https://support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html)
+These are commonly used in Illumina projects.
+
+**Before we perform adapter trimming, look at the following code.**
+
+```
+cd ~/Practical_6
+mkdir -p 1_trimmedData/fastq
+mkdir -p 1_trimmedData/FastQC
+mkdir -p 1_trimmedData/log
+cutadapt \
+	-m 35 \
+	-q 20 \
+	-a AGATCGGAAGAGCACACGTCTGAAC \
+	-A AGATCGGAAGAGCGTCGTGTAGGGA \
+	-o 1_trimmedData/fastq/Run1_R1.fastq.gz \
+	-p 1_trimmedData/fastq/Run1_R2.fastq.gz \
+	0_rawData/fastq/Run1_R1.fastq.gz 0_rawData/fastq/Run1_R2.fastq.gz > \
+	1_trimmedData/log/cutadapt.log
+```
+
+Note that the symbol `\` has been included at the end of some of these lines.
+This is often used in a script to break a long command over multiple lines to make it easier to read.
+Notice how by using this technique, it's very easy to see every parameter and argument that has been set when we run `cutadapt`.
+
+Another point worth making is how we've created the directory structure.
+NGS data analysis often requires multiple steps and keeping every step well organised can be extremely helpful for finding your way around later.
+Although this may appear trivial, in the real world decisions you make at this point can become quite significant.
+Poor decisions can lead to accidental file deletions and general difficulties just finding where everything is.
+
+#### Questions
+{:.no_toc}
+*1. What do the settings* `-m 35` *and* `q 20` *do in the above?*
+*2. Why have we specified sequences using `-a` and `-A`?*
+
+If we ran the above code by cutting and pasting, we would successfully trim the pair of reads
+`Run1_R1.fastq.gz` & `Run1_R2.fastq.gz` which we have placed in the folder `0_rawData/fastq`.
+During this process, the `cutadapt` tool produces a large amount of information about the trimming process.
+In the above we would write this output to a log file using the `>` symbol to redirect `stdout` to a file.
+Let's have a look in the file to check the output.
+
+```
+less cutadapt.log
+```
+
+As these were a good initial sample, it's not surprising that we didn't lose many sequences.
+Notice that many reads were trimmed, but were still long enough and high enough quality to be retained.
+
+Note the spread of A/C/G/T bases which appeared before the adapter sequences.
+This can indicates if we've missed anything, as sometimes you'll see a strong bias in the last base before the adapter.
+
+### FastQC
+
+Before moving on, we need to check the quality of the trimmed sequences, so let's run `fastqc` on these files to check them out.
+*Make sure you're in the correct directory first!*
+
+```
+mkdir -p 1_trimmedData/FastQC
+fastqc -o 1_trimmedData/FastQC -t 2 1_trimmedData/fastq/*gz
+```
+#### Question
+{:.no_toc}
+*Was there much of an improvement in the trimmed data?*
+
 
 ## Demultiplexing
 
-In the first section we discussed the difference between an *index* and a *barcode*. If you use an indexed adapter to distinguish samples on an Illumina sequencing run, the demultiplexing is *usually* done on the sequencing machine. However, sometimes it makes sense to use a barcode (or sometimes called "inline barcode"), to further multiplex samples onto one sequencing run.
+In the first section we discussed the difference between an *index* and a *barcode*. 
+If you use an indexed adapter to distinguish samples on an Illumina sequencing run, the de-multiplexing is *usually* done on the sequencing machine. 
+However, sometimes it makes sense to use a barcode (or sometimes called "in-line barcode"), to further multiplex samples onto one sequencing run.
 
 While barcodes can be incredibly useful, it is important to note that Illumina cycle calibration and cluster calling is done in the first 4 cycles (first four base-pairs of read 1). It also is used to establish other metrics (e.g., signal thresholds) for base-calling.
-Therefore it is essential that the first four base pairs are "diverse" (i.e. no particular nucleotide is over-represented in the first four base-pairs). Designing the right barcodes to add to the start of your reads extremely important!
+Therefore it is essential that the first four base pairs are "diverse" (i.e. no particular nucleotide is over-represented in the first four base-pairs). 
+Designing the right barcodes to add to the start of your reads extremely important!
 
-To demonstrate demultiplexing we will use the a sequencing run with two samples that have a 7bp barcode.
-These are in the folder `~/multiplexed/01_rawData/fastq`, with the barcodes being in `~/multiplexed/barcodes_R1.txt`
-
-
-Again, these were not successfully copied onto your machines during setup, so let's download the required files for this section.
+Our samples today have a 7bp barcode at the start of the reads.
+We can see these pretty clearly with a little usage of our newly learned `bash` skills.
 
 ```
-cd ~/NGS_Practical/01_rawData/fastq
-wget https://universityofadelaide.box.com/shared/static/0w0fgnm94w18ixh1z0dkmh5e0xht1ajf.gz -O multiplexed.tar.gz
-tar -xzvf multiplexed.tar.gz
-rm multiplexed.tar.gz
-mv barcodes_R1.txt  ../..
+zcat 1_trimmedData/fastq/Run1_R1.fastq.gz | sed -n '2~4p' | cut -c 1-7 | sort | uniq -c | sort -n -r | head
 ```
 
-Our barcode sequences should be "GCGTAGT" (for bc1) and "CCTCGTA" (for bc2). Lets first see what possible barcodes are available in the first 7bp of our dataset and see if it matches what we expect:
-
-```
-zcat Run1_R1.fastq.gz | sed -n '2~4p' | cut -c 1-7 | sort | uniq -c | sort -nr | head -n10
-```
-
-What top 5 barcodes are found in our data? Do the top two reflect our the barcodes we should have?
-
-The command above is quite long and contains multiple unix commands that are separated by a pipe. What does each command do?
+The command above is quite long and contains multiple `bash` commands that are separated by a pipe. What does each command do?
 
 | Command | Explanation |
 |---------|-------------|
@@ -423,40 +495,28 @@ The command above is quite long and contains multiple unix commands that are sep
 | `sed -n '2~4p'` | Prints the second line (sequence of each fastq file) |
 | `cut -c 1-7` | Get the first 7 characters |
 | `sort` | sort the sequences |
-| `uniq -c` | Find the unique 7 characters are count them |
-| `sort -nr` | sort the sequences and reverse the order |
-| `head -n10` | Print the top 10 |
+| `uniq -c` | Find the unique sequences are count them |
+| `sort -n -r` | sort the sequences numerically and reverse the order |
+| `head` | Print the top 10 |
 
-Our real barcodes are actually in a file called barcodes_R1.txt. Unfortunately, `sabre` only runs with uncompressed data, so to run this program we'll need to ungzip our fastq files.
+Notice that two particular sequences are highly abundant, whilst the rest are just noise, or variations on the barcodes with sequencing errors.
+The two barcodes match those give in the file `barcodes_R1.txt` which we moved at the start of the session.
+Our barcode sequences should be "GCGTAGT" (for the sample `bc1`) and "CCTCGTA" (for the sample `bc2`). 
+You can check this using `cat barcodes_R1.txt`
+
+To demultiplex, we'll use a tool called `sabre`.
+Unfortunately, `sabre` only runs with uncompressed data, so to run this program we'll need to unzip our fastq files.
 
 ```
+cd 1_trimmedData/fastq
 gunzip Run1_R1*
 ```
 
-Now we've succesfully perfored this step, we can run `sabre`.
+Now we've successfully performed this step, we can run `sabre`.
 Before we run this let's check the help page
 
 ```
 sabre --help
-```
-
-Unfortunately the installation of `sabre` we've used is not behaving correctly.
-Please try running all this code before moving on.
-Note the use of `sudo` before some of these commands.
-This stands for *superuser do*  and is basically running as the systems admin.
-You'll need the password the first time you type a command preceded by `sudo`.
-Please ignore any `Could not resolve host` or similar messages.
-
-```
-conda remove sabre
-cd /opt
-sudo wget https://github.com/najoshi/sabre/archive/master.zip
-sudo unzip master.zip
-sudo mv sabre-master sabre
-cd sabre
-sudo make
-cd /usr/local/bin
-sudo ln -s /opt/sabre/sabre ./sabre
 ```
 
 If you ask us, this isn't helpful and this is a common problem with tools for NGS data.
@@ -470,87 +530,81 @@ Many NGS (and other) tools use this strategy of having a sub-command following t
 We can then call the specific help page for this mode.
 
 ```
-mkdir -p ../../02_demultiplexedData/fastq
-cd ../../02_demultiplexedData/fastq
-sabre pe -m 1 -f ../../01_rawData/fastq/Run1_R1.fastq -r ../../01_rawData/fastq/Run1_R2.fastq -b ../../barcodes_R1.txt -u unknown_R1.fastq -w unknown_R2.fastq 
+cd ~/Practical_6
+mkdir -p 2_demultiplexedData/fastq
+cd 2_demultiplexedData/fastq
+sabre pe \
+	-m 1 \
+	-f ../../1_trimmedData/fastq/Run1_R1.fastq \
+	-r ../../1_trimmedData/fastq/Run1_R2.fastq \
+	-b ../../barcodes_R1.txt \
+	-u unknown_R1.fastq \
+	-w unknown_R2.fastq 
 ```
 
-How many read pairs were extracted in each sample?
+*How many read pairs were extracted in each sample?*
+*Does this match the number we found by grabbing out the first 7 bases in bash?*
 
-Run the command again without the one mismatch. How many read are now in each?
+
+Run the command again without the one mismatch. *How many read are now in each?*
 
 Note the clear directory structure that we've used.
 This can lead to a command that is tricky to understand at first, but try to keep track of the file paths.
 *Why do you think we might use this particular file structure?*
 In a real-world context, we'd probably script this too so file paths may be declared as variables.
 
-<!---
-If we're having trouble with sabre on the VMs, it may be due to the conda installation behaving strangely
-```
-cd /opt
-wget https://github.com/najoshi/sabre/archive/master.zip
-unzip sabre-master.zip
-mv sabre-master sabre
-cd sabre
-make
-cd /usr/local/bin
-ln -s /opt/sabre/sabre ./sabre
-```
---->
 
-## Removal of Low Quality Reads and Adapters
+## Writing an actual script
 
-Adapter removal is an important step in many sequencing projects, mainly projects associated with small DNA/RNA inserts. For example, a common RNAseq experiment is to sequence small non-coding RNAs that are generated by an indvidual to regulate other coding sequences. These small RNAs (namely miRNAs, snoRNAs and/or siRNAs) are generally between 19-35bp, which is significantly smaller than the shortest, standard read length of most Illumina MiSeq/NextSeq/HiSeq machines (usually have read length settings such as 50, 75, 100, 125, 250 or 300bp). Therefore it is important to trim adapters accurately to ensure that the genome mapping and other downstream analyses are accurate.
+In the above example, we just ran all tools from the terminal.
+This would not be reproducible as we have no record of this process.
+We should keep everything as a script so we could run the entire workflow as a single script.
 
-Previously we would run multiple steps to remove both low-quality reads, but today's trimming algorithms have become better at removing low-quality data and the same time as removing adapters.
+In RStudio open a new plain text file: `File > New File > Text File`.
+Save this in your `~/Practical_6` folder as `runPipeline.sh`.
+Notice that RStudio seems to recognise this as a bash script & will add a little icon to the top of your file.
 
-The tool we'll use today is `cutadapt` & it's one of the few bioinformatics tools to have a helpful webpage, [so head to the site](http://cutadapt.readthedocs.org/).
-
-
-Now we can trim the raw data using the Illumina Nextera paired-end adapters obtained from [this website](https://support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html)
-These are commonly used in Illumina projects.
-
-Before we perform adapter trimming, look at the following code.
+At the beginning of this file, add the shebang:
 
 ```
-cd ~/NGS_Practical
-mkdir -p 02_trimmedData/fastq
-cutadapt -m 35 -q 20 -a CTGTCTCTTATACACATCT -A CTGTCTCTTATACACATCT \
-    -o 02_trimmedData/fastq/Run1_R1.fastq.gz -p 02_trimmedData/fastq/Run1_R2.fastq.gz \
-    01_rawData/fastq/Run1_R1.fastq.gz 01_rawData/fastq/Run1_R2.fastq.gz > cutadapt.log
+#!/bin/bash
 ```
 
-Note that the symbol `\` has been included at the end of some of these lines.
-This is often used in a script to break a long command over multiple lines to make it easier to read.
-It can cause problems if you cut & paste the above though, so if `cutadapt` doesn't appear to work, you'll need to remove these symbols before executing this command.
-
-#### Question
-{:.no_toc}
-*1. What did the settings* `-m 35` *and* `q 20` *do in the above?*
-
-The `cutadapt` tool produces a large amount of information about the trimming process
-In the above we wrote this output to a log file using the `>` symbol to redirect `stdout` to a file.
-Let's have a look in the file to check the output.
+Leaving a blank line after the shebang, copy & paste the following code into this script:
 
 ```
-less cutadapt.log
+PROJROOT=/home/biotech7005/Practical_6
+RAWDIR=${PROJROOT}/0_rawData
+
+# Check the project root has been defined correctly
+if [[ ! -d ${PROJROOT} ]]; then
+	echo -e "Couldn't find ${PROJROOT}\n. Exiting now"
+	exit 1
+fi 
+
+# Make sure we have a directory for FastQC output, then run it
+if [[ ! -d ${RAWDIR}/FastQC ]]; then
+	mkdir -p ${RAWDIR}/FastQC
+fi
+fastqc -o ${RAWDIR}/FastQC -t 2 ${RAWDIR}/fastq/*gz
 ```
 
-As these were a good initial sample, it's not surprising that we didn't lose many sequences.
-Notice that many reads were trimmed, but were still long enough and high enough quality to be retained.
+This is exactly how we do things in the real world of bioinformatics.
+Note that we defined our main project folder as the variable `PROJROOT`, then checked for the presence of this folder, exiting quickly and informatively if it doesn't exist.
 
-The relatively even spread of A/C/G/T bases after the adapters also indicates that we've not missed anything.
-Sometimes, if we've missed a base in the adapter you'll see a strong bias in the first base after adapter removal.
+We then became exceedingly lazy & didn't check for the presence of any raw data.
+**How would we do this?**
 
-### FastQC
+After initial checks, we then checked for the directory `${RAWDIR}/FastQC` and created it if it didn't already exist.
+Now we know that our output directory exists, we can fun `fastqc`.
+Notice here that we've been reusing the variable `RAWDIR` quite a few times, showing you just how handy this trick is.
 
-Before moving on, we need to check the quality of the trimmed sequences, so let's run `fastqc` on these files to check them out.
-*Make sure you're in the corect directory first!*
+Save the script and make it executable using `chmod +x runPipeline.sh`.
+Once you've done this, try running it using `./runPipeline.sh`, ensuring you are in the correct folder first.
+Now we can repeat this process any time with great ease **and** for any new dataset, we just need to change the initial file paths and could run this for this new (but imaginary) dataset.
+Hopefully now you'll see some of the usefulness of our strategies here.
 
-```
-mkdir -p 02_trimmedData/FastQC
-fastqc -o 02_trimmedData/FastQC -t 2 02_trimmedData/fastq/*gz
-```
-#### Question
-{:.no_toc}
-*Was there much of an improvement in the trimmed data?*
+See if you can build a complete script to run today's pipeline, including running `fastqc` on our demultiplexed data!
+After our initial code you'll need to run `cutadapt` making sure you check & define directories, followed by `fastqc` on the trimmed data.
+Then you'll need to unzip the trimmed files, demultiplex and run `fastqc`.
+If you're keen, you could also try gzipping the trimmed data again after you've demultiplexed. 
