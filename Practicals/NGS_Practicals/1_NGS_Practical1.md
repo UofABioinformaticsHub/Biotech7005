@@ -29,20 +29,20 @@ After you've entered that line beginning with `sudo`, you'll need to enter your 
 
 # NGS Data 
 
-Next-generation sequencing (NGS) has become an important tool in assessing biological signal within an organism or population. Stemming from previous low-throughput technologies that were costly and time-consuming to run, NGS platforms are relatively cheap and enable the investigation of the genome, transcriptome, methylome etc at extremely high resolution by sequencing large numbers of RNA/DNA fragments simultaneously. 
-The high-throughput of these machines also has unique challenges, and it is important that scientists are aware of the potential limitations of the platforms and the issues involved with the production of good quality data.
+Next generation sequencing (NGS) has become an important tool in assessing biological signal within an organism or population. Stemming from previous low throughput technologies that were costly and time-consuming to run, NGS platforms are relatively cheap and enable the investigation of the genome, transcriptome, methylome etc at extremely high resolution by sequencing large numbers of RNA/DNA fragments simultaneously. 
+The high throughput of these machines also has unique challenges, and it is important that scientists are aware of the potential limitations of the platforms and the issues involved with the production of good quality data.
 
 In this course, we will introduce the key file types used in genomic analyses, illustrate the fundamentals of Illumina NGS technology (the current market leader in the production of sequencing data), describe the affect that library preparation can have on downstream data, as well as running through a basic workflow used to analyse NGS data.
 
-Before we can begin to explore any data, it is helpful to understand how it was generated. Whilst there are numerous platforms for generation of NGS data, today we will look at the Illumina Sequencing by Synthesis method, which is one of the most common methods in use today.  Many of you will be familiar with the process involved, but it may be worth looking at the following [5-minute video from Illumina:](https://youtu.be/fCd6B5HRaZ8).
+Before we can begin to explore any data, it is helpful to understand how it was generated. Whilst there are numerous platforms for generation of NGS data, today we will look at the Illumina Sequencing by Synthesis method, which is one of the most common methods in use today.  Many of you will be familiar with the process involved, but it may be worth looking at the following [5-minute video from Illumina](https://youtu.be/fCd6B5HRaZ8).
 
 
-This video picks up *after* the process of fragmentation, as most strategies require DNA/RNA fragments within a certain size range. This step may vary depending on your experiment, but the important concept to note during sample preparation is that the DNA insert has multiple sequences ligated to either end. These include 1) the sequencing primers, 2) index & /or barcode sequences, and 3) the flow-cell binding oligos.
+This video picks up *after* the process of fragmentation, as most strategies require DNA/RNA fragments within a certain size range. This step may vary depending on your experiment, but the important concept to note during sample preparation is that the DNA insert has multiple sequences ligated to either end. These include 1) the sequencing primers, 2) index and/or barcode sequences, and 3) the flow-cell binding oligos.
 
 
-### Barcodes Vs Indexes
+### Barcodes vs Indexes
 
-In the video, you may have noticed an index sequence being mentioned which was within the sequencing primers \& adapters ligated to each fragment.
+In the video, you may have noticed an index sequence being mentioned which was within the sequencing primers and adapters ligated to each fragment.
 Under this approach, a unique index is added to each sample during library preparation and these are used to identify which read came from which sample.
 This is a common strategy in RNA-Seq libraries and many other analyses with relatively low replicate numbers (i.e <= 16 transcriptomes).
 Importantly, the index will not be included in either the forward or reverse read.
@@ -57,11 +57,11 @@ A single barcode is shown in B) of the following image (taken from https://rnase
 
 ## FASTQ File Format
 
-As the sequences are extended during the sequencing reaction, an image is recorded which is effectively a movie or series of frames at which the addition of bases is recorded & detected. 
+As the sequences are extended during the sequencing reaction, an image is recorded which is effectively a movie or series of frames at which the addition of bases is recorded and detected. 
 We mostly don’t deal with these image files, but will handle data generated from these in *fastq* format, which can commonly have the file suffix .fq or .fastq. 
 As these files are often very large, they will often be zipped using `gzip` or `bzip`.  
 Whilst we would instinctively want to unzip these files using the command gunzip, most NGS tools are able to work with zipped fastq files, so decompression (or extraction) is not usually necessary. 
-This can save considerable hard drive space, which is an important consideration when handling NGS datasets as the quantity of data can easily push your storage capacity to it’s limit.
+This can save considerable hard drive space, which is an important consideration when handling NGS datasets as the quantity of data can easily push your storage capacity to its limit.
 
 The data for today's practical has not yet been copied during the VM setup, so *let's get the files we need for today.*
 This file may take a few moments to download if we all do this simultaneously, but hopefully it will work for all of you without too many issues.
@@ -76,7 +76,7 @@ cd ~/Practical_6/0_rawData/fastq
 wget https://universityofadelaide.box.com/shared/static/0w0fgnm94w18ixh1z0dkmh5e0xht1ajf.gz -O multiplexed.tar.gz
 ```
 
-**Make sure you understand each of the above lines & discuss with your neighbour or a tutor if you're confused.**
+**Make sure you understand each of the above lines and discuss with your neighbour or a tutor if you're confused.**
 
 Now we have downloaded the data, let's:
 
@@ -90,7 +90,7 @@ rm multiplexed.tar.gz
 mv barcodes_R1.txt  ../../
 ```
 
-The command `zcat` unzips a file & prints the output to the terminal, or standard output (`stdout`). 
+The command `zcat` unzips a file and prints the output to the terminal, or standard output (`stdout`). 
 If we did this to these files, we would see a stream of data whizzing past in the terminal, but instead we can just pipe the output of `zcat` to the command `head` just to view the first few lines of a file.
 
 ```
@@ -98,7 +98,7 @@ zcat Run1_R1.fastq.gz | head -n8
 ```
 
 In the above command, we have used a trick commonly used in Linux systems where we have taken the output of one command (`zcat Run1_R1.fastq.gz`) and sent it to another command (`head`) by using the pipe symbol (`|`). 
-This is literally like sticking a pipe on the end of a process & redirecting the output to the input another process (you should remember this from your Introduction to Bash Practicals).  
+This is literally like sticking a pipe on the end of a process and redirecting the output to the input another process (you should remember this from your Introduction to Bash Practicals).  
 Additionally, we gave the argument `-n8` to the command head to ensure that we only printed the first eight lines.
 
 This gives a clear view of the fastq file format, where *each individual read spans four lines*. 
@@ -143,7 +143,7 @@ zcat Run1_R2.fastq.gz | head -n8
 Here you will notice that the information in the identifier is identical to the first file we inspected, with the exception that there is a `2:N:0` at the beginning of the second component. 
 This indicates that these reads are the second set in what are known as paired-end reads, as were introduced in the above video. 
 The two files will have this identical structure where the order of the sequences in one is identical to the order of the sequences in the other. 
-This way when they are read as a pair of files, they can be stepped through read-by-read & the integrity of the data will be kept intact.
+This way when they are read as a pair of files, they can be stepped through read-by-read and the integrity of the data will be kept intact.
 As you may recall, these paired reads are simply an initial fragment sequenced from one end, then from the other.
 Depending on the fragment size, they may or may not overlap in the middle.
 
@@ -165,9 +165,9 @@ In early versions of the technology, this repeated the sequence identifier, but 
 The only other line in the fastq format that really needs some introduction is the quality score information. These  are  presented  as  single *ASCII* text characters for simple visual alignment with the sequence.
 In the ASCII text system, each character has a numeric value which we can interpret as an integer, and in this context is the quailty score for the corresponding base. Head to the website with a description of these at [ASCII Code table](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart).
 
-The first 31 ASCII characters are non-printable & contain things like end-of-line marks and tab spacings, and note that the first printable character after the space (character 32) is "!"  which corresponds to the value 33. 
+The first 31 ASCII characters are non-printable and contain things like end-of-line marks and tab spacings, and note that the first printable character after the space (character 32) is "!"  which corresponds to the value 33. 
 In short, the values 33-47 are symbols like \!, \#, \$ etc, whereas the values 48-57 are the characters 0-9. 
-Next are some more symbols (including @ for the value 64), with the upper case characters representing the values 65-90 & the lower case letters representing the values 97-122.
+Next are some more symbols (including @ for the value 64), with the upper case characters representing the values 65-90 and the lower case letters representing the values 97-122.
 
 ## The PHRED +33/64 Scoring System
 
@@ -229,7 +229,7 @@ This is more easily seen in the following table:
 A common tool for checking the quality of a fastq file is the program FastQC.
 As with all programs on the command line, we need to see how it works before we use it.
 The following command will open the help file in the less pager which we used earlier.
-To navigate through the file, use the `<spacebar>` to move forward a page, `<b>` to move back a page & `<q>` to exit the manual.
+To navigate through the file, use the <kbd>Spacebar</kbd> to move forward a page, <kbd>B</kbd> to move back a page and <kbd>Q</kbd> to exit the manual.
 
 ```
 fastqc -h | less
@@ -237,7 +237,7 @@ fastqc -h | less
 
 FastQC will create an html report for each file you provide, which can then be opened from any web browser such as firefox or chrome.
 As seen in the help page, FastQC can be run from the command line or from a graphic user interface (GUI).
-Using a GUI is generally intuitive but will be unavailable from our VMs, so today we will only look at the command line usage, as that will also give you more flexibility & options going forward.
+Using a GUI is generally intuitive but will be unavailable from our VMs, so today we will only look at the command line usage, as that will also give you more flexibility and options in the future.
 Some important options for the command can be seen in the manual.
 As you will see in the manual, setting the `-h` option as above will call the help page.
 Look up the following options to find what they mean.
@@ -257,13 +257,13 @@ mkdir ~/Practical_6/0_rawData/FastQC
 fastqc -o ~/Practical_6/0_rawData/FastQC -t 2 ~/Practical_6/0_rawData/fastq/*gz
 ```
 
-It’s probably a good idea to scribble a note next to each line if you didn’t understand what you did.
+It's probably a good idea to scribble a note next to each line if you didn’t understand what you did.
 If you haven’t seen the command `mkdir` before, check the help page `man mkdir`.
 
 The above command:
 
 1. Gave both files to `fastqc` using `*gz`. Note the use of the `*` wild-card here
-2. Specified where to write the output (`-o  ̃FastQC`) &
+2. Specified where to write the output (`-o ~/Practical_6/0_rawData/FastQC`) and
 3. Requested two threads (`-t 2`).
 
 Let's see what we have:
@@ -283,7 +283,7 @@ Choose `View in Web Browser` and this file will open in your browser.
 
 ## Inspecting a FastQC Report
 
-The left hand menu contains a series of click-able links to navigate through the report, with a quick guideline about each section given as a tick, cross or exclamation mark.
+The left hand menu contains a series of clickable links to navigate through the report, with a quick guideline about each section given as a tick, cross or exclamation mark.
 
 
 #### Questions
@@ -305,12 +305,12 @@ We’ll investigate some of the others with some ‘bad’ data later.
 
 Both of the files should be open in firefox in separate tabs.
 Perform the following steps on both files.
-Click on the `Per base sequence quality` hyper-link on the left of the page & you will see a boxplot of the QC score distributions for every position in the read.
+Click on the `Per base sequence quality` hyper-link on the left of the page and you will see a boxplot of the QC score distributions for every position in the read.
 This is the first plot that bioinformaticians will look at for making informed decisions about later stages of the analysis.
 
 *What do you notice about the QC scores as you progress through the read?*
 
-We will deal with trimming the reads in a later section, but start to think about what you should do to the reads to ensure the highest quality in your final alignment & analysis.
+We will deal with trimming the reads in a later section, but start to think about what you should do to the reads to ensure the highest quality in your final alignment and analysis.
 
 **Per Tile Sequence Quality**
 This section just gives a quick visualisation about any physical effects on sequence quality due to the tile within the each flowcell or lane.
@@ -341,19 +341,19 @@ Let’s head to another sample plot at the [FastQC homepage](http://www.bioinfor
 **Per Base Sequence Quality** Looking at the first plot, we can clearly see this data is
 not as high quality as the one we have been exploring ourselves.
 
-**Per Tile Sequence Quality** Some physical artefacts are visible & some tiles seem to
+**Per Tile Sequence Quality** Some physical artefacts are visible and some tiles seem to
 be consistently lower quality. Whichever approach we take to cleaning the data will more
-than likely account for any of these artefacts. Sometimes it’s just helpful to know where a
+than likely account for any of these artefacts. Sometimes it's just helpful to know where a
 problem has arisen.
 
-**Overrepresented Sequences** Head to this section of the report & scan down the
+**Overrepresented Sequences** Head to this section of the report and scan down the
 list. Unlike our sample data, there seem to be a lot of enriched sequences of unknown
 origin. There is one hit to an Illumina adapter sequence, so we know at least one of the
 contaminants in the data. Note that some of these sequences are the same as others on
 the list, just shifted one or two base pairs. A possible source of this may have been non-random fragmentation.
 
 
-Interpreting the various sections of the report can take time & experience.
+Interpreting the various sections of the report can take time and experience.
 A description of each of the sections [is available from the fastqc authors](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) which can be very helpful as you're finding your way.
 
 Another interesting report is available at http://www.bioinformatics.babraham.ac.uk/projects/fastqc/RNA-Seq_fastqc.html.
@@ -362,23 +362,23 @@ This is a good example, of why just skimming the first plot may not be such a go
 
 ## Working With Larger Datasets
 
-In our dataset of two samples it is quite easy to think about the whole experiment & assess the overall quality.
+In our dataset of two samples it is quite easy to think about the whole experiment and assess the overall quality.
 
 *What about if we had 100 samples?*
 
 Each .zip archive contains text files with the information which can easily be parsed into an overall summary.
 We could write a script to extract this information if we had the time.
-However, some members of the Bioinformatics Hub have published an `R` package to help with this, which is available from https://bioconductor.org/packages/release/bioc/html/ngsReports.html & is installed on your VM already.
+However, some members of the Bioinformatics Hub have published an `R` package to help with this, which is available from https://bioconductor.org/packages/release/bioc/html/ngsReports.html and is installed on your VM already.
 It won't be too useful today, but may be useful in the future.
 
 # Trimming and Quality Filtering of NGS data
 
-Once we have inspected our data & have an idea of how accurate our reads are, as well as any other technical issues that may be within the data, we may need to trim adapter sequences or filter the reads to make sure we are aligning or analysing sequences that accurately represent our source material.  
+Once we have inspected our data and have an idea of how accurate our reads are, as well as any other technical issues that may be within the data, we may need to trim adapter sequences or filter the reads to make sure we are aligning or analysing sequences that accurately represent our source material.  
 As we’ve noticed, the quality of reads commonly drops off towards the end of the reads, and dealing with this behaviour is an important part of most  processing pipelines.  Sometimes we will require reads of identical lengths for our downstream analysis, whilst other times we can use reads of varying lengths.  The data cleaning steps we choose for our own analysis will inevitably be influenced by our downstream requirements.
 
 ## The Basic Workflow
 
-Data cleaning & pre-processing can involve many steps, and today we will use the basic work-flow as outlined below.  Every analysis is slightly different so some steps may or may not be required for your own data.  Some steps do have a little overlap, and some pipelines may perform some of these steps for you.
+Data cleaning and pre-processing can involve many steps, and today we will use the basic work-flow as outlined below.  Every analysis is slightly different so some steps may or may not be required for your own data.  Some steps do have a little overlap, and some pipelines may perform some of these steps for you.
 
 Using today’s dataset, we will take one sequencing experiment through de-multiplexing and adapter removal.
  We will perform most steps on files at this stage, rather than on a complete library, but the principle is essentially the same.
@@ -402,7 +402,7 @@ These small RNAs (namely miRNAs, snoRNAs and/or siRNAs) are generally between 19
 Therefore it is important to trim adapters accurately to ensure that the genome mapping and other downstream analyses are accurate.
 
 Previously we would run multiple steps to remove both low-quality reads, but today's trimming algorithms have become better at removing low-quality data and the same time as removing adapters.
-The tool we'll use today is `cutadapt` & it's one of the few bioinformatics tools to have a helpful web page, [so head to the site](http://cutadapt.readthedocs.org/).
+The tool we'll use today is `cutadapt` and it's one of the few bioinformatics tools to have a helpful web page, [so head to the site](http://cutadapt.readthedocs.org/).
 
 
 Now we can trim the raw data using the Illumina TruSeq paired-end adapters obtained from [this website](https://support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html)
@@ -441,7 +441,7 @@ Poor decisions can lead to accidental file deletions and general difficulties ju
 *2. Why have we specified sequences using `-a` and `-A`?*
 
 If we ran the above code by cutting and pasting, we would successfully trim the pair of reads
-`Run1_R1.fastq.gz` & `Run1_R2.fastq.gz` which we have placed in the folder `0_rawData/fastq`.
+`Run1_R1.fastq.gz` and `Run1_R2.fastq.gz` which we have placed in the folder `0_rawData/fastq`.
 During this process, the `cutadapt` tool produces a large amount of information about the trimming process.
 In the above we would write this output to a log file using the `>` symbol to redirect `stdout` to a file.
 Let's have a look in the file to check the output.
@@ -562,7 +562,7 @@ We should keep everything as a script so we could run the entire workflow as a s
 
 In RStudio open a new plain text file: `File > New File > Text File`.
 Save this in your `~/Practical_6` folder as `runPipeline.sh`.
-Notice that RStudio seems to recognise this as a bash script & will add a little icon to the top of your file.
+Notice that RStudio seems to recognise this as a bash script and will add a little icon to the top of your file.
 
 At the beginning of this file, add the shebang:
 
@@ -570,7 +570,7 @@ At the beginning of this file, add the shebang:
 #!/bin/bash
 ```
 
-Leaving a blank line after the shebang, copy & paste the following code into this script:
+Leaving a blank line after the shebang, copy and paste the following code into this script:
 
 ```
 PROJROOT=/home/biotech7005/Practical_6
@@ -592,7 +592,7 @@ fastqc -o ${RAWDIR}/FastQC -t 2 ${RAWDIR}/fastq/*gz
 This is exactly how we do things in the real world of bioinformatics.
 Note that we defined our main project folder as the variable `PROJROOT`, then checked for the presence of this folder, exiting quickly and informatively if it doesn't exist.
 
-We then became exceedingly lazy & didn't check for the presence of any raw data.
+We then became exceedingly lazy and didn't check for the presence of any raw data.
 **How would we do this?**
 
 After initial checks, we then checked for the directory `${RAWDIR}/FastQC` and created it if it didn't already exist.
@@ -605,6 +605,6 @@ Now we can repeat this process any time with great ease **and** for any new data
 Hopefully now you'll see some of the usefulness of our strategies here.
 
 See if you can build a complete script to run today's pipeline, including running `fastqc` on our demultiplexed data!
-After our initial code you'll need to run `cutadapt` making sure you check & define directories, followed by `fastqc` on the trimmed data.
+After our initial code you'll need to run `cutadapt` making sure you check and define directories, followed by `fastqc` on the trimmed data.
 Then you'll need to unzip the trimmed files, demultiplex and run `fastqc`.
 If you're keen, you could also try gzipping the trimmed data again after you've demultiplexed. 
