@@ -75,6 +75,7 @@ Show all working & code.
 | a1762813 | Microtus ochrogaster     |       79684 | Prairie Vole              |
 | a1768114 | Meleagris gallopavo      |        9103 | Turkey                    |
 | a1768183 | Anser brachyrhynchus     |      132585 | Pink-Footed Goose         |
+| a1769266 | Neovison vison           |      452646 | American Mink             |
 | a1770716 | Mus musculus             |       10090 | House Mouse               |
 | a1771465 | Rhinopithecus roxellana  |       61622 | Golden Snub-Nosed Monkey  |
 | a1775769 | Cercocebus atys          |        9531 | Sooty Mangabey            |
@@ -116,6 +117,7 @@ You can simply paste these values into your RMarkdown document as the object `x`
 | a1762813 | x <- c(1.5863, 1.8493, 0.148, 0.9625)                                                       |
 | a1768114 | x <- c(-1.2482, 1.5015, 0.4375, -0.8861, 2.2182, -3.4134, 1.2606, 1.3364)                   |
 | a1768183 | x <- c(2.3343, 4.2557, 1.4483, -1.1698, 2.9268)                                             |
+| a1769266 | x <- c(2.0184, -2.5565, 0.828, 0.7598, 2.4209, 0.9782)                                      |
 | a1770716 | x <- c(0.9099, 1.5083, 3.8821, 1.857, -1.2774, -2.4848)                                     |
 | a1771465 | x <- c(-2.1028, 2.2444, 0.2528, 0.4546, 0.5281, 1.9097)                                     |
 | a1775769 | x <- c(2.1548, 2.6573, 0.0405, 1.8806, 1.2804)                                              |
