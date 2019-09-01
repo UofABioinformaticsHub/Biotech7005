@@ -17,6 +17,8 @@ If you can't remember how to do this, call a tutor over.
 In addition, we've found that some software wasn't installed as expected on your VMs.
 Please execute the following code.
 Hopefully it makes sense, but if not, ask a tutor.
+You will most likely encounter some messages asking for permission to update `grub`. 
+Please answer yes or y as appropriate.
 
 ```
 wget https://raw.githubusercontent.com/UofABioinformaticsHub/Biotech7005/master/updateVMs.sh
@@ -24,7 +26,7 @@ chmod +x updateVMs.sh
 sudo ./updateVMs.sh
 ```
 
-After you've entered that line beginning with `sudo`, you'll need to enter your password.
+Also note that after you've entered that final line (beginning with `sudo`), you'll need to enter your password.
 
 
 # NGS Data 
