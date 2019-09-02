@@ -511,7 +511,7 @@ Unfortunately, `sabre` only runs with uncompressed data, so to run this program 
 
 ```
 cd 1_trimmedData/fastq
-gunzip Run1_R1*
+gunzip Run1_R*
 ```
 
 Now we've successfully performed this step, we can run `sabre`.
