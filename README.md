@@ -84,7 +84,7 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 [Scripting In Bash]: Practicals/Bash_Practicals/2_BashScripting.md
 [Evolutionary processes]: Practicals/evolutionary_prac/evolutionary.md
 [NGS data practical (1)]: Practicals/NGS_Practicals/1_NGS_Practical1.md
-[NGS data practical (2)]: Practicals/NGS_Practicals/2_NGS_Practical.md
+[NGS data practical (2)]: Practicals/NGS_Practicals/2_NGS_Practical2.md
 [RNAseq practical]: Practicals/Transcriptome_Practical/Transcriptomic_Practical.html
 [Graphical analyses]: https://github.com/kortschak/graphprac/
 
