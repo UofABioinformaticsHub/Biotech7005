@@ -3,7 +3,7 @@
 
 # Setup for Today
 
-Today's practical is all about alignment of reads from a `fastq` file against a reference genome.
+Today's practical is all about alignment of reads from a `fastq` file against a reference genome, followed by the identification of genomic variants.
 To complete this task we'll need to perform a few key steps
 
 1. Setup our data folders & check our software installations
@@ -11,6 +11,7 @@ To complete this task we'll need to perform a few key steps
 3. Clean & trim our data
 4. Index the genome
 5. Align to the genome
+6. Call the variants
 
 ## Step 1: Setup Folders and Checking
 
