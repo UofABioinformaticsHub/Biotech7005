@@ -1,9 +1,6 @@
 * TOC
 {:toc}
 
-# Biotech 7005: Parctical 7
-Jimmy Breen & Steve Pederson
-
 # Setup for Today
 
 Today's practical is all about alignment of reads from a `fastq` file against a reference genome.
