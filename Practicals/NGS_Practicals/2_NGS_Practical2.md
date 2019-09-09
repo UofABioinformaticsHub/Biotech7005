@@ -149,7 +149,7 @@ This was just done for speed and to streamline the process.
 We often do this, and if we spot anything unusual in the raw data we may choose to change some parameters and rerun the process.
 
 First we'll check the raw data by inspecting the `FastQC` reports from the raw data.
-**Did you spot anything that cuases you concern?**
+**Did you spot anything that causes you concern?**
 
 Now we should inspect the results of trimming.
 
@@ -293,7 +293,7 @@ bwa mem \
 will align our compressed sequenced reads to the Celegans_chrI `bwa` index that we made, using two threads (`-t 2`).
 This will write all alignments to `stdout` **NOT** a file, which is a unique behaviour of `bwa`.
 Usually, you would stream this plain text output to a SAM file (see next section) to store all the alignment data.  
-However, SAM files however are plain text files which can take up a significant amount of disk space, so its much more efficient to pipe it to the `samtools` command which converts between binary and plain text versions of the format, to create a compressed binary SAM file (called BAM). 
+However, SAM files are plain text files which can take up a significant amount of disk space, so its much more efficient to pipe it to the `samtools` command which converts between binary and plain text versions of the format, to create a compressed binary SAM file (called BAM). 
 To do this, we pipe `stdout` to the program `samtools`:
 
 ```
