@@ -63,7 +63,7 @@ ls 2_alignedData
 Now we have our directories setup, we can place our data in the directory `0_rawData/fastq`.
 
 ```
-cp ~/data/intro_ngs/*gz 0_rawData/fastq/
+cp ~/intro_ngs/*gz 0_rawData/fastq/
 ls 0_rawData/fastq/
 ```
 
@@ -198,13 +198,13 @@ We didn't mention this in the earlier section, but our reads today come from the
 If `wget` doesn't work for you, you can always you can always re-download the genome (like you can do with all model genomes) by opening Firefox & head to [ftp://ftp.ensembl.org/pub/release-90/fasta/caenorhabditis_elegans/](ftp://ftp.ensembl.org/pub/release-90/fasta/caenorhabditis_elegans/).  
 
 For today's session, we've already given you just the sequence of chrI so let's move this into a useful folder for today.
-It will be in the folder `~/data/intro_ngs` (where we obtained our reads from).
-Call Dan or Steve over if you can't find it somewhere (use `ls ~/data/intro_ngs`).
+It will be in the folder `~/intro_ngs` (where we obtained our reads from).
+Call Dan or Steve over if you can't find it somewhere (use `ls ~/intro_ngs`).
 
 
 ```
 mkdir -p ~/Practical_7/genome
-cp ~/data/intro_ngs/chrI.fa ~/Practical_7/genome/
+cp ~/intro_ngs/chrI.fa ~/Practical_7/genome/
 ```
 
 Let's have a look at this file just make sure we know what we have
