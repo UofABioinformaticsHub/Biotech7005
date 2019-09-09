@@ -64,7 +64,7 @@ Now we have our directories setup, we can place our data in the directory `0_raw
 
 ```
 cp ~/data/intro_ngs/*gz 0_rawData/fastq/
-ls ls 0_rawData/fastq/
+ls 0_rawData/fastq/
 ```
 
 This should show you the output:  
