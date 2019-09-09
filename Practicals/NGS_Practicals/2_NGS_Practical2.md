@@ -100,7 +100,7 @@ else
 fi
 
 ## Check all directories exist for the raw data
-if [[ -d ${RAWFQ} ]] || [[ -d ${RAWQC} ]]; then
+if [[ -d ${RAWFQ} ]] && [[ -d ${RAWQC} ]]; then
   echo -e "Found ${RAWFQ}\nFound ${RAWQC}\n"
 else
   echo -e "Raw data directories not found.\nExiting with Error code 2"
@@ -108,7 +108,7 @@ else
 fi
 
 ## Check all directories exist for the trimmed data
-if [[ -d ${TRIMFQ} ]] || [[ -d ${TRIMQC} ]] || [[ -d ${TRIMLOG} ]]; then
+if [[ -d ${TRIMFQ} ]] && [[ -d ${TRIMQC} ]] && [[ -d ${TRIMLOG} ]]; then
   echo -e "Found ${TRIMFQ}\nFound ${TRIMQC}\nFound ${TRIMLOG}\n"
 else
   echo -e "Trimmed data directories not found.\nExiting with Error code 3"
