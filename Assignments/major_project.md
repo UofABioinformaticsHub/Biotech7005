@@ -24,42 +24,39 @@ If you cannot find a suitable dataset, we have provided a dataset from a plant R
 
 |ID      |Group |
 |:-------|:-----|
-|a1751618|hda9-1|
-|a1760769|hda6-6|
 |a1762813|hda5-1|
-|a1759891|hda9-1|
-|a1077937|hda5-1|
-|a1689798|hda5-1|
-|a1679812|hda6-6|
-|a1729553|hda6-6|
-|a1745148|hda5-1|
-|a1711220|hda5-1|
-|a1737886|hda6-6|
-|a1737554|hda6-6|
-|a1733230|hda5-1|
-|a1755150|hda9-1|
-|a1761942|hda5-1|
-|a1653192|hda9-1|
-|a1606913|hda6-6|
-|a1760382|hda6-6|
-|a1742674|hda9-1|
-|a1680333|hda6-6|
-|a1711935|hda6-6|
-|a1619861|hda9-1|
-|a1634284|hda5-1|
-|a1614956|hda9-1|
-|a1737558|hda9-1|
-|a1739624|hda5-1|
-|a1752614|hda9-1|
-|a1711533|hda9-1|
-|a1731217|hda6-6|
-|a1688727|hda6-6|
-|a1743741|hda6-6|
-|a1733253|hda6-6|
-|a1735373|hda9-1|
-|a1696632|hda9-1|
-|a1715156|hda5-1|
+|a1202401|hda5-1|
+|a1776494|hda9-1|
+|a1778618|hda6-6|
+|a1705074|hda6-6|
+|a1790457|hda9-1|
+|a1758382|hda9-1|
+|a1789913|hda5-1|
+|a1776998|hda6-6|
+|a1776430|hda6-6|
+|a1770716|hda5-1|
+|a1739682|hda6-6|
+|a1758693|hda6-6|
+|a1781987|hda9-1|
+|a1768114|hda5-1|
+|a1700271|hda6-6|
+|a1646510|hda9-1|
+|a1779487|hda6-6|
+|a1778287|hda9-1|
+|a1783535|hda6-6|
+|a1789486|hda9-1|
+|a1758223|hda9-1|
+|a1769266|hda9-1|
+|a1771465|hda9-1|
+|a1768183|hda6-6|
+|a1781873|hda6-6|
+|a1755783|hda9-1|
+|a1679475|hda5-1|
+|a1662216|hda5-1|
+|a1780859|hda6-6|
+|a1775769|hda5-1|
+
 
 For this particular dataset, we expect you to run a differential expression analysis between the replicates of your sample group against the Col wildtype control sample. You will report differentially expressed genes in your results section and discuss how this relates to the study's experimental hypothesis
 
-Raw FASTQ file will be provided via a data link provided in a myuni announcement/email.
+Raw FASTQ files will be provided via a data link provided in a myuni announcement/email.
