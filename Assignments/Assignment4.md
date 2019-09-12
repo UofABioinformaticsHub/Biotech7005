@@ -2,7 +2,7 @@
 
 # Assignment 4 [*34 marks*]
 
-**Due before 12pm, Friday 21st September**
+**Due before 5pm, Monday 23rd September**
 
 Your answers to all questions should be submitted to myUni as a `.zip` file containing three bash scripts, and a single file containing the answers to the questions 3,4 and 5 (can be in any readable format). [*1 marks*]
 
@@ -43,45 +43,42 @@ All other folders must be created as subdirectories of this. [*1 mark*]
 
 ### Genes For Question 3
 
-*If your student number is not listed, please contact Steve to ensure you are added to the list*
+*If your student number is not listed, please contact Dan to ensure you are added to the list*
 
 | ID       | Gene      |
 |:---------|:----------|
-| a1751618 | AT5G37280 |
-| a1760769 | AT1G67110 |
-| a1762813 | AT1G70640 |
-| a1759891 | AT2G03340 |
-| a1077937 | AT5G38317 |
-| a1689798 | AT3G55220 |
-| a1679812 | AT2G07628 |
-| a1729553 | AT2G43970 |
-| a1745148 | AT5G49980 |
-| a1711220 | AT5G54830 |
-| a1737886 | AT3G61680 |
-| a1737554 | AT5G48150 |
-| a1733230 | AT5G04240 |
-| a1755150 | AT1G21660 |
-| a1761942 | AT1G09300 |
-| a1653192 | AT5G39380 |
-| a1606913 | AT4G13330 |
-| a1760382 | AT2G14070 |
-| a1742674 | AT3G14870 |
-| a1680333 | AT1G26650 |
-| a1711935 | AT2G22410 |
-| a1619861 | AT5G53190 |
-| a1634284 | AT1G16850 |
-| a1614956 | AT3G15480 |
-| a1737558 | AT1G64150 |
-| a1739624 | AT1G15920 |
-| a1752614 | AT1G68670 |
-| a1711533 | AT2G46500 |
-| a1731217 | AT4G29340 |
-| a1688727 | AT1G16440 |
-| a1743741 | AT3G23130 |
-| a1733253 | AT4G22220 |
-| a1735373 | AT1G16570 |
-| a1696632 | AT4G06688 |
-| a1715156 | AT4G29580 |
+| a1762813 | AT5G39980 |
+| a1202401 | AT3G19540 |
+| a1776494 | AT3G27570 |
+| a1778618 | AT4G05470 |
+| a1705074 | AT5G42410 |
+| a1790457 | AT1G63340 |
+| a1758382 | AT4G14350 |
+| a1789913 | AT5G55530 |
+| a1776998 | AT1G78670 |
+| a1776430 | AT5G66320 |
+| a1770716 | AT4G13130 |
+| a1739682 | AT1G62450 |
+| a1758693 | AT1G20720 |
+| a1781987 | AT5G45000 |
+| a1768114 | AT2G36210 |
+| a1700271 | AT4G18590 |
+| a1646510 | AT1G72390 |
+| a1779487 | AT4G35987 |
+| a1778287 | AT1G49700 |
+| a1783535 | AT3G12990 |
+| a1789486 | AT1G47640 |
+| a1758223 | AT3G23175 |
+| a1769266 | AT5G61580 |
+| a1771465 | AT3G28674 |
+| a1768183 | AT1G48770 |
+| a1781873 | AT1G03390 |
+| a1755783 | AT3G12210 |
+| a1679475 | AT1G49100 |
+| a1662216 | AT2G23540 |
+| a1780859 | AT3G29180 |
+| a1775769 | AT1G55270 |
+
 
 
 ### Resources
