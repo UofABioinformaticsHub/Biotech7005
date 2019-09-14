@@ -88,7 +88,7 @@ Please ensure you use this _exact_ path as any variations will undoubtedly cause
 cd ~
 wget https://github.com/UofABioinformaticsHub/ngsSkeleton/archive/master.zip
 unzip master.zip
-mv ngsSkeleton-master/ Practical_8
+mv ngsSkeleton-master Practical_8
 rm master.zip
 cd Practical_8
 ```
@@ -129,7 +129,7 @@ The aligner we'll use today is called `hisat2` and it's an aligner which is spli
 Let's check that it's installed
 
 ```
-whereis hisat2
+which hisat2
 ```
 
 This should give you the output `/usr/bin/hisat2`
@@ -139,7 +139,7 @@ This should give you the output `/usr/bin/hisat2`
 We'll also need the software `featureCounts` from the `Subread` set of tools.
 
 ```
-whereis featureCounts
+which featureCounts
 ```
 
 This should give `/usr/bin/featureCounts`
