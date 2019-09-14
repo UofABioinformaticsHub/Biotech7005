@@ -108,16 +108,20 @@ ls 2_alignedData
 Now we have our directories setup, we can place our data in the directory `0_rawData/fastq`.
 
 ```
-cp ~/rnaseq/*gz 0_rawData/fastq/
+cp ~/data/rnaseq/*gz 0_rawData/fastq/
 ls 0_rawData/fastq/
 ```
 
-This should show you the output: `README.md SRR2003569_sub_1.fastq.gz SRR2003569_sub_2.fastq.gz`
+This should show you the output: 
+
+`README.md`
+`SRR945375.skm.fastq.gz SRR945377.skm.fastq.gz SRR945379.skm.fastq.gz SRR945381.skm.fastq.gz`
+`SRR945419.cbc.fastq.gz SRR945421.cbc.fastq.gz SRR945423.cbc.fastq.gz SRR945427.cbc.fastq.gz`
 
 From here, we’re into running our workflow.
 
 Now let's just check our installations first to make sure nothing has gone wrong during setup.
-If you don't get the expected results, call Steve over.
+If you don't get the expected results, call Jimmy or Dan over.
 
 ### HISAT2
 
@@ -128,7 +132,7 @@ Let's check that it's installed
 whereis hisat2
 ```
 
-This should give you the output `/home/biotech7005/miniconda/bin/hisat2`
+This should give you the output `/usr/bin/hisat2`
 
 ### Feature Counts
 
@@ -138,7 +142,7 @@ We'll also need the software `featureCounts` from the `Subread` set of tools.
 whereis featureCounts
 ```
 
-This should give `/home/biotech7005/miniconda/bin/featureCounts`
+This should give `/usr/bin/featureCounts`
 
 
 ## R
@@ -156,7 +160,7 @@ Let's make an R Project for this folder
 1. `File` > `New Project`
 2. Select `Existing Directory`
 3. Click the `Browse` button
-4. Navigate to the `RNA_Practical` folder and select `Choose`
+4. Navigate to the `Practical_8` folder and select `Choose`
 5. Click `Create Project`
 
 
@@ -173,8 +177,8 @@ Let's run FastQC to make sure they're acceptable.
 #### FastQC
 
 ```
-cd ~/Practical_8/01_rawData
-mkdir FastQC
+cd ~/Practical_8/0_rawData
+mkdir -p FastQC
 fastqc -o FastQC fastq/*gz
 ```
 
@@ -245,10 +249,10 @@ To do this we'll have to write a script.
 First we'll create all the directories we need:
 
 ```
-cd ~/RNA_Practical
-mkdir -p 02_aligned/sam
-mkdir -p 02_aligned/bam
-mkdir -p 02_aligned/logs
+cd ~/Practical_8
+mkdir -p 2_alignedData/sam
+mkdir -p 2_alignedData/bam
+mkdir -p 2_alignedData/log
 touch runAlignments.sh
 nano runAlignments.sh
 ```
@@ -258,10 +262,10 @@ This list line will open the empty script in `nano` for you, so cut & paste the 
 ```
 #!/bin/bash
 
-FQDIR=~/RNA_Practical/01_rawData/fastq
-SAMDIR=~/RNA_Practical/02_aligned/sam
-LOGDIR=~/RNA_Practical/02_aligned/logs
-BAMDIR=~/RNA_Practical/02_aligned/bam
+FQDIR=~/Practical_8/0_rawData/fastq
+SAMDIR=~/Practical_8/2_alignedData/sam
+LOGDIR=~/Practical_8/2_alignedData/log
+BAMDIR=~/Practical_8/2_alignedData/bam
 IDX=~/genomes/Mmusculus/Mus_musculus.GRCm38.dna.chromosome.1
 
 for f in ${FQDIR}/*gz
@@ -316,8 +320,8 @@ Again, we'll write a script to perform this step
 First we'll create all the directories we need:
 
 ```
-cd ~/RNA_Practical
-mkdir -p 02_aligned/counts
+cd ~/Practical_8
+mkdir -p 2_alignedData/counts
 touch countAlignments.sh
 nano countAlignments.sh
 ```
@@ -325,8 +329,8 @@ nano countAlignments.sh
 ```
 #!/bin/bash
 
-BAMDIR=~/RNA_Practical/02_aligned/bam
-COUNTDIR=~/RNA_Practical/02_aligned/counts
+BAMDIR=~/Practical_8/2_alignedData/bam
+COUNTDIR=~/Practical_8/2_alignedData/counts
 GTF=~/genomes/Mmusculus/Mus_musculus.GRCm38.93.chr1.gtf
 
 # Find the entire list of files
@@ -346,8 +350,6 @@ featureCounts \
 
 The above script will create a file with a single header line, followed by column names and the data.
 Some of the columns are not relevant for us today, so we'll first load the file, then remove all the columns which are not required.
-
-(If your alignments are not ready, the file can be found [here](counts.out))
 
 However, first we need to load the `R` packages for differential gene analysis.
 
@@ -400,7 +402,7 @@ You can see that we have the counts for every gene in a component called `dgeLis
 Let's add a column to the `$samples` component which defines which sample group we are in.
 
 ```{r}
-dgeList$samples$type <- gsub("sample([AB]).*", "\\1", rownames(dgeList$samples))
+dgeList$samples$type <- gsub("SRR.+\\.(.+).fastq.gz$", "\\1", rownames(dgeList$samples))
 dgeList$samples$type <- as.factor(dgeList$samples$type)
 dgeList$samples$group <- as.integer(dgeList$samples$type)
 ```
@@ -475,7 +477,7 @@ plotDensities(cpm(dgeList, log = TRUE))
 Let's filter our dataset, and remove genes with low abundances.
 
 ```{r}
-genes2keep <- rowSums(cpm(dgeList) > 1) > 3
+genes2keep <- rowSums(cpm(dgeList) > 1) > 4
 ```
 
 Here we've created a logical vector defining which genes to keep.
@@ -552,7 +554,7 @@ etResults <- etResults %>%
   rownames_to_column("Geneid") %>%
   mutate(FDR = p.adjust(PValue)) %>%
   arrange(PValue) %>%
-  as_data_frame()
+  as_tibble()
 ```
 
 Find the highest ranked gene in this dataset
@@ -561,7 +563,7 @@ The opposite is true for a positive value for logFC.
 Let's check the raw counts using *counts per million*
 
 ```{r}
-cpm(dgeList, log= TRUE)["ENSG00000117472",]
+cpm(dgeList, log= TRUE)["ENSMUSG00000026407",]
 ```
 
 Inspect a few more of the highly ranked genes, so make sure you can understand these results.
@@ -576,7 +578,7 @@ sigGenes <- filter(etResults, FDR< 0.01, abs(logFC) > 1)$Geneid
 Now we can visualise the pattern of logFC to expression level.
 
 ```{r}
-plotMD(dgeList, status = rownames(dgeList)%in%sigGenes)
+plotMD(dgeList, status = rownames(dgeList) %in% sigGenes)
 ```
 
 An alternative is to plot the logFC in relation to the $p$-value, to make what is known as a volcano plot.
