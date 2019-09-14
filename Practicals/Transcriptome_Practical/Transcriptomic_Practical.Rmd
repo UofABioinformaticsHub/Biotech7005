@@ -78,25 +78,43 @@ create_graph(nodes_df = nodes, edges_df = edges,
 
 ## VM Setup
 
-### Today's Data
+### Directory setup
 
-Today we will perform the initial steps on your VM, with the later `R` sections performed on your local machine.
+We’ll be working today in the folder `~/Practical_8`. 
 
-Today's dataset has been taken from https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-4119/, and this represents a set of reads from the human Chromosome 1, with known gene expression patterns.
-This came from an analysis in which multiple analytic methods were investigated and the full paper is available at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4712774/.
-
-**Log onto your VM**
-
-Enter the following commands carefully. Cut & Paste is fine, but remember you'll need to use `Ctrl+Shift+V` to paste into the terminal on your VM.
-You will be prompted for a password, and this is `biotech7005`.
+Please ensure you use this _exact_ path as any variations will undoubtedly cause you problems & lead to unnecessary confusion. An example data structure to use for today has already been made for you & can be obtained using the following strategy, much like you did in the last practical.
 
 ```
 cd ~
-scp -r biotech7005@10.150.8.124:/home/biotech7005/RNA_Practical ./
+wget https://github.com/UofABioinformaticsHub/ngsSkeleton/archive/master.zip
+unzip master.zip
+mv ngsSkeleton-master/ Practical_8
+rm master.zip
+cd Practical_8
 ```
 
-As you may be able to tell, this will copy the files from a spare VM to your own, so this should be fairly quick.
-This should also have copied across the correct file paths for beginning the tasks today.
+Now that we’ve setup our directories, have a quick look using `ls ` to see the top-level directories. Here we have directories for each step as well as folders for `R` and `bash` scripts. The directory `slurm` is where output would go from an HPC where we’re required to submit jobs to queues and need specify where to write `stdout` and `stderr`. The queuing system on the University of Adelaide’s HPC (phoenix) is the `slurm` system. We won’t need that directory today.
+
+Inside each of these directories are the directories `fastq`, `FastQC`, `bam`, `log` or various directories where we’ll place our output. The more you perform bioinformatics, the more you realise how important getting your directories organised is. Let’s have a look in a few.
+
+```
+ls 0_rawData
+ls 1_trimmedData
+ls 2_alignedData
+```
+
+### Copy our data across
+
+Now we have our directories setup, we can place our data in the directory `0_rawData/fastq`.
+
+```
+cp ~/rnaseq/*gz 0_rawData/fastq/
+ls 0_rawData/fastq/
+```
+
+This should show you the output: `README.md SRR2003569_sub_1.fastq.gz SRR2003569_sub_2.fastq.gz`
+
+From here, we’re into running our workflow.
 
 Now let's just check our installations first to make sure nothing has gone wrong during setup.
 If you don't get the expected results, call Steve over.
@@ -132,7 +150,7 @@ In the address bar go to: `your.ip.address:8787`
 
 ### Create an R Project for This Practical
 
-Earlier, we made a folder called `RNA_Practical` when we copied the data across.
+Earlier, we made a folder called `Practical_8` when we copied the data across.
 Let's make an R Project for this folder
 
 1. `File` > `New Project`
@@ -149,13 +167,13 @@ Let's make an R Project for this folder
 ### Raw Data
 
 By now, your data will have completed downloading.
-Here we have our 6 samples, with 3 from `sampleA` and another 3 from `sampleB`.
+Here we have our 8 samples, with 4 from `skm` and another 4 from `cbc`.
 Let's run FastQC to make sure they're acceptable.
 
 #### FastQC
 
 ```
-cd ~/RNA_Practical/01_rawData
+cd ~/Practical_8/01_rawData
 mkdir FastQC
 fastqc -o FastQC fastq/*gz
 ```
@@ -178,11 +196,11 @@ We'll get these from Ensembl, so cut and paste the following code directly into 
 
 ```
 cd
-mkdir -p genomes/Hsapiens
-cd genomes/Hsapiens
-wget ftp://ftp.ensembl.org/pub/release-93/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
-gunzip Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
-wget ftp://ftp.ensembl.org/pub/release-93/gtf/homo_sapiens/Homo_sapiens.GRCh38.93.chr.gtf.gz
+mkdir -p genomes/Mmusculus
+cd genomes/Mmusculus
+wget ftp://ftp.ensembl.org/pub/release-93/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.chromosome.1.fa.gz
+gunzip Mus_musculus.GRCm38.dna.chromosome.1.fa.gz
+wget ftp://ftp.ensembl.org/pub/release-93/gtf/mus_musculus/Mus_musculus.GRCm38.93.chr.gtf.gz
 ```
 
 You may have already realised that this `gtf` contains all the information for the entire genome, so we'll need to create one containing just the gene information for `chr1`.
@@ -190,20 +208,20 @@ You may have already realised that this `gtf` contains all the information for t
 First we'll copy the file header.
 
 ```
-zcat Homo_sapiens.GRCh38.93.chr.gtf.gz | egrep "^#!" > Homo_sapiens.GRCh38.93.chr1.gtf
+zcat Mus_musculus.GRCm38.93.chr.gtf.gz | egrep "^#!" > Mus_musculus.GRCm38.93.chr1.gtf
 ```
 
 Then we'll just get the gene information for chr1.
-he first field in a `gtf` file is the chromosome, we this will be easy to extract using `egrep`
+The first field in a `gtf` file is the chromosome, we this will be easy to extract using `egrep`
 
 ```
-zcat Homo_sapiens.GRCh38.93.chr.gtf.gz | egrep "^1\s" >> Homo_sapiens.GRCh38.93.chr1.gtf
+zcat Mus_musculus.GRCm38.93.chr.gtf.gz | egrep "^1\s" >> Mus_musculus.GRCm38.93.chr1.gtf
 ```
 
 To avoid confusing ourselves, let's delete the full gtf so we only have the one.
 
 ```
-rm Homo_sapiens.GRCh38.93.chr.gtf.gz
+rm Mus_musculus.GRCm38.93.chr.gtf.gz
 ```
 
 ### Aligning our data
@@ -215,11 +233,11 @@ This always needs to be performed by the aligner that we'll be using, and today 
 In order to create a list of splice sites, we'll first create a list of these using a script supplied with `hisat2` based on those in the gtf file 
 
 ```
-cd ~/genomes/Hsapiens
-hisat2-build Homo_sapiens.GRCh38.dna.chromosome.1.fa Homo_sapiens.GRCh38.dna.chromosome.1
+cd ~/genomes/Mmusculus
+hisat2-build Mus_musculus.GRCm38.dna.chromosome.1.fa Mus_musculus.GRCm38.dna.chromosome.1
 ```
 
-This will take about 5 minutes to complete for chromosome 1, and considerably longer if we chose the entire human genome.
+This will take about 5 minutes to complete for chromosome 1, and considerably longer if we chose the entire mouse genome.
 
 Once this process is complete, we'll need to align each of our files to the indexed genome.
 To do this we'll have to write a script.
@@ -239,11 +257,12 @@ This list line will open the empty script in `nano` for you, so cut & paste the 
 
 ```
 #!/bin/bash
+
 FQDIR=~/RNA_Practical/01_rawData/fastq
 SAMDIR=~/RNA_Practical/02_aligned/sam
 LOGDIR=~/RNA_Practical/02_aligned/logs
 BAMDIR=~/RNA_Practical/02_aligned/bam
-IDX=~/genomes/Hsapiens/Homo_sapiens.GRCh38.dna.chromosome.1
+IDX=~/genomes/Mmusculus/Mus_musculus.GRCm38.dna.chromosome.1
 
 for f in ${FQDIR}/*gz
   do
@@ -305,9 +324,10 @@ nano countAlignments.sh
 
 ```
 #!/bin/bash
+
 BAMDIR=~/RNA_Practical/02_aligned/bam
 COUNTDIR=~/RNA_Practical/02_aligned/counts
-GTF=~/genomes/Hsapiens/Homo_sapiens.GRCh38.93.chr1.gtf
+GTF=~/genomes/Mmusculus/Mus_musculus.GRCm38.93.chr1.gtf
 
 # Find the entire list of files
 BAMS=`find ${BAMDIR} -name "*sorted.bam" | tr '\n' ' '`
