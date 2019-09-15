@@ -30,7 +30,7 @@ If you see a blank line by any of them, call a tutor over.
 
 ### Step 1b: Directory setup
 
- we'll be working today in the folder `~/Practical_7`.
+We'll be working today in the directory `~/Practical_7` (you will need to create this directory).
 Please ensure you use this *exact* path as any variations will undoubtedly cause you problems & lead to unnecessary confusion.
 An example data structure to use for today has already been made for you & can be obtained using the following strategy.
 
