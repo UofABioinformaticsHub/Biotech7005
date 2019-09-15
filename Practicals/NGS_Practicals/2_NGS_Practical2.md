@@ -30,7 +30,7 @@ If you see a blank line by any of them, call a tutor over.
 
 ### Step 1b: Directory setup
 
-We'll be working today in the directory `~/Practical_7` (you will need to create this directory).
+We'll be working today in the directory `~/Practical_7`.
 Please ensure you use this *exact* path as any variations will undoubtedly cause you problems & lead to unnecessary confusion.
 An example data structure to use for today has already been made for you & can be obtained using the following strategy.
 
@@ -38,7 +38,7 @@ An example data structure to use for today has already been made for you & can b
 cd ~
 wget https://github.com/UofABioinformaticsHub/ngsSkeleton/archive/master.zip
 unzip master.zip
-mv ngsSkeleton-master/ Practical_7
+mv ngsSkeleton-master Practical_7
 rm master.zip
 cd Practical_7
 ```
