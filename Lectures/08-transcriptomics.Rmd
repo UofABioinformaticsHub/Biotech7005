@@ -211,11 +211,11 @@ Image Source: Mingxiao et al TaqMan MGB Probe Fluorescence Real-Time Quantitativ
 
 ## Measuring Changes In Gene Expression | $\Delta\Delta C_T$
 
-1. First we calculate the difference in $\C~T~$ between our gene and a housekeeping gene: $\Delta C_T = C_{T[\text{gene}]} - C_{T[\text{HK}]}$ 
+1. First we calculate the difference in $C_T$ between our gene and a housekeeping gene: $\Delta C_T = C_{T[\text{gene}]} - C_{T[\text{HK}]}$
 2. Compare the $\Delta C_T$ between samples: $\Delta\Delta C_T = - (\Delta C_{T[\text{treat}]} - \Delta C_{T[\text{control}]})$
 
 - Assuming an amplification efficiency of 2 (i.e. **doubling of quantity for every cycle**)
-    - $\Delta\Delta C_T = 1 \implies$ logFC of 
+    - $\Delta\Delta C_T = 1 \implies$ logFC of 1
     
 # Microarrays
 
