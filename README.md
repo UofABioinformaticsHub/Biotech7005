@@ -103,7 +103,7 @@ Practicals: Monday 11am-1pm, Mawson, G12 Computer Suite
 | [Assessment 5](Assignments/Assignment5.html)                 | RNAseq practical            | 6%         | Monday 30th September |
 | [Assessment 6]()      | Graphical analyses          | 6%         | Monday 28th October   |
 | Tests                                                        |                             | 9%         |                       |
-| [Project]()                      | Complete Dataset            | 15%        | Monday 4th November   |
+| [Project](Assignments/major_project.md)                      | Complete Dataset            | 15%        | Monday 4th November   |
 | Exam                                                         |                             | 40%        |                       |
 
 ### Assessment Checklist
